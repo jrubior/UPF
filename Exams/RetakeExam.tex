@@ -1,0 +1,326 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{caption}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\begin{center}
+{\Large --- Econometrics 25117 --- \\[1em] Retake Exam \\[1em] \small{January 27th, 2024}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 90 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item Write your name and student ID number at the top of every page.
+    \item Write legibly and clearly. Illegible answers will not receive any credit.
+    \item This exam consists of approximately 20 questions split into 3 independent exercises, each evaluated for a maximum of 10 points. These exercises include a 10-question multiple-choice test, a practical exercise, and a theory section.
+    \item Multiple-choice test answers must be recorded in the designated table and not anywhere else.
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food or drinks are allowed in the examination room.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+\textbf{Exercice 1 --- MCQ \textit{(10 points)}}\\[1em]
+\textbf{Correct Answer: +1pt, Wrong Answer: -0.25pt, No Answer: 0pt}\\[1em]
+
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+    \item In statistics, two variables \(X\) and \(Y\) are considered independent if:
+    \begin{enumerate}[label=\Alph*)]
+        \item They have a positive correlation.
+        \item The correlation coefficient is exactly 0.
+        \item There is a perfect negative correlation.
+        \item The probability distribution of one variable is not affected by the values of the other variable.
+    \end{enumerate}
+
+    \item In econometrics, an estimator \(\hat{\theta}\) for a parameter \(\theta\) is considered unbiased if:
+    \begin{enumerate}[label=\Alph*)]
+        \item It produces the smallest possible standard error.
+        \item Its expected value equals the true value of the parameter.
+        \item It minimizes the mean squared error.
+        \item It consistently estimates the parameter as the sample size increases.
+    \end{enumerate}
+
+    \item In regression analysis, what is the key difference between the \(R^2\) and the standard error of the regression?
+    \begin{enumerate}[label=\Alph*)]
+        \item \(R^2\) represents the correlation between the independent and dependent variables, while the regression's standard error measures the estimated coefficients' precision.
+        \item \(R^2\) measures the proportion of the variance in the dependent variable explained by the independent variables, while the standard error of the regression measures the average deviation of the observed values from the regression line.
+        \item \(R^2\) indicates the model's goodness of fit, while the regression's standard error reflects the accuracy of the estimator of interest.
+        \item[D.] \(R^2\) is a measure of statistical significance, whereas the standard error of the regression assesses the impact of multicollinearity.
+    \end{enumerate}
+
+    \item When making sense of the coefficient ($\beta$) associated with a dummy variable, the most appropriate interpretation is:
+    \begin{enumerate}[label=\Alph*)]
+        \item The difference in the average values of the dependent variable between the two groups captured by the dummy variable.
+        \item The percentage change in the dependent variable for the group represented by the dummy variable.
+        \item The probability of the dependent variable being equal to 1 for the group represented by the dummy variable.
+        \item The ratio of the means of the dependent variable between the two groups.
+    \end{enumerate}
+
+    \item In regression analysis, the inclusion of control variables is primarily intended to:
+    \begin{enumerate}[label=\Alph*)]
+        \item Add complexity to the model without influencing the estimated coefficients.
+        \item Ensure a perfect fit between the model and the observed data.
+        \item Allow for more accurate estimation of the true causal effect by making unbiased comparisons.
+        \item Avoid overfitting the model to the data.
+    \end{enumerate}
+
+    \item In econometrics, multicollinearity refers to:
+    \begin{enumerate}[label=\Alph*)]
+        \item The presence of outliers in the dataset.
+        \item A high correlation between the independent variables in a regression model.
+        \item The non-linear relationship between the dependent and independent variables.
+        \item The heteroscedasticity in the regression residuals.
+    \end{enumerate}
+\newpage
+    \item Consider the following regression model: $\ln(Y_i) = \beta_0 + \beta_1 X_i + u_i$. A 1-unit change in $X$ is associated with…
+    \begin{enumerate}[label=\Alph*)]
+        \item A 1\% change in $Y$.
+        \item A $100 \times \beta_1 \%$ change in $Y$
+        \item A $\beta_1 \%$ change in $Y$. %(\textbf{Correct})
+        \item A $\beta_1$ change in $Y$.
+    \end{enumerate}
+
+    \item In panel data regression analysis, time-fixed effects primarily control for:
+    \begin{enumerate}[label=\Alph*)]
+        \item Variability in the dependent variable over time.
+        \item Unobserved individual-specific characteristics.
+        \item Seasonal patterns in the data.
+        \item Time-invariant heterogeneity across individual units.
+    \end{enumerate}
+
+    \item In instrumental variable regression, how many instruments should be included to address endogeneity issues?
+    \begin{enumerate}[label=\Alph*)]
+        \item One instrument is sufficient for any regression model.
+        \item The more instruments, the better, regardless of the model complexity.
+        \item At least as many instruments as the total number of endogenous regressors.
+        \item At least two instruments to be able to test for overidentification.
+    \end{enumerate}
+
+    \item In probit and logit models, the interpretation of coefficients implies that:
+    \begin{enumerate}[label=\Alph*)]
+        \item A one-unit change in the independent variable leads to a constant percentage change in the probability of the dependent variable being equal to 1.
+        \item The marginal impact of the independent variables on the dependent variable is constant across different values of the regressors.
+        \item The change in the probability of the dependent variable being equal to 1 for a one-unit change in the independent variable is linear in the regressors.
+        \item The marginal impact of the independent variables on the dependent variable depends on the value of the regressors, resulting in a non-linear relationship.
+    \end{enumerate}
+
+\end{enumerate}
+
+
+\newpage
+
+\textbf{Exercice 2 --- Practice \textit{(10 points)}} \\[1em] %EX12.E01 SW
+\textbf{NB: None of these questions require more than 2-3 short sentences answers. Long answers will be disregarded. This exercise refers to Table 1.}\\[1em]
+
+Do citizens demand more democracy and political freedom as their incomes grow? That is, is democracy a normal good? You will use a panel data set for 195 countries for the years 1960, 1965, … 2000.  The data set contains an index of political freedom/democracy for each country in each year, together with data on each country’s income and various demographic controls. The income and demographic controls are lagged five years relative to the democracy index to allow time for democracy to adjust to changes in these variables. The data were supplied by Professor Daron Acemoglu and are a subset of the data used in his paper with Simon Johnson, James Robinson, and Pierre Yared, “Income and Democracy” American Economic Review, 2008, 98:3: 808-842.\\[1em]
+
+The variables contained in the dataset are:
+
+\begin{itemize}
+    \item \textit{dem\_ind:} index of democracy
+    \item \textit{log\_gdppc:} = logarithm of real GDP per capita
+    \item \textit{log\_pop:} logarithm of population
+    \item \textit{educ:} = average years of education for adults (25 years and older)
+    \item \textit{age\_median:} = median age
+\end{itemize}
+
+\vspace{.5cm}
+The main descriptive statistics are summarized in the following table:
+\begin{center}
+\begin{table}[hb!]
+\centering
+
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Variable}} & \textbf{Observations} & \textbf{Mean} & \textbf{Standard Deviation} & \textbf{Minimum} & \textbf{Maximum} \\ \hline
+\textit{dem\_ind}                       & 1,266               & .4990732      & .3713367                    & 0                & 1                \\ \hline
+\textit{log\_gdppc}                        & 966               & 8.156022      & 1.022144                      & 5.773925                & 10.44502                \\ \hline
+\textit{log\_pop}                          & 1,202               & 8.665097      & 1.866238                    & 3.713572               & 14.00187               \\ \hline
+\textit{educ}                          & 780               & 4.429018      & 2.860677                    & .042                & 12.179                \\ \hline
+\textit{age\_median}                          & 1,214               & 22.3986      & 6.470204                    & 14.4                 &  39.7                \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+%\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+
+\item First, read TextBox 1. Carefully explain what the authors mean by ``the fixed effect estimation [...] does not necessarily estimate the causal effect''. \textit{(2 points)}
+%\item Still, after reading TextBox 1. Carefully explain why the authors believe that ``neither instrument is perfect''. Provide examples. \textit{(xx points)}
+\item Is the dataset balanced? Justify. \textit{(1 point)}
+\item In column (1), how large is the estimated coefficient on \textit{log\_gdppc}? Is the coefficient statistically significant? \textit{(1 point)}
+\item In column (1), if per capita income in a country increases by 20\%, by how much is \textit{dem\_ind} predicted to change? What is a 95\% confidence interval for the prediction? Is the predicted change in \textit{dem\_ind} large or small? (Explain what you mean by large or small.) \textit{(1 point)}
+\item Do the results change when you add fixed effects? If so, which set
+of regression results is more credible, and why? \textit{(2 points)}
+\item Based on your analysis, what conclusions do you draw about the effects of income on democracy? \textit{(3 points)}
+
+\end{enumerate}
+
+
+\begin{figure}[!htbp]
+\caption*{Textbox 1: Income and democracy}
+\fbox{\begin{minipage}{45em}
+\hspace{1cm} We utilize two strategies to investigate the causal effect of income on democracy.\\[1em]
+\hspace{1cm} Our first strategy is to control for country-specific factors affecting both income and democracy by including country fixed effects. While fixed effect regressions are not a panacea for omitted variable biases, they are well suited to the investigation of the relationship between income and democracy, especially in the postwar era. The major source of potential bias in a regression of democracy on income per capita is country-specific, historical factors influencing both political and economic development. If these omitted characteristics are, to a first approximation, time-invariant, the inclusion of fixed effects will remove them and this source of bias. [...] In addition to improving inference on the causal effect of income on democracy, this approach is more closely related to modernization theory as articulated by Lipset (1959), which emphasizes that individual countries should become more democratic if they are richer, not simply that rich countries should be democratic.[...]\\[1em]
+\hspace{1cm} While the fixed effects estimation is useful in removing the influence of long-run determinants of both democracy and income, it does not necessarily estimate the causal effect of income on democracy. Our second strategy is to use instrumental-variables (IV) regressions to estimate the impact of income on democracy. We experiment with two potential instruments. The first is to use past savings rates, and the second is to use changes in the incomes of trading partners. [...] We recognize that neither instrument is perfect, since there are reasonable scenarios in which our exclusion restrictions could be violated.
+\vspace{.5cm}
+\flushright{Acemoglu, D., Johnson, S., Robinson, J. A., & Yared, P. (2008). Income and democracy. American Economic Review, 98(3), 808-842.}
+
+\end{minipage}}
+\end{figure}
+
+\newpage
+
+%\textbf{Exercise 2 --- Output Table} \vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Income$ on $Democracy$.}\vspace{.25cm}
+\begin{adjustbox}{width=.7\textwidth}
+\begin{tabular}{l|ccccc|}
+\cline{2-6}
+                                  & \multicolumn{5}{c|}{\textbf{Dependent variable:  $dem\_ind$}}                                                               \\
+                                  & \multicolumn{5}{c|}{}                                                               \\
+\textbf{}                         & \textit{\textbf{(1)}}            & \textit{\textbf{(2)}}           & \textit{\textbf{(3)}}           & \textit{\textbf{(4)}}     & \textit{\textbf{(5)}}      \\ \hline
+\multicolumn{1}{|l|}{$log\_gdppc$}  & 0.236***  & 0.123**  & 0.0837** & -0.0249 & 0.0116   \\
+\multicolumn{1}{|l|}{}            & (0.0118)                           & (0.0368)                          & (0.0315)                          & (0.0528)  & (0.0531)   \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$log\_pop$}    &                                  & -0.0117                         &                                 & 0.0889  & -0.120   \\
+\multicolumn{1}{|l|}{}            &                                  & (0.0135)                          &                                 & (0.0795)  & (0.115)    \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$educ$}        &                                  & 0.0313** &                                 & 0.0268  & -0.00212 \\
+\multicolumn{1}{|l|}{}            &                                  & (0.00980)                         &                                 & (0.0201)  & (0.0237)   \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$age\_median$} &                                  & 0.00744                         &                                 & 0.00611 & -0.0136  \\
+\multicolumn{1}{|l|}{}            &                                  & (0.00395)                         &                                 & (0.00726) & (0.00912)  \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{Constant}      & -1.355*** & -0.620** & -0.115                          & -0.254  & 1.925    \\
+\multicolumn{1}{|l|}{}            & (0.100)                            & (0.207)                           & 0.257                           & (0.725)   & (1.252)   \\ \hline
+\multicolumn{1}{|l|}{$N$}           & 958                              & 679                             & 937                             & 676     & 676      \\
+\multicolumn{1}{|l|}{Country FE}           & N &  N  &   Y   & Y  & Y    \\
+\multicolumn{1}{|l|}{Year FE}           & N &  N  &   N   & N  & Y    \\
+\multicolumn{1}{|l|}{$R^2$}          & 0.438                            & 0.497                           & 0.729                           & 0.709   & 0.727    \\
+\multicolumn{1}{|l|}{$F$}           & 396.4                            & 122.6                           & 7.048                           & 4.470   & 0.650    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Standard errors are clustered at the country level and reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$. \par}
+\end{minipage}
+\end{table}
+
+\newpage
+\vspace{1cm}
+\textbf{Exercise 3 --- Theory \textit{(10 points)}} \\[1em]
+
+\begin{enumerate}[label=\alph*)]
+
+\item What is meant by the efficiency of an estimator? \textit{(2 points)}
+\item Carefully explain the concept of heteroskedasticity. Why is it important to use robust standard errors for the regression? \textit{(2 points)}
+\item In panel regression, why is it important to use clustered standard errors for the regression? Do the regression results change if you do not use clustered standard errors? How? \textit{(2 points)}
+\item Suppose a researcher believes that the occurrence of natural disasters such as earthquakes leads to increased activity in the construction industry. He decides to collect province-level data on employment in the construction industry of an earthquake-prone country, like Japan, and regress this variable on an indicator variable that equals 1 if an earthquake occurred in that province in the last five years. Should the researcher include province fixed effects? Why? \textit{(2 points)} %SW10.7
+\item A researcher wants to estimate the determinants of annual earnings—age, gender, schooling, union status, occupation, and employment sector. He has been told that if he collects panel data on a large number of randomly chosen individuals over time, he will be able to regress annual earnings on these determinant variables while using fixed effects to control for individual-specific time-invariant characteristics. What estimation problems will he likely run into if he uses this strategy? \textit{(2 points)}%SW10.10
+%\item What are the advantages of using maximum likelihood estimators such as the probit and the logit, instead of the linear probability model?
+
+\end{enumerate}
+
+
+\newpage
+\pagenumbering{gobble}
+
+\begin{center}
+    \textbf{\Large \underline{ANSWER SHEET}}
+\end{center}
+\vspace{1cm}
+
+\textbf{Exercise 1}\vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textit{Question} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+\textit{Answer}   &   &   &   &   &   &   &   &   &   &    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\vspace{1cm}
+
+\textbf{Exercise 2}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+
+\textbf{Exercise 3}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+\end{document}

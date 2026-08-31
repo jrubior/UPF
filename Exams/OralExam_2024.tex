@@ -1,0 +1,85 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{}
+
+\thispagestyle{empty}
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Mid-Term Exam} \\[1em] \small{November, 11th 2024}}\bigskip 
+\end{center}
+
+\textbf{Each question is worth 2 points.}\\[1em]
+
+\begin{enumerate}
+\item State and explain the Gauss-Markov Theorem and its conditions.
+
+\item Describe the important characteristics of the variance of the conditional distribution
+of the error term in a linear regression? What are the implications for OLS estimation?
+
+\item What is a control variable, and how does it differ from a variable of interest? Looking at the following table, for what factors are the control variables controlling? Why? Do coefficients on control variables measure causal effects? Explain.
+
+\begin{center}
+    \includegraphics[scale=.8]{images/Capture d’écran 2024-11-07 à 16.17.04.png}
+\end{center}
+
+\item Consider the following regression model: $Y_i = \beta_0 + \beta_1 X_i + u_i$. Given the definition of $\hat{\beta}_1$, show that  $\hat{\beta}_1 = r_{XY}\frac{s_Y}{s_X}$, where $r_{XY}$ is the sample correlation between $X$ and $Y$ and ${s_X}$ and ${s_Y}$ are the sample standard deviations of $X$ and $Y$. 
+
+\item Consider the following regression model: $Y_i = \beta_0 + \beta_1 X_i + u_i$. Show that the OLS estimator $\hat{\beta}_1$ is an unbiased estimator of $\beta_1$. 
+
+\end{enumerate}\vspace{.25cm}
+
+\end{document}

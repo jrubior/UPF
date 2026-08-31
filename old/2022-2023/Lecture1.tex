@@ -1,0 +1,994 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Wednesday, September 28, 2022 11:16:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics Lecture 1: \\
+Introduction to Econometrics}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{About the Course}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Preliminaries}
+
+\begin{itemize}
+\item Dr. Katerina Petrova
+
+\item Office: 20.1E74
+
+\item E-mail: Katerina.Petrova@upf.edu
+
+\item Tutorials/Labs: taught by Valeria Gargiulo
+
+\item Email: valeria.gargiulo@upf.edu
+
+\item Office hour: Wednesdays 14:00-15:00
+
+\item Course material: Aula Global
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Topics to cover}
+
+\begin{enumerate}
+\item The classical linear regression model (3-4 weeks)
+
+\begin{itemize}
+\item OLS and the Gauss Markov Theorem
+
+\item Frisch-Waugh-Lovell theorem
+
+\item asymptotic results/ hypothesis testing.
+\end{itemize}
+
+\item Endogeneity and Instrumental Variables estimator (1 week)
+
+\item Heteroskedasticity and GLS (1 week)
+
+\item Nonlinear Estimators (Maximum Likelihood) (2 weeks)
+
+\item Introduction to Time Series (1 weeks)\ if time permits
+
+\begin{itemize}
+\item Covariance stationary processes, ARMA models
+
+\item Multivariate extensions (VAR models)
+\end{itemize}
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading:}
+
+\begin{itemize}
+\item Lecture Notes
+
+\item Main Textbook: Bruce Hansen \textit{Econometrics} 2019
+
+\item Open access resource and available online at:
+
+https://perhuaman.files.wordpress.com/2014/06/econometrics-bruce-hansen-2014.pdf
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Maths/Stats}
+
+\begin{itemize}
+\item Elementary level of matrix algebra and statistics is assumed
+
+\item For a revision, please refer to 
+
+\begin{itemize}
+\item The two sets of lecture slides on Aula Global: Matrix Algebra Revision
+and Probability Revision 
+
+\item Appendix A and B in the textbook
+\end{itemize}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Assessment}
+
+\begin{itemize}
+\item 10\% - Marked Problem Set, PS3 (allowed to work in groups of max 3)
+
+\item 30\% - Class Test: Week 7 or Week 8 (9th November or 14/16 November)?
+
+\item 60\% - Final Exam
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{What is Econometrics about?}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What is econometrics?}
+
+\begin{itemize}
+\item It's the study of the properties and applications of statistical tools
+to economic or financial data
+
+\item We need statistical tools as all economic/financial data are
+observational not experimental
+
+\item We treat series as random variables and adopt a probability approach
+
+\item We assume that there is a true data generating process given, for
+example, by a density $f_{X}\left( x;\theta \right) $
+
+\item Even if we know this DGP, we only observe a sample of realisations $%
+\left( X_{1},...,X_{n}\right) $ of $x$
+
+\item Moreover, the DGP depends on an unknown parameter vector $\theta $
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item The idea of point estimation is to use data in order to estimate $%
+\theta $, i.e., choose a random variable $\hat{\theta}=g\left(
+X_{1},...,X_{n}\right) $ based on a sample of $n$ observations from $f\left(
+x;\theta \right) $ in order to make a \textquotedblleft good
+guess\textquotedblright\ for $\theta $
+\end{itemize}
+
+\begin{definition}
+Given an unknown parameter $\theta $, the \textbf{parameter space} $\Theta $
+is the set containing all possible values of $\theta $. Typically, $\Theta
+\subseteq \mathbb{R}^{k}$.
+\end{definition}
+
+\begin{definition}
+A \textbf{statistic} based on a sample of observations $\left(
+X_{1},...,X_{n}\right) $ is any function $g\left( X_{1},...,X_{n}\right) $
+of the random variables $X_{1},...,X_{n}$.
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item If the observations come from a family of distributions $f\left(
+X_{1},...,X_{n};\theta \right) $ indexed by an unknown parameter $\theta ,$
+an \textbf{estimator} $\hat{\theta}$\ of $\theta $ is a statistic used to
+approximate $\theta $.
+
+\item If $\theta $ is a vector of unknown parameters, $\hat{\theta}$ is a
+vector of estimators. We sometimes write an estimator as $\hat{\theta}_{n}$
+in order to emphasize its dependence on the sample size $n$.
+
+\item Note that, by definition, an estimator $\hat{\theta}_{n}$ is a random
+variable (or vector) that depends on the random variables $X_{1},...,X_{n}$
+only: $\hat{\theta}_{n}$ \textit{does not depend on} $\theta $.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item How do we know that a certain choice of estimator $\hat{\theta}_{n}$
+is good for estimating $\theta $?
+
+\item One way to look at it is to require that $\hat{\theta}$ is close to $%
+\theta $ with respect to some distance (metric).
+
+\item An appropriate distance to choose is the mean squared error (provided
+that the estimator $\hat{\theta}_{n}$ has finite variance).
+\end{itemize}
+
+\begin{definition}
+\textbf{The mean squared error} (MSE) of a statistic $\hat{\theta}_{n}$ is
+defined as 
+\begin{equation*}
+MSE\left( \hat{\theta}_{n},\theta \right) :=\mathbb{E}\left[ \left( \hat{%
+\theta}_{n}-\theta \right) ^{2}\right] ,
+\end{equation*}%
+and more generally $MSE\left( \hat{\theta}_{n},\theta \right) :=\mathbb{E}%
+\left[ \left( \hat{\theta}_{n}-\theta \right) \left( \hat{\theta}_{n}-\theta
+\right) ^{\prime }\right] $ if $\theta $ is a vector.
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item We prefer an estimator $\hat{\theta}_{n}$ to a competing estimator $%
+\tilde{\theta}_{n}$ iff%
+\begin{equation*}
+MSE\left( \hat{\theta}_{n},\theta \right) -MSE\left( \tilde{\theta}%
+_{n},\theta \right) \;\text{is negative definite matrix.}
+\end{equation*}
+\end{itemize}
+
+\begin{definition}
+\begin{equation*}
+MSE\left( \hat{\theta}_{n},\theta \right) =\left( \mathbb{E}\left( \hat{%
+\theta}_{n}\right) -\theta \right) \left( \mathbb{E}\left( \hat{\theta}%
+_{n}\right) -\theta \right) ^{\prime }+var\left( \hat{\theta}_{n}\right) .
+\end{equation*}
+\end{definition}
+
+\begin{itemize}
+\item Ideally, we would like to minimise $MSE\left( \hat{\theta}_{n},\theta
+\right) $ w.r.t. $\hat{\theta}_{n}$ on order to find an optimal estimator.
+
+\item However, joint minimisation is not possible in general.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item Things get a lot simpler if $\hat{\theta}_{n}$ has the additional
+property of unbiasedness.
+\end{itemize}
+
+\begin{definition}
+An estimator $\hat{\theta}_{n}$ of $\theta $ is called \textbf{unbiased} if 
+\QTR{Bbb}{E}$\left( \hat{\theta}_{n}\right) =\theta $.
+\end{definition}
+
+\begin{itemize}
+\item If $\hat{\theta}_{n}$ is unbiased, then $MSE\left( \hat{\theta}%
+_{n},\theta \right) =var\left( \hat{\theta}_{n}\right) $.
+
+\item The MSE minimisation criterion implies that: \textit{between two
+unbiased estimators we choose the one with the smallest variance}.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Point Estimation}
+
+\begin{itemize}
+\item However, one needs to bear in mind that unbiasedness is a compromise:
+there exist examples of a biased estimator that has smaller MSE than an
+unbiased estimator.
+
+\item Finally, here is another desirable property of estimators in large
+samples.
+\end{itemize}
+
+\begin{definition}
+An estimator $\hat{\theta}_{n}$ of $\theta $ is called \textbf{consistent}
+if $\hat{\theta}_{n}\rightarrow _{p}\theta $ as the sample size $n$ tends to 
+$\infty $.
+\end{definition}
+
+\begin{definition}
+$Z_{n}$ converges to $Z$ in probability, written $Z_{n}\rightarrow _{p}Z,$
+if for every $\varepsilon >0$ (no matter how small),%
+\begin{equation*}
+P(|Z_{n}-Z|\geq \varepsilon )\rightarrow 0\text{ as }n\rightarrow \infty .
+\end{equation*}
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confidence Intervals}
+
+\begin{itemize}
+\item We may need more than just a point estimator, we need to know about
+the distribution of our estimator, in order to construct Confidence
+Intervals and conduct Hypothesis Testing
+
+\item E.g., rather than requiring only an approximation of the value of an
+unknown parameter, we might be more interested in constructing (random)
+bounds that contain the true unknown parameter with given probability
+
+\item The approach is to construct a random interval that contains the true
+parameter with a satisfactory (say 95\%) probability
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confidence Intervals}
+
+\begin{itemize}
+\item For the purpose we will need to derive the estimator's exact or large
+sample (asymptotic) distribution
+
+\item Many estimators that we will study have asymptotically Normal
+distributions
+
+\item Let $X_{1},...,X_{n}$ be a sequence of random variables and let $X$ be
+another random variable. Let $F_{n}$ denote the cdf of $X_{n}$ and let $F$
+denote the cdf of $X$
+\end{itemize}
+
+\begin{definition}
+$X_{n}$ converges to $X$ in distribution, written $X_{n}\rightarrow _{d}X$ if%
+\begin{equation*}
+\lim_{n\rightarrow \infty }F_{n}(x)=F(x)
+\end{equation*}%
+for all $x$ for which $F$ is continuous.
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Hypothesis Testing}
+
+\begin{itemize}
+\item We might also be interested in testing if the unknown parameters $%
+\theta $ satisfy certain suggested restrictions, or not.
+
+\item The restrictions that we declare to be of interest are called the 
+\textbf{null hypothesis} (about the parameters $\theta ),$ and this is
+usually abbreviated with $H_{0}.$
+
+\item The situation that we imagining to be true when this null hypothesis
+is not true is called the \textbf{alternative hypothesis}, and is usually
+denoted by $H_{1}.$
+
+\item This may be simply that the null hypothesis is not true, or it may be
+more specific.
+
+\item Problem: \textit{Use the data }$X=\left( X_{1},...,X_{n}\right)
+^{\prime }$\textit{\ to decide whether}%
+\begin{equation*}
+H_{0}:\theta \in \Theta _{0}\text{\ \ \ or\ \ \ }H_{1}:\theta \in \Theta _{1}
+\end{equation*}%
+\textit{where }$\Theta _{0}$\textit{\ and }$\Theta _{1}$\textit{\ are
+disjoint subsets of }$\Theta $\textit{.}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{The Linear Model}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The linear regression model}
+
+\begin{itemize}
+\item The starting point for any econometrics course is the simple linear
+regression model
+
+\item Let's first look at a motivating example
+
+\item Suppose we want to value real assets, for example housing price as a
+linear function of the property characteristics
+
+\item Suppose we have a sample of $n$ observations for\ the selling price of
+a property (in units of \$1,000) and the area of the property in square feet
+
+\item The model is $House$ $price_{i}=\beta $ $Square$ $Feet_{i}+\varepsilon
+_{i},$ \ \ $i=1,...,n$
+
+\item Note we are explaining the price with the size of the property and not
+the other way around
+
+\item The aim is to estimate the unknown parameter $\beta $
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{4.4693in}{2.8115in}{0pt}{}{}{houseprices.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";display "USEDEF";valid_file "F";width 4.4693in;height 2.8115in;depth 0pt;original-width 8.0134in;original-height 4.7469in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/houseprices.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=4.7469in, natwidth=8.0134in, height=2.8115in, width=4.4693in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/houseprices__1.pdf}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Least Squares Estimator}
+
+\begin{itemize}
+\item In general, we have a sample of $n$ observations from some dependent
+variable $y_{i}$ and some explanatory variable $x_{i}$
+
+\item The model is $y_{i}=\beta x_{i}+\varepsilon _{i},$ $i=1,...,n$
+
+\item The goal: devise a procedure that allows us through observing $y_{i}$
+and $x_{i},$ to make a `good' guess for $\beta ,$ by ignoring the random
+unobserved component in $\varepsilon _{i}$
+
+\item The least squares estimator for $\beta $ is defined as minimiser of
+the sum of squared errors $\hat{\beta}_{n}=\arg \min_{\beta
+}\tsum\nolimits_{i=1}^{n}\left( y_{i}-\beta x_{i}\right) ^{2}$
+
+\item Taking first order conditions wrt $\beta $%
+\begin{equation*}
+\frac{\partial \tsum\nolimits_{i=1}^{n}\left( y_{i}-\beta x_{i}\right) ^{2}}{%
+\partial \beta }=-2\tsum\nolimits_{i=1}^{n}\left( y_{i}-\beta x_{i}\right)
+x_{i}=0
+\end{equation*}
+
+\item The estimator is given by 
+\begin{equation*}
+\hat{\beta}_{n}=\frac{\tsum\nolimits_{i=1}^{n}y_{i}x_{i}}{%
+\tsum\nolimits_{i=1}^{n}x_{i}^{2}}
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{2.8755in}{3.0848in}{0pt}{}{}{ssr.png}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 2.8755in;height 3.0848in;depth 0pt;original-width 6.2431in;original-height 6.7014in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'SSR.png';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=6.7014in, natwidth=6.2431in, height=3.0848in, width=2.8755in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/SSR__2.png}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The linear regression model}
+
+\begin{itemize}
+\item In general, we expect that there is more than one explanatory variable
+for the price of a property
+
+\item For instance, the age of the property, the neighbourhood, the number
+of bedrooms, the quality of furnishing etc.
+
+$\ \ \ \ \ \ \ \ \ \ y_{i}=\alpha +x_{i1}\beta _{1}+....+x_{ik-1}\beta
+_{k-1}+\varepsilon _{i},$ \ $i=1,...,n$
+
+$\qquad \qquad y_{i}=\underset{\mathbf{x}_{i}^{\prime }}{\underbrace{\left[ 
+\begin{array}{cccc}
+1 & x_{i1} & \cdots & x_{ik-1}%
+\end{array}%
+\right] }}\underset{\beta }{\underbrace{\left[ 
+\begin{array}{c}
+\alpha \\ 
+\beta _{1} \\ 
+\vdots \\ 
+\beta _{k-1}%
+\end{array}%
+\right] }}+\varepsilon _{i},$
+
+where $y_{i}$ is a dependent observed variable, $\mathbf{x}_{i}$ is a $%
+k\times 1$ vector of explanatory variables (regressors), $\varepsilon _{i}$
+is a r.v., $\alpha $ is an intercept scalar parameter and $\beta $ is a $%
+k\times 1$ vector of slope parameters.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The linear regression model}
+
+\begin{itemize}
+\item The sum of squared residuals can be written as $\tsum%
+\nolimits_{i=1}^{n}\left( y_{i}-\mathbf{x}_{i}^{\prime }\beta \right)
+^{2}=\tsum\nolimits_{i=1}^{n}y_{i}^{2}-2\beta ^{\prime
+}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}y_{i}+\beta ^{\prime
+}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\beta $
+
+\item Taking first order conditions wrt the vector $\beta $%
+\begin{equation*}
+\frac{\partial \tsum\nolimits_{i=1}^{n}\left( y_{i}-\mathbf{x}_{i}^{\prime
+}\beta \right) ^{2}}{\partial \beta }=-2\tsum\nolimits_{i=1}^{n}\mathbf{x}%
+_{i}y_{i}+2\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime
+}\beta
+\end{equation*}
+
+\item Solving for the vector $\beta $ yields 
+\begin{equation*}
+\hat{\beta}_{n}=\left( \tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }\right) ^{-1}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}y_{i}
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{3.1739in}{3.25in}{0pt}{}{}{ssr2d.png}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 3.1739in;height 3.25in;depth 0pt;original-width 6.576in;original-height 6.736in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'SSR2D.png';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=6.736in, natwidth=6.576in, height=3.25in, width=3.1739in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/SSR2D__3.png}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{3.3269in}{2.8885in}{0pt}{}{}{objf.png}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 3.3269in;height 2.8885in;depth 0pt;original-width 7.6181in;original-height 6.6115in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'objf.png';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=6.6115in, natwidth=7.6181in, height=2.8885in, width=3.3269in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/objf__4.png}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The linear regression model with matrices}
+
+\begin{itemize}
+\item We can equivalently write the model in a matrix form as 
+\begin{equation}
+y=X\beta +\varepsilon  \label{model}
+\end{equation}%
+where $y=$ $\left[ 
+\begin{array}{c}
+y_{1} \\ 
+\vdots \\ 
+y_{n}%
+\end{array}%
+\right] $ and $\varepsilon =$ $\left[ 
+\begin{array}{c}
+\varepsilon _{1} \\ 
+\vdots \\ 
+\varepsilon _{n}%
+\end{array}%
+\right] $ are $n\times 1$ vectors, $X=\left[ 
+\begin{array}{c}
+\mathbf{x}_{1}^{\prime } \\ 
+\vdots \\ 
+\mathbf{x}_{n}^{\prime }%
+\end{array}%
+\right] =\left[ 
+\begin{array}{cccc}
+1 & x_{11} & \cdots & x_{1k-1} \\ 
+\vdots & \ddots &  &  \\ 
+1 & x_{n1} & \cdots & x_{nk-1}%
+\end{array}%
+\right] $ is a $n\times k$ matrix, $\beta =\left[ 
+\begin{array}{c}
+\alpha \\ 
+\beta _{1} \\ 
+\vdots \\ 
+\beta _{k-1}%
+\end{array}%
+\right] $ is a $k\times 1$ vector.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{itemize}
+\item The OLS estimator $\widehat{\beta }_{n}$ is defined as the minimiser
+of following objective function%
+\begin{equation*}
+\arg \min_{\beta }\left\Vert y-X\beta \right\Vert ^{2}=\arg \min_{\beta
+}(y^{\prime }y-2\beta ^{\prime }X^{\prime }y+\beta ^{\prime }X^{\prime
+}X\beta )
+\end{equation*}
+
+\item Differentiate the objective function wrt the vector $\beta $%
+\begin{gather*}
+\frac{\partial \left\Vert y-X\beta \right\Vert ^{2}}{\partial \beta }%
+=-2X^{\prime }y+2X^{\prime }X\beta =0 \\
+\Rightarrow \widehat{\beta }_{n}=(X^{\prime }X)^{-1}X^{\prime }y
+\end{gather*}
+
+\item We decompose $y$ into explained and unexplained part: $\ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y=\hat{y}+\hat{\varepsilon}=X\widehat{%
+\beta }_{n}+\hat{\varepsilon}$
+
+\item We refer to $\hat{\varepsilon}=y-X\widehat{\beta }_{n}$ as 'fitted
+residuals'
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Housing Price Example}
+
+\begin{itemize}
+\item Let's go back to the US\ housing price example
+
+\item We can now include a number of other explanatory variables
+(regressors): the number of rooms, the number of bedrooms and the age of the
+property
+
+\item Our regression model looks like this
+
+{\small Houseprice}$_{i}=\alpha +\beta _{1}${\small SquareFeet}$_{i}+\beta
+_{2}${\small NoRooms}$_{i}+\beta _{3}${\small NoBedrooms}$_{i}+\beta _{4}$%
+{\small Age}$_{i}+\varepsilon _{i},$
+
+\item The OLS estimates in this case are
+
+{\small Houseprice}$_{i}=10.37+0.05${\small SquareFeet}$_{i}+6.32${\small %
+NoRooms}$_{i}-11.10${\small NoBedrooms}$_{i}+0.43${\small Age}$%
+_{i}+\varepsilon _{i},$
+
+\item Interpretation of the coefficients: $\Delta House$ $%
+price_{i}=0.05\Delta SquareFeet_{i},$ so that an extra square foot in the
+size of the property increases the house of the property by $0.05;$ and
+since the price is in units of \$1,000, by $\$50.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Projection Interpretation}
+
+\begin{itemize}
+\item Let's first consider the case when $k=1$ and $n=3.$
+
+\item The Least Squares method minimises the distance between $y$ and $%
+X\beta :\min_{\beta }\left\Vert y-X\beta \right\Vert ^{2}$
+
+\item Graphically, the solution to this problem is given by orthogonally
+projecting the vector $y$ to the line in $\mathbb{R}^{n}$ defined by $%
+c(X)=\{\lambda X:\lambda \in \mathbb{R}\}$
+
+\item Dropping a perpendicular from vector $y$ to the line $c(X)$, we obtain
+the orthogonal projection $P_{X}(y)$ of $y.$
+
+\item Since $P_{X}(y)$ is the closest point of $c(X)$ to $y,$ $P_{X}(y)=X%
+\widehat{\beta }$
+
+\item Also, since $y-P_{X}(y)\perp X\Rightarrow X^{\prime }(y-P_{X}(y))=0$
+
+\item So, $X^{\prime }y=X^{\prime }P_{X}(y),$ and substituting the above
+expression for $P_{X}(y),$ we obtain $X^{\prime }y=X^{\prime }X\widehat{%
+\beta }\Rightarrow \widehat{\beta }=(X^{\prime }X)^{-1}X^{\prime }y.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Graphical Representation}
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{4.1727in}{3.0286in}{0pt}{}{}{orthogonal-page0001.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";display "USEDEF";valid_file "F";width 4.1727in;height 3.0286in;depth 0pt;original-width 5.9733in;original-height 5.6196in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/orthogonal-page0001.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=5.6196in, natwidth=5.9733in, height=3.0286in, width=4.1727in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/orthogonal-page0001__5.pdf}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Projection Interpretation}
+
+\begin{itemize}
+\item $P_{X}(y)=X\widehat{\beta }=X(X^{\prime }X)^{-1}X^{\prime
+}y\Rightarrow P_{X}=X(X^{\prime }X)^{-1}X^{\prime }.$
+
+\item $\widehat{\beta }$ is the coordinate of $y$ in the direction of $X$
+(i.e. on the line $c(X)$).
+
+\item The coordinate of $y$ is given my projecting $y$ on the orthogonal
+complement of $c(X),$ given by $c(X)^{\perp }=\{z\in \mathbb{R}%
+^{n}:z^{\prime }X=0\}.$
+
+\item Projecting $y$ on $c(X)^{\perp }$ gives a projection $%
+y-P_{X}(y)=(I-X(X^{\prime }X)^{-1}X^{\prime })y=P_{X^{\perp }}(y).$
+
+\item $y=P_{X}(y)+P_{X^{\perp }}(y)=X\widehat{\beta }+\widehat{\varepsilon }=%
+\hat{y}+\hat{\varepsilon}$
+
+\item We would refer to the projection matrix $P_{X^{\perp }}$ as $M_{X}$
+
+\item In the general case, $X$ is a $n\times k$ matrix with rank $k,$ $c(X)$
+is a $k-$dimensional subspace of $\mathbb{R}^{n};$ the projection matrices $%
+P_{X}$ and $M_{X}$ have the same algebraic form as in the case $k=1;$ only
+now they project on more complicated subspaces.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Multiple Regression Graphical Representation}
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{4.625in}{2.8089in}{0pt}{}{}{orthogonal2-page0001.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";display "USEDEF";valid_file "F";width 4.625in;height 2.8089in;depth 0pt;original-width 6.3062in;original-height 5.4474in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/orthogonal2-page0001.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=5.4474in, natwidth=6.3062in, height=2.8089in, width=4.625in]
+{C:/Users/u170828/Dropbox/TEACHING/Econometrics UPF/graphics/orthogonal2-page0001__6.pdf}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+Relevant chapters from the textbook: Chapter 1-3.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

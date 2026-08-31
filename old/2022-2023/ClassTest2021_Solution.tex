@@ -1,0 +1,279 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 936
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=936}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Monday, November 08, 2021 17:14:57}
+%TCIDATA{LastRevised=Wednesday, November 10, 2021 12:36:26}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Class Test}
+\end{center}
+
+EACH QUESTION\ EQUALLY\ MARKED\ AT\ 12.5 MARKS\bigskip
+
+\textbf{Question 1}
+
+(a) Define an efficient estimator and explain why this is an important
+property and how it relates to the mean squared error of an estimator.
+
+Solution:
+
+An estimator $\hat{\theta}_{n}$ is called efficient if it is unbiased and
+has the smallest variance, that is, $v[\widehat{\theta }_{n}]\leq v[\tilde{%
+\theta}_{n}]$ for all other unbiased estimators $\tilde{\theta}_{n}.$
+
+In the case of unbiased estimators, $MSE\left( \hat{\theta}_{n},\theta
+\right) =var\left( \hat{\theta}_{n}\right) ,$ and an efficient estimator
+gives the smallest MSE\ compared to all other unbiased estimators.
+
+Award: 5 marks for precise definition of efficiency, 5 marks for precise
+relation to MSE, and 2.5 points for explanation, intuition.
+
+(b) State the Weak Law of Large Numbers for a sequence of i.i.d. random
+variables carefully stating any conditions required. Briefly explain the
+theorem's importance for point estimation.
+
+\bigskip
+
+Solution:
+
+\begin{theorem}[The Weak Law of Large Numbers]
+If $X_{1},...,X_{n}$ are i.i.d. variables, and $\mathbb{E[}\left\vert
+X_{1}\right\vert ]<\infty ,$ then $\frac{1}{n}\dsum\nolimits_{i=1}^{n}X_{i}%
+\rightarrow _{p}\mu .$ Equivalently, $\left\vert \frac{1}{n}%
+\dsum\nolimits_{i=1}^{n}X_{i}-\mathbb{E}[X_{1}]\right\vert \rightarrow
+_{p}0. $
+\end{theorem}
+
+The WLLN tells us that the distribution of $\overline{X}_{n}$ piles up
+around the true unknown $\mu .$
+
+Award: 5 marks for statement + 4 marks for correct conditions; 3.5 marks for
+explanation
+
+(c) Define Type I and Type II errors in hypothesis testing and explain how
+the probability of making such errors relates to the size and power of the
+test.
+
+\bigskip
+
+Solution: A false rejection of the null hypothesis (rejecting $H_{0}$ when $%
+H_{0}$ is true) is called Type I error. The probability of Type I error
+(also referred to as size of the test) is given by $\mathbb{P}\left( \text{%
+reject }H_{0}|H_{0}\text{ is true}\right) .$
+
+A false acceptance of the null (accepting $H_{0}$ when $H_{0}$ is not true)
+is called Type II error. The acceptance probability of the alternative is
+called power of the test. The power is one minus probability of Type II
+error: $\pi \left( \beta \right) =\mathbb{P}\left( \text{reject }H_{0}|H_{1}%
+\text{ is true}\right) =\mathbb{P}\left( \left\vert z\right\vert
+>z^{crit}|H_{1}\text{ is true}\right) $, which generally depends on the true
+value of the parameter $\beta $, and for a well behaved test the power is
+increasing both as $\beta $ moves away from the hypothesised value and when
+the sample size increases.
+
+\bigskip
+
+Award: 2.5 marks for each precise definition of types of errors, and 2.5 for
+each precise definition of size and power. Award the remaining 2.5 for
+explanation.
+
+(d) Suppose $\sqrt{n}\left( \hat{\theta}_{n}-\theta \right) \rightarrow _{d}%
+\mathcal{N}\left( 0,1\right) $ as $n\rightarrow \infty .$ You want to test a
+null hypothesis $\theta =0$ vesus a two-sided alternative $H_{1}:\theta \neq
+0.$ Explain how to conduct a $z$ test at significance level $99\%$, and how
+the $z$ statistic behaves under the null and alternative hypothesis.
+
+\bigskip
+
+Solution: The test statistic is $z=\frac{\widehat{\theta }_{j}}{1/\sqrt{n}}$
+
+\QTR{frametitle}{U}nder the null ($\theta =0),$ $z\sim \mathcal{N}(0,1).$
+Under the alternative $(\theta \neq 0),$ we have $z=\frac{\widehat{\theta }}{%
+1/\sqrt{n}}=\frac{\left( \widehat{\theta }-\theta +\theta \right) }{1/\sqrt{n%
+}}=\mathcal{N}(0,1)+\theta \sqrt{n}$ which diverges to $\pm $infinity as $n$
+increases. We reject the null whenever $\left\vert z\right\vert >2.58$ at $%
+99\%$ significance level.
+
+Award: 5 point for correct expression of the statistic, 5 points for
+chracterising behaviour under null and alternative (2.5 each); and 2.5 for
+correct explanation of rejection decision. \bigskip
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors, $\beta $ is a $k\times 1$ vector of unknown parameters, and $%
+\varepsilon $ is an $n\times 1$ vector of unobserved random variables. The
+standard assumptions provided in the lecture are assumed to hold.
+
+\begin{enumerate}
+\item The linear regression model in is correctly specified and linear in $%
+\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $\limfunc{plim}_{n\rightarrow \infty }(\frac{1}{n}X^{\prime }X)=Q,$
+where $\left\Vert Q\right\Vert <\infty $ and $Q$ is positive definite matrix.
+\end{enumerate}
+
+(a) Derive an expression for the variance of $\hat{\beta}^{OLS}$ under the
+assumptions above$.$
+
+\begin{gather*}
+var[\widehat{\beta }_{n}]=\mathbb{E[(}\widehat{\beta }_{n}-\beta )(\widehat{%
+\beta }_{n}-\beta )^{\prime }\mathbb{]} \\
+=\mathbb{E}[\left( (X^{\prime }X)^{-1}X^{\prime }\varepsilon \right) \left(
+(X^{\prime }X)^{-1}X^{\prime }\varepsilon \right) ^{\prime }] \\
+=\mathbb{E}[(X^{\prime }X)^{-1}X^{\prime }\mathbb{E[}\varepsilon \varepsilon
+^{\prime }|X]X(X^{\prime }X)^{-1}] \\
+=\mathbb{E}[(X^{\prime }X)^{-1}X^{\prime }\sigma ^{2}I_{n}X(X^{\prime
+}X)^{-1}]=\sigma ^{2}\mathbb{E}[(X^{\prime }X)^{-1}].
+\end{gather*}
+
+Award: 8.5 points for precise derivations and 4 for explaning steps.
+
+(b) Show that $\hat{\beta}^{OLS}$ is consistent carefully explaining each
+step of your derivations.
+
+\bigskip
+
+Solution:
+
+$p\lim_{n\rightarrow \infty }\widehat{\beta }_{n}=\beta +p\lim_{n\rightarrow
+\infty }\left[ \left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}\frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right] $%
+\begin{eqnarray*}
+&=&\beta +p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right) \text{ {\tiny by CMT}} \\
+&=&\beta +\left( p\lim_{n\rightarrow \infty }\frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right) \text{ {\tiny by CMT and Ass. 4}} \\
+&=&\beta +Q^{-1}\mathbb{E[}\mathbf{x}_{i}\varepsilon _{i}]\text{ {\tiny by
+CMT, WLLN and Ass. 4}} \\
+&=&\beta \text{ \ }
+\end{eqnarray*}%
+since $\mathbb{E[}\mathbf{x}_{i}\varepsilon _{i}]=\mathbb{E[}\mathbf{x}_{i}%
+\mathbb{E}\left( \varepsilon _{i}|x_{i}\right) ]=0$ by Assumption 3, note
+that because of the i.i.d. assumptions, $\mathbb{E[}\mathbf{x}%
+_{i}\varepsilon _{i}]=\mathbb{E[}\mathbf{x}_{1}\varepsilon _{1}].$ So, $%
+\widehat{\beta }_{n}$ is a consistent estimator of $\beta .$
+
+Award: 8.5 points for precise derivations and 4 for explaning steps.
+
+(c) Suppose you know that $\beta =0,$ so that the model reduces to $%
+y=\varepsilon .$ Is $\hat{\sigma}_{n}^{2}=\frac{1}{n}\varepsilon ^{\prime
+}\varepsilon $ unbiased? Derive an expression for the variance of $\hat{%
+\sigma}_{n}^{2}.$ 
+
+Solution: $\hat{\sigma}^{2}=\frac{1}{n}\varepsilon ^{\prime }\varepsilon $
+as the $\varepsilon $ is observed and $\mathbb{E}\left[ \hat{\sigma}^{2}%
+\right] =\mathbb{E}\left[ \frac{1}{n}\tsum\nolimits_{i=1}^{n}\varepsilon
+_{i}^{2}\right] =\sigma ^{2}.$ Alternatively, since $\varepsilon $ is
+observed%
+\begin{gather*}
+\mathbb{E}[\widehat{\sigma }_{n}^{2}]=\mathbb{E}[\frac{1}{n}\widehat{%
+\varepsilon }^{\prime }\widehat{\varepsilon }]=\mathbb{E}[\frac{1}{n}%
+\varepsilon ^{\prime }\varepsilon ]=\frac{1}{n}\mathbb{E}[tr(\varepsilon
+\varepsilon ^{\prime })] \\
+=\frac{1}{n}tr(\mathbb{E}[\varepsilon \varepsilon ^{\prime }])=\frac{\sigma
+^{2}}{n}\mathbb{E[}tr(I_{n})]=\sigma ^{2}\text{.}
+\end{gather*}%
+Let $z_{i}=\varepsilon _{i}^{2}-\sigma ^{2}$ which has expectation 0, 
+\begin{gather*}
+V\left( \widehat{\sigma }_{n}^{2}\right) =\mathbb{E}\left( \frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\varepsilon _{i}^{2}-\sigma ^{2}\right) ^{2}= \\
+=\mathbb{E}\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\left( \varepsilon
+_{i}^{2}-\sigma ^{2}\right) \right) ^{2} \\
+=\frac{1}{n^{2}}\mathbb{E}\left( \tsum\nolimits_{i=1}^{n}z_{i}\right) ^{2}%
+\overset{\text{0 mean, ind}}{=}\frac{1}{n^{2}}\tsum\nolimits_{i=1}^{n}%
+\mathbb{E}z_{i}^{2} \\
+\overset{\text{i.d.}}{=}\frac{1}{n}\left( \mathbb{E}z_{1}^{2}\right) =\frac{1%
+}{n}\mathbb{E}\left( \varepsilon _{1}^{2}-\sigma ^{2}\right) ^{2}=\frac{1}{n}%
+\left( \mathbb{E}\varepsilon _{1}^{4}-\sigma ^{4}\right) 
+\end{gather*}
+So we additionally require $\mathbb{E}\left( \varepsilon _{1}^{4}\right)
+<\infty .$ $\hat{\sigma}_{n}^{2}$ is unbiased, this is because no additional
+parameters need to be estimated. 
+
+Award: 5 point for unbiasedness proof with precision, 5 points for the
+variance derivation; 2.5 for explaining all steps, intuition, requiring 4th
+moment.
+
+\textbf{Question 3 }
+
+(a) Consider the linear regression model from Question 2. Recall that the
+ridge estimator is defined as $\hat{\beta}^{Ridge}=\left( X^{\prime
+}X+\lambda _{n}I_{k}\right) ^{-1}X^{\prime }y.$ Suppose that $\lambda
+_{n}=cn^{\delta /2}$ for some $\delta \geq 0.$ For which range of values for 
+$c$ and $\delta $ is $\hat{\beta}^{Ridge}$ a consistent estimator for $\beta
+?$
+
+Solution: 
+\begin{eqnarray*}
+p\lim_{n\rightarrow \infty }\hat{\beta}^{Ridge} &=&\left(
+p\lim_{n\rightarrow \infty }\frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }+\lim_{n\rightarrow \infty }cn^{\delta
+/2-1}I_{k}\right) ^{-1}p\lim_{n\rightarrow \infty }\frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\beta \\
+&&+\left( p\lim_{n\rightarrow \infty }\frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }+\lim_{n\rightarrow \infty }cn^{\delta
+/2-1}I_{k}\right) ^{-1}p\lim_{n\rightarrow \infty }\frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{\varepsilon }_{i}
+\end{eqnarray*}
+
+so for any values of $c\in \left( -\infty ,\infty \right) $ and any $\delta
+\in \lbrack 0,2),$ $\lim_{n\rightarrow \infty }cn^{\delta /2-1}I_{k}=0$ so $%
+p\lim_{n\rightarrow \infty }\hat{\beta}^{Ridge}=\beta .$
+
+Award: 7.5 point for correct derivation of plim, 5 points for correct values
+of $c$ and $\delta .$
+
+\end{document}

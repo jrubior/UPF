@@ -1,0 +1,1473 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Monday, November 28, 2022 10:22:33}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics: Lectures 8\\
+Maximum Likelihood Estimation Some Results}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{The Linear Gaussian Regression Model}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+\begin{itemize}
+\item Ideal Conditions for the Gaussian Linear Model%
+\begin{equation*}
+y=X\beta +\varepsilon ,\;\;\;\;X\in \mathbb{R}^{n\times k}\text{, }\beta \in 
+\mathbb{R}^{k}\text{, }n>k
+\end{equation*}
+
+\begin{enumerate}
+\item $X$ stochastic matrix of regressors
+
+\item $X$ is full rank: $r\left( X\right) =k$
+
+\item $u|X\sim \mathcal{N}\left( 0,\sigma ^{2}I_{n}\right) $ (independence,
+homoskedasticity, normality).
+\end{enumerate}
+
+\item Under conditions 1-3, $y|X\sim \mathcal{N}\left( X\beta ,\sigma
+^{2}I_{n}\right) $ implying the following likelihood function for a sample
+based on $y$:%
+\begin{eqnarray*}
+L\left( \beta ,\sigma ^{2}\right) &=&f\left( y|X\right) \\
+&=&\left( 2\pi \sigma ^{2}\right) ^{-n/2}\exp \left\{ -\frac{1}{2\sigma ^{2}}%
+\left( y-X\beta \right) ^{\prime }\left( y-X\beta \right) \right\} .
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+Therefore, maximising $L\left( \beta ,\sigma ^{2}\right) $ w.r.t. $\beta $
+is equivalent to minimising $\left( y-X\beta \right) ^{\prime }\left(
+y-X\beta \right) $ w.r.t. $\beta $, i.e. doing OLS. Therefore, for the
+regression model under conditions 1-3, \textit{the maximum likelihood
+estimator and the OLS estimator of }$\beta $\textit{\ are identical}. The
+MLE of $\sigma ^{2}$ can be found as usual as the maximiser of $\log L\left(
+\beta ,\sigma ^{2}\right) $ w.r.t. $\sigma ^{2}$:%
+\begin{equation*}
+\hat{\sigma}_{n}^{2}=\frac{1}{n}\hat{\varepsilon}^{\prime }\hat{\varepsilon}%
+,\;\;\text{where\ }\hat{\varepsilon}:=y-X\hat{\beta}\;\;\text{and\ \ }\hat{%
+\beta}_{n}=\left( X^{\prime }X\right) ^{-1}X^{\prime }y.
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+\begin{eqnarray*}
+\frac{\partial ^{2}l(\beta ,\sigma ^{2})}{\partial \beta \partial \beta
+^{\prime }} &=&-\frac{1}{\sigma ^{2}}X^{\prime }X \\
+\frac{\partial ^{2}l(\beta ,\sigma ^{2})}{\left( \partial \sigma ^{2}\right)
+^{2}} &=&\frac{n}{2\sigma ^{4}}-\frac{1}{\sigma ^{6}}(y-X\beta )^{\prime
+}(y-X\beta ) \\
+\frac{\partial ^{2}l(\beta ,\sigma ^{2})}{\partial \beta \partial \sigma ^{2}%
+} &=&\left( \frac{\partial ^{2}l(\beta ,\sigma ^{2})}{\partial \sigma
+^{2}\partial \beta ^{\prime }}\right) ^{\prime }=-\frac{1}{\sigma ^{4}}%
+(X^{\prime }y-X^{\prime }X\beta )
+\end{eqnarray*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+The Fisher information matrix is therefore given by%
+\begin{gather*}
+\mathcal{I}(\beta ,\sigma ^{2})=\left[ 
+\begin{array}{cc}
+\frac{1}{\sigma ^{2}}\mathbb{E}\left( X^{\prime }X\right) & \frac{1}{\sigma
+^{4}}\mathbb{E}(X^{\prime }\varepsilon ) \\ 
+\frac{1}{\sigma ^{4}}\mathbb{E}(\varepsilon ^{\prime }X) & -\frac{n}{2\sigma
+^{4}}+\frac{1}{\sigma ^{6}}\mathbb{E}(y-X\beta )^{\prime }(y-X\beta )%
+\end{array}%
+\right] \\
+=\left[ 
+\begin{array}{cc}
+\frac{1}{\sigma ^{2}}\mathbb{E}\left( X^{\prime }X\right) & 0 \\ 
+0 & \frac{n}{2\sigma ^{4}}%
+\end{array}%
+\right]
+\end{gather*}%
+because $\mathbb{E}(y-X\beta )^{\prime }(y-X\beta )=\mathbb{E}%
+\sum_{i=1}^{n}\varepsilon _{i}^{2}=\sum_{i=1}^{n}\mathbb{E[}\varepsilon
+_{1}^{2}]=n\sigma ^{2.}$
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+\begin{itemize}
+\item Note that because $\varepsilon |X\sim \mathcal{N}\left( 0,\sigma
+^{2}I_{n}\right) ,$ $\hat{\beta}_{n}^{MLE}|X=\left[ \beta +\left( X^{\prime
+}X\right) ^{-1}X^{\prime }\varepsilon \right] |X\sim \mathcal{N}\left( \beta
+,\sigma ^{2}\left( X^{\prime }X\right) ^{-1}\right) $ even for small $n$
+
+\item This follows since linear functions of normals are also normal
+
+\item To see this, $\hat{\beta}_{n}^{MLE}|X-\beta =\left( X^{\prime
+}X\right) ^{-1}X^{\prime }\varepsilon |X\sim \mathcal{N}\left( 0,\left(
+X^{\prime }X\right) ^{-1}X^{\prime }\sigma ^{2}X\left( X^{\prime }X\right)
+^{-1}\right) $ which under homoskedasticity reduces to $\mathcal{N}\left(
+0,\sigma ^{2}\left( X^{\prime }X\right) ^{-1}\right) .$
+
+\item Hence, $\hat{\beta}_{n}^{MLE}|X\sim \mathcal{N}\left( \beta ,\sigma
+^{2}\left( X^{\prime }X\right) ^{-1}\right) $ for any sample size
+
+\item In addition, note that for elements of $\hat{\beta}_{j}^{MLE}|X\sim 
+\mathcal{N}\left( \beta _{j},\sigma ^{2}\left[ \left( X^{\prime }X\right)
+^{-1}\right] _{jj}\right) ,$ so $z=\frac{\widehat{\beta }_{j}-\beta _{j}^{0}%
+}{\sqrt{\sigma ^{2}\left[ \left( X^{\prime }X\right) ^{-1}\right] _{jj}}}%
+\sim \mathcal{N}(0,1)$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{framesubtitle}{Gaussian Linear Model}
+
+\begin{itemize}
+\item But $\sigma ^{2}$ is typically not known
+
+\item We have that $\hat{\varepsilon}|X=M_{X}\varepsilon |X\sim \mathcal{N}%
+\left( 0,\sigma ^{2}M_{X}\right) $
+
+\item Hence $\widehat{\sigma }_{j}^{2}=\varepsilon ^{\prime
+}M_{X}\varepsilon $ turns out to be $\chi ^{2}(n-k)$, where $n-k$ comes from
+the rank of $M_{X}$
+
+\item Then $\frac{\widehat{\beta }_{j}-\beta _{j}^{0}}{SE(\widehat{\beta }%
+_{j})}$ is not longer Normal, as it is a ratio of two random variables: $%
+\mathcal{N}$ and $\chi ^{2}(n-k)$
+
+\item A ratio of $\mathcal{N}(0,1)$ over $\chi ^{2}(n-k)$\ follow a
+t-distribution $t(n-k);$ so, we need to use the t critical values instead
+
+\item When $n\rightarrow \infty ,$ the t-distribution is approximately
+Normal, so for large enough samples (for $n>30$ the differences are
+immaterial) we could use $\mathcal{N}(0,1)$
+
+\item Also note that if $\varepsilon \nsim \mathcal{N},$ we have shown that $%
+\widehat{\beta }_{j}$ is asymptotically normal, and $\widehat{\sigma }%
+_{j}^{2}$ converges to a point; so the ratio above is asymptotically normal;
+for large samples we can still use $\mathcal{N}(0,1)$, even though $%
+\varepsilon \nsim \mathcal{N}.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing Linear Restrictions-the F test}
+
+\begin{itemize}
+\item What if we want to test a set of linear restrictions
+
+\item Recall that the Wald statistic is $W_{n}=\frac{\left( R\hat{\beta}%
+-c\right) ^{\prime }\left[ R\left( X^{\prime }X\right) ^{-1}R^{\prime }%
+\right] ^{-1}\left( R\hat{\beta}-c\right) }{\widehat{\sigma }^{2}}$
+\end{itemize}
+
+\begin{theorem}
+\textit{Consider the linear Gaussian regression model. When }$H_{0}$\textit{%
+\ is true,}
+
+$\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \frac{1}{r}%
+W_{n}\sim F\left( r,n-k\right) $
+
+\textit{where }$F\left( r,n-k\right) $\textit{\ denotes the }$F$\textit{\
+distribution with parameters }$r$\textit{\ and }$n-k$\textit{\ and }$r$%
+\textit{\ is the rank of }$R$\textit{.}
+\end{theorem}
+
+\begin{itemize}
+\item This yields critical region for the Wald test based on $W_{n}$: reject 
+$H_{0}$ when $W_{n}$ is larger than the F critical value.
+
+\item Unsurprisingly, this test is also known as the \textquotedblleft $F$
+test\textquotedblright
+
+\item Whenever $\varepsilon \nsim \mathcal{N}$, we can rely on asymptotic
+results to get the distribution of $W_{n}:$ under $H_{0},$ $W_{n}\rightarrow
+\chi ^{2}\left( r\right) $ since $\widehat{\sigma }^{2}$ converges to a point%
+$\;$as\ $n\rightarrow \infty .$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The T test as a special case of the F test}
+
+\begin{itemize}
+\item Also, the t-test is just a special case of the F-test, when we test
+one restriction at a time.
+
+\item The (Wald) test with one restriction is%
+\begin{equation}
+W_{n}=\frac{\left( X_{j}^{\prime }M_{X_{-j}}X_{j}\right) (\hat{\beta}%
+_{j}-\beta _{j}^{0})^{2}}{\widehat{s}^{2}}\sim F\left( 1,n-k\right)
+\label{W11}
+\end{equation}
+
+\item We use the fact that $t_{p}^{2}=F\left( 1,p\right) .$
+
+\item Taking the square root of $W_{n}$ yields an alternative test:%
+\begin{equation}
+T_{n}:=\frac{\left( X_{j}^{\prime }M_{X_{-j}}X_{j}\right) ^{1/2}(\hat{\beta}%
+_{j}-\beta _{j}^{0})}{\widehat{s}}\sim t_{n-k}  \label{t}
+\end{equation}%
+where $t_{n-k}$ denotes the Student's t-distribution with $n-k$ degrees of
+freedom.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Score and Information Matrix}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+\begin{itemize}
+\item Consider a random vector $X=\left( X_{1},...,X_{n}\right) ^{\prime }$
+with density $f\left( X,\theta _{0}\right) $ depending on a parameter $%
+\theta _{0}\in \Theta \subseteq \mathbb{R}^{k}$.
+
+Let $\theta $ be an arbitrary element of $\Theta $, and let $L\left( \theta
+\right) =f\left( X,\theta \right) $ and $l\left( \theta \right) =\log
+L\left( \theta \right) $ denote the likelihood function and the
+log-likelihood function.
+\end{itemize}
+
+\begin{definition}
+The $k\times 1$ random vector 
+\begin{equation*}
+s\left( X,\theta \right) =\partial l/\partial \theta 
+\end{equation*}%
+is called the \textbf{score vector}.
+\end{definition}
+
+\begin{itemize}
+\item When $l\left( \theta \right) $ is differentiable, the MLE $\hat{\theta}%
+_{n}$ satisfies 
+\begin{equation}
+s\left( X,\hat{\theta}_{n}\right) =0.  \label{2.12}
+\end{equation}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+First, we will determine the mean and covariance matrix of the score vector $%
+s=s\left( X,\theta \right) $.
+
+In what follows, we assume that the following three regularity conditions
+are satisfied:
+
+\begin{description}
+\item[(RC1)] The support of $f$, $S=\left \{ X\in \mathbb{R}^{n}:f\left(
+X,\theta \right) >0\right \} $, is independent of $\theta $.
+
+\item[(RC2)] $f\left( X,\theta \right) $ is twice continuously
+differentiable with respect to $\theta .$
+
+\item[(RC3)] The matrix%
+\begin{equation}
+J\left( \theta \right) :=\mathbb{E}\left( \frac{\partial ^{2}\log f\left(
+X,\theta \right) }{\partial \theta \partial \theta ^{\prime }}\right) 
+\label{J}
+\end{equation}%
+is finite $\left( \left\Vert J\left( \theta \right) \right\Vert <\infty
+\right) $ and negative definite at $\theta =\theta _{0}$.
+\end{description}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+\begin{itemize}
+\item Condition (RC1) is satisfied for most densities $f\left( \cdot ,\theta
+\right) $, e.g., if $X\sim Exp\left( \theta \right) $, then 
+\begin{equation*}
+f\left( X,\theta \right) =\left\{ 
+\begin{array}{ll}
+\theta e^{-\theta X}, & X>0 \\ 
+0, & X\leq 0.%
+\end{array}%
+\right.
+\end{equation*}%
+and $S=\left( 0,\infty \right) $ does not depend on $\theta $.
+
+\item The same holds for all distributions that we have encountered apart
+from the uniform distribution on $\left[ 0,\theta \right] $:%
+\begin{equation*}
+f\left( X,\theta \right) =\left\{ 
+\begin{array}{ll}
+1/\theta , & X\in \left[ 0,\theta \right] \\ 
+0, & X\notin \left[ 0,\theta \right]%
+\end{array}%
+\right.
+\end{equation*}%
+so in this case $S=\left[ 0,\theta \right] $ is dependent on $\theta $. This
+is why the uniform distribution on $\left[ 0,\theta \right] $ is a source of
+counterexamples for likelihood theory.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+\begin{itemize}
+\item The importance of (RC1) lies in that it permits differentiation under
+the integral sign, i.e., ensures that%
+\begin{equation}
+\frac{\partial }{\partial \theta }\int_{S}f\left( X,\theta \right)
+dX=\int_{S}\frac{\partial f\left( X,\theta \right) }{\partial \theta }dX,
+\label{2.13}
+\end{equation}
+
+\item This follows from the so-called Leibnitz rule [see Spiegel, p. 163,
+eq. (17)].
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+\begin{theorem}
+Under the regularly conditions (RC1)-(RC3),%
+\begin{eqnarray}
+\mathbb{E}\left[ s\left( X,\theta _{0}\right) \right] &=&0,\   \label{2.14}
+\\
+\mathbb{E}\left[ s\left( X,\theta _{0}\right) s\left( X,\theta _{0}\right)
+^{\prime }\right] &=&-J\left( \theta _{0}\right)
+\end{eqnarray}%
+where $J\left( \theta \right) $ is the matrix in \emph{(\ref{J})}.
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+Recall that the \textit{true} density of $X$ is $f\left( X,\theta
+_{0}\right) $, so that,%
+\begin{equation}
+\mathbb{E}\left[ g\left( X,\theta \right) \right] =\int_{S}g\left( X,\theta
+\right) f\left( X,\theta _{0}\right) dX  \label{moment}
+\end{equation}%
+for any measurable function $g\left( X,\theta \right) $. Also, $f\left(
+X,\theta \right) $ is a density for all $\theta \in \Theta $:%
+\begin{equation}
+\int_{S}f\left( X,\theta \right) dX=1,\;\;\;\theta \in \Theta .  \label{2.15}
+\end{equation}%
+Note that $\int_{S}f\left( X,\theta \right) dX$ means%
+\begin{equation*}
+\underset{\left\{ X\in 
+%TCIMACRO{\U{211d} }%
+%BeginExpansion
+\mathbb{R}
+%EndExpansion
+^{n}:f\left( X_{1},...,X_{n},\theta \right) >0\right\} }{\int ...\int }%
+f\left( X_{1},...,X_{n},\theta \right) dX_{1}....dX_{n}.
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+The relationship between the derivative of the likelihood function and the
+score vector is given by the following identity for each $\theta \in \Theta $%
+:%
+\begin{align}
+s\left( X,\theta \right) & =\frac{\partial \log f\left( X,\theta \right) }{%
+\partial \theta }=\frac{1}{f\left( X,\theta \right) }\frac{\partial f\left(
+X,\theta \right) }{\partial \theta }  \notag \\
+& \Longrightarrow \frac{\partial f\left( X,\theta \right) }{\partial \theta }%
+=s\left( X,\theta \right) f\left( X,\theta \right) .  \label{2.17}
+\end{align}%
+We can write for each $\theta \in \Theta $: $\mathbb{E}\left[ s\left(
+X,\theta \right) \right] $%
+\begin{equation*}
+=\int_{S}s\left( X,\theta \right) f\left( X,\theta _{0}\right) dX=\int_{S}%
+\frac{1}{f\left( X,\theta \right) }\frac{\partial f\left( X,\theta \right) }{%
+\partial \theta }f\left( X,\theta _{0}\right) dX.
+\end{equation*}%
+When the true score vector is considered, $\theta =\theta _{0}$ and the
+above display yields%
+\begin{equation*}
+\mathbb{E}\left[ s\left( X,\theta _{0}\right) \right] =\int_{S}\frac{%
+\partial f\left( X,\theta _{0}\right) }{\partial \theta }dX=\frac{\partial }{%
+\partial \theta }\int_{S}f\left( X,\theta _{0}\right) dX=0
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+For the second part of the Theorem, use again the relationship we derived:%
+\begin{gather*}
+\mathbb{E}\left[ s\left( X,\theta \right) s\left( X,\theta \right) ^{\prime }%
+\right] =\int_{S}s\left( X,\theta \right) s\left( X,\theta \right) ^{\prime
+}f\left( X,\theta _{0}\right) dX \\
+=\int_{S}\frac{\partial f\left( X,\theta \right) }{\partial \theta }s\left(
+X,\theta \right) ^{\prime }\frac{f\left( X,\theta _{0}\right) }{f\left(
+X,\theta \right) }dX \\
+=\int_{S}\left[ \frac{\partial f\left( X,\theta \right) }{\partial \theta }%
+s\left( X,\theta \right) ^{\prime }+f\left( X,\theta \right) \frac{\partial 
+}{\partial \theta }s\left( X,\theta \right) ^{\prime }\right] \frac{f\left(
+X,\theta _{0}\right) }{f\left( X,\theta \right) }dX \\
+-\int_{S}\frac{\partial s\left( X,\theta \right) ^{\prime }}{\partial \theta 
+}f\left( X,\theta _{0}\right) dX \\
+=\int_{S}\frac{\partial }{\partial \theta }\left[ f\left( X,\theta \right)
+s\left( X,\theta \right) ^{\prime }\right] \frac{f\left( X,\theta
+_{0}\right) }{f\left( X,\theta \right) }dX-\mathbb{E}\left[ \frac{\partial }{%
+\partial \theta }s\left( X,\theta \right) ^{\prime }\right]  \\
+=\int_{S}\frac{\partial }{\partial \theta }\left[ f\left( X,\theta \right)
+s\left( X,\theta \right) ^{\prime }\right] \frac{f\left( X,\theta
+_{0}\right) }{f\left( X,\theta \right) }dX-J\left( \theta \right) 
+\end{gather*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+Evaluating at $\theta =\theta _{0}$ and using (\ref{2.13}) we obtain%
+\begin{eqnarray*}
+\mathbb{E}\left[ s\left( X,\theta _{0}\right) s\left( X,\theta _{0}\right)
+^{\prime }\right]  &=&\int_{S}\frac{\partial }{\partial \theta }\left[
+f\left( X,\theta _{0}\right) s\left( X,\theta _{0}\right) ^{\prime }\right]
+dX-J\left( \theta _{0}\right)  \\
+&=&\frac{\partial }{\partial \theta }\int_{S}f\left( X,\theta _{0}\right)
+s\left( X,\theta _{0}\right) ^{\prime }dX-J\left( \theta _{0}\right)  \\
+&=&\frac{\partial }{\partial \theta }\mathbb{E}\left[ s\left( X,\theta
+_{0}\right) ^{\prime }\right] -J\left( \theta _{0}\right)  \\
+&=&-J\left( \theta _{0}\right) 
+\end{eqnarray*}%
+as required.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix}
+
+Note that Theorem 1 is not restricted to independent or identically
+distributed samples. The above proof depends only on the validity of
+Leibnitz rule for differentiation under the integral sign, ensured by (RC1)
+and sufficient smoothness of the log-likelihood (RC2).
+
+\begin{definition}
+The $k\times k$ matrix%
+\begin{equation}
+\mathcal{I}\left( \theta \right) =-J\left( \theta \right) =-\mathbb{E}\left( 
+\frac{\partial ^{2}l}{\partial \theta \partial \theta ^{\prime }}\right) 
+\label{2.19}
+\end{equation}%
+is called (Fisher's) information matrix.
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Score Vector and Information Matrix: }
+
+\QTR{framesubtitle}{Remarks}
+
+\begin{enumerate}
+\item Under (RC1)-(RC2), the information matrix $\mathcal{I}\left( \theta
+\right) $ coincides with the covariance matrix of the score vector $s\left(
+X,\theta \right) $, which ensures that $\mathcal{I}\left( \theta \right)
+\geq 0$, a property of any covariance matrix. In addition, Assumption (RC3)
+imposes strict negativity of the matrix $J\left( \theta \right) $ which
+ensures invertability of the information matrix (see the Cram\'{e}r Rao
+lower bound below).
+
+\item In the next section we will see that, for any unbiased estimator $\hat{%
+\theta}$, $var\left( \hat{\theta}\right) \geq \mathcal{I}\left( \theta
+\right) ^{-1}$. If $\hat{\theta}$ is unbiased, it is centered around $\theta 
+$ so the more information about $\theta $ is provided by an observation the
+smaller the variance of $\hat{\theta}$ should be: hence the name
+\textquotedblleft information matrix\textquotedblright\ for (\ref{2.19}).
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{The Cram\'{e}r Rao Lower Bound}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Cram\'{e}r Rao Lower Bound}
+
+\begin{theorem}[Cram\'{e}r-Rao]
+If (RC1)-(RC3) hold, then the covariance matrix of any unbiased estimator $%
+\hat{\theta}$ of $\theta _{0}$\ satisfies%
+\begin{equation*}
+V\left( \hat{\theta}\right) \geq \mathcal{I}\left( \theta _{0}\right) ^{-1}
+\end{equation*}%
+in the sense that $V\left( \hat{\theta}\right) -\mathcal{I}\left( \theta
+_{0}\right) ^{-1}$ is a positive semi-definite matrix.
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+Recall that any estimator $\hat{\theta}=\hat{\theta}\left( X\right) $ is
+independent of $\theta _{0}.$ Since $\hat{\theta}$ is unbiased, $\mathbb{E}%
+\left( \hat{\theta}\right) =\theta _{0}$, or equivalently%
+\begin{equation*}
+\theta _{0}=\int_{S}\hat{\theta}\left( X\right) f\left( X,\theta _{0}\right)
+dX.
+\end{equation*}%
+Differentiating w.r.t. $\theta _{0}^{\prime }$ we obtain%
+\begin{align}
+I_{k}& =\partial /\partial \theta _{0}^{\prime }\int_{S}\hat{\theta}\left(
+X\right) f\left( X,\theta _{0}\right) dX  \notag \\
+& =\int_{S}\hat{\theta}\left( X\right) \frac{\partial f\left( X,\theta
+_{0}\right) }{\partial \theta _{0}^{\prime }}dX,\text{\quad \lbrack by (RC1)]%
+}  \notag \\
+& =\int_{S}\hat{\theta}\left( X\right) s\left( X,\theta _{0}\right) ^{\prime
+}f\left( X,\theta _{0}\right) dX,\quad \text{[by (\ref{2.17})]}  \notag \\
+& =\mathbb{E}\left[ \hat{\theta}s\left( X,\theta _{0}\right) ^{\prime }%
+\right] =\mathbb{E}\left[ \left( \hat{\theta}-\theta _{0}\right) s\left(
+X,\theta _{0}\right) ^{\prime }\right]  \label{2.21}
+\end{align}%
+since $\mathbb{E}\left[ \theta _{0}s\left( X,\theta _{0}\right) ^{\prime }%
+\right] =\theta _{0}\mathbb{E}\left[ s\left( X,\theta _{0}\right) ^{\prime }%
+\right] =0$ by (\ref{2.14}).
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Cram\'{e}r Rao Lower Bound}
+
+\begin{proof}
+First, assume that $k=1$ ($\theta _{0}$ is a scalar) for simplicity. Then
+both $s\left( X,\theta _{0}\right) $ and $\mathcal{I}\left( \theta
+_{0}\right) $ are scalars and the equality above reduces to%
+\begin{align*}
+1& =\mathbb{E}\left[ \left( \hat{\theta}-\theta _{0}\right) s\left( X,\theta
+_{0}\right) \right] =cov\left( \hat{\theta},s\left( X,\theta _{0}\right)
+\right) \\
+& \leq \left[ var\left( \hat{\theta}\right) \right] ^{1/2}\left[ var\left(
+s\left( X,\theta _{0}\right) \right) \right] ^{1/2} \\
+& =\left[ var\left( \hat{\theta}\right) \right] ^{1/2}\left[ \mathcal{I}%
+\left( \theta _{0}\right) \right] ^{1/2}.
+\end{align*}%
+by Cauchy-Schwarz inequality.
+
+This shows the result for scalar $\theta _{0}$.
+
+The key property that delivers the lower bound is the CS inequality.
+
+Note that in this case the ordering is complete, i.e. $var\left( \hat{\theta}%
+\right) \geq \mathcal{I}\left( \theta _{0}\right) ^{-1}$ holds as a true
+inequality between numbers.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+For the general case, the standard Cauchy-Schwarz inequality is not
+sufficient; a matrix generalisation of the form%
+\begin{equation}
+\mathbb{E}\left( xy^{\prime }\right) \left[ \mathbb{E}\left( yy^{\prime
+}\right) \right] ^{-1}\mathbb{E}\left( yx^{\prime }\right) \leq \mathbb{E}%
+\left( xx^{\prime }\right)  \label{mCS}
+\end{equation}%
+(in the positive semi-definite sense) for all $k\times 1$ vectors $x,y$ with
+finite second moment and $\mathbb{E}\left( yy^{\prime }\right) >0$.
+
+Letting $x=\hat{\theta}-\theta _{0}$ and $y=s\left( X,\theta _{0}\right) $, (%
+\ref{mCS}) yields%
+\begin{gather*}
+\underset{=I_{k}}{\underbrace{\mathbb{E}\left\{ \left( \hat{\theta}-\theta
+_{0}\right) s\left( X,\theta _{0}\right) ^{\prime }\right\} }}[\underset{=%
+\mathcal{I}\left( \theta _{0}\right) }{\underbrace{\mathbb{E}\left\{ s\left(
+X,\theta _{0}\right) s\left( X,\theta _{0}\right) ^{\prime }\right\} }}]^{-1}
+\\
+\underset{=I_{k}}{\times \underbrace{\mathbb{E}\left[ s\left( X,\theta
+_{0}\right) \left( \hat{\theta}-\theta _{0}\right) ^{\prime }\right] }}\leq 
+\underset{=V\left( \hat{\theta}\right) }{\underbrace{\mathbb{E}\left[ \left( 
+\hat{\theta}-\theta _{0}\right) \left( \hat{\theta}-\theta _{0}\right)
+^{\prime }\right] }}
+\end{gather*}%
+we obtain $\mathcal{I}\left( \theta _{0}\right) ^{-1}\leq V\left( \hat{\theta%
+}\right) $.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Cram\'{e}r Rao Lower Bound}
+
+Theorem 2 implies that the MSE of any unbiased estimator $\hat{\theta}$ of $%
+\theta _{0}$ cannot be \textquotedblleft smaller\textquotedblright\ than $%
+\mathcal{I}\left( \theta _{0}\right) ^{-1}$, i.e. the best possible unbiased
+estimator is one whose covariance matrix achieves the Cram\'{e}r Rao lower
+bound.
+
+Such estimators are called efficient.
+
+\begin{definition}
+An unbiased estimator $\hat{\theta}$ of $\theta _{0}$ is called \textbf{%
+efficient} if 
+\begin{equation*}
+V\left( \hat{\theta}\right) =\mathcal{I}\left( \theta _{0}\right) ^{-1}.
+\end{equation*}
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Consistency of the MLE}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of the MLE}
+
+\begin{itemize}
+\item The main problem with deriving the asymptotic properties of the MLE
+estimator is that, unlike linear estimation procedures such as OLS, there is
+no general closed form expression for the MLE.
+
+\item This is always the case in non-linear estimation procedures based on
+maximising an objective function since, even when the first order conditions
+are simple enough to deliver an estimator in closed form, this form will
+vary according to the objective function (e.g. different likelihood
+functions give rise to different MLEs).
+
+\item Ultimately, limit distribution theory will be derived by a
+linearisation scheme based on the mean value theorem (see the next section),
+but successful application of this methods requires first to establish the
+consistency of the MLE.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of the MLE}
+
+\QTR{framesubtitle}{Assumptions}
+
+\begin{description}
+\item[(C1)] The sample random vector $X=\left( X_{1},...,X_{n}\right) $
+consists of \textbf{i.i.d.} random variables with marginal density $f\left(
+X_{1},\theta \right) $ that is continuous w.r.t. $\theta $.
+
+\item[(C2)] $\Theta $ is a compact (equivalently closed and bounded) subset
+of $\mathbb{R}^{k}$.
+
+\item[(C3)] $\theta _{0}$ lies on the interior of $\Theta $ and is the 
+\textit{unique} maximiser\footnote{%
+We know that $\theta _{0}$ is a maximiser of $E\log f\left( X_{1},\theta
+\right) $.} of $\mathbb{E}\log f\left( X_{1},\theta \right) $ over $\Theta $%
+. In other words,%
+\begin{equation}
+\kappa \left( \theta \right) :=\mathbb{E}\log f\left( X_{1},\theta
+_{0}\right) -\mathbb{E}\log f\left( X_{1},\theta \right) >0  \label{kappa}
+\end{equation}%
+for all $\theta \in \Theta \backprime \left\{ \theta _{0}\right\} $.
+
+\item[(C4)] The i.i.d. sequence $\left\{ \log f\left( X_{i},\theta \right)
+:i\geq 1\right\} $ satisfies a \textit{uniform} law of large numbers over $%
+\Theta $:%
+\begin{equation}
+\max_{\theta \in \Theta }\left\vert \frac{1}{n}\sum_{i=1}^{n}\log f\left(
+X_{i},\theta \right) -\mathbb{E}\left[ \log f\left( X_{1},\theta \right) %
+\right] \right\vert \rightarrow _{p}0\;\text{{\small as} }n\rightarrow
+\infty .  \label{ULLNc}
+\end{equation}
+\end{description}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of the MLE}
+
+\begin{itemize}
+\item Compactness of the parameter space $\Theta $ together with the
+continuity of the log-likelihood function%
+\begin{equation}
+\log f\left( X,\theta \right) =\sum_{i=1}^{n}\log f\left( X_{i},\theta
+\right)  \label{lL}
+\end{equation}%
+(ensured by C1) imply that the MLE $\hat{\theta}_{n}$ belongs to $\Theta $
+for each $n$ (by Weierstrass Theorem).
+
+\item For the same reason (compactness of $\Theta $ and continuity of $%
+f\left( X_{i},\cdot \right) $) we can write $\max $ instead of $\sup $ in (%
+\ref{ULLNc}).
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of the MLE}
+
+\begin{itemize}
+\item For (C4), note that 
+\begin{equation*}
+n^{-1}\sum_{i=1}^{n}\log f\left( X_{i},\theta \right) \rightarrow _{p}%
+\mathbb{E}\left[ \log f\left( X_{1},\theta \right) \right]
+\end{equation*}%
+as $n\rightarrow \infty $ for each $\theta $ by a standard WLLN.
+
+\item However, we require a uniform version of this WLLN over $\Theta .$ The
+validity of (\ref{ULLNc}) can be reduced to more elementary conditions
+(uniform stochastic equicontinuity) but the technical requirements are far
+beyond the scope of this course.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of the MLE}
+
+\begin{theorem}[Consistency]
+Under (C1)-(C4), $\hat{\theta}_{n}\rightarrow _{p}\theta _{0}$ as $%
+n\rightarrow \infty .$
+\end{theorem}
+
+We will not prove the result.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Asymptotic Normality of the MLE}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+Denote by $f_{n}\left( X,\theta \right) $ the likelihood function of a
+sample $X=\left( X_{1},...,X_{n}\right) $ with $\theta _{0}$ being the true
+value of $\theta $, by $\hat{\theta}_{n}$ the MLE of $\theta _{0}$, by $%
+s_{n}\left( \theta \right) $ the score vector and by $\mathcal{I}_{n}\left(
+\theta \right) $ the information matrix, and finally let%
+\begin{equation}
+z_{i}\left( \theta \right) :=\frac{\partial \log f\left( X_{i},\theta
+\right) }{\partial \theta }\;\;\;\text{and\ }\;\;H_{i}\left( \theta \right)
+:=\frac{\partial ^{2}\log f\left( X_{i},\theta \right) }{\partial \theta
+\partial \theta ^{\prime }}  \label{zH}
+\end{equation}%
+denote the "marginal" score and Hessian.
+
+If the sample vector $X=\left( X_{1},...,X_{n}\right) $ consists of i.i.d.
+random variables, then $\left\{ H_{i}\left( \theta \right)
+:i=1,...,n\right\} $ are i.i.d. random matrices and%
+\begin{align}
+\mathcal{I}_{n}\left( \theta \right) & =-\mathbb{E}\left( \frac{\partial
+^{2}\log f_{n}\left( X,\theta \right) }{\partial \theta \partial \theta
+^{\prime }}\right) =-\mathbb{E}\left[ \frac{\partial ^{2}}{\partial \theta
+\partial \theta ^{\prime }}\sum_{i=1}^{n}\log f\left( X_{i},\theta \right) %
+\right]   \notag \\
+& =-\sum_{i=1}^{n}\mathbb{E}\left( \frac{\partial ^{2}\log f\left(
+X_{i},\theta \right) }{\partial \theta \partial \theta ^{\prime }}\right) =-n%
+\mathbb{E}\left[ H_{1}\left( \theta \right) \right] .  \label{2.20}
+\end{align}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{itemize}
+\item Note that $z_{i}\left( \theta \right) $ and $H_{i}\left( \theta
+\right) $ in (\ref{zH}) are\textit{\ independent of} $n$ (why?) and, hence,
+so is the matrix $\mathbb{E}\left[ H_{1}\left( \theta \right) \right] $ in (%
+\ref{2.20}). The identity (\ref{2.20}) implies that the information matrix $%
+\mathcal{I}_{n}\left( \theta \right) $ increases to $\infty $ with rate
+equal to the sample size $n$ as $n\rightarrow \infty $:%
+\begin{equation}
+\lim_{n\rightarrow \infty }\frac{1}{n}\mathcal{I}_{n}\left( \theta \right) =-%
+\mathbb{E}\left[ H_{1}\left( \theta \right) \right] .  \label{limI}
+\end{equation}
+
+\item While our derivation of (\ref{2.20}) is confined to the case where $%
+X_{1},...,X_{n}$ are i.i.d. random variables, the limit behaviour of the
+information matrix is given by (\ref{limI}) in much more general situations:
+it applies even under dependent sampling schemes.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{itemize}
+\item A standard way to address this non-linearity problem is to linearise
+the derivative of the objective function (in our case the score) around the
+estimator using a mean value theorem between the estimator $\hat{\theta}_{n}$
+and the true value $\theta _{0}$.
+
+\item Since the score at $\hat{\theta}_{n}$ is zero, one of the constant
+terms in the linearised form disappears and we are left with a linear
+relationship between the score at $\theta _{0}$ and $\hat{\theta}_{n}-\theta
+_{0}$. Here is this method in action:
+
+\item \textbf{Mean value theorem on }$s_{n}\left( \theta _{0}\right) $%
+\textbf{\ around }$\hat{\theta}_{n}$\textbf{:}%
+\begin{equation}
+s_{n}\left( \theta _{0}\right) =s_{n}\left( \hat{\theta}_{n}\right) +\left. 
+\frac{\partial }{\partial \theta }s_{n}\left( \theta \right) ^{\prime
+}\right\vert _{\theta =\theta _{n}^{\ast }}\left( \theta _{0}-\hat{\theta}%
+_{n}\right)   \label{MVT}
+\end{equation}%
+where $\theta _{n}^{\ast }$ is intermediate to $\hat{\theta}_{n}$ and $%
+\theta _{0}$:%
+\begin{equation}
+\left\Vert \theta _{n}^{\ast }-\theta _{0}\right\Vert \leq \left\Vert \hat{%
+\theta}_{n}-\theta _{0}\right\Vert .  \label{interm}
+\end{equation}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+Since $s_{n}\left( \hat{\theta}_{n}\right) =0$ by the first order condition
+and%
+\begin{eqnarray*}
+\left. \frac{\partial }{\partial \theta }s_{n}\left( \theta \right) ^{\prime
+}\right\vert _{\theta =\theta _{n}^{\ast }} &=&\left. \frac{\partial }{%
+\partial \theta }\frac{\partial \log f_{n}\left( X,\theta \right) }{\partial
+\theta ^{\prime }}\right\vert _{\theta =\theta _{n}^{\ast }}= \\
+\frac{\partial ^{2}\log f_{n}\left( X,\theta _{n}^{\ast }\right) }{\partial
+\theta \partial \theta ^{\prime }} &=&\sum_{i=1}^{n}\frac{\partial ^{2}\log
+f\left( X_{i},\theta _{n}^{\ast }\right) }{\partial \theta \partial \theta
+^{\prime }} \\
+&=&\sum_{i=1}^{n}H_{i}\left( \theta _{n}^{\ast }\right) 
+\end{eqnarray*}%
+in the notation of (\ref{zH}), we can write (\ref{MVT}) as%
+\begin{equation}
+s_{n}\left( \theta _{0}\right) =-\sum_{i=1}^{n}H_{i}\left( \theta _{n}^{\ast
+}\right) \left( \hat{\theta}_{n}-\theta _{0}\right) .  \label{MVT1}
+\end{equation}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+The promised linearisation is established by (\ref{MVT1}). The last step is
+to write the score in terms of a sum of random vectors:%
+\begin{equation}
+s_{n}\left( \theta _{0}\right) =\frac{\partial \log f_{n}\left( X,\theta
+_{0}\right) }{\partial \theta }=\sum_{i=1}^{n}\frac{\partial \log f\left(
+X_{i},\theta _{0}\right) }{\partial \theta }=\sum_{i=1}^{n}z_{i}\left(
+\theta _{0}\right)   \label{Z}
+\end{equation}%
+in the notation of (\ref{zH}). Substituting into (\ref{MVT1}), we obtain%
+\begin{equation}
+\sum_{i=1}^{n}z_{i}\left( \theta _{0}\right) =-\sum_{i=1}^{n}H_{i}\left(
+\theta _{n}^{\ast }\right) \left( \hat{\theta}_{n}-\theta _{0}\right) .
+\label{MVT2}
+\end{equation}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality Conditions}
+
+\begin{description}
+\item[(N1)] The sample random vector $X=\left( X_{1},...,X_{n}\right) $
+consists of \textbf{i.i.d.} r.v.s with marginal density $f\left(
+X_{1},\theta \right) $ that is twice continuously differentiable w.r.t. $%
+\theta $.
+
+\item[(N2)] The support of $f\left( X_{1},\theta \right) $, $\left\{ X\in 
+\mathbb{R}:f\left( X_{1},\theta \right) >0\right\} $, is independent of $%
+\theta $.
+
+\item[(N3)] $\mathbb{E}\left\Vert H_{1}\left( \theta \right) \right\Vert
+<\infty $ for all $\theta \in \Theta $\ and $\mathbb{E}\left[ H_{1}\left(
+\theta _{0}\right) \right] $ is negative definite.
+
+\item[(N4)] The MLE $\hat{\theta}_{n}$ is consistent.
+
+\item[(N5)] The sequence of random matrices $H_{i}\left( \theta \right) $ in
+(\ref{zH}) satisfies the following \textit{uniform} law of large numbers on
+an open neighbourhood of $\theta _{0}$ $N\left( \delta \right) =\left\{
+\theta \in \Theta :\left\Vert \theta -\theta _{0}\right\Vert <\delta
+\right\} $: there exists $\delta >0$ such that%
+\begin{equation}
+\sup_{\theta \in N\left( \delta \right) }\left\Vert \frac{1}{n}%
+\sum_{i=1}^{n}H_{i}\left( \theta \right) -\mathbb{E}\left[ H_{1}\left(
+\theta _{0}\right) \right] \right\Vert \rightarrow _{p}0\;\;\;\;\text{as }%
+n\rightarrow \infty .  \label{ULLN}
+\end{equation}
+\end{description}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{itemize}
+\item Conditions (N2) and (N3) is a restatement of (RC2) and (RC3).
+
+\item Uniformity in (N5) serves the purpose of dealing with the intermediate
+point $\theta _{n}^{\ast }$ arising from the linearisation scheme: $%
+n^{-1}\sum_{i=1}^{n}H_{i}\left( \theta \right) \rightarrow _{p}\mathbb{E}%
+\left[ H_{1}\left( \theta \right) \right] $ as $n\rightarrow \infty $ for
+each $\theta $ by a standard WLLN since $\left\{ H_{i}\left( \theta \right)
+\right\} $ is an i.i.d. sequence with finite first moment.
+
+\item However, this WLLN is not enough as, looking at (\ref{MVT2}), it is
+clear that a law of large numbers on $n^{-1}\sum_{i=1}^{n}H_{i}\left( \theta
+_{n}^{\ast }\right) $ is required.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{lemma}
+Under (N1)-(N3), the random vectors $\left\{ z_{i}\left( \theta _{0}\right)
+:1\leq i\leq n\right\} $ in (\ref{zH}) are i.i.d. with $\mathbb{E}%
+z_{1}\left( \theta _{0}\right) =0$ and $\mathbb{E}\left[ z_{1}\left( \theta
+_{0}\right) z_{1}\left( \theta _{0}\right) ^{\prime }\right] =-\mathbb{E}%
+\left[ H_{1}\left( \theta \right) \right] $. In particular, as $n\rightarrow
+\infty $:%
+\begin{equation}
+\frac{1}{n}\sum_{i=1}^{n}z_{i}\left( \theta _{0}\right) \rightarrow
+_{p}0\;\;\;\text{and}\;\;\;\frac{1}{\sqrt{n}}\sum_{i=1}^{n}z_{i}\left(
+\theta _{0}\right) \rightarrow _{d}N\left( 0,-\mathbb{E}\left[ H_{1}\left(
+\theta _{0}\right) \right] \right) .  \label{limZ}
+\end{equation}
+\end{lemma}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+By their definition in (\ref{Z}), $\left\{ z_{i}\left( \theta _{0}\right)
+:1\leq i\leq n\right\} $ are i.i.d. because the sample $X=\left(
+X_{1},...,X_{n}\right) $ consists of i.i.d. random variables $X_{i}$. We
+evaluate the first two moments of $z_{1}\left( \theta _{0}\right) $: by (\ref%
+{Z}), the theorem on the first two moments of the score vector and the
+identical distribution assumption on $X_{i}$,%
+\begin{equation*}
+0=\mathbb{E}s_{n}\left( \theta _{0}\right) =\sum\nolimits_{i=1}^{n}\mathbb{E}%
+z_{i}\left( \theta _{0}\right) =n\mathbb{E}z_{1}\left( \theta _{0}\right)
+\Longrightarrow \mathbb{E}z_{1}\left( \theta _{0}\right) =0.
+\end{equation*}%
+Similarly, the theorem on the score vector and the i.i.d. property of $%
+z_{i}\left( \theta _{0}\right) $ give%
+\begin{gather*}
+-n\mathbb{E}\left[ H_{1}\left( \theta _{0}\right) \right] =\mathcal{I}%
+_{n}\left( \theta _{0}\right) =\mathbb{E[}s_{n}\left( \theta _{0}\right)
+s_{n}\left( \theta _{0}\right) ^{\prime }] \\
+=\sum\nolimits_{i=1}^{n}\sum\nolimits_{j=1}^{n}\mathbb{E}\left[ z_{i}\left(
+\theta _{0}\right) z_{j}\left( \theta _{0}\right) ^{\prime }\right] \\
+=\sum\nolimits_{i=1}^{n}\mathbb{E}\left[ z_{i}\left( \theta _{0}\right)
+z_{i}\left( \theta _{0}\right) ^{\prime }\right] =n\mathbb{E}\left[
+z_{1}\left( \theta _{0}\right) z_{1}\left( \theta _{0}\right) ^{\prime }%
+\right]
+\end{gather*}
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+So, since $\mathcal{I}_{n}\left( \theta _{0}\right) =-n\mathbb{E}\left[
+H_{1}\left( \theta _{0}\right) \right] $ by (\ref{2.20}), we obtain $\mathbb{%
+E}\left[ z_{1}\left( \theta _{0}\right) z_{1}\left( \theta _{0}\right)
+^{\prime }\right] =-\mathbb{E}\left[ H_{1}\left( \theta _{0}\right) \right] $%
+.
+
+Since $\left\{ z_{i}\left( \theta _{0}\right) :1\leq i\leq n\right\} $ are
+i.i.d. random vectors, the first part of (\ref{limZ}) follows by the
+standard WLLN and the second part of (\ref{limZ}) follows by the standard
+CLT.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{theorem}
+Under (N1)-(N5),%
+\begin{equation*}
+\sqrt{n}\left( \hat{\theta}_{n}-\theta _{0}\right) \rightarrow _{d}\mathcal{N%
+}\left( 0,-\mathbb{E}\left[ H_{1}\left( \theta _{0}\right) \right]
+^{-1}\right) .
+\end{equation*}
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality of the MLE}
+
+\begin{proof}
+Since $\mathbb{E}\left[ H_{1}\left( \theta _{0}\right) \right] <0$ by (C3),
+we conclude that the matrix $\frac{1}{n}\sum_{i=1}^{n}H_{i}\left( \theta
+_{n}^{\ast }\right) $ is negative definite for $n$ large enough. Rearranging
+(\ref{MVT2}) then yields for $n$ large enough%
+\begin{eqnarray*}
+\sqrt{n}\left( \hat{\theta}_{n}-\theta _{0}\right) &=&\left[ -\frac{1}{n}%
+\sum_{i=1}^{n}H_{i}\left( \theta _{n}^{\ast }\right) \right] ^{-1}\frac{1}{%
+\sqrt{n}}\sum_{i=1}^{n}z_{i}\left( \theta _{0}\right) \\
+&\rightarrow &\!\!\!\!\!_{d}\text{ \ }-\mathbb{E}\left[ H_{1}\left( \theta
+_{0}\right) \right] ^{-1}\mathcal{N}\left( 0,-\mathbb{E}\left[ H_{1}\left(
+\theta _{0}\right) \right] \right) \\
+&\rightarrow &\!\!\!\!\!_{d}\text{ \ }\mathcal{N}\left( 0,-\mathbb{E}\left[
+H_{1}\left( \theta _{0}\right) \right] ^{-1}\right)
+\end{eqnarray*}%
+as required.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Asymptotic Efficiency}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Efficiency}
+
+\begin{corollary}
+The MLE $\hat{\theta}_{n}$ attains the Cram\'{e}r-Rao lower bound as $%
+n\rightarrow \infty $.
+\end{corollary}
+
+\begin{proof}
+Theorem 4 implies that%
+\begin{equation*}
+V\left( \hat{\theta}_{n}\right) =\frac{1}{n}V\left[ \sqrt{n}\left( \hat{%
+\theta}_{n}-\theta _{0}\right) \right] \sim -\frac{1}{n}\mathbb{E}\left[
+H_{1}\left( \theta _{0}\right) \right] ^{-1}
+\end{equation*}%
+as $n\rightarrow \infty $. By (\ref{2.20}), $\mathcal{I}_{n}\left( \theta
+_{0}\right) =-n\mathbb{E}\left[ H_{1}\left( \theta _{0}\right) \right] $,
+giving%
+\begin{equation*}
+\lim_{n\rightarrow \infty }\left[ V\left( \hat{\theta}_{n}\right) -\mathcal{I%
+}_{n}\left( \theta _{0}\right) ^{-1}\right] =0.
+\end{equation*}%
+We conclude that: \textit{since the MLE is asymptotically unbiased}, it is
+the \textbf{best} possible estimator in large samples (in MSE sense).
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{MLE Applications}
+
+\begin{itemize}
+\item There are various MLE applications
+
+\item In economics: binary dependent variable models: Logit, Probit, Tobit...
+
+\item In finance: ARCH, GARCH...
+
+\item Stochastic volatility models, state space models
+
+\item Bayesian econometrics
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Quasi MLE}
+
+\begin{itemize}
+\item The most crucial assumption that we did not explicitly laid out is
+that the density of the data $f(X;\theta )$ is known.
+
+\item MLE\ is a full-information technique and is more efficient than
+limited-information methods only under correctly specified $f(X;\theta ).$
+
+\item It turns out, however, that if $f(X;\theta )$ is mis-specified,
+consistency and asymptotic normality can be obtained nevertheless.
+
+\item Such methods are called Quasi- or Pseudo- MLE.
+
+\item In particular, there exists a large number of pseudo true
+distributions leading to consistent QMLEs.
+
+\item The cost that one needs to bear is loss of efficiency,%
+\begin{equation*}
+\sqrt{n}\left( \hat{\theta}_{n}-\theta _{0}\right) \rightarrow \!_{d}\text{
+\ }\mathcal{N}\left( 0,I(\theta _{0})^{-1}\mathbb{E}_{Y}\mathbb{E}%
+_{0}[s(X,\theta _{0})s(X,\theta _{0})^{\prime }]I(\theta _{0})^{-1}\right)
+\end{equation*}
+
+where $\mathbb{E}_{Y}\mathbb{E}_{0}[s(X,\theta _{0})s(X,\theta _{0}^{\prime
+})]\neq I(\theta _{0})=-\mathbb{E}_{Y}\mathbb{E}_{0}J(X,\theta _{0}).$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

@@ -1,0 +1,145 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Monday, December 19, 2022 11:25:46}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Exam}\bigskip 
+\end{center}
+
+\textbf{Question 1}
+
+(a) State (without proof) the Gauss Markov and Cram\'{e}r Rao theorems, and
+explain the differences between the two.
+
+(b) State the Central Limit Theorem for a sequence of i.i.d. random
+variables carefully stating any conditions required. Briefly explain the
+theorem's importance for statistical inference.
+
+(c) Suppose $\sqrt{n}\left( \hat{\theta}_{n}-\theta \right) \approx \mathcal{%
+N}\left( 0,2\right) $ and you want to test a null hypothesis $H_{0}:\theta =0
+$ vesus a two-sided alternative $H_{1}:\theta \neq 0.$ Explain how to
+conduct a $z$ test at some significance level $1-\alpha $, and how the $z$
+statistic behaves under the null and alternative.
+
+(d) Define Type I and Type II errors in hypothesis testing and explain how
+the probability of making such errors relates to the size and power of the
+test.
+
+\bigskip
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors, $\beta $ is a $k\times 1$ vector of unknown parameters, and $%
+\varepsilon $ is an $n\times 1$ vector of unobserved random variables. The
+standard assumptions provided in the lecture are assumed to hold.
+
+(a) Suppose there are two explanatory variables, $k=2,$ so that $%
+y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon .$ State without proof the
+Frisch-Waugh-Lovell theorem for the OLS estimator $\hat{\beta}_{1}.$
+
+(b) Consider two economists estimating the following regression models:
+Economist 1 estimates $y=X_{1}\beta _{1}+\varepsilon $ while Economist 2
+also includes $X_{2}$ and estimates instead $y=X_{1}\beta _{1}+X_{2}\beta
+_{2}+\varepsilon .$ What are the estimators of the two economists for $\beta
+_{1}$?
+
+(c) Given that the true data generating process is $y=X_{1}\beta
+_{1}+X_{2}\beta _{2}+\varepsilon ,$ show that that the estimator for $\beta
+_{1}$ of Economist 2 is unbiased.
+
+(d) Given that the true data generating process is $y=X_{1}\beta
+_{1}+X_{2}\beta _{2}+\varepsilon ,$ show that the estimator for $\beta _{1}$
+of Economist 1 is biased. Discuss this result in relation to omitted
+variable bias.
+
+(e)\ Now suppose the true data generating process is $y=X_{1}\beta
+_{1}+\varepsilon ,$ so $\beta _{2}=0.$ Are the two estimators of the two
+economists unbiased?
+
+(f) Given that the true $\beta _{2}=0,$ compare the variance of $\hat{\beta}%
+_{1}$ for the two economists. What can you conclude about the tradeoff
+between bias and variance when deciding which explanatory variables to
+include?
+
+\bigskip 
+
+\textbf{Question 3 }
+
+Consider the linear regression model 
+\begin{equation*}
+y=X\beta +\varepsilon 
+\end{equation*}%
+where $y$ is an $n\times 1$ vector of dependent variables, $X$ is an $%
+n\times k$ matrix of stochastic regressors of rank $k$, $\varepsilon |X\sim 
+\mathcal{N}(0,\sigma ^{2}I_{n})$ are random variables, and $\beta $ is a $%
+k\times 1$ vector of unknown parameters$.$
+
+(a) Set up the log likelihood function and derive the ML estimators $%
+\widehat{\beta }^{ML}$ and $\widehat{\sigma }^{2,ML}.$ Recall the definition
+of the density of an $m-$dimensional Gaussian vector $z\sim \mathcal{N}(\mu
+,\Omega ):$ 
+\begin{equation*}
+f\left( z\right) =\left( 2\pi \right) ^{-m/2}\det \left( \Omega \right)
+^{-1/2}e^{-\frac{1}{2}\left( z-\mu \right) ^{\prime }\Omega ^{-1}\left(
+z-\mu \right) }.
+\end{equation*}
+
+(b) Show that $\widehat{\sigma }^{2,ML}$ is biased and propose a bias
+corrected estimator for $\sigma ^{2}.$
+
+(c) Show that $\widehat{\sigma }^{2,ML}$ is asymptotically unbiased, and
+consistent.
+
+(d) Derive the distribution of $\widehat{\beta }^{ML}|X$ and explain how it
+can be used for testing. 
+
+(e) Compute the Fisher information matrix for the $(k+1)\times 1$ vector of
+parameters $[\beta ,\sigma ^{2}].$
+
+(f) Are $\widehat{\beta }^{ML}$ and $\widehat{\sigma }^{2,ML}$ efficient?
+
+\end{document}

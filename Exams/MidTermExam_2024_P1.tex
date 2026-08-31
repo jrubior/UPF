@@ -1,0 +1,253 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+%\usepackage{math}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{\fbox{\begin{minipage}{6em}\textbf{\color{red} \Large TYPE 1}\end{minipage}}}
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Mid-Term Exam} \\[1em] \small{November, 4th 2024}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 60 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item You must write your name and identification numbers wherever it is required on the optical sheet and main document. Please, fill in ``00'' plus the numbers following the ``U'' of your NIA identification.
+    \item Report the permutation in the optical sheet. Failing to do so will result in disqualification.
+    \item Write legibly and clearly. Illegible answers will not receive any credit.
+    \item Multiple-choice test answers must be recorded in the designated table and not anywhere else.
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food or drinks are allowed in the examination room.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+
+\newpage
+
+{\large \textbf{Correct Answer: +1pt, Wrong Answer: -0.5pt, No Answer: 0pt}}\\[1em]
+
+
+
+\begin{enumerate}
+
+\item  When a set of multiple mutually exclusive binary variables are included as regressors in a regression specification
+  \begin{enumerate}[label=\alph*)]
+  \item They are colinear with one another, and at least one of these binary variables and the intercept must be dropped  
+  \item They are colinear with the intercept, and at least one of these binary variables and the intercept must be dropped  
+  \item They are colinear with one another, and at least one of these binary variables or the intercept must be dropped  
+  \item They are colinear with the intercept, and at least one of these binary variables or the intercept must be dropped  
+  \end{enumerate}\vspace{.25cm}
+
+\item When making sense of the coefficient ($\beta$) associated with a dummy variable, the most appropriate interpretation is:
+\begin{enumerate}[label=\alph*)]
+    \item The difference in the average values of the dependent variable between the two groups captured by the dummy variable.
+    \item The difference in the average values of the independent variable between the two groups captured by the dummy variable.
+    \item The probability of the dependent variable being equal to 1 for the group represented by the dummy variable.
+    \item The ratio of the means of the independent variable between the two groups.
+\end{enumerate}\vspace{.25cm}
+
+\item Consider the following regression model:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i
+\end{equation*}
+where $i=1,...,n$ and $\{Y, X_1, X_2\}$ are independent and identically distributed (i.i.d.) draws from their joint
+distribution. Assume that $\hat{\beta_1}=0$. Then,  $\hat{\beta_2}$ equals
+
+\begin{enumerate}[label=\alph*)]
+\item \begin{equation*}
+    \frac{\sum_i Y_iX_{2i}-\hat{\beta_0}\sum_i X_{2i}}{\sum_i X_{2i}^2}
+\end{equation*}
+
+\item \begin{equation*}
+    \frac{\sum_i Y_iX_{2i}-\hat{\beta_0}\sum_i X_{2i}}{\sum_i (X_{2i}-\overline{X}_2)^2}
+\end{equation*}
+
+\item \begin{equation*}
+    \frac{\sum_i Y_iX_{1i}-\hat{\beta_0}\sum_i X_{1i}}{\sum_i X_{1i}^2}
+\end{equation*}
+
+\item \begin{equation*}
+    \frac{\sum_i Y_iX_{1i}-\hat{\beta_0}\sum_i X_{1i}}{\sum_i (X_{1i}-\overline{X}_1)^2}
+\end{equation*}
+
+\end{enumerate}\vspace{.25cm}
+
+\item Consider a random variable $X\stackrel{iid}{\sim}\mathcal{N}(\mu, \sigma^2)$. You wish to estimate $\mu$. The estimator $\hat{\mu}\equiv X_i$ is...
+
+\begin{enumerate}[label=\alph*)]
+\item unbiased and consistent
+\item unbiased and inconsistent
+\item biased and consistent
+\item biased and inconsistent
+\end{enumerate}\vspace{.25cm}
+
+\item In the simple regression model $Y_i = \beta_0 + \beta_1 X_{1i} + u_i$, the standard error of the Ordinary Least Square estimator $\hat{\beta}_1$...
+
+\begin{enumerate}[label=\alph*)]
+\item decreases with the total sum of squares
+\item increases with the explained sum of squares
+\item increases with the sum of the squared residuals
+\item None of these answers are correct
+\end{enumerate}\vspace{.25cm}
+
+\item Let $X$ be a random variable with population mean $\mu_X$ and variance $\sigma^2_{X}$. Let $\overline{X}$ be the sample average and $\sigma^2_{\overline{X}}$ be the variance of the sample average. The Central Limit Theorem states that $\frac{\overline{X}-\mu_X}{\sigma_{\overline{X}}}\overset{p}{\to}\mathcal{N}(0,1)$ if...
+
+\begin{enumerate}[label=\alph*)]
+\item $X\stackrel{iid}{\sim}\mathcal{N}(\mu_X, \sigma_X^2)$
+\item $X\stackrel{iid}{\sim}\text{Poi}(\lambda)$
+\item $X\stackrel{iid}{\sim}\text{Bernouilli}(p)$
+\item All of these answers are correct
+\end{enumerate}\vspace{.25cm}
+
+\item Let $X$ be a random variable with population mean $\mu_X$ and variance $\sigma^2_{X}$. Let $\overline{X}$ be the sample average and $\sigma^2_{\overline{X}}$ be the variance of the sample average. Chebyshev’s inequality states that, for any constant $k>0$, $P\left( |\overline{X} - \mu| \geq k \right) \leq \frac{\sigma^2_{\overline{X}}}{k^2}$. Which theorem directly follows from this inequality?
+
+\begin{enumerate}[label=\alph*)]
+\item The Central Limit Theorem
+\item The Weak Law of Large Numbers
+\item The Gauss-Markov Theorem 
+\item None of these answers are correct
+\end{enumerate}\vspace{.25cm}
+
+\item When trying to achieve causal inference, control variables must never be...
+
+\begin{enumerate}[label=\alph*)]
+\item correlated with the residual term
+\item correlated with the treatment variable
+\item correlated with other control variables
+\item None of these answers are correct
+\end{enumerate}\vspace{.25cm}
+
+
+\begin{table}[b!]
+\begin{center}
+\caption{\sc Balance Tests}\\\vspace{.25cm}
+\begin{tabular}{l|ccc|}
+\cline{2-4}
+ & Treated Group & Control Group & Difference \\ \hline
+\multicolumn{1}{|l|}{Population (log)} & 10.627 & 10.556 & -0.071 \\
+\multicolumn{1}{|l|}{} & (1.307) & (1.447) & {[}0.158{]} \\
+\multicolumn{1}{|l|}{GDP per capita (log)} & 11.294 & 11.342 & 0.048 \\
+\multicolumn{1}{|l|}{} & (0.468) & (0.498) & {[}0.056{]} \\
+\multicolumn{1}{|l|}{African American (share)} & 0.240 & 0.156 & -0.083 \\
+\multicolumn{1}{|l|}{} & (0.167) & (0.164) & {[}0.019{]} \\
+\multicolumn{1}{|l|}{Younger than 18 yo (share)} & 0.371 & 0.354 & -0.017 \\
+\multicolumn{1}{|l|}{} & (0.046) & (0.038) & {[}0.005{]} \\
+\multicolumn{1}{|l|}{Older than 65 yo (share)} & 0.100 & 0.105 & 0.004 \\
+\multicolumn{1}{|l|}{} & (0.046) & (0.035) & {[}0.005{]} \\
+\multicolumn{1}{|l|}{Employment Rate} & 0.935 & 0.948 & 0.013 \\
+\multicolumn{1}{|l|}{} & (0.026) & (0.002) & {[}0.003{]} \\
+\multicolumn{1}{|l|}{Area (log, km2)} & 7.606 & 7.221 & -0.386 \\
+\multicolumn{1}{|l|}{} & (0.586) & (0.578) & {[}0.068{]} \\
+\multicolumn{1}{|l|}{Distance to East Coast (km)} & 81.479 & 81.038 & 0.442 \\
+\multicolumn{1}{|l|}{} & (66.883) & (36.392) & {[}6.671{]} \\ \hline
+\multicolumn{1}{|l|}{Observations} & 202 & 118 & 320 \\ \hline
+\end{tabular}
+\end{center}
+\footnotesize{\textbf{Notes:} This table compares treated counties (Column 1) with non-treated coastal counties that are within the same average distance to the coast as the treated counties (Column 2). The difference is reported in Column 3. Standard deviations are reported in parentheses, and standard errors are indicated in brackets. \par \vspace{3cm}} 
+\end{table}
+
+
+\item A researcher aims to study the impact of the 2004 hurricane season on local consumption in the United States. To ensure she makes valid comparisons, she compares coastal counties that were affected by hurricanes with other coastal counties, at the same distance from the coast, that were not affected by hurricanes. The comparisons are drawn before the sample period. Table 1 presents her results. Which of the following statements is correct?
+
+\begin{enumerate}[label=\alph*)]
+\item The number of observations in the treatment and control groups are different, which might indicate the first OLS assumption is violated.
+\item  The averages reported in the first two columns are sometimes statistically different from zero,  which might indicate the first OLS assumption is violated.
+\item The averages reported in the last column are sometimes statistically different from zero,  which might indicate the first OLS assumption is violated.
+\item None of these answers are correct.
+\end{enumerate}\vspace{.25cm}
+
+\newpage
+
+\item In the context of regression analysis, the F-statistic is used to test the overall significance of the model. Suppose you run a linear regression and test the null hypothesis that all the coefficients (except the intercept) are equal to zero. Which of the following statements is correct?
+
+\begin{enumerate}[label=\alph*)]
+\item The F-statistic tests whether the model fits the data well compared to a model with no predictors.
+\item A significant F-test suggests that at least one of the coefficients in the full model is different from zero, indicating that the restricted model is a better fit.
+\item A significant F-test suggests we can confidently draw causal inferences from our estimates.
+\item None of these answers are correct.
+\end{enumerate}\vspace{.25cm}
+
+\item In simple hypothesis testing, to evaluate statistical significance, one might use
+
+\begin{enumerate}[label=\alph*)]
+\item Student's t-statistic
+\item P-value
+\item Confidence Intervals
+\item All of these answers are correct.
+\end{enumerate}\vspace{.25cm}
+
+\item In the following hypothesis test: $H_0 = 0$ vs $H_1 \neq 0$, the p-value refers to...
+
+\begin{enumerate}[label=\alph*)]
+\item the probability of obtaining a result as extreme as the one observed in the sample data if the null hypothesis is true
+\item the probability of Type II error
+\item the area under the standard normal probability density function curve to the right of the observed t-statistic
+\item All of these answers are correct.
+\end{enumerate}\vspace{.25cm}
+
+
+\end{enumerate}\vspace{.25cm}
+
+
+\end{document}

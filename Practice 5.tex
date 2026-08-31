@@ -1,0 +1,391 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+%\usepackage{enumitem}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex} 
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+
+\usepackage{minted}   % code prettyfier
+\usepackage{xsavebox} % file-size-efficient saveboxes
+\usepackage{animate}  % for animated scrolling
+\usepackage{MnSymbol} % \triangle, \triangledown for scroll buttons
+\usepackage{media9}   % buttons
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \smoothScroll[<animate opts>]    % autoplay,loop,... (see: texdoc animate)
+%              {<xsavebox id>}
+%              {<viewport height>}
+%              {<steps>}           % scrolling granularity
+%              {<steps per sec>}   % while playing; >25 doesn't make sense
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\smoothScroll[5][]{%
+  \savebox\myMeasBox{\xusebox{#2}}%
+  \edef\mywd{\the\wd\myMeasBox}%
+  \edef\myht{\the\ht\myMeasBox}%
+  \edef\mytht{\the\dimexpr\ht\myMeasBox+\dp\myMeasBox\relax}%
+  \edef\portht{\the\dimexpr#3\relax}%
+  \begin{animateinline}[#1,label={#2},width=\mywd,height=\portht]{#5}%
+    \multiframe{#4}{%
+      dRaiseLen=\the\dimexpr-\myht+\portht\relax+\the\dimexpr(\mytht-\portht)/%
+                \numexpr#4-1\relax\relax
+    }{%
+      \begin{minipage}[b][\portht][b]{\mywd}%
+        \raisebox{\dRaiseLen}[0pt][0pt]{\xusebox{#2}}%
+      \end{minipage}%
+    }%
+  \end{animateinline}%
+}
+\newsavebox\myMeasBox % for measuring purposes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \topScrollButton{<xsavebox id>}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\topScrollButton[1]{%
+  \mediabutton[
+    jsaction={
+      if(event.shift){anim['#1'].pause();anim['#1'].frameNum=0;}
+      else try{anim['#1'].frameNum--}catch(e){}
+    }
+  ]{\fboxsep=0pt\framebox[\widthof{\xusebox{#1}}][c]{%
+    \tiny\strut\raisebox{-0.2\height}{$\triangle\triangle\triangle$}}%
+  }%
+}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \botScrollButton{<xsavebox id>}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\botScrollButton[1]{%
+  \mediabutton[
+    jsaction={
+      if(event.shift){anim['#1'].pause();anim['#1'].frameNum=anim['#1'].numFrames-1;}
+      else try{anim['#1'].frameNum++}catch(e){}
+    }
+  ]{\fboxsep=0pt\framebox[\widthof{\xusebox{#1}}][c]{%
+    \tiny\strut\raisebox{0.1\height}{$\triangledown\triangledown\triangledown$}}%
+  }%
+}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill 
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+\setbeamercolor{block title alert}{fg=black,bg=green!50!white}
+\setbeamercolor{block body alert}{fg=black, bg=green!30!white}
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em} 
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
+
+
+\title[]{\textcolor{blue}{Practice 5: OVB's Hide and Seek}}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+\date{November 28th, 2023}
+
+\begin{document}
+
+
+% Title Slide
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\begin{frame}{What we learned in the last lesson}
+\begin{itemize}
+\item When $Y$ is a binary variable, the population regression function shows the probability that $Y = 1$ given the value of the regressors, $X_1, X_2,\dots, X_k$.
+\item The linear multiple regression model is called the linear probability model when $Y$ is a binary variable because the probability that $Y = 1$ is a linear function of the regressors.
+\item Probit and logit regression models are nonlinear regression models used when Y is a binary variable. Unlike the linear probability model, probit and logit regressions ensure that the predicted probability that $Y = 1$ is between 0 and 1 for all values of $X$.
+\item Probit regression uses the standard normal cumulative distribution function. Logit regression uses the logistic cumulative distribution function. Logit and probit coefficients are estimated by maximum likelihood.
+\item The values of coefficients in probit and logit regressions are not easy to interpret. Changes in the probability that $Y = 1$ associated with changes in one or more of the $X$’s depends on the initial value of $X$.
+\item Hypothesis tests on coefficients in the linear probability, logit, and probit models are performed using the usual t- and F-statistics.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Practice Setting}
+\begin{block}{Your Research Question}
+    What is the elasticity-price of cigarettes?
+\end{block}\vspace{.5cm}
+\textit{Why are we interested in knowing the elasticity of demand for cigarettes?}\\[1em]
+
+\begin{itemize}
+    %\item \textbf{Theory of optimal taxation --- } The optimal tax rate is inversely related to the price elasticity: the greater the elasticity, the less quantity is affected by a given percentage tax, so the smaller is the change in consumption and deadweight loss.\\[1em]
+    \item \textbf{Non-monetary externalities ---} role for government intervention to discourage smoking health effects of second-hand smoke? \\[1em]
+    \item \textbf{Monetary externalities ---} Pressure on public health system
+\end{itemize}
+\vfill
+\textit{By the way... what is an externality?}
+
+\end{frame}
+
+
+\begin{frame}{Threats to Internal Validity}
+
+\begin{exampleblock}{Question}
+    What is internal validity? How does it differ from external validity?
+\end{exampleblock}
+
+Remember... There are 5 threats to the internal validity of regression studies:
+\begin{itemize}
+    \item Omitted variable bias
+    \item Wrong functional form
+    \item Errors-in-variables bias
+    \item Sample selection bias
+    \item Simultaneous causality bias
+\end{itemize}\\[1em]
+All of these imply that $\mathbb{E}(u_i\mid X_1, X_2, \dots, X_k)\neq 0$ (or that the conditional mean independence fails) -- in which case OLS is biased and inconsistent!
+
+
+\begin{exampleblock}{Question}
+    What can we do to tackle each one of them?
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}{Panel Dataset}
+\begin{exampleblock}{Question}
+    What is a panel dataset? Why is it useful? A cross-sectional dataset?
+\end{exampleblock}
+\vspace{.5cm}
+\textbf{Your panel:}
+\begin{itemize}
+    \item 48 continental U S states, 1985–1995
+    \item Annual cigarette consumption
+    \item Average prices paid by end consumer (including tax)
+    \item Personal income
+    \item Tax rates (cigarette-specific and general statewide sales tax rates)
+\end{itemize}
+\begin{exampleblock}{Question}
+    What would be your main empirical strategy to answer the research question at hand?
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{Estimation Strategy}
+We need to combine \underline{both} IV and panel data methods! \\[.25em]
+\begin{itemize}
+    \item[$\longrightarrow$] We need unit fixed effects which control for unobserved state-level characteristics that affect the demand for cigarettes and the tax rate, as long as those characteristics don’t vary over time.
+\end{itemize}
+\begin{equation*}
+    log(Q^{cigarettes}_{it}) = \alpha_i + \beta_1 log(P^{cigarettes}_{it}) + \beta_2 log(Income_{it}) + u_{it}
+\end{equation*}
+\begin{exampleblock}{Question}
+    How should you interpret $\beta_1$? Why controlling for $Income$ ? 
+\end{exampleblock}
+
+\begin{itemize}
+   \item[$\longrightarrow$] We need IV methods to handle the simultaneous causality bias that arises from the interaction of supply and demand.\\[1em]
+\end{itemize}
+
+
+\begin{exampleblock}{Question}
+    What is simultaneous causality bias and how is it related to the problem at hand?
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{Long Term Effects}
+One way to account for state fixed effects is to model long-term effects (\textit{why?}), e.g., consider 10-year changes, between 1985 and 1995\\[.25em]
+
+Rewrite the regression in “changes” form:
+\begin{eqnarray*}
+    &log(Q^{cigarettes}_{i,1995})\text{--}log(Q^{cigarettes}_{i,1985}) &= \beta_1 [log(P^{cigarettes}_{i,  1995}\text{--}log(P^{cigarettes}_{i,  1985})]\\
+    & {} &+ \beta_2 [log(Income_{i,  1995})\text{--}log(Income_{i,  1985})]\\
+    & {} &+ [u_{i,  1995}-u_{i,  1985}]
+\end{eqnarray*}
+Then estimate the demand elasticity by 2SLS using 10-year changes in the instrumental variables
+
+\begin{exampleblock}{Question}
+    How would you write the corresponding short-run specification, while accounting for state fixed effects, $\alpha_i$ ? 
+\end{exampleblock}
+
+
+\end{frame}
+
+
+\begin{frame}{Long Term Effects}
+\begin{table}[]
+\begin{tabular}{l|ccc|}
+\cline{2-4}
+                                                                                                                               & \multicolumn{3}{c|}{ {$log(Q^{cigarettes}_{i,1995})$--$log(Q^{cigarettes}_{i,1985})$}} \\
+                                                                                                                               & \multicolumn{3}{c|}{ } \\
+                                                                                                                               & (1)                                        & (2)                                                     & (3)                                     \\ \hline
+\multicolumn{1}{|l|}{$log(P^{cigarettes}_{i,  1995}$ -- $log(P^{cigarettes}_{i,  1985})$} & -0.094                                     & -1.34                                                   & -1.20                                   \\
+\multicolumn{1}{|l|}{}                                                                                                         & (0.21)                                     & (0.23)                                                  & (0.20)                                  \\
+\multicolumn{1}{|l|}{$log(Income_{i,  1995})$ -- $log(Income_{i,  1985})$}                                                      & 0.53                                       & 0.43                                                    & 0.46                                    \\
+\multicolumn{1}{|l|}{}                                                                                                         & (0.34)                                     & (0.30)                                                  & (0.31)                                  \\
+\multicolumn{1}{|l|}{Constant}                                                                                                 & -0.12                                      & -0.02                                                   & -0.05                                   \\
+\multicolumn{1}{|l|}{}                                                                                                         & (0.07)                                     & (0.07)                                                  & (0.06)                                  \\ \hline
+\multicolumn{1}{|l|}{Instrumental Variable(s)}                                                                                 & Sales tax                                  & Cigarette tax                                  & Both                                    \\
+\multicolumn{1}{|l|}{First-stage-F-statistic}                                                                                  & 33.7                                       & 107.2                                                   & 88.6                                    \\
+\multicolumn{1}{|l|}{J-Statistic}                                                                                              & --                                         & --                                                      & 4.93                                    \\
+\multicolumn{1}{|l|}{}                                                                                      & --                                         & --                                                    & [0.026]                                 \\ \hline
+\end{tabular}
+\end{table}
+{\footnotesize Robust standard errors are reported in parenthesis. p-values are reported in brackets.}
+\end{frame}
+
+\begin{frame}{Pop-up Quiz}
+\begin{exampleblock}{Question(s)}
+    \begin{itemize}
+        \item[1.] Interpret the coefficients of interest
+        \item[2.] Do they seem large? Small?
+        \item[3.] How do we interpret the coefficients of the LR difference in income? What does it suggest?
+        \item[4.] What are the two conditions required for a valid instrument?
+        \item[5.] How to check for each condition?
+        \item[6.] What is a J-test? 
+        \item[7.] How do we interpret the J-statistic?
+        \item[8.] Here, we are looking at long-run (ten-year change) elasticities. What would you expect a short-run (one-year change) elasticity to be --- more or less elastic?
+        \item[9.] What are the remaining threats to internal validity?
+        \item[10.] Discuss the external validity of the results
+    \end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{}
+\begin{center}
+    {\Large Good Luck for the Exam!}
+\end{center}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,446 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{tablefootnote}
+\usepackage{subfig}
+\usepackage{graphicx}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[R]{\begin{minipage}{10em}\textbf{\color{red} \large ID:}\end{minipage}}
+\fancyhead[L]{\begin{minipage}{13em}\textbf{\color{red} \large NAME:}\end{minipage}}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{\fbox{\begin{minipage}{6em}\textbf{\color{red} \Large TYPE 3}\end{minipage}}}
+
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Final Exam} \\[1em] \small{December, 9th 2024}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 90 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item You must write your name and identification numbers wherever it is required on the optical sheet and main document. Please, fill in ``00'' plus the numbers following the ``U'' of your NIA identification.
+    \item Report the permutation in the optical sheet. Failing to do so will result in disqualification.
+    \item Write legibly and clearly in the dedicated boxes. Illegible answers and answers out of the boxes will not receive any credit.
+    \item Multiple-choice test answers must be recorded in the designated optical sheet and not anywhere else. 
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food is allowed in the examination room. Water is allowed.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART I: MULTIPLE CHOICE (10 points)}}\\
+
+{\large \textbf{Correct Answer: +.5pt, Wrong Answer: -0.25pt, No Answer: 0pt}}%
+}\\[2em]
+
+
+\parindent
+
+\begin{enumerate}
+
+\item In statistics, two variables \(X\) and \(Y\) are considered independent from one another if:
+    \begin{enumerate}[label=\alph*)]
+        \item They do not have a positive correlation.
+        \item The correlation coefficient is zero.
+        \item If they can be used as control variables.
+        \item None of these answers
+    \end{enumerate}\vspace{.45cm}
+
+\item How is the significance level connected to the likelihood of a Type I or Type II error?
+
+\begin{enumerate}[label=\alph*)]
+  \item The significance level is the probability of making a Type I error.
+  \item The significance level determines the statistical power of a test and is not connected to Type I error.
+  \item The significance level is used to calculate the p-value in hypothesis testing, and it is not connected to Type I or Type II errors.
+  \item The significance level represents the likelihood of committing a Type II error, not a Type I error.
+\end{enumerate}\vspace{.45cm}
+
+\item Consider the IV regression model
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i + \beta_2 W_i + u_i
+\end{equation*}
+
+where $X_i$ is correlated with $u_i$ and $Z_i$ is an instrument. Suppose that $E[u_i~\vert~ W_{i}] = 0$; $\{X_{i}, W_{i}, Z_{i}, Y_i\}$ are i.i.d. draws from their joint
+distribution and that large outliers are unlikely. Under which condition(s) would $Z_i$ fail to be a relevant instrument?
+
+\begin{enumerate}[label=\alph*)]
+\item $Z_i = X_i$
+\item $W_i = 1$ for all i
+\item $Z_i$ is independent of $(Y_i, X_i, W_i)$
+\item All of these answers are correct
+\end{enumerate}\vspace{.4x5cm}
+
+
+
+\item Consider the IV regression model
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i + \beta_2 W_i + u_i
+\end{equation*}
+where $X_i$ is correlated with $u_i$ and $Z_i$ is an instrument that fulfills the exclusion restriction assumption. Then the two-stage least square estimator of $\beta_1$, $\hat{\beta}_1^{TSLS}$ is given by
+\begin{enumerate}[label=\alph*)]
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, X_i)}{Var(Z_i)}$
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, W_i)}{Var(Z_i)}$ 
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, X_i)}{Cov(Z_i, W_i)}$
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, W_i)}{Cov(Z_i, X_i)}$ 
+\end{enumerate}\vspace{.25cm}
+
+\newpage
+
+\item You have a representative sample of women between 15 and 65 and want to study the impact of age on fertility, regressing the number of kids on the age of the mother. The following expression summarizes your results:
+\begin{equation*}
+    \widehat{Kids}_i = -7.742 + 0.35~age_i - 0.005~age_i^2 + \mathbf{\beta}\textbf{X}_{i}' + u_i
+\end{equation*}
+
+Where $Kids_i$ is the number of kids, $age_i$ is the age (in years) of woman $i$, and $\textbf{X}_{i}$ is a vector of control variables. The coefficients on $age_i$ and $age_i^2$ are both strongly statistically significant. From the results of this regression model, you can conclude that:
+
+\begin{enumerate}[label=\alph*)]
+\item Fertility starts declining after age 35.
+\item All else being equal, one more year increases fertility by 0.35 kids on average.
+\item The negative coefficient on  $age_i^2$ implies fertility decreases continuously with age.
+\item None of these answers is correct.
+\end{enumerate}\vspace{.25cm}
+
+    \item In panel data regression analysis, time fixed effects primarily control for:
+    \begin{enumerate}[label=\alph*)]
+        \item Unobserved individual-specific characteristics.
+        \item Heterogeneity across time periods that does not vary between individuals.
+        %\item Heterogeneity across individuals that does not vary between time periods.
+        \item Heterogeneity across time periods that varies between individuals.
+        \item Unobserved time-invariant characteristics.
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item In instrumental variable regression, how many instruments should be included to address endogeneity issues?
+    \begin{enumerate}[label=\alph*)]
+        \item One instrument is sufficient for any regression model.
+        \item The more instruments, the better, regardless of the model complexity.
+        \item At least as many instruments as the total number of endogenous regressors.
+        \item At least two instruments to be able to test for overidentification.
+    \end{enumerate}\vspace{.25cm}
+
+\item In panel data models, why are serially clustered robust standard errors (clustered standard errors robust to serially correlated errors) different than simple heteroskedasticity robust standard errors?
+
+
+\begin{enumerate}[label=\alph*)]
+        \item Simple heteroskedastic standard errors are biased due to Omitted Variable Bias (OVB)
+        \item Simple heteroskedastic standard errors do not account for the autocovariances. %(\textbf{Correct})
+        \item Serially clustered standard errors are inconsistent in Panel Data
+        \item Serially clustered standard errors are used with random effects while heteroskedastic standard errors are used with fixed effects
+\end{enumerate}\vspace{.25cm}
+
+\item Consider a random variable $X\stackrel{iid}{\sim}\mathcal{N}(\mu, \sigma^2)$. You wish to estimate $\mu$. The estimator $\hat{\mu}\equiv \overline{X} + \frac{1}{n} $ is...
+
+\begin{enumerate}[label=\alph*)]
+\item unbiased and consistent
+\item unbiased and inconsistent
+\item biased and consistent
+\item biased and inconsistent
+\end{enumerate}\vspace{.25cm}
+
+\item Consider the following regression model: $Y_i = \beta_0 + \beta_1 \ln(X_i) + u_i$. A 1-unit change in $X$ is associated with…
+\begin{enumerate}[label=\alph*)]
+        \item A 1\% change in $Y$.
+        \item A $100 \times \beta_1 \%$ change in $Y$
+        \item A $\beta_1/100$ unit change in $Y$
+        \item None of these answers.
+\end{enumerate}\vspace{.25cm}
+
+
+\end{enumerate}
+
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART II: THEORY (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 points.}}%
+}\\[2em]
+
+
+%\textbf{Questions:}
+\begin{enumerate}
+    \item State the Central Limit Theorem for a sequence of i.i.d. random variables carefully stating any conditions required. Briefly explain the theorem's importance for statistical inference.\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+    \item  In panel regression, why is it important to use clustered standard errors for the regression? Do the regression results change if you do not use clustered standard errors? How? \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+    \item What is sample selection bias? Suppose you read a study using data on college graduates on the effects of an additional year of schooling on earnings. What is the potential sample selection bias present?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+    \item Carefully explain the difference between internal validity and external validity. Is it possible for an empirical study to have internal validity but not external validity? Explain. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+\end{enumerate}
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART III: PRACTICE (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 point.}}%
+}\\[2em]
+
+What is the effect of permissive gun laws on crime? There is a debate (e.g., Lott and Mustard, 1997; Ayres and Donohue, 2003) regarding whether allowing private individuals to carry concealed weapons helps combat crime or, conversely, exacerbates it.\\
+
+To investigate this question, we assembled a balanced panel database encompassing all states in the U.S. between 1972 and 2019. This database includes data on the number of violent crimes (e.g., murders) and property crimes (e.g., burglary) sourced from the FBI's Unified Crime Reporting Statistics, along with the dates when states adopted shall-issue gun licensing. ``Shall-issue'' denotes that issuing a gun license is not discretionary; officials cannot refuse applicants a permit if they meet all the necessary criteria. As of 2019, there were 41 shall-issue states out of 51, including permitless states. \\
+
+We run the following regression specification:
+
+\begin{equation*}
+    Y_{it} = \alpha_i + \gamma_t + {\delta} Shall_{it} + \mathbf{{\beta}}\textbf{X}_{it}'+\epsilon_{it}
+\end{equation*}
+    
+where $Y_{it}$ is the log of the outcome of interest, $\alpha_i$ and $\gamma_t$ denote state and year fixed effects, respectively, $Shall_{it}$ is our treatment indicator for whether state $i$ had adopted shall-issue legislation in year $t$, and $\textbf{X}_{it}$ is a vector of control variables including log GDP per capita, log population, and the employment rate.\\
+
+The main results are reported in Tables 1 and 2.\\
+
+
+\begin{center}
+    \begin{table}[hbtp!]
+\parbox{.45\linewidth}{
+\centering
+\caption{Impact of $Shall$ on $Log~Property~Crimes$}
+\begin{tabular}{l|c|c|c|}
+%\multicolumn{1}{c|}{} & \multicolumn{5}{c}{Log Property Crimes} \\
+                      & (1)     & (2)     & (3)     \\  & Pooled OLS     &  Within Group     & TWFE        \\ \hline
+$\widehat{\delta}$  & -0.049 & -0.004 & 0.183***  \\
+\multicolumn{1}{c|}{} & (0.080) & (0.042)  & (0.052) \\ \hline
+N                        & 2448    & 2448     & 2448        \\
+$\alpha_i$                 & No       & Yes        & Yes             \\
+$\delta_t$                  & No       & No        & Yes         \\
+\hline   
+\end{tabular}
+}
+\hfill
+\parbox{.45\linewidth}{
+\centering
+\caption{Impact of $Shall$ on $Log~Violent~Crimes$}
+\begin{tabular}{l|c|c|c|}
+%\multicolumn{1}{c|}{} & \multicolumn{5}{c}{Log Violent Crimes} \\
+                      & (1)     & (2)     & (3)         \\  & Pooled OLS     &  Within Group    & TWFE         \\ \hline
+$\widehat{\delta}$                 & -0.244* & 0.296*** & 0.118* \\
+\multicolumn{1}{c|}{} & (0.145) & (0.047)  & (0.065)   \\ \hline
+N                      & 2448    & 2448     & 2448        \\
+$\alpha_i$                    & No       & Yes        & Yes            \\
+$\delta_t$                 & No       & No        & Yes         
+ \\\hline   
+\end{tabular}
+}\\[.5 em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{\textbf{Notes:} Standard errors are reported in parenthesis and are clustered at the state level. *: $p<.1$; **: $p<.05$; ***: $p<.01$.\par}
+\end{minipage}
+
+\end{table}
+\end{center}
+
+\textbf{Questions:}
+\begin{enumerate}
+    \item Report the economic magnitude and statistical significance of the results provided in column (1) in Tables 1 and 2. How do you interpret these results?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+\newpage
+
+    \item Suggest a time-invariant variable and a unit-invariant variable that might cause omitted variable bias in this context. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+    \item Report the economic magnitude and statistical significance of the results provided in column (2) in Tables 1 and 2. Compare your results with those from Question 1. How do you explain any differences observed? \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+
+    \item Now, focus on column (3) in both tables. Could the adoption of shall-issue laws still be endogenous to crime trends? If so, how would you address this issue?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+\end{enumerate}
+
+
+
+\end{document}

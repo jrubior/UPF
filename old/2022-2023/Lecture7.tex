@@ -1,0 +1,931 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Wednesday, November 20, 2019 14:27:54}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics: Lectures 7\\
+Introduction to Maximum Likelihood Estimation}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{The Likelihood Principle}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item Suppose that $X_{1},X_{2},...,X_{n}$ are random variables from a
+discrete family of distributions $\left\{ f\left( X_{1},..,X_{n},\theta
+\right) :\theta \in \Theta \right\} $.
+
+\item The probability that $X_{1}=x_{1},..$, $X_{n}=x_{n}$ is the joint mass
+function:%
+\begin{equation*}
+f_{X}\left( x_{1},...,x_{n},\theta \right) =P_{\theta }\left(
+X_{1}=x_{1},...,X_{n}=x_{n}\right) .
+\end{equation*}
+
+\item We might ask what value of $\theta $ maximises the probability of
+obtaining this observed particular sample $x_{1},..,x_{n}$, i.e., what value
+of $\theta $ maximises%
+\begin{equation*}
+f_{X}\left( x_{1},...,x_{n},\theta \right) .
+\end{equation*}
+
+\item This maximising value would provide a good estimator of $\theta $,
+because it would provide the largest probability of this particular sample
+occurring.
+
+\item Put differently, the maximising value of $\theta $ picks up the most
+likely mass to have generated $x_{1},...,x_{n}$.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item In general $X=\left( X_{1},...,X_{n}\right) ^{\prime }$ is a random
+vector from a family of densities (or mass functions) $\left\{ f\left(
+X,\theta \right) :\theta \in \Theta \right\} $.
+\end{itemize}
+
+\begin{definition}
+The likelihood function, $L\left( \theta \right) $ is defined as the density
+(or mass) of the data $X=\left( X_{1},...,X_{n}\right) ^{\prime }$, but
+regarded as function of $\theta $ rather than $X:$%
+\begin{equation*}
+L\left( \theta \right) =f\left( X,\theta \right) .
+\end{equation*}%
+The maximum likelihood estimator (MLE) $\hat{\theta}_{n}$ of $\theta $ is
+defined as the maximiser of the likelihood function $L\left( \theta \right) $
+over the parameter space $\Theta $, i.e., 
+\begin{equation*}
+\hat{\theta}_{n}=\arg \max_{\theta \in \Theta }L\left( \theta \right) \text{%
+\ \ \ or\ \ \ }L\left( \hat{\theta}_{n}\right) =\max_{\theta \in \Theta
+}L\left( \theta \right) .
+\end{equation*}
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item We define the log-likelihood function%
+\begin{equation*}
+l\left( \theta \right) :=\log L\left( \theta \right)
+\end{equation*}
+
+\item The MLE of $\theta $ can EQUIVALENTLY be found as the maximiser of $%
+l\left( \theta \right) :$%
+\begin{equation*}
+\hat{\theta}_{n}=\arg \max_{\theta \in \Theta }l\left( \theta \right) \text{%
+\ \ \ or\ \ \ }l\left( \hat{\theta}_{n}\right) =\max_{\theta \in \Theta
+}l\left( \theta \right) .
+\end{equation*}
+
+\item Simply an algebraic convenience to use $l\left( \theta \right) $.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+Let's proof that if $h\left( \cdot \right) $\ is a positive and
+differentiable function, $h\left( x\right) $\ is maximised at the same point
+as $\log h\left( x\right) $\emph{.}
+
+\begin{proof}
+Take $x^{\ast }$ to be the maximum of $\log h\left( x\right) .$ That means,
+that $\frac{\partial \log h\left( x\right) }{\partial x}|_{x=x^{\ast }}=0$
+since $x^{\ast }$ is a maximum and $h\left( \cdot \right) $ is
+differentiable.%
+\begin{equation*}
+\Longrightarrow \frac{\partial \log h\left( x\right) }{\partial x}%
+|_{x=x^{\ast }}=\frac{1}{h\left( x\right) }\frac{\partial h\left( x\right) }{%
+\partial x}|_{x=x^{\ast }}=0
+\end{equation*}%
+by the chain rule for differentiation and since $h\left( x\right) $ is
+positive, 
+\begin{equation*}
+\Longrightarrow \frac{\partial h\left( x\right) }{\partial x}|_{x=x^{\ast
+}}=0
+\end{equation*}%
+Moreover, $\frac{\partial h\left( x\right) }{\partial x}$ and $\frac{%
+\partial \log h\left( x\right) }{\partial x}$ have the same sign, so $%
+h\left( \cdot \right) $ increases when $\log h\left( \cdot \right) $
+increases, and vice versa so they have the same maxima.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{lemma}
+If the random variable $X$ has density $f\left( X,\theta _{0}\right) $ with
+support $\chi $ and $\int_{\chi }f\left( y,\theta \right) dy=1$ for all $%
+\theta \in \Theta $, then the function $g\left( \theta \right) =\mathbb{E}%
+\log f\left( X,\theta \right) $ is maximised at $\theta =\theta _{0}$.
+\end{lemma}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{proof}
+By the Jensen inequality for concave functions, $\mathbb{E}\left( \log
+Y\right) \leq \log \mathbb{E}\left( Y\right) $ for any random variable $Y$.
+Now write%
+\begin{eqnarray*}
+&&\mathbb{E}\log f\left( X,\theta \right) -\mathbb{E}\log f\left( X,\theta
+_{0}\right) \\
+&=&\mathbb{E}\left[ \log \frac{f\left( X,\theta \right) }{f\left( X,\theta
+_{0}\right) }\right] \leq \log \mathbb{E}\left[ \frac{f\left( X,\theta
+\right) }{f\left( X,\theta _{0}\right) }\right] \;\;\;\;\left( \text{Jensen}%
+\right) \\
+&=&\log \int_{\chi }\frac{f\left( X,\theta \right) }{f\left( X,\theta
+_{0}\right) }f\left( X,\theta _{0}\right) dX \\
+&=&\log \int_{\chi }f\left( X,\theta \right) dX=\log 1=0
+\end{eqnarray*}%
+since $\theta \in \Theta ,$ so $\int_{\chi }f\left( X,\theta \right) dX=1$.
+So, $\mathbb{E}\log f\left( X,\theta \right) \leq \mathbb{E}\log f\left(
+X,\theta _{0}\right) $ for all $\theta \in \Theta .$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Cram\'{e}r Rao Lower Bound}
+
+\begin{theorem}[Cram\'{e}r-Rao]
+Under some regularity conditions, the covariance matrix of any unbiased
+estimator $\hat{\theta}$ of $\theta _{0}$\ satisfies the following bound%
+\begin{equation*}
+V\left( \hat{\theta}\right) \geq \left[ \mathcal{I}\left( \theta _{0}\right) %
+\right] ^{-1}
+\end{equation*}%
+in the sense that $V\left( \hat{\theta}\right) -\left[ \mathcal{I}\left(
+\theta _{0}\right) \right] ^{-1}$ is a positive semi-definite matrix, where $%
+\mathcal{I}\left( \theta \right) =-\mathbb{E}\left[ \frac{\partial ^{2}\log
+L(\theta )}{\partial \theta \partial \theta ^{\prime }}\right] .$
+\end{theorem}
+
+\begin{itemize}
+\item The theorem implies that the MSE of any unbiased estimator $\hat{\theta%
+}$ of $\theta _{0}$ cannot be \textquotedblleft smaller\textquotedblright\
+than $\left[ \mathcal{I}\left( \theta _{0}\right) \right] ^{-1}$, i.e. the
+best possible unbiased estimator is one whose covariance matrix achieves the
+Cram\'{e}r Rao lower bound. Such estimators are called efficient.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{definition}
+An unbiased estimator $\hat{\theta}_{n}$ of $\theta _{0}$ is called \textbf{%
+efficient} if 
+\begin{equation*}
+V\left( \hat{\theta}_{n}\right) =\left[ \mathcal{I}\left( \theta _{0}\right) %
+\right] ^{-1}.
+\end{equation*}
+\end{definition}
+
+\begin{itemize}
+\item MLE estimators are consistent (under some regularity conditions) 
+\begin{equation*}
+\hat{\theta}_{n}\rightarrow _{p}\theta _{0}\text{ \ as \ }n\rightarrow
+\infty .
+\end{equation*}
+
+\item And asymptotically normal:%
+\begin{equation*}
+\sqrt{n}(\hat{\theta}_{n}-\theta _{0})\!\approx \text{\ }\mathcal{N}\left(
+0,n\left[ \mathcal{I}\left( \theta _{0}\right) \right] ^{-1}\right)
+\end{equation*}
+
+\item Finally, the MLE\ achieves asymptotically the CR Lower Bound, i.e.
+it's asymptotically efficient.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item An interesting result, that we will not prove is that:
+
+\item If an MLE\ estimator is unbiased and efficient, then:
+
+\begin{enumerate}
+\item It is unique.
+
+\item It necessarily belongs to the exponential family of distributions.
+\end{enumerate}
+\end{itemize}
+
+\begin{definition}
+The exponential family of distributions is a set of probability
+distributions of the form $f(X,\theta )=h(X)g(\theta )\exp (\eta (\theta
+)\cdot T(X))$
+\end{definition}
+
+\begin{itemize}
+\item The family includes many of the most common distributions: Normal,
+Chi-squared, Dirichlet, Bernoulli, Poisson, Gamma.
+
+\item Since the exponential family is widely used, you can see why working
+with the $log$ of the likelihood makes sense
+
+\item Examples of exceptions are T-distribution, Uniform, most mixture
+distributions.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item How is this different from doing OLS?
+
+\begin{enumerate}
+\item OLS is a linear model, MLE\ can take any form and distribution.
+
+\item In most applications, there is not even an analytic expression, so
+numerical methods must be used.
+
+\item OLS can be regarded as semi-parametric, the distribution of $%
+\varepsilon $ is not specified.
+
+\item MLE is parametric, we need to specify a distribution. This may be too
+restrictive.
+
+\item MLE, therefore, achieves the parametric Lower Bound, that is CRLB.
+
+\item Under mis-specified distribution, one can still get consistency, i.e.
+Quasi-MLE, but not efficiency.
+\end{enumerate}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{MLE\ Examples}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{definition}[Independent sampling]
+When $X=\left( X_{1},...,X_{n}\right) ^{\prime }$\ consists of independent
+random variables $X_{1},...,X_{n}$,%
+\begin{equation*}
+f\left( X_{1},...,X_{n}\right) =f\left( X_{1}\right) ...f\left( X_{n}\right)
+.
+\end{equation*}%
+Therefore,%
+\begin{equation*}
+L\left( \theta \right) =\prod\limits_{i=1}^{n}f\left( X_{i},\theta \right)
+\quad \text{and}\quad l\left( \theta \right) =\sum_{i=1}^{n}\log f\left(
+X_{i},\theta \right) .
+\end{equation*}
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}[Normal with known variance]
+Suppose $X_{1},...,X_{n}$ is an i.i.d. sample of a Normal Distribution $%
+\mathcal{N}\left( \mu ,1\right) $ with density function: $f(X_{i};\mu )=%
+\frac{1}{\sqrt{2\pi }}e^{-\frac{\left( X_{i}-\mu \right) ^{2}}{2}},$ $%
+X_{i}\in \mathbb{R},$ $\mu \in \mathbb{R}.$ The likelihood of the sample is%
+\begin{eqnarray*}
+f(X_{1},...,X_{n};\mu ) &=&L(\mu )=\left( 2\pi \right) ^{-n/2}e^{-\frac{%
+\sum_{i=1}^{n}\left( X_{i}-\mu \right) ^{2}}{2}} \\
+\log L(\mu ) &=&-n/2\log \left( 2\pi \right) -\frac{1}{2}\tsum%
+\nolimits_{i=1}^{n}\left( X_{i}-\mu \right) ^{2}
+\end{eqnarray*}%
+The MLE $\widehat{\mu }_{n}$ can be found as $\frac{\partial \log L(\mu )}{%
+\partial \mu }=\sum_{i=1}^{n}\left( X_{i}-\mu \right) =0$ 
+\begin{equation*}
+\tsum\nolimits_{i=1}^{n}X_{i}=n\mu ,\text{ \ }\widehat{\mu }_{n}^{MLE}=\bar{X%
+}_{n}
+\end{equation*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}[Normal with known variance]
+Is $\widehat{\mu }_{n}^{MLE}$ unbiased and efficient? 
+\begin{equation*}
+\mathbb{E}\left( \widehat{\mu }_{n}^{MLE}\right) =\mathbb{E}\left( \frac{1}{n%
+}\tsum\nolimits_{i=1}^{n}X_{i}\right) =\frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbb{E}\left( X_{i}\right) =\mu
+\end{equation*}
+
+To check if it is efficient, compute 
+\begin{equation*}
+\mathbb{V}\left( \widehat{\mu }_{n}^{MLE}\right) =\mathbb{V}\left( \frac{1}{n%
+}\tsum\nolimits_{i=1}^{n}X_{i}\right) =\frac{1}{n^{2}}\tsum%
+\nolimits_{i=1}^{n}\mathbb{V}\left( X_{i}\right) =\frac{1}{n}
+\end{equation*}%
+and compare that with the lower bound given by the $\left[ \mathcal{I}\left(
+\mu \right) \right] ^{-1}=\left( -\mathbb{E}\left[ \frac{\partial ^{2}\log
+L(\mu )}{\partial \mu ^{2}}\right] \right) ^{-1}=\left( -\mathbb{E}\left[ -n%
+\right] \right) ^{-1}=\frac{1}{n},$ $\widehat{\mu }_{n}^{MLE}$ is efficient.
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}[Poisson]
+\emph{Let, }$X_{1},...,X_{n}$\emph{\ be i.i.d. Poisson }$\left( \lambda
+\right) $\emph{\ r.v.s with mass }$f\left( X_{i},\lambda \right) =\frac{%
+\lambda ^{X_{i}}}{X_{i}!}e^{-\lambda }$\emph{\ for }$X_{i}\in \left\{
+0,1,2,...\right\} $\emph{. The likelihood function is given by }%
+\begin{align*}
+L\left( \lambda \right) & =\tprod\nolimits_{i=1}^{n}f\left( X_{i},\lambda
+\right) =\tprod\nolimits_{i=1}^{n}\frac{\lambda ^{X_{i}}}{X_{i}!}e^{-\lambda
+} \\
+& =\frac{\lambda ^{X_{1}}...\lambda ^{X_{n}}}{\tprod\nolimits_{i=1}^{n}X_{i}!%
+}e^{-n\lambda }=\frac{\lambda ^{X_{1}+...+X_{n}}}{\tprod%
+\nolimits_{i=1}^{n}X_{i}!}.e^{-n\lambda }
+\end{align*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}[Poisson]
+\emph{Taking logs:}%
+\begin{equation*}
+l\left( \lambda \right) =\log L\left( \lambda \right)
+=\tsum\nolimits_{i=1}^{n}X_{i}\log \lambda -\log
+\tprod\nolimits_{i=1}^{n}X_{i}!-n\lambda
+\end{equation*}%
+\begin{equation*}
+\frac{\partial l}{\partial \lambda }=\frac{\sum_{i=1}^{n}X_{i}}{\lambda }%
+-n=0\Rightarrow \lambda =\frac{1}{n}\tsum\nolimits_{i=1}^{n}X_{i}=\bar{X}%
+_{n}.
+\end{equation*}%
+\emph{So the MLE of }$\lambda $ \emph{is }$\hat{\lambda}_{n}=\bar{X}_{n}.$
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Poisson]
+Now let's check if $\hat{\lambda}_{n}$ is unbiased, efficient or consistent.%
+\begin{gather*}
+\mathbb{E}[\hat{\lambda}_{n}]=\mathbb{E}[\frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}X_{i}]=\frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbb{E}%
+[X_{i}] \\
+\overset{\text{identically distributed}}{=}\frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbb{E}[X_{1}]=\mathbb{E}[X_{1}]. \\
+\mathbb{E}[X]=e^{-\lambda }\tsum\nolimits_{j=0}^{\infty }j\frac{\lambda ^{j}%
+}{j!}=\lambda e^{-\lambda }\tsum\nolimits_{j=1}^{\infty }\frac{\lambda ^{j-1}%
+}{(j-1)!}=\lambda e^{-\lambda }e^{\lambda }=\lambda \\
+\Rightarrow \mathbb{E}[\hat{\lambda}_{n}]=\lambda ,\text{ so }\hat{\lambda}%
+_{n}\text{ is unbiased.}
+\end{gather*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Poisson]
+Given that $\hat{\lambda}_{n}$ is unbiased, let's check if it is efficient.%
+\begin{gather*}
+var[\hat{\lambda}_{n}]=var[\frac{1}{n}\tsum\nolimits_{i=1}^{n}X_{i}]\overset{%
+\text{independence}}{=}\frac{1}{n^{2}}\tsum\nolimits_{i=1}^{n}var[X_{i}] \\
+\overset{\text{identically distributed}}{=}\frac{1}{n^{2}}%
+\tsum\nolimits_{i=1}^{n}var[X_{1}]=\frac{1}{n}var[X_{1}]. \\
+var[X]=\mathbb{E}[X^{2}]-\mathbb{E}^{2}[X] \\
+\mathbb{E}[X(X-1)]=e^{-\lambda }\tsum\nolimits_{j=0}^{\infty }j(j-1)\frac{%
+\lambda ^{j}}{j!}=\lambda ^{2}e^{-\lambda }\tsum\nolimits_{j=2}^{\infty }%
+\frac{\lambda ^{j-2}}{(j-2)!} \\
+\overset{i=j-2}{=}\lambda ^{2}e^{-\lambda }\tsum\nolimits_{i=0}^{\infty }%
+\frac{\lambda ^{i}}{i!}=\lambda ^{2} \\
+\Rightarrow \mathbb{E}[X^{2}]=\lambda ^{2}+\mathbb{E}[X] \\
+var[X]=\lambda ^{2}+\lambda -\lambda ^{2}=\lambda
+\end{gather*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Poisson]
+\begin{gather*}
+\Rightarrow var[\hat{\lambda}_{n}]=\lambda /n \\
+\mathcal{I}\left( \lambda \right) =-\mathbb{E}\left[ \frac{\partial ^{2}l}{%
+\partial \lambda ^{2}}\right] =-\mathbb{E}\left[ -\frac{\sum_{i=1}^{n}X_{i}}{%
+\lambda ^{2}}\right] =n/\lambda  \\
+\Rightarrow var[\hat{\lambda}_{n}]=\mathcal{I}\left( \lambda \right) ^{-1},%
+\text{ so }\hat{\lambda}_{n}\text{ is efficient.}
+\end{gather*}%
+Finally, to check if it consistent, 
+\begin{equation*}
+p\lim_{n\rightarrow \infty }\hat{\lambda}_{n}=p\lim_{n\rightarrow \infty }%
+\frac{1}{n}\tsum\nolimits_{i=1}^{n}X_{i}\overset{\text{WLLN}}{=}\mathbb{E}%
+[X_{1}]=\lambda 
+\end{equation*}%
+So, indeed, $\hat{\lambda}_{n}$ is consistent.
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Rayleigh]
+Suppose $X_{1},...,X_{n}$ is an i.i.d. sample of a Rayleigh Distribution
+with density function: $f(X_{i};\zeta )=\frac{X_{i}}{\zeta ^{2}}\exp (-\frac{%
+X_{i}^{2}}{2\zeta ^{2}}),$ $X_{i}\geq 0,$ $\zeta >0.$ The likelihood of the
+sample is%
+\begin{eqnarray*}
+f(X_{1},...,X_{n};\zeta ) &=&L(\zeta )=\left[ \frac{1}{\zeta ^{2n}}%
+\tprod\nolimits_{i=1}^{n}X_{i}\right] \exp \left( -\frac{1}{2\zeta ^{2}}%
+\tsum\nolimits_{i=1}^{n}X_{i}^{2}\right) \\
+\log L(\zeta ) &=&-2n\log \left( \zeta \right) +\tsum\nolimits_{i=1}^{n}\log
+X_{i}-\frac{1}{2\zeta ^{2}}\tsum\nolimits_{i=1}^{n}X_{i}^{2}
+\end{eqnarray*}%
+The MLE $\widehat{\zeta }_{n}$ can be found as $\frac{\partial \log L(\zeta )%
+}{\partial \zeta }=-\frac{2n}{\zeta }+\tsum\nolimits_{i=1}^{n}X_{i}^{2}\frac{%
+1}{\zeta ^{3}}=0$ 
+\begin{eqnarray*}
+&\Longrightarrow &\frac{1}{\zeta }\left[ \frac{\tsum%
+\nolimits_{i=1}^{n}X_{i}^{2}}{\zeta ^{2}}-2n\right] =0 \\
+&\Longrightarrow &\widehat{\zeta }_{n}=\sqrt{\frac{\tsum%
+\nolimits_{i=1}^{n}X_{i}^{2}}{2n}}\text{ since }\zeta >0
+\end{eqnarray*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Rayleigh]
+Difficult to compute the bias of $\widehat{\zeta }_{n}$, but is it
+consistent?%
+\begin{gather*}
+p\lim_{n\rightarrow \infty }\widehat{\zeta }_{n}=p\lim_{n\rightarrow \infty }%
+\sqrt{\frac{\sum_{i=1}^{n}X_{i}^{2}}{2n}} \\
+=\frac{1}{\sqrt{2}}\sqrt{p\lim_{n\rightarrow \infty }\left( \frac{%
+\sum_{i=1}^{n}X_{i}^{2}}{n}\right) }\text{ by continuous mapping theorem} \\
+\mathbb{E}[X^{2}]=\frac{1}{\zeta ^{2}}\int_{0}^{\infty }x^{3}\exp (-\frac{%
+x^{2}}{2\zeta ^{2}})dx \\
+=-\frac{1}{\zeta ^{2}}\int_{0}^{\infty }x^{3}\frac{2\zeta ^{2}}{2x}\frac{d}{%
+dx}\left[ \exp (-\frac{x^{2}}{2\zeta ^{2}})\right] dx \\
+=-\int_{0}^{\infty }x^{2}\frac{d}{dx}\left[ \exp (-\frac{x^{2}}{2\zeta ^{2}})%
+\right] dx
+\end{gather*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Rayleigh]
+\begin{gather*}
+=-\left[ x^{2}\exp (-\frac{x^{2}}{2\zeta ^{2}})\right] _{0}^{\infty
+}+2\int_{0}^{\infty }x\exp (-\frac{x^{2}}{2\zeta ^{2}})dx \\
+=-\underset{\rightarrow 0}{\underbrace{\lim_{x\rightarrow \infty }\left[
+x^{2}\exp (-\frac{x^{2}}{2\zeta ^{2}})\right] }}+\underset{=0}{\underbrace{%
+\left[ x^{2}\exp (-\frac{x^{2}}{2\zeta ^{2}})\right] _{x=0}}} \\
++2\int_{0}^{\infty }\frac{\zeta ^{2}}{\zeta ^{2}}x\exp (-\frac{x^{2}}{2\zeta
+^{2}})dx \\
+=2\zeta ^{2}\underset{=1}{\underbrace{\int_{0}^{\infty }\frac{1}{\zeta ^{2}}%
+x\exp (-\frac{x^{2}}{2\zeta ^{2}})dx}}=2\zeta ^{2} \\
+\Rightarrow p\lim_{n\rightarrow \infty }\widehat{\zeta }_{n}=\frac{1}{\sqrt{2%
+}}\sqrt{\mathbb{E}\left( X_{i}^{2}\right) }=\sqrt{\frac{2\zeta ^{2}}{2}}%
+=\zeta ,\text{so, it is consistent.}
+\end{gather*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Rayleigh]
+Let's compute the Fisher Information matrix. 
+\begin{equation*}
+\frac{\partial ^{2}\log L(\zeta )}{\partial \zeta ^{2}}=\frac{2n}{\zeta ^{2}}%
+-3\sum_{i=1}^{n}X_{i}^{2}\frac{1}{\zeta ^{4}}
+\end{equation*}%
+\begin{equation*}
+\Longrightarrow \mathcal{I}_{n}(\zeta )=-\mathbb{E}\left[ \frac{\partial
+^{2}\log L(\zeta )}{\partial \zeta ^{2}}\right] =-\frac{2n}{\zeta ^{2}}+3%
+\frac{1}{\zeta ^{4}}\sum_{i=1}^{n}\mathbb{E}[X_{i}^{2}]
+\end{equation*}%
+\QTR{Bbb}{E}$[X^{2}]=2\zeta ^{2},$ so%
+\begin{equation*}
+\mathcal{I}_{n}(\zeta )=-\frac{2n}{\zeta ^{2}}+3\frac{1}{\zeta ^{4}}2n\zeta
+^{2}=\frac{4n}{\zeta ^{2}}
+\end{equation*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{example}[Rayleigh]
+In the next two weeks, we shall prove an asymptotic normality result for any
+MLE $\widehat{\theta }_{n}:$ $(\widehat{\theta }_{n}-\theta )\rightarrow _{d}%
+\mathcal{N}(0,I_{n}(\theta )^{-1}).$
+
+In this case that implies that $\widehat{\zeta }_{n}\rightarrow _{d}\mathcal{%
+N}(\zeta ,\mathcal{I}_{n}(\zeta )^{-1}).$ Using this, we can also construct
+95\% confidence intervals for the true $\zeta :$%
+\begin{equation*}
+\mathbb{P}\left( \widehat{\zeta }_{n}-1.96\sqrt{\frac{\zeta ^{2}}{4n}}\leq
+\zeta \leq \widehat{\zeta }_{n}+1.96\sqrt{\frac{\zeta ^{2}}{4n}}\right)
+\approx 95\%
+\end{equation*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+Let $X_{1},...,X_{n}$\ be i.i.d. $\mathcal{N}\left( \mu ,\sigma ^{2}\right) $%
+\ random variables. Here, we have a vector of unknown parameters: $\theta
+=\left( \mu ,\sigma ^{2}\right) ^{\prime }$.%
+\begin{align*}
+L\left( \mu ,\sigma ^{2}\right) & =\prod\limits_{i=1}^{n}f\left( X_{i};\mu
+,\sigma ^{2}\right) =\prod\limits_{i=1}^{n}\left( 2\pi \sigma ^{2}\right)
+^{-1/2}\exp \left\{ -\frac{1}{2\sigma ^{2}}\left( X_{i}-\mu \right)
+^{2}\right\}  \\
+& =\left( 2\pi \sigma ^{2}\right) ^{-n/2}\exp \left\{ -\frac{1}{2\sigma ^{2}}%
+\sum_{i=1}^{n}\left( X_{i}-\mu \right) ^{2}\right\} ,
+\end{align*}%
+so the log-likelihood is given by%
+\begin{equation*}
+l\left( \mu ,\sigma ^{2}\right) =-\frac{n}{2}\log 2\pi -\frac{n}{2}\log
+\sigma ^{2}-\frac{1}{2\sigma ^{2}}\sum_{i=1}^{n}\left( X_{i}-\mu \right)
+^{2}.
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}
+The MLE for $\left( \mu ,\sigma ^{2}\right) ^{\prime }$\ will be found by
+jointly maximising $l\left( \mu ,\sigma ^{2}\right) $\ for $\mu $\ and $%
+\sigma ^{2}$, i.e. it will be the solution of the two-equation system $\frac{%
+\partial l}{\partial \mu }=0$\ and $\frac{\partial l}{\partial \sigma ^{2}}%
+=0 $. Since $\sigma ^{2}>0$\ 
+\begin{equation*}
+\frac{\partial l}{\partial \mu }=\frac{1}{\sigma ^{2}}\sum_{i=1}^{n}\left(
+X_{i}-\mu \right) =\frac{1}{\sigma ^{2}}\left( n\bar{X}_{n}-n\mu \right)
+=0\Longrightarrow \mu =\bar{X}_{n}.
+\end{equation*}
+
+Differentiating the log-likelihood w.r.t. $\sigma ^{2}:$%
+\begin{align*}
+\frac{\partial l}{\partial \sigma ^{2}}& =-\frac{n}{2}\frac{1}{\sigma ^{2}}+%
+\frac{1}{2\left( \sigma ^{2}\right) ^{2}}\sum_{i=1}^{n}\left( X_{i}-\mu
+\right) ^{2}=0 \\
+& \Longrightarrow -n+\frac{1}{\sigma ^{2}}\sum_{i=1}^{n}\left( X_{i}-\mu
+\right) ^{2}=0
+\end{align*}
+\end{example}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{example}
+$\Longrightarrow \sigma ^{2}=\frac{1}{n}\sum_{i=1}^{n}\left( X_{i}-\mu
+\right) ^{2}.$
+
+Requiring the 2 F.O.C.s to hold simultaneously, we obtain the MLE $\left( 
+\hat{\mu}_{n},\hat{\sigma}_{n}^{2}\right) $\ of $\left( \mu ,\sigma
+^{2}\right) $ to be $\hat{\mu}_{n}=\bar{X}_{n},\;\;\;\;\hat{\sigma}_{n}^{2}=%
+\frac{1}{n}\sum_{i=1}^{n}\left( X_{i}-\bar{X}_{n}\right) ^{2}.$
+\end{example}
+
+\begin{remark}
+
+$\hat{\sigma}_{n}^{2}$ is biased. Thus, MLEs are not unbiased in general.
+Despite it being biased, the MLE estimator has smaller MSE than the unbiased
+estimator $s_{n}^{2}$.
+
+\end{remark}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+\begin{itemize}
+\item When $X_{1},..,X_{n}$\ are not independent, $L\left( \theta \right)
+\neq \prod\limits_{i=1}^{n}f\left( X_{i};\theta \right) $. A way to proceed
+with setting up the likelihood function is to use the definition of
+conditional density:%
+\begin{equation*}
+f\left( X_{2}|X_{1}\right) =\frac{f\left( X_{2},X_{1}\right) }{f\left(
+X_{1}\right) }\Longrightarrow f\left( X_{2},X_{1}\right) =f\left(
+X_{2}|X_{1}\right) f\left( X_{1}\right) .
+\end{equation*}%
+\begin{align*}
+f\left( X_{3},X_{2},X_{1}\right) & =f\left( X_{3}|X_{2},X_{1}\right) f\left(
+X_{2},X_{1}\right)  \\
+& =f\left( X_{3}|X_{2},X_{1}\right) f\left( X_{2}|X_{1}\right) f\left(
+X_{1}\right) 
+\end{align*}
+
+\item Proceeding like this we obtain the joint density of $\left(
+X_{n},...,X_{1}\right) $:%
+\begin{eqnarray*}
+f\left( X_{n},X_{n-1},...,X_{1}\right)  &=&f\left(
+X_{n}|X_{n-1},...,X_{1}\right) f\left( X_{n-1}|X_{n-2},...,X_{1}\right) ...
+\\
+&&\times ...f\left( X_{2}|X_{1}\right) f\left( X_{1}\right) .
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Method of Maximum Likelihood}
+
+The above factorisation yields the following expressions for the likelihood
+and log-likelihood functions: 
+\begin{equation*}
+L\left( \theta \right) =f\left( X_{1};\theta \right)
+\prod\limits_{i=2}^{n}f\left( X_{i}|X_{i-1},..,X_{1};\theta \right) ,
+\end{equation*}%
+\begin{equation*}
+l\left( \theta \right) =\log f\left( X_{1};\theta \right)
++\sum_{i=2}^{n}\log f\left( X_{i}|X_{i-1},..,X_{1};\theta \right) .
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 5
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

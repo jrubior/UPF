@@ -1,0 +1,339 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{caption}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\begin{center}
+{\Large --- Econometrics 25117 --- }\bigskip 
+\end{center}
+
+
+
+\textbf{Exercice 1} \\[1em]
+
+Research indicates that low birthweight babies are at a higher risk for various health complications and developmental challenges, which can persist throughout their lives. Inadequate birthweight is often linked to poorer cognitive abilities and a higher likelihood of chronic illnesses, limiting educational, employment opportunities, and personal development.\\
+
+You are asked to study the impact of smoking on birthweight. You access a dataset collected on a random sample of 3000 babies born in Pennsylvania in 1989 from the 1989 linked National Natality-Mortality Detail files. The data include the baby’s birth weight together with various characteristics of the mother, including whether she smoked during the pregnancy. The average birthweight is 3383 grams, with a standard deviation of 592 grams. The smallest registered birthweight in your sample is 425 grams, and the largest is 5755 grams.\\
+
+The variables are the following:
+\begin{itemize}
+    \item[-] birthweight: birth weight of infant (in grams)
+    \item[-] smoker: indicator equal to one if the mother smoked during pregnancy and zero, otherwise.
+    \item[-] alcohol: indicator=1 if mother drank alcohol during pregnancy
+    \item[-] educ: years of educational attainment (more than 16 years coded as 17)
+    \item[-] \# prenatal visits: total number of prenatal visits
+    \item[-] no prenatal visits: indicator=1 if no prenatal care visit was made
+    \item[-] prenatal visits (1st semester): indicator=1 if 1st prenatal care visit in 1st trimester
+    \item[-] prenatal visits (2nd semester): indicator=1 if 1st prenatal care visit in 2nd trimester
+    \item[-] prenatal visits (3rd semester): indicator=1 if 1st prenatal care visit in 3rd trimester
+\end{itemize}
+
+\vspace{.5cm}
+
+\begin{enumerate}[label=\alph*)]
+\item Before collecting data, you are thinking about the ideal experiment to study how smoking affects birthweight. What would it be? Why would it be ideal? What are the practical limits to running such an ideal experiment?
+\item Consider column (1). What is the estimated effect of smoking on birthweight? Is the coefficient statistically significant? Is the magnitude of the coefficient large?
+\item Consider columns (2)-(4). Why would you include other variables such as \textit{alcohol} or \textit{\# prenatal visits} in your regression specification? 
+\item Jane smoked during her pregnancy, did not drink alcohol, and had 3 prenatal care visits. Use the regression in column (3), to approximately predict the birth weight of Jane’s child. 
+\item  Consider columns (3)-(4). How should you interpret the coefficient on \textit{\# prenatal visits}? Does the coefficients measure a causal effect of prenatal visits on birth weight? If not, what does it measure? 
+\item Consider column (5). An alternative way to control for prenatal visits is to use the binary variables \textit{prenatal visits (1st semester)},  \textit{prenatal visits (2nd semester)},  \textit{prenatal visits (3rd semester)} and \textit{no prenatal visits}. Why is \textit{prenatal visits (3rd semester)} excluded from the regression?
+\item  Does the regression in column (5) explain a larger fraction of the variance in birthweight than the regression in column (4)?
+\item Consider columns (1)-(5). Have you identified the causal effect of smoking on birthweight? Discuss.
+\end{enumerate}
+
+\textbf{Exercice 2} \\[1em]
+How does fertility affect labor supply? That is, how much does a woman’s labor supply fall when she has an additional child? In this exercise, you will estimate this effect using data for married women from the 1980 U.S. Census. The data set contains information on married women aged 21–35 with two or more children. These data were provided by William Evans of the University of Maryland and were used in his paper with Joshua Angrist ``Children and Thier Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.'' \\[1em]
+
+The variables contained in the dataset are:
+\begin{itemize}
+    \item \textit{morekids:}  =1 if mom had more than 2 children
+%    \item \textit{boy1st:}  =1 if 1st child was a boy
+%    \item \textit{boy2nd:}  =1 if 2nd child was a boy
+    \item \textit{samesex:} =1 if 1st two children same sex
+    \item \textit{agem1:} age of mom at census
+    \item \textit{black:} =1 if mom is black
+    \item \textit{hispan:} =1 if mom is Hispanic
+    \item \textit{othrace:} =1 if mom is not black, Hispanic or white
+    \item \textit{weeksm1:}  mom's weeks worked in 1979
+\end{itemize}
+\vspace{.5cm}
+The main descriptive statistics are summarized in Table 2.
+
+%\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+
+\item First, read TextBox 1. Carefully explain what the authors mean by ``endogeneity of fertility''. What does it imply for causal identification? 
+\item Consider the first column of Table 3. On average, do women with more than two children work less than women with two children? What is the comparison group? Is the effect large? Is it statistically significant? 
+\item Consider the second column of Table 3. Are couples whose first two children are of the same sex more likely to have a third child? What is the comparison group? Is the effect large? Is it statistically significant?
+\item  Consider the second column of Table 3. Is \textit{samesex} a valid instrument for the IV regression of \textit{weeksworked} on \textit{morekids} (third and fourth columns)? Carefully explain why or why not.
+\item Consider the second stage of the IV regression in the third column, using \textit{samesex} as an instrument. What is the marginal effect of \textit{morekids} on \textit{weeksm1}?
+\item  Consider the second stage of the IV regression in the fourth column, using \textit{samesex} as an instrument and \textit{agem1, black, hispan} and \textit{othrace} as controls. Carefully explain why the main results do not change significantly compared with the results in the third column.
+\end{enumerate}
+
+\newpage
+
+\textbf{Exercice 3} \\[1em]
+
+Do citizens demand more democracy and political freedom as their incomes grow? That is, is democracy a normal good? You will use a panel data set for 195 countries for the years 1960, 1965, … 2000.  The data set contains an index of political freedom/democracy for each country in each year, together with data on each country’s income and various demographic controls. The income and demographic controls are lagged five years relative to the democracy index to allow time for democracy to adjust to changes in these variables. The data were supplied by Professor Daron Acemoglu and are a subset of the data used in his paper with Simon Johnson, James Robinson, and Pierre Yared, “Income and Democracy” American Economic Review, 2008, 98:3: 808-842.\\[1em]
+
+The variables contained in the dataset are:
+
+\begin{itemize}
+    \item \textit{dem\_ind:} index of democracy
+    \item \textit{log\_gdppc:} = logarithm of real GDP per capita
+    \item \textit{log\_pop:} logarithm of population
+    \item \textit{educ:} = average years of education for adults (25 years and older)
+    \item \textit{age\_median:} = median age
+\end{itemize}
+
+\vspace{.5cm}
+The main descriptive statistics are summarized in Table 4.
+
+%\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+
+\item First, read TextBox 2. Carefully explain what the authors mean by ``the fixed effect estimation [...] does not necessarily estimate the causal effect''. 
+\item Still, after reading TextBox 2. Carefully explain why the authors believe that ``neither instrument is perfect''. Provide examples. 
+\item Is the dataset balanced? Justify.
+\item In column (1) of Table 5, how large is the estimated coefficient on \textit{log\_gdppc}? Is the coefficient statistically significant?
+\item In column (1) of Table 5, if per capita income in a country increases by 20\%, by how much is \textit{dem\_ind} predicted to change? What is a 95\% confidence interval for the prediction? Is the predicted change in \textit{dem\_ind} large or small? (Explain what you mean by large or small.)
+\item Do the results change when you add fixed effects? If so, which set of regression results is more credible, and why? 
+\item Based on your analysis, what conclusions do you draw about the effects of income on democracy?
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+\begin{table}[hb!]
+\centering
+\caption{Descriptive Statistics}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Variable}} & \textbf{Observations} & \textbf{Mean} & \textbf{Standard Deviation} & \textbf{Minimum} & \textbf{Maximum} \\ \hline
+\textit{morekids}                       & 254,654               & .3805634      & .4855263                    & 0                & 1                \\ \hline
+%\textit{boy1st}                         & 254,654               & .5143607      & .4997947                    & 0                & 1                \\ \hline
+%\textit{boy2nd}                         & 254,654               & .5125504      & .4998434                    & 0                & 1                \\ \hline
+\textit{samesex}                        & 254,654               & .5055683      & .49997                      & 0                & 1                \\ \hline
+\textit{agem1}                          & 254,654               & 30.39327      & 3.386447                    & 21               & 35               \\ \hline
+\textit{black}                          & 254,654               & .0516623      & .2213447                    & 0                & 1                \\ \hline
+\textit{hispan}                         & 254,654               & .0742066      & .2621073                    & 0                & 1                \\ \hline
+\textit{othrace}                        & 254,654               & .0563431      & .2305836                    & 0                & 1                \\ \hline
+\textit{weeksm1}                        & 254,654               & 19.01833      & 21.86728                    & 0                & 52               \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Smoker$ on $Birthweight$.}\vspace{.25cm}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{l|ccccc|}
+\cline{2-6}
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{\textbf{Dependent Variable: Birthweight}}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\textit{\textbf{}}                                                     & (1)         & (2)         & (3)         & (4)         & (5)              \\ \multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\hline
+\multicolumn{1}{|l|}{\textit{\textbf{smoker}}}                         & -253.228*** & -250.803*** & -217.580*** & -207.932*** & -213.431***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (26.81)     & (26.87)     & (26.11)     & (27.12)     & (27.58)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{alcohol}}}                        &             & -57.601     & -30.491     & -35.491     & -23.942          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             & (77.39)     & (72.60)     & (72.76)     & (69.94)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{\# prenatal visits}}}             &             &             & 34.070***   & 33.168***   &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             & (3.61)      & (3.64)      &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{years of education}}}             &             &             &             & 8.118       & 13.724**         \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             & (5.01)      & (5.17)           \\
+\multicolumn{1}{|l|}{\textit{\textbf{no prenatal visits}}}             &             &             &             &             & -563.298***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (160.70)         \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (1st semester)}}} &             &             &             &             & 117.176          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (67.39)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (2nd semester)}}} &             &             &             &             & 34.532           \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (72.41)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (3rd semester)}}} &             &             &             &             & \textit{omitted} \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (.)              \\
+\multicolumn{1}{|l|}{\textit{\textbf{constant}}}                       & 3432.060*** & 3432.703*** & 3051.249*** & 2954.604*** & 3153.803***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (11.89)     & (11.94)     & (43.71)     & (74.79)     & (93.27)          \\ \hline
+\multicolumn{1}{|l|}{\textit{\textbf{$N$}}}                              & 3000.000    & 3000.000    & 3000.000    & 3000.000    & 3000.000         \\
+\multicolumn{1}{|l|}{\textit{\textbf{$F-statistic$}}}                    & 89.211      & 44.754      & 59.484      & 45.578      & 21.146           \\
+\multicolumn{1}{|l|}{\textit{\textbf{$R^2$}}}           & 0.029       & 0.029       & 0.073       & 0.074       & 0.049            \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Robust standard errors are reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$.\par}
+\end{minipage}
+\end{table}
+
+
+
+\begin{figure}[!htbp]
+\caption*{Textbox 1: Chilbearing and Labor Supply}
+\fbox{\begin{minipage}{45em}
+\hspace{1cm} Research on the labor-supply consequences of childbearing is complicated by the endogeneity of fertility. [...]\\
+
+\hspace{1cm} An understanding of the relationship between fertility and labor supply is important for a number of theoretical and practical reasons. First, economists and demographers have developed a variety of models linking the family and the labor market. Empirical studies of childbearing and labor supply are sometimes seen as tests of these models (e.g., Reuben Gronau, 1973; Mark R. Rosenzweig and Kenneth I. Wolpin, 1980; T. Paul Schultz, 1990). Second, the link between fertility and labor supply might partly explain the postwar increase in women's labor-force participation rates if having fewer children causes an increase in labor-force attachment (Mary T. Coleman and John Pencavel, 1993). Evidence for this thesis includes Claudia Goldin's (1995) study, which shows that few women in the 1940's and 1950's birth cohorts were able to combine childbearing with strong labor-force attachment. Other researchers have also drawn a link between fertility-induced withdrawals from the labor force and lower wages of women (e.g., Gronau, 1988; Sanders Korenman and David Neumark, 1992). So perhaps childbearing keeps women from developing their careers.\\
+
+\hspace{1cm} Any success in disentangling the causal mechanisms linking fertility and labor supply should shed light on other substantive issues as well. For example, reductions in female labor supply could increase the total time parents devote to child care, making at least some children better off (see, e.g., Frank P. Stafford, 1987; Francine Blau and Adam J. Grossberg, 1992). Some theories of family behavior also suggest that changes in wives' earnings affect marital stability (Becker et al., 1977; Becker, 1985).\\
+
+\hspace{1cm} Not surprisingly, given the wide and longstanding interest in the connection between childbearing and labor supply, hundreds of empirical studies report estimates of this relationship. The vast majority of these studies find a negative correlation between fertility (or family size) and female labor supply. As noted in two recent literature surveys, however, the interpretation of these correlations remains unclear. In his assessment of the ``economics of the family,'' Robert J. Willis (1987, p. 74) writes,
+\begin{displayquote}
+``...it has proven difficult to find enough well-measured exogenous variables to permit cause and effect relationships to be extracted from correlations among factors such as the delay of marriage, decline of childbearing, growth of divorce, and increased female labor force participation..."
+\end{displayquote}
+Martin Browning (1992, p. 1435) expresses similar views:
+\begin{displayquote}
+``... although we have a number of robust correlations, there are very few credible inferences that can be drawn from them.''
+\end{displayquote}
+\vspace{.5cm}
+\flushright{Angrist, J. D., \& Evans, W. N. (1998). Children and Their Parents' Labor Supply: Evidence from Exogenous Variation in Family Size. American Economic Review, 450-477.}
+
+\end{minipage}}
+\end{figure}
+
+%\textbf{Exercise 2 --- Output Table} \vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Smoker$ on $Birthweight$.}\vspace{.25cm}
+\begin{adjustbox}{width=.7\textwidth}
+\begin{tabular}{l|cccc|}
+\cline{2-5}
+\multicolumn{1}{c|}{}                   & \multicolumn{4}{c|}{ \small \textbf{Dependent Variable:} }                                        \\
+                                        & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} \\
+                                        & \textit{weeksm1}     & \textit{morekids}    & \textit{weeksm1}     & \textit{weeksm1}      \\ \hline
+\multicolumn{1}{|l|}{\textit{morekids}} & -5.387***            &                      & -6.314***            & -5.821***             \\
+\multicolumn{1}{|l|}{\textit{}}         & (0.087)              &                      & (1.275)              & (1.246)               \\
+\multicolumn{1}{|l|}{\textit{samesex}}  &                      & 0.068***             &                      &                       \\
+\multicolumn{1}{|l|}{\textit{}}         &                      & (0.002)              &                      &                       \\
+\multicolumn{1}{|l|}{\textit{agem1}}    &                      &                      &                      & 0.832***              \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.023)               \\
+\multicolumn{1}{|l|}{\textit{black}}    &                      &                      &                      & 11.623***             \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.232)               \\
+\multicolumn{1}{|l|}{\textit{hispan}}   &                      &                      &                      & 0.404                 \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.261)               \\
+\multicolumn{1}{|l|}{\textit{othrace}}  &                      &                      &                      & 2.131***              \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.211)               \\
+\multicolumn{1}{|l|}{\textit{Intercept}}   & 21.068***            & 0.346***             & 21.421***            & -4.792***             \\
+\multicolumn{1}{|l|}{\textit{}}         & (0.056)              & (0.001)              & (0.487)              & (0.390)               \\ \hline
+\multicolumn{1}{|l|}{\textit{N}}        & 254654.000           & 254654.000           & 254654.000           & 254654.000            \\
+\multicolumn{1}{|l|}{\textit{$R^2$}}       & 0.014                & 0.005                & 0.014                & 0.044                 \\
+\multicolumn{1}{|l|}{\textit{F}}        & 3820.912             & 1238.171             & ---                  & ---                   \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Robust standard errors are reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$. \par}
+\end{minipage}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\caption*{Textbox 2: Income and democracy}
+\fbox{\begin{minipage}{45em}
+\hspace{1cm} We utilize two strategies to investigate the causal effect of income on democracy.\\[1em]
+\hspace{1cm} Our first strategy is to control for country-specific factors affecting both income and democracy by including country fixed effects. While fixed effect regressions are not a panacea for omitted variable biases, they are well suited to the investigation of the relationship between income and democracy, especially in the postwar era. The major source of potential bias in a regression of democracy on income per capita is country-specific, historical factors influencing both political and economic development. If these omitted characteristics are, to a first approximation, time-invariant, the inclusion of fixed effects will remove them and this source of bias. [...] In addition to improving inference on the causal effect of income on democracy, this approach is more closely related to modernization theory as articulated by Lipset (1959), which emphasizes that individual countries should become more democratic if they are richer, not simply that rich countries should be democratic.[...]\\[1em]
+\hspace{1cm} While the fixed effects estimation is useful in removing the influence of long-run determinants of both democracy and income, it does not necessarily estimate the causal effect of income on democracy. Our second strategy is to use instrumental-variables (IV) regressions to estimate the impact of income on democracy. We experiment with two potential instruments. The first is to use past savings rates, and the second is to use changes in the incomes of trading partners. [...] We recognize that neither instrument is perfect, since there are reasonable scenarios in which our exclusion restrictions could be violated.
+\vspace{.5cm}
+\flushright{Acemoglu, D., Johnson, S., Robinson, J. A., & Yared, P. (2008). Income and democracy. American Economic Review, 98(3), 808-842.}
+
+\end{minipage}}
+\end{figure}
+
+\begin{center}
+\begin{table}[hb!]
+\centering
+\caption{Descripitve Statistics}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Variable}} & \textbf{Observations} & \textbf{Mean} & \textbf{Standard Deviation} & \textbf{Minimum} & \textbf{Maximum} \\ \hline
+\textit{dem\_ind}                       & 1,266               & .4990732      & .3713367                    & 0                & 1                \\ \hline
+\textit{log\_gdppc}                        & 966               & 8.156022      & 1.022144                      & 5.773925                & 10.44502                \\ \hline
+\textit{log\_pop}                          & 1,202               & 8.665097      & 1.866238                    & 3.713572               & 14.00187               \\ \hline
+\textit{educ}                          & 780               & 4.429018      & 2.860677                    & .042                & 12.179                \\ \hline
+\textit{age\_median}                          & 1,214               & 22.3986      & 6.470204                    & 14.4                 &  39.7                \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Income$ on $Democracy$.}\vspace{.25cm}
+\begin{adjustbox}{width=.7\textwidth}
+\begin{tabular}{l|ccccc|}
+\cline{2-6}
+                                  & \multicolumn{5}{c|}{\textbf{Dependent variable:  $dem\_ind$}}                                                               \\
+                                  & \multicolumn{5}{c|}{}                                                               \\
+\textbf{}                         & \textit{\textbf{(1)}}            & \textit{\textbf{(2)}}           & \textit{\textbf{(3)}}           & \textit{\textbf{(4)}}     & \textit{\textbf{(5)}}      \\ \hline
+\multicolumn{1}{|l|}{$log\_gdppc$}  & 0.236***  & 0.123**  & 0.0837** & -0.0249 & 0.0116   \\
+\multicolumn{1}{|l|}{}            & (0.0118)                           & (0.0368)                          & (0.0315)                          & (0.0528)  & (0.0531)   \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$log\_pop$}    &                                  & -0.0117                         &                                 & 0.0889  & -0.120   \\
+\multicolumn{1}{|l|}{}            &                                  & (0.0135)                          &                                 & (0.0795)  & (0.115)    \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$educ$}        &                                  & 0.0313** &                                 & 0.0268  & -0.00212 \\
+\multicolumn{1}{|l|}{}            &                                  & (0.00980)                         &                                 & (0.0201)  & (0.0237)   \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{$age\_median$} &                                  & 0.00744                         &                                 & 0.00611 & -0.0136  \\
+\multicolumn{1}{|l|}{}            &                                  & (0.00395)                         &                                 & (0.00726) & (0.00912)  \\
+\multicolumn{1}{|l|}{}            &       &    &           & &   \\
+\multicolumn{1}{|l|}{Constant}      & -1.355*** & -0.620** & -0.115                          & -0.254  & 1.925    \\
+\multicolumn{1}{|l|}{}            & (0.100)                            & (0.207)                           & 0.257                           & (0.725)   & (1.252)   \\ \hline
+\multicolumn{1}{|l|}{$N$}           & 958                              & 679                             & 937                             & 676     & 676      \\
+\multicolumn{1}{|l|}{Country FE}           & N &  N  &   Y   & Y  & Y    \\
+\multicolumn{1}{|l|}{Year FE}           & N &  N  &   N   & N  & Y    \\
+\multicolumn{1}{|l|}{$R^2$}          & 0.438                            & 0.497                           & 0.729                           & 0.709   & 0.727    \\
+\multicolumn{1}{|l|}{$F$}           & 396.4                            & 122.6                           & 7.048                           & 4.470   & 0.650    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Standard errors are clustered at the country level and reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$. \par}
+\end{minipage}
+\end{table}
+
+\end{document}

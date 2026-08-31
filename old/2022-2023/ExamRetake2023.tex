@@ -1,0 +1,125 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Friday, January 20, 2023 09:41:32}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Resit Exam}
+\end{center}
+
+\textbf{Question 1}
+
+(a) Define an efficient estimator and explain why this is an important
+property and how it relates to the mean squared error of an estimator.
+
+(b) Provide an expression for the bias of an estimator. How is the Mean
+Squared Error (MSE)\ of an estimator related to its bias?
+
+(c) State (without proof) the Gauss Markov and Cram\'{e}r Rao theorems, and
+explain the differences between the two.
+
+\bigskip
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors of rank $k$, $\beta $ is a $k\times 1$ vector of unknown
+parameters, and $\varepsilon $ is an $n\times 1$ vector of unobserved random
+variables. The standard assumptions provided in the lecture are assumed to
+hold, particularly $\mathbb{E}\left[ \varepsilon |X\right] =0$ and $\mathbb{E%
+}\left[ \varepsilon \varepsilon ^{\prime }|X\right] =\sigma ^{2}I_{n}.$
+
+(a) Derive the ordinary least squares OLS estimator for $\beta .$
+
+(b) Show that the OLS\ estimator $\hat{\beta}_{n}^{OLS}$ is unbiased,
+carefully stating the assumptions you are using.
+
+(c) Compute the variance of $\hat{\beta}_{n}^{OLS}.$
+
+(d) Show that $\hat{\beta}_{n}^{OLS}$ is consistent, carefully stating the
+assumptions you are using.
+
+(e) Derive the asymptotic distribution of $\hat{\beta}_{n}^{OLS},$ carefully
+stating the assumptions you are using$.$
+
+(f) Explain how your answer in (e) can be used to conduct hypothesis testing
+or construct confidence intervals for the unknown $\beta .$
+
+\bigskip
+
+\textbf{Question 3 }
+
+Consider the Gaussian linear model $y=X\beta +\varepsilon ,$ where $\beta
+\in \mathbb{R}^{K}$ and $\varepsilon |X\sim \mathcal{N}\left( 0,\sigma
+^{2}\Omega \right) $ for an unknown scalar $\sigma ^{2}$ and some \textbf{%
+known} $n\times n$ positive definite matrix $\Omega $.
+
+(a) Write down the log-likelihood function of the sample.
+
+HINT: Recall the definition of a Normal density of an $m\times 1$ vector $%
+z\sim \mathcal{N}\left( \mu ,\Sigma \right) $: $\ $%
+\begin{equation*}
+f\left( z;\mu ,\Sigma \right) =\left( 2\pi \right) ^{-m/2}\det \left( \Sigma
+\right) ^{-1/2}\exp \left\{ -\frac{1}{2}\left( z-\mu \right) ^{\prime
+}\Sigma ^{-1}\left( z-\mu \right) \right\} .
+\end{equation*}
+
+(b) Show that the maximum likelihood estimator $\hat{\beta}^{_{MLE}}$ of $%
+\beta $ coincides with the generalised least squares estimator $\hat{\beta}%
+^{_{GLS}}$ of $\beta $.
+
+(c) Show that $\hat{\beta}^{_{MLE}}$ is unbiased and calculate its variance
+conditional on $X$.
+
+(d) Find the maximum likelihood estimator for $\sigma ^{2}$.
+
+(e) Compute the Fisher Information matrix of $[\beta ,\sigma ^{2}]$
+conditional on $X$.
+
+(f) Does the $\hat{\beta}^{_{MLE}}$ achieves the Cramer Rao Lower bound
+[conditional on $X$]? How does this relate to the Gauss Markov theorem for
+the GLS estimator?
+
+\end{document}

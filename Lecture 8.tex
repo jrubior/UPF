@@ -1,0 +1,711 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+\usepackage{colortbl}
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex} 
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill 
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em} 
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
+
+
+\title[]{\textcolor{blue}{Lecture 7:\\Functional Forms}}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+\date{November 11th, 2024}
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{What we learned in the last lesson}
+\begin{itemize}
+    \item Hypothesis tests and confidence intervals for a single regression coefficient are carried out using essentially the same procedures used in the simple linear regression model. For example, a 95\% confidence interval for $\hat{\beta}_1$ is given by $\hat{\beta}_1\pm 1.96 SE(\hat{\beta}_1)$\\[1em]
+    \item Hypotheses involving more than one restriction on the coefficients are called joint hypotheses. Joint hypotheses can be tested using an F-statistic. F-statistics relate to $F_{q,n-k-1}$ distributions. \\[1em]
+    \item Regression specification proceeds by first determining a base specification chosen to address concern about omitted variable bias. The base specification can be modified by including additional regressors that control for other potential sources of omitted variable bias.\\[1em]
+    \item Simply choosing the specification with the highest $R^2$ can lead to regression models that do not estimate the causal effect of interest.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{itemize}
+    \item The regression function so far has been linear in the $X$’s... But the linear approximation is not always a good one!\\[1em]
+    \item The multiple regression model can handle regression functions that are nonlinear in one or more $X$.\\[1em]
+    \item If a relation between $Y$ and $X$ is nonlinear:
+    \begin{itemize}
+        \item The effect on $Y$ of a change in $X$ depends on the value of   X – that is, the marginal effect of $X$ is not constant
+        \item A linear regression is misspecified: the functional form is wrong
+        \item The estimator of the effect on $Y$ of $X$ is biased: in general, it isn’t even right on average.
+        \item The solution is to estimate a regression function that is nonlinear in $X$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A linear fit on a (possibly) linear relationship}
+\begin{center}
+    \includegraphics[width=.9\linewidth]{images/nonlin0.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{A linear fit on a non-linear relationship}
+\begin{center}
+    \includegraphics[width=.6\linewidth]{images/nonlin1.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{The general nonlinear population regression function}
+
+The general nonlinear population regression function  is defined as
+\begin{equation*}
+    Y_i = f(X_{1i}, X_{2i}, \dots, X_{ki}) +u_i
+\end{equation*}
+Assumptions:
+\begin{itemize}
+    \item $\mathbb{E}(u_i\mid X_{1i}, X_{2i}, \dots, X_{ki})=0$ so $f(.)$ is the conditional expectation of $Y$ given the $X$'s.
+    \item $(Y_i, X_{1i}, X_{2i}, \dots, X_{ki})$ are i.i.d.
+    \item Big outliers are rare (same idea as with linear OLS; the precise mathematical condition depends on the specific $f(.)$).
+    \item No perfect multicollinearity (same idea; the precise statement depends on the specific $f(.)$).
+\end{itemize}
+
+The expected difference in $Y$ associated with a difference in $X_1$, ceteris paribus, is
+
+\begin{equation*}
+    \Delta Y = f(X_{1} + \Delta X_{1}, X_{2}, \dots, X_{k}) -  f(X_{1}, X_{2}, \dots, X_{k}) 
+\end{equation*}
+
+\end{frame}
+
+
+\begin{frame}{Nonlinear Functions of a Single Independent Variable}
+We’ll look at two complementary approaches:\\[1em]
+
+\begin{itemize}
+    \item \textbf{Polynomials in $X$}
+    \begin{itemize}
+        \item The population regression function is approximated by a quadratic, cubic, or higher-degree polynomial
+    \end{itemize}
+    \\[1em]
+    \item \textbf{Logarithmic transformations}
+    \begin{itemize}
+        \item $Y$ and/or $X$ is transformed by taking its logarithm, which provides a ``percentages'' interpretation (i.e., elasticities and semi-elasticities) of the coefficients that makes sense in many applications
+    \end{itemize}
+\end{itemize}\\[1em]
+    The choice of specification (functional form) should be guided by judgment (which interpretation makes the most sense in your application?), tests, and plotting predicted values
+\end{frame}
+
+
+\begin{frame}{Polynomials in $X$}
+Approximate the population regression function by a polynomial:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + \dots + \beta_r X_i^r + u_i
+\end{equation*}
+\begin{itemize}
+    \item This is just the linear multiple regression model -- except that the regressors are powers of $X$!
+    \item  Estimation, hypothesis testing, etc. proceeds as in the multiple regression model using OLS
+    \item The coefficients are difficult to interpret, but the regression function itself is interpretable
+\end{itemize}\\[1em]
+
+For example, let's estimate the following quadratic specification:
+\begin{equation*}
+    \text{TestScore}_i = \beta_0 + \beta_1 \text{Income}_i + \beta_2 \text{Income}_i^2  + u_i
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Polynomials in $X$}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/quadratic0.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Polynomials in $X$}
+ \begin{columns}
+\begin{column}{0.45\textwidth}
+    \begin{itemize}
+    \item We can plot the predicted values...\\[1em]
+    \item The predicted change in $TestScore$ for a change in income from \$5K per capita to \$6K per capita is :\\[0.5em]
+    $(6\times3.85 - 6^2\times 0.042)-(5\times3.85 - 5^2\times 0.042)=3.4$
+    \end{itemize}
+    \begin{table}[]
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{$\Delta Income$} & \textbf{$\Delta TestScore$} \\ \hline
+from 5 to 6                             & 3.4                                        \\ \hline
+from 25 to 26                           & 1.7                                        \\ \hline
+from 45 to 46                           & 0.0                                          \\ \hline
+\end{tabular}
+\end{table}
+    \begin{itemize}
+    \item Caution! What is the effect of a change from \$100K to \$101K?  
+    \end{itemize}
+
+\end{column}
+\begin{column}{0.6\textwidth}
+\begin{figure}
+  \centering
+         \vspace{-2mm}
+        \includegraphics[scale=.3]{images/quadratic1.jpg}
+\end{figure}
+    \begin{itemize}
+    \item The ``effect'' of a change in income is greater at low than high income levels (i.e., a declining marginal effect of income)
+    \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Polynomials in $X$}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/quadratic2.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Polynomials in $X$}
+We just ran
+
+\begin{equation*}
+    \text{TestScore}_i = \beta_0 + \beta_1 \text{Income}_i + \beta_2 \text{Income}_i^2 + \beta_3 \text{Income}_i^3  + u_i
+\end{equation*}
+\begin{itemize}
+    \item We can test the linear model against this cubic model:\\
+\begin{equation*}
+    H_0: \beta_2=\beta_3 = 0 \textbf{~~~VS~~~}  H_1: \beta_2\neq 0 \text{~and/or~} \beta_3\neq 0
+\end{equation*}
+    \item The F-statistic of the test is $37.69>>4.61$\\[1em]
+    \item The hypothesis that the population regression is linear is rejected at the 1\% significance level against the alternative that it is a polynomial of degree up to 3.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Logarithmic functions of $Y$ and/or $X$}
+\begin{itemize}
+    \item Remember that, according to Taylor's expansion, $f(x)\approx f(a) + f'(a)(x-a)$
+    \item Following this equation, $log(x)\approx log(x)\mid_{x=a} + \frac{\partial log(x)}{\partial x}\mid_{x=a}(x-a)$
+    \item Therefore, for $a=1$, $log(x)\approx x-1$
+    \item It follows that, in the neighborhood of 1,  $log(x)$ can be approximated by $x-1$.
+    \item Consider $Y + \Delta Y \approx Y$ (i.e., $x=\frac{Y + \Delta Y}{Y}\approx1$).
+    \item Then $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$... the percent change is a linear approximation of the log difference!
+    \item Approximating the curve of $log(x)$ with $x-1$ gets worse and worse as we move away from $x=1$... For instance:
+    \begin{equation*}
+        log(.7+.5)- log(.7) = .54 \neq \frac{.5}{.7}=.71
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{[short digression] Logarithmic functions of $Y$ and/or $X$}
+\begin{itemize}
+    \item So how should we think about log changes? 
+        \begin{eqnarray*}
+            &log(.7+.5)- log(.7) &= .54 =54\times0.01\\
+            & {} &\approx 54\times log(1.01) \\
+            &\Leftrightarrow \frac{.7+.5}{.7}= \frac{1.2}{.7}&\approx 1.01^{54}           \\
+        \end{eqnarray*}
+    \item 1.2 is, relative to .7, approximately equivalent to 54 different 1\% increases \textit{compounded}!\\[1em]
+    \item In economics, we often think in terms of compounding percent changes (e.g., compound interest rates, inflation, population growth, investments returns, price elasticity, etc.), i.e.,
+    \begin{equation*}
+        Y_T = \prod_t (1+R_t)
+    \end{equation*}
+    \item Then, it is easier to write
+        \begin{equation*}
+        log(Y_T) = \sum_t log(1+R_t)= \sum_t log(Y_t) - log(Y_{t-1})
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Logarithmic functions of $Y$ and/or $X$}
+In the linear regression model,
+\begin{eqnarray*}
+    &Y_i &= \beta_0 + \beta_1 X_{1i} + u_i\\
+\end{eqnarray*}
+1-unit increase in $X_{1i}$ was associated with a $\beta_1$-unit increase in $Y_i$.\\[1em] 
+
+Now, depending on the hypothesis we derived from the theory, data can be log-transformed on the RHS or the LHS or both.\\
+
+\begin{eqnarray*}
+    &Y_i &= \beta_0 + \beta_1 log(X_{1i}) + u_i\\
+    &log(Y_i) &= \beta_0 + \beta_1 X_{1i} + u_i\\
+    &log(Y_i) &= \beta_0 + \beta_1 log(X_{1i}) + u_i\\
+\end{eqnarray*}
+In each case, $\beta_1$ has a different interpretation.
+\end{frame}
+
+
+\begin{frame}{Linear-log population regression function}
+
+\begin{eqnarray*}
+    & Y &= \beta_0 + \beta_1 log(X) + u\\
+    & \Rightarrow Y + \Delta Y &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
+    &\Rightarrow  \Delta Y &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
+\end{eqnarray*}
+Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
+\begin{eqnarray*}
+    &\Delta Y &\approx \beta_1  \frac{\Delta X}{X}  \\    
+    &\Rightarrow  \beta_1  &=  \frac{\Delta Y}{\Delta X/X}\\    
+\end{eqnarray*}
+Because $100\times\Delta X/X$= percentage change in $X$, a 1\% change in $X$ is associated with a $\beta_1/100$ change in $Y$.
+\end{frame}
+
+\begin{frame}{Log-linear population regression function}
+
+\begin{eqnarray*}
+    & log(Y) &= \beta_0 + \beta_1 X + u\\
+    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 (X + \Delta X) + u\\
+    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1  \Delta X\\    
+\end{eqnarray*}
+Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
+\begin{eqnarray*}
+    &\frac{\Delta Y}{Y} &\approx \beta_1 \Delta X\\    
+    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X}\\    
+\end{eqnarray*}
+Because $100\times\Delta Y/Y$= percentage change in $Y$, a change in $X$ by 1 unit is associated with a $100\times \beta_1$\% change in $Y$. \hfill[$\beta_1$=semi-elasticity]
+\end{frame}
+
+
+\begin{frame}{Log-Log population regression function}
+
+\begin{eqnarray*}
+    & log(Y) &= \beta_0 + \beta_1 log(X) + u\\
+    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
+    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
+\end{eqnarray*}
+Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
+\begin{eqnarray*}
+    &\frac{\Delta Y}{Y} &\approx \beta_1 \frac{\Delta X}{X}\\    
+    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X/X}\\    
+\end{eqnarray*}
+A 1\% change in $X$ by 1 unit is associated with a $\beta_1$\% change in $Y$.\hfill[$\beta_1$=elasticity]
+\end{frame}
+
+\begin{frame}{(Linear-)Cubic vs. Linear-Log}
+\begin{center}
+    \includegraphics[width=.6\linewidth]{images/linlog.jpg}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Log-Linear vs. Log-Log}
+\begin{center}
+    \includegraphics[width=.6\linewidth]{images/loglog.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Interactions and heterogenous effects}
+\begin{itemize}
+    \item In the California Schools example, at the beginning of the course, we were interested in knowing the impact of the Share of Subsidized Meals on TestScores\\[1em]
+    \item We saw that the Share of Subsidized Meals was, on average, negatively associated with TestScores\\[1em]
+    \item We said that the impact of the Share of Subsidized Meals on on TestScores could be cofounded by local Educational Attainment\\[1em]
+    \item But we might be interested in knowing the \textit{heterogenous} effects of the Share of Subsidized Meals depending on different levels of Educational Attainment\\[1em]
+    \item Is the effect of subsidizing meals still associated with lower test scores, even when local educational attainment is low?
+\end{itemize}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Interactions between two dummies}
+Consider the following specification
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i
+\end{equation*}
+where $D_{1i}$ and $D_{2i}$ are dummy variables.\\[1em]
+\begin{itemize}
+    \item $\beta_1$ is the unconditional effect of $D_{1}$ alone, i.e., irrespective of the value of $D_{2}$
+    \item $\beta_2$ is the unconditional effect of $D_{2}$ alone, i.e., irrespective of the value of  $D_{1}$
+    \item $\beta_3$ is the \textit{interaction} effect of $D_{1}=1$ and $D_{2}=1$, i.e., the additional effect of an increase in both $D_{1}$ and $D_{2}$, at the same time
+\end{itemize}
+\end{frame}
+\end{comment}
+
+\begin{frame}{Interactions between two dummies}
+Consider the following specification
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i
+\end{equation*}
+where $D_{1i}$ and $D_{2i}$ are dummy variables.\\[1em]
+\begin{itemize}
+    \item (Comparison category) $D_{1i}=0$ and $D_{2i}=0$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=0, D_{2i}=0) = \beta_0$ 
+    \item When $D_{1i}=1$ but $D_{2i}=0$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=1, D_{2i}=0) = \beta_0 + \beta_1$ 
+    \item When $D_{1i}=0$ but $D_{2i}=1$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=0, D_{2i}=1) = \beta_0 + \beta_2$ 
+    \item Full model when $D_{1i}=1$ and $D_{2i}=1$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=1, D_{2i}=1) = \beta_0 + \beta_1 + \beta_2 + \beta_3$ 
+\end{itemize}
+\\[1em]
+$\beta_3$ can be interpreted as the incremental effect to $D_{1}$ (resp. $D_{2}$) \underline{when} $D_{2}=1$ (resp. $D_{1}=1$)
+\end{frame}
+
+\begin{frame}{Interactions between two dummies}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/dumdum.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+How to think about dummies in the presence of a continuous variables? First, consider the simple case without interaction:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 D_{1i} 
+ + u_i
+\end{equation*}
+where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
+
+The regression line when $D_1=0$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_1 X_{2i} 
+\end{equation*}
+While the regression line when $D_1=1$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = (\beta_0 + \beta_2) + \beta_1 X_{1i} 
+\end{equation*}
+The intercepts are different but the slopes are the same!
+\end{frame}
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=.75\linewidth]{images/inter1.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+This framework can be extended to the interaction between a dummy and a continuous variable. Next, consider
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 (D_{1i} \times X_{1i}) + u_i
+\end{equation*}
+where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
+
+The regression line when $D_1=0$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_1 X_{1i} 
+\end{equation*}
+While the regression line when $D_1=1$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = \beta_0 + \ (\beta_1 + \beta_2) X_{1i} 
+\end{equation*}
+The intercept is the same, but slopes are different!
+\end{frame}
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=.7\linewidth]{images/inter2.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+Next consider the fully interacted model:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{1i} + \beta_3 (D_{1i} \times X_{1i}) + u_i
+\end{equation*}
+where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
+
+The regression line when $D_1=0$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_2 X_{1i} 
+\end{equation*}
+While the regression line when $D_1=1$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = (\beta_0 + \beta_1) + (\beta_2 + \beta_3) X_{1i} 
+\end{equation*}
+The intercepts and slopes depend on the groups defined by $D_1$!
+\end{frame}
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=.7\linewidth]{images/inter3.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\textbf{How to discriminate between the last 3 models?}\\[1em]
+Run the fully interacted model
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{1i} + \beta_3 (D_{1i} \times X_{1i}) + u_i
+\end{equation*}
+\begin{itemize}
+    \item \textbf{Test if the two lines are the same ---} (In other words, does the interaction matter?) Compute the F-statistic testing the joint hypothesis that $\beta_1=\beta_3=0$ (Chow Test)\\[1em]
+    \item \textbf{Test if the two lines have the same slope ---} Compute the t-statistic testing the simple hypothesis that $\beta_3=0$  \\[1em]
+    \item \textbf{Test if the two lines have the same intercept ---} Compute the t-statistic testing the simple hypothesis that $\beta_1=0$ 
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/contdum.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=.75\linewidth]{images/contdumgraph.png}
+\end{center}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Interactions between a dummy and a continuous variable}
+This framework can be extended to the interaction between a dummy and a continuous variable
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{2i} + \beta_3 (D_{1i} \times X_{2i}) + u_i
+\end{equation*}
+where $D_{1i}$ is a dummy and $X_{2i}$ is a continuous variable.\\[1em]
+
+The regression line when $D_1=0$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=0, X_{2i}) = \beta_0 +  \beta_2 X_{2i} 
+\end{equation*}
+While the regression line when $D_1=1$ reads
+\begin{equation*}
+    \mathbb{E}(Y\mid D_{1i}=0, X_{2i}) = (\beta_0 + \beta_1) + (\beta_2 + \beta_3) X_{2i} 
+\end{equation*}
+The intercepts and slopes depend on $D_1$.
+\end{frame}
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/contdum.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+\begin{center}
+    \includegraphics[width=.88\linewidth]{images/contdumgraph.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Interactions between a dummy and a continuous variable}
+We can extend this to two continuous variables
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i
+\end{equation*}
+where both $X_{1i}$ and $X_{2i}$ are continuous variable.\\[1em]
+
+A change in $Y$ due to $X_1$ reads
+\begin{equation*}
+    Y_i + \Delta Y_i = \beta_0 + \beta_1 (X_{1i} + \Delta X_{1i} ) + \beta_2 X_{2i} + \beta_3 [(X_{1i} + \Delta X_{1i} ) \times X_{2i}] + u_i
+\end{equation*}
+
+Therefore,
+
+\begin{equation*}
+    \Delta Y_i = \beta_1\Delta X_{1i} + \beta_3 (\Delta X_{1i} \times X_{2i}) = \Delta X_{1i} (\beta_1 + \beta_3 X_{2i}) \text{~~~i.e.,~~}\frac{\Delta Y}{\Delta X_{1}} = \beta_1 + \beta_3 X_{2}
+\end{equation*}
+\\[1em]
+We made obvious that the impact of $X_1$ on $Y$ varies with $X_2$!
+\end{frame}
+
+
+\end{comment}
+
+\begin{frame}{Interactions between two continuous variable}
+\begin{center}
+    \includegraphics[width=\linewidth]{images/contcont.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Wrapping up: Linear vs. Non-Linear Models}
+
+\textbf{In econometrics, we initially favor linear models for their simplicity:}
+\begin{itemize}
+    \item Linear models assume a constant relationship between variables (e.g., a one-unit increase in $X$ leads to a fixed change in $Y$).
+    \item However, economic relationships are often complex and dynamic, and this assumption \textit{might not hold in reality}.
+    \item Non-linear models, in contrast, allow for more flexible and \textit{realistic} relationships. They can capture intricate economic behaviors that linear models cannot.
+\end{itemize}\\[1em]
+\textbf{In practice, numerous economic phenomena exhibit non-linear characteristics:}
+\begin{itemize}
+    \item For example, consider luxury goods. The demand for such goods may not increase linearly with income. As income rises, the demand might accelerate.
+    \item Using linear models in such cases can lead to biased and inaccurate results because they fail to capture these \textit{nuanced relationships.}
+    \item Recognizing non-linear patterns in data is essential for \textit{accurately} modeling and understanding real-world economic dynamics.
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{The Importance of Interactions}
+
+\textbf{Interactions in econometrics refer to how the effect of one variable depends on the level of another:}
+\begin{itemize}
+    \item Non-linear interactions can be critical in economic analysis. They enable us to explore \textit{how the relationship between two variables changes as one variable varies}.
+    \item For instance, think about the interaction between interest rates and GDP. The impact of interest rates on investment may vary at different levels of GDP. In times of economic growth, a change in interest rates might have a stronger or weaker effect on investment.
+    \item By incorporating non-linear interactions, we gain a more nuanced understanding of the \textit{interplay between variables}, making our models more realistic and insightful.
+\end{itemize}\\[1em]
+$\longrightarrow$ Choosing the right functional form may not only improve your predictive power, it can also have large policy implications!
+\end{frame}
+
+
+
+\begin{frame}[allowframebreaks]{Material}
+\begin{itemize}
+    \item[--] \textbf{Textbooks:}
+    \begin{itemize}
+        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 8.
+        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge -- Chapter 6-9.
+    \end{itemize}
+\end{itemize}
+\scriptsize{
+\bibliographystyle{ecta}
+\bibliography{base} 
+}
+\end{frame}
+
+
+\end{document}
+
+
+

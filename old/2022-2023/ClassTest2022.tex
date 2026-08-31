@@ -1,0 +1,118 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 936
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=936}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Monday, November 08, 2021 17:14:57}
+%TCIDATA{LastRevised=Tuesday, November 08, 2022 22:15:00}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Class Test}
+\end{center}
+
+\textbf{Question 1}
+
+(a) Define an unbiased estimator and explain why this is an important
+property. Explain how the Mean Squared Error (MSE)\ of an estimator is
+related to its bias.
+
+(b) State the Central Limit Theorem for a sequence of i.i.d. random
+variables carefully stating any conditions required. Briefly explain the
+theorem's importance for statistical inference.
+
+(c) Explain what the difference is between an unbiased and a consistent
+estimator. Does one imply the other? Explain why these are both desirable
+properties for estimators to have.
+
+(d) Suppose $\sqrt{n}\left( \hat{\theta}_{n}-\theta \right) \rightarrow _{d}%
+\mathcal{N}\left( 0,1\right) $ as $n\rightarrow \infty .$ Derive the
+asymptotic distribution of $e^{2\widehat{\theta }_{n}}.$\bigskip 
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors, $\beta $ is a $k\times 1$ vector of unknown parameters, and $%
+\varepsilon $ is an $n\times 1$ vector of unobserved random variables. The
+standard assumptions provided in the lecture are assumed to hold.
+
+\begin{enumerate}
+\item The linear regression model in is correctly specified and linear in $%
+\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $\limfunc{plim}_{n\rightarrow \infty }(\frac{1}{n}X^{\prime }X)=Q,$
+where $\left\Vert Q\right\Vert <\infty $ and $Q$ is positive definite matrix.
+\end{enumerate}
+
+(a) Suppose there are two explanatory variables, $k=2,$ so that 
+\begin{equation*}
+y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon .
+\end{equation*}
+State without proof the Frisch-Waugh-Lovell theorem for the OLS estimator $%
+\hat{\beta}_{1}.$ Explain how the theorem is related to omitted variable
+bias.
+
+(b) Given that the model is $y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon ,$
+show that the estimator for $\beta _{1}$ (from the Frisch-Waugh-Lovell
+theorem) is unbiased and derive its variance.
+
+(c) Suppose you know that $\beta _{1}=\beta _{2}=0,$ so that the model
+reduces to $y=\varepsilon .$ Is $\hat{\sigma}_{n}^{2}=\frac{1}{n}\varepsilon
+^{\prime }\varepsilon $ unbiased? Derive an expression for the variance of $%
+\hat{\sigma}_{n}^{2}.$\bigskip 
+
+\textbf{Question 3 }
+
+(a) Consider the linear regression model from Question 2. Recall that the
+ridge estimator is defined as $\hat{\beta}^{Ridge}=\left( X^{\prime
+}X+\lambda _{n}I_{k}\right) ^{-1}X^{\prime }y.$ Suppose that $\lambda
+_{n}=cn^{\delta /2}$ for some $\delta \geq 0.$ For which range of values for 
+$c$ and $\delta $ is $\hat{\beta}^{Ridge}$ a consistent estimator for $\beta
+?$
+
+\end{document}

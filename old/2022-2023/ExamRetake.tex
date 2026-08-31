@@ -1,0 +1,120 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Monday, January 17, 2022 11:47:52}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Resit Exam}
+\end{center}
+
+\textbf{Question 1}
+
+(a) Provide a definition for an efficient estimator.
+
+(b) State (without proof) the Gauss Markov and Cram\'{e}r Rao theorems, and
+explain the differences between the two.
+
+(c) Provide an expression for the bias of an estimator. How is the Mean
+Squared Error (MSE)\ of an estimator related to its bias?
+
+\bigskip
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors of rank $k$, $\beta $ is a $k\times 1$ vector of unknown
+parameters, and $\varepsilon $ is an $n\times 1$ vector of unobserved random
+variables. The standard assumptions provided in the lecture are assumed to
+hold, particularly $\mathbb{E}\left[ \varepsilon |X\right] =0$ and $\mathbb{E%
+}\left[ \varepsilon \varepsilon ^{\prime }|X\right] =\sigma ^{2}I_{n}.$
+
+(a) Derive the ordinary least squares OLS estimator for $\beta .$
+
+(b) Show that the OLS\ estimator $\hat{\beta}_{n}^{OLS}$ is unbiased,
+carefully stating the assumptions you are using.
+
+(c) Compute the variance of $\hat{\beta}_{n}^{OLS}.$
+
+(d) Show that $\hat{\beta}_{n}^{OLS}$ is consistent, carefully stating the
+assumptions you are using.
+
+(e) Derive the asymptotic distribution of $\hat{\beta}_{n}^{OLS},$ carefully
+stating the assumptions you are using$.$
+
+(f) Explain how your answer in (e) can be used to conduct hypothesis testing
+or construct confidence intervals for the unknown $\beta .$
+
+\bigskip
+
+\textbf{Question 3 }
+
+Consider the linear regression model 
+\begin{equation*}
+y=X\beta +\varepsilon
+\end{equation*}%
+where $y$ is an $n\times 1$ vector of dependent variables, $X$ is an $%
+n\times k$ matrix of stochastic regressors of rank $k$, $\varepsilon |X$ are 
+$\mathcal{N}(0,\sigma ^{2}I_{n})$ random variables, and $\beta $ is a $%
+k\times 1$ vector of unknown parameters$.$
+
+(a) Set up the log likelihood function and derive the ML estimators $%
+\widehat{\beta }^{ML}$ and $\widehat{\sigma }^{2,ML}.$
+
+(b) Show that $\widehat{\sigma }^{2,ML}$ is biased and propose a bias
+corrected estimator for $\sigma ^{2}.$
+
+(c) Show that $\widehat{\sigma }^{2,ML}$ is asymptotically unbiased, and
+consistent.
+
+(d) Derive the distribution of $\widehat{\beta }^{ML}|X$ and explain how it
+can be used for testing. How does inference in this setup differ from the
+setup in question 2 (f)?
+
+(e) Compute the Fisher information matrix for the $(k+1)\times 1$ vector of
+parameters $[\beta ,\sigma ^{2}].$
+
+(f) Are $\widehat{\beta }^{ML}$ and $\widehat{\sigma }^{2,ML}$ efficient?
+
+\end{document}

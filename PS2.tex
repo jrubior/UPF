@@ -1,0 +1,105 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Tuesday, October 15, 2019 14:55:43}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%\input{tcilatex}
+\begin{document}
+
+
+\begin{center} 
+{\Large Problem Set 2}
+\end{center}
+
+
+\begin{exercise} % EX4.4 SW
+    Your class is asked to investigate the effect of average temperature on average weekly earnings (AWE, measured in dollars) across countries, using the following the general regression approach:
+    \begin{equation*}
+        \hat{AWE} = \hat{\beta}_0 +  \hat{\beta}_1 \times \text{temperature}
+    \end{equation*}
+    One of your classmates, Rachel, is an American and decides to analyze the effect of temperature measured in Fahrenheit, while most of the other students analyze the effect of temperature measured in Celsius.
+    \begin{equation*}
+        X_F= 32+\frac{9}{5}\times X_C
+    \end{equation*}
+    If everything else is the same in Rachel’s analysis compared to the other students’ analysis, then how will the quantities in a) $\hat{\beta}_0$, b) $\hat{\beta}_1$, and c) $R^2$ differ?
+\end{exercise}
+
+
+\begin{exercise} % EX4.6 SW
+    Show that the first least squares assumption, $\mathbb{E}(u_i\mid X_i)=0$, implies that $\mathbb{E}(Y_i\mid X_i) = \beta_0 + \beta_1 X_i$
+\end{exercise}
+
+
+\begin{exercise} % EX4.7 SW
+    Show that $\hat{\beta}_0$ is an unbiased estimator of $\beta_0$.
+\end{exercise}
+
+
+\begin{exercise} % EX4.9 SW
+    a) A linear regression yields $\hat{\beta}_1 = 0$. Show that $R^2 = 0$.\\
+    b) A linear regression yields $R^2 = 0$ . Does it imply that $\hat{\beta}_1 = 0$?
+    
+\end{exercise}
+
+
+\begin{exercise}%Appendix 5.2 SW
+    State and prove the Gauss-Markov Theorem (as stated in class). 
+\end{exercise}
+
+
+\begin{exercise} % EX5.5-5.6 SW
+    In the 1980s, Tennessee conducted an experiment in which kindergarten students were randomly assigned to “regular” and “small” classes and given standardized tests at the end of the year. (Regular classes contained approximately 24 students, and small classes contained approximately 15 students.) Suppose, in the population, the standardized tests have a mean score of 925 points and a standard deviation of 75 points. Let \textit{SmallClass} denote a binary variable equal to 1 if the student is assigned to a small class and equal to 0 otherwise. A regression of \textit{TestScore} on \textit{SmallClass} yields
+    \begin{equation*}
+        TestScore = \underset{(1.6)}{918.0} + \underset{(2.5)}{13.9} \times SmallClass; R^2 = 0.01; SER = 74.6
+    \end{equation*}
+    \begin{enumerate}[label=(\alph*)]
+        \item Do small classes improve test scores? By how much? Is the effect large? Explain.
+        \item Is the estimated effect of class size on test scores statistically significant? Carry out a test at the 5\% level.
+        \item Construct a 99\% confidence interval for the effect of SmallClass on TestScore.
+        \item Does least squares assumption 1, , $\mathbb{E}(u_i\mid X_i)=0$, plausibly hold for this regression? Explain.
+        \item Do you think that the regression errors are plausibly homoskedastic? Explain.
+        \item SE($\hat{\beta_1}$) was computed assuming heteroskedasticity. Suppose the regression errors were homoskedastic. Would this affect the validity of the confidence interval constructed earlier? Explain.
+    \end{enumerate}
+\end{exercise}
+
+
+
+
+\end{document}

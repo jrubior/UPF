@@ -1,0 +1,202 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Tuesday, October 15, 2019 14:55:43}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+\usepackage{enumitem}
+\usepackage{floatrow}
+\usepackage{graphicx} 
+\usepackage{caption}
+\usepackage{adjustbox}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%\input{tcilatex}
+\begin{document}
+
+
+\begin{center} 
+{\Large Problem Set 4}
+\end{center}
+
+
+\begin{exercise} %Wooldridge 3.1
+Using the data on 4,137 college students, the following equation was estimated by OLS:
+
+\begin{equation*}
+    \widehat{colgpa}=1.392-.0135~hsperc+.00148~sat
+\end{equation*}
+
+where $colgpa$ is measured on a four-point scale, $hsperc$ is the percentile in the high school graduating class (defined so that, for example, $hsperc= 5$ means the $top~5\%$ of the class), and sat is the combined math and verbal scores on the student achievement test.  The $R^2$ of the regression is .273.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Why does it make sense for the coefficient on $hsperc$ to be negative?
+    \item What is the predicted college GPA when $hsperc=20$ and $sat = 1,050$?
+    \item Suppose that two high school graduates, A and B, graduated in the same percentile from high school, but Student A’s SAT score was 140 points higher (about one standard deviation in the sample). What is the predicted difference in college GPA for these two students? Is the difference large?
+    \item Holding $hsperc$ fixed, what difference in SAT scores leads to a predicted $colgpa$ difference of .50, or one-half of a grade point? Comment on your answer.
+\end{enumerate}
+\end{exercise}
+
+
+\begin{exercise} %Wooldridge 3.3
+The following model is a simplified version of the multiple regression model used by Biddle and Hamermesh (1990) to study the tradeoff between time spent sleeping and working and to look at other factors affecting sleep:
+
+\begin{equation*}
+    sleep = \beta_0 +\beta_1~totwrk +\beta_2~educ+\beta_3~age +u
+\end{equation*}
+
+where sleep and totwrk (total work) are measured in minutes per week and educ and age are measured in years.
+
+\begin{enumerate}[label=(\alph*)]
+    \item If adults trade off sleep for work, what is the sign of $\beta_1$?
+    \item What signs do you think $\beta_2$ and $\beta_3$ will have?
+    \item The estimated coefficients ($n=706$) read
+
+    \begin{equation*}
+    \widehat{sleep} = 3,638.25 -.148~totwrk - 11.13~educ+2.20~age +u
+\end{equation*}
+
+The $R^2$ of the regression is .113.\\
+
+If someone works five more hours per week, by how many minutes is sleep predicted to fall? Is this a large tradeoff?
+    \item Discuss the sign and magnitude of the estimated coefficient on educ.
+    \item Would you say totwrk, educ, and age explain much of the variation in sleep? What other factors might affect the time spent sleeping? Are these likely to be correlated with totwrk?
+\end{enumerate}
+\end{exercise}
+
+
+\begin{exercise} %Wooldridge 3.10
+Suppose you are interested in estimating the ceteris paribus relationship between y and $x_1$. For this purpose, you can collect data on two control variables, $x_2$ and $x_3$. (For concreteness, you might think of y as the final exam score, $x_1$ as class attendance, $x_2$ as GPA up through the previous semester, and $x_3$ as SAT or ACT score.) Let $\tilde{\beta}_1$ be the simple regression estimate from y on $x_1$ and let $\hat{\beta}_1$ be the multiple regression estimate from y on $x_1$, $x_2$, $x_3$.
+\begin{enumerate}[label=(\alph*)]
+    \item If $x_1$ is highly correlated with x2 and x3 in the sample, and $x_2$ and $x_3$ have large partial effects on y, would you expect $\tilde{\beta}_1$ and $\hat{\beta}_1$ to be similar or very different? Explain.
+    \item If $x_1$ is almost uncorrelated with $x_2$ and $x_3$, but $x_2$ and $x_3$ are highly correlated, will $\tilde{\beta}_1$ and $\hat{\beta}_1$ tend to be similar or very different? Explain.
+    \item If $x_1$ is highly correlated with $x_2$ and $x_3$, and $x_2$ and $x_3$ have small partial effects on y, would you expect SE($\tilde{\beta}_1$) or SE($\hat{\beta}_1$) to be smaller? Explain.
+    \item If $x_1$ is almost uncorrelated with $x_2$ and $x_3$, $x_2$ and $x_3$ have large partial effects on y, and $x_2$ and $x_3$ are highly correlated, would you expect SE($\tilde{\beta}_1$) or SE($\hat{\beta}_1$) to be smaller? Explain.
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise} %midterm exo 2023
+Research indicates that low birthweight babies are at a higher risk for various health complications and developmental challenges, which can persist throughout their lives. Inadequate birthweight is often linked to poorer cognitive abilities and a higher likelihood of chronic illnesses, limiting educational, employment opportunities, and personal development.\\
+
+You are asked to study the impact of smoking on birthweight. You access a dataset collected on a random sample of 3000 babies born in Pennsylvania in 1989 from the 1989 linked National Natality-Mortality Detail files. The data include the baby’s birth weight together with various characteristics of the mother, including whether she smoked during the pregnancy. The average birthweight is 3383 grams, with a standard deviation of 592 grams. The smallest registered birthweight in your sample is 425 grams, and the largest is 5755 grams.\\
+
+The variables are the following:
+\begin{itemize}
+    \item[-] birthweight: birth weight of infant (in grams)
+    \item[-] smoker: indicator equal to one if the mother smoked during pregnancy and zero, otherwise.
+    \item[-] alcohol: indicator=1 if mother drank alcohol during pregnancy
+    \item[-] educ: years of educational attainment (more than 16 years coded as 17)
+    \item[-] \# prenatal visits: total number of prenatal visits
+    \item[-] no prenatal visits: indicator=1 if no prenatal care visit was made
+    \item[-] prenatal visits (1st semester): indicator=1 if 1st prenatal care visit in 1st trimester
+    \item[-] prenatal visits (2nd semester): indicator=1 if 1st prenatal care visit in 2nd trimester
+    \item[-] prenatal visits (3rd semester): indicator=1 if 1st prenatal care visit in 3rd trimester
+\end{itemize}
+
+\vspace{.5cm}
+
+\begin{enumerate}[label=(\alph*)]
+\item Before collecting data, you are thinking about the ideal experiment to study how smoking affects birthweight. What would it be? Why would it be ideal? What are the practical limits to running such an ideal experiment?
+\item Consider column (1). What is the estimated effect of smoking on birthweight? Is the coefficient statistically significant? Is the magnitude of the coefficient large? 
+\item Consider columns (2)-(4). Why would you include other variables such as \textit{alcohol} or \textit{\# prenatal visits} in your regression specification?
+\item Jane smoked during her pregnancy, did not drink alcohol, and had 3 prenatal care visits. Use the regression in column (3), to approximately predict the birth weight of Jane’s child.
+\item  Consider columns (3)-(4). How should you interpret the coefficient on \textit{\# prenatal visits}? Does the coefficients measure a causal effect of prenatal visits on birth weight? If not, what does it measure?
+\item Consider column (5). An alternative way to control for prenatal visits is to use the binary variables \textit{prenatal visits (1st semester)},  \textit{prenatal visits (2nd semester)},  \textit{prenatal visits (3rd semester)} and \textit{no prenatal visits}. Why is \textit{prenatal visits (3rd semester)} excluded from the regression?
+\item  Does the regression in column (5) explain a larger fraction of the variance in birthweight than the regression in column (4)? 
+\item Consider columns (1)-(5). Have you identified the causal effect of smoking on birthweight? Discuss.
+\end{enumerate}
+
+\newpage
+
+%\textbf{Exercise 2 --- Output Table} \vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Smoker$ on $Birthweight$.}\vspace{.25cm}
+\begin{adjustbox}{width=1.2\textwidth}
+\begin{tabular}{l|ccccc|}
+\cline{2-6}
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{\textbf{Dependent Variable: Birthweight}}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\textit{\textbf{}}                                                     & (1)         & (2)         & (3)         & (4)         & (5)              \\ \multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\hline
+\multicolumn{1}{|l|}{\textit{\textbf{smoker}}}                         & -253.228*** & -250.803*** & -217.580*** & -207.932*** & -213.431***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (26.81)     & (26.87)     & (26.11)     & (27.12)     & (27.58)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{alcohol}}}                        &             & -57.601     & -30.491     & -35.491     & -23.942          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             & (77.39)     & (72.60)     & (72.76)     & (69.94)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{\# prenatal visits}}}             &             &             & 34.070***   & 33.168***   &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             & (3.61)      & (3.64)      &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{years of education}}}             &             &             &             & 8.118       & 13.724**         \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             & (5.01)      & (5.17)           \\
+\multicolumn{1}{|l|}{\textit{\textbf{no prenatal visits}}}             &             &             &             &             & -563.298***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (160.70)         \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (1st semester)}}} &             &             &             &             & 117.176          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (67.39)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (2nd semester)}}} &             &             &             &             & 34.532           \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (72.41)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (3rd semester)}}} &             &             &             &             & \textit{omitted} \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (.)              \\
+\multicolumn{1}{|l|}{\textit{\textbf{constant}}}                       & 3432.060*** & 3432.703*** & 3051.249*** & 2954.604*** & 3153.803***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (11.89)     & (11.94)     & (43.71)     & (74.79)     & (93.27)          \\ \hline
+\multicolumn{1}{|l|}{\textit{\textbf{$N$}}}                              & 3000.000    & 3000.000    & 3000.000    & 3000.000    & 3000.000         \\
+\multicolumn{1}{|l|}{\textit{\textbf{$F-statistic$}}}                    & 89.211      & 44.754      & 59.484      & 45.578      & 21.146           \\
+\multicolumn{1}{|l|}{\textit{\textbf{$R^2$}}}           & 0.029       & 0.029       & 0.073       & 0.074       & 0.049            \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Robust standard errors are reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$.\par}
+\end{minipage}
+\end{table}
+
+\end{exercise}
+
+
+\begin{exercise} %SW Review of concept ch7
+Answer the following questions:
+\begin{enumerate}[label=(\alph*)]
+\item What is a joint hypothesis?
+\item Explain how an F-statistic is constructed to test a joint hypothesis.
+\item What is the hypothesis that is tested by constructing the overall regression F-statistic in the multiple regression model $Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i$? Explain using the concepts of restricted and unrestricted regressions.
+\item Why is it important for a researcher to have information on the distribution of the error terms when implementing these tests?
+\end{enumerate}
+\end{exercise}
+
+
+
+\end{document}

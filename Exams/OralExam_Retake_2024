@@ -1,0 +1,80 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{}
+
+\thispagestyle{empty}
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Retake Exam} \\[1em] \small{February, 6th 2025}}\bigskip 
+\end{center}
+
+\textbf{Each question is worth 2 points.}\\[1em]
+
+\begin{enumerate}
+\item State and explain the Law of Large Numbers and its conditions.
+
+\item What are the key conditions for an instrumental variable (IV) to be considered valid? Explain and provide an example of how each might be violated.
+
+\item Why do we use clustered standard errors in panel data models, and how do they affect the interpretation of the estimated coefficients? What are the potential issues if clustering is ignored?
+
+\item What is a likelihood function? What are the steps involved in computing maximum likelihood estimation (MLE), and why is it considered a general method for estimation?
+
+\item Show that, in a binary Logit model, $\vert\frac{\partial Pr(y_i=1 \vert x_i'\beta)}{\partial x_k}\vert\leq \vert\frac{\beta_k}{4}\vert$.
+
+\end{enumerate}\vspace{.25cm}
+
+\end{document}

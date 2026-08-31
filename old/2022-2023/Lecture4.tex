@@ -1,0 +1,702 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Monday, November 07, 2022 09:48:39}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics Lecture 4: \\
+Large Sample Inference}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{Large Sample Results}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{itemize}
+\item We showed that $\widehat{\beta }_{n}\rightarrow _{p}\beta $ as $%
+n\rightarrow \infty $
+
+\item Note that my CMT, any continuous function $g:\mathbb{R}^{k}\rightarrow 
+\mathbb{R}^{q}$ we have $g\left( \hat{\beta}_{n}\right) \rightarrow
+_{p}g\left( \beta \right) $ as $n\rightarrow \infty $
+
+\item We also showed that $\sqrt{n}\left( \widehat{\beta }_{n}-\beta \right)
+\rightarrow _{d}\mathcal{N}\left( 0,\sigma ^{2}Q^{-1}\right) $
+
+\item The delta method implies that for any continuously differentiable
+function $g\left( \hat{\beta}_{n}\right) ,$ we have $\sqrt{n}\left( g\left( 
+\widehat{\beta }_{n}\right) -g\left( \beta \right) \right) \rightarrow _{d}%
+\mathcal{N}\left( 0,\sigma ^{2}GQ^{-1}G^{\prime }\right) ,$ with $G=\left[ 
+\frac{\partial g\left( \beta \right) }{\partial \beta }\right] ^{\prime }.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Estimation of the Variance}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Estimating the Variance }
+
+\begin{itemize}
+\item We will employ the asymptotic distribution of OLS in order to do
+inference
+
+\item First, we need a consistent estimator for the variance of $\sqrt{n}%
+\left( \widehat{\beta }-\beta \right) ,$ since that quantity features in the
+limit distribution
+
+\item We showed that $\sqrt{n}\left( \widehat{\beta }-\beta \right) $ is
+approximately normal with variance $\sigma ^{2}\left( \mathbb{E}\left[ 
+\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right] \right) ^{-1}.$
+
+\item It is easy to show (see Problem set 3) that both $\hat{\sigma}_{n}^{2}=%
+\frac{1}{n}\hat{\varepsilon}^{\prime }\hat{\varepsilon}$ and its
+bias-adjusted version $\hat{s}_{n}^{2}$ are consistent, i.e. $%
+p\lim_{n\rightarrow \infty }\hat{\sigma}_{n}^{2}=\sigma ^{2}$
+
+\item Moreover, $Q^{-1}=\left( \mathbb{E}\left[ \mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }\right] \right) ^{-1}$ can be consistently estimated by its
+sample mean 
+\begin{equation*}
+\widehat{Q}^{-1}=\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}\rightarrow _{p}Q^{-1}
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Estimating the Variance }
+
+\begin{itemize}
+\item By CMT and WLLN, we have that the variance of $\sqrt{n}\left( \widehat{%
+\beta }-\beta \right) $ is consistently estimated by using 
+\begin{equation*}
+\widehat{V}\left( \sqrt{n}\left( \widehat{\beta }-\beta \right) \right) =%
+\hat{\sigma}_{n}^{2}\widehat{Q^{-1}}\rightarrow _{p}\sigma ^{2}Q^{-1}
+\end{equation*}
+
+\item Therefore, plugging in $\widehat{V}$ we have by Slutsky theorem that $%
+\sqrt{n}\widehat{V}^{-1/2}\left( \widehat{\beta }-\beta \right) \rightarrow
+_{d}\mathcal{N}\left( 0,I_{k}\right) $
+
+\item Note also that as $n\rightarrow \infty ,$ the estimator for the $%
+V\left( \widehat{\beta }_{n}\right) =\hat{\sigma}^{2}\left( X^{\prime
+}X\right) ^{-1}=\hat{\sigma}^{2}\left( \tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}\rightarrow _{p}\sigma ^{2}\left(
+nQ\right) ^{-1}=0$
+
+\item On the other hand, $V\left( \sqrt{n}\left( \widehat{\beta }-\beta
+\right) \right) =nV\left( \widehat{\beta }_{n}\right) \rightarrow _{p}\sigma
+^{2}\left( Q\right) ^{-1}$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Large Sample Inference}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Standard Errors}
+
+\begin{itemize}
+\item Consider the function, $g\left( \widehat{\beta }_{n}\right) =R^{\prime
+}\widehat{\beta }_{n},$ where $R$ is $k\times k_{1}$ selector matrix $R$ $%
+=[I_{k_{1}},0]^{\prime }$
+
+\item Then, we have for $\beta _{1}$ (the first $k_{1}$ elements in $\beta )$
+that $\sqrt{n}\left( \widehat{\beta }_{1}-\beta _{1}\right) \rightarrow _{d}%
+\mathcal{N}\left( 0,V_{11}\right) ,$ where $V_{11}$ is the upper left block
+of $\sigma ^{2}Q^{-1},$ corresponding to $\beta _{1}$
+
+\item So, elements (or subsets) of $\widehat{\beta }_{n}$ are normal with
+variances given by the diagonal (or block-diagonal) elements of the matrix $%
+\sigma ^{2}Q^{-1}$
+
+\item In fact, we have already derived an expression for $V_{11}=\sigma ^{2}%
+\mathbb{E}\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right) ^{-1}.$
+
+\item For the $j^{th}$ element $\widehat{\beta }_{j}$ of $\widehat{\beta },$
+we will denote the standard error of $\widehat{\beta }_{j}$ with $SE(%
+\widehat{\beta }_{j})=\sqrt{var(\widehat{\beta }_{j})}$
+
+\item Note this $SE(\widehat{\beta }_{j})$ already incorporates $\sqrt{n},$
+so it is getting smaller as $n\rightarrow \infty $
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Confidence Intervals}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confidence Intervals}
+
+\begin{itemize}
+\item Exploiting our large sample result, we have that $\left( \widehat{%
+\beta }_{j}-\beta _{j}\right) /SE(\widehat{\beta }_{j})\approx \mathcal{N}%
+\left( 0,1\right) $
+
+\item A confidence interval or set is a random interval that contains the
+true $\beta $ with some pre-determined coverage probability
+
+\item Then a $1-\alpha $ confidence interval of the true unknown $\beta _{j}$
+for the $j^{th}$ element of $\beta $ is given by%
+\begin{gather*}
+\mathbb{P}\left( -SE(\widehat{\beta }_{j})z_{\alpha /2}^{crit}\leq (\widehat{%
+\beta }_{j}-\beta _{j})\leq SE(\widehat{\beta }_{j})z_{\alpha
+/2}^{crit}\right) \approx 1-\alpha \\
+\Rightarrow \mathbb{P}\left( \widehat{\beta }_{j}-SE(\widehat{\beta }%
+_{j})z_{\alpha /2}^{crit}\leq \beta _{j}\leq \widehat{\beta }_{j}+SE(%
+\widehat{\beta }_{j})z_{\alpha /2}^{crit}\right) \approx 1-\alpha
+\end{gather*}
+
+\item Hence a $1-\alpha $ confidence interval for $\beta _{j}$ is given by $%
+\widehat{\beta }_{j}\pm SE(\widehat{\beta }_{j})z_{\alpha /2}^{crit}$
+
+\item If we are interested in 95\% coverage probability, then $\alpha =0.05$
+and $z_{0.025}^{crit}$ is the value at which the cdf of $\mathcal{N}\left(
+0,1\right) $ is 0.025$,$ i.e. $z_{0.025}^{crit}=-1.96$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confidence Intervals of functions}
+
+\begin{itemize}
+\item We can easily construct random bounds for a scalar continuously
+differentiable function $g\left( \widehat{\beta }_{j}\right) ,$ using that $%
+\frac{\left( g\left( \widehat{\beta }_{j}\right) -g\left( \beta _{j}\right)
+\right) }{SE\left( g\left( \widehat{\beta }_{j}\right) \right) }\approx 
+\mathcal{N}\left( 0,1\right) ,$ where $SE\left( g\left( \widehat{\beta }%
+_{j}\right) \right) =\left( \frac{\partial g\left( \beta _{j}\right) }{%
+\partial \beta _{j}}\right) \sqrt{V\left( \widehat{\beta }_{j}\right) }$
+
+\item We can obtain a similar result%
+\begin{equation*}
+\mathbb{P}\left( g\left( \beta _{j}\right) \in \left( g\left( \widehat{\beta 
+}_{j}\right) \pm SE(g\left( \widehat{\beta }_{j}\right) )z_{\alpha
+/2}^{crit}\right) \right) \approx 1-\alpha
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Hypothesis Testing}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Hypothesis Testing}
+
+\begin{itemize}
+\item The standard hypothesis test is to check if $\beta _{j}$ is
+statistically different from $0,$ as this would allow us to draw conclusions
+about whether a regressor is relevant or not
+
+\item We can test against any other value $\beta _{j}^{NULL}.$
+
+\item $H_{0}:\beta _{j}=\beta _{j}^{NULL}$ vs
+
+\begin{enumerate}
+\item $H_{1}:\beta _{j}\neq \beta _{j}^{NULL}$ two-sided alternative
+
+\item $H_{1}:\beta _{j}>\beta _{j}^{NULL}$ or $\beta _{j}<\beta _{j}^{NULL}$
+one-sided alternative
+\end{enumerate}
+
+\item We proceed by computing $z=\frac{\widehat{\beta }_{j}-\beta _{j}^{NULL}%
+}{SE(\widehat{\beta }_{j})}$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Hypothesis Testing}
+
+\begin{itemize}
+\item Note that under the null (if the null were true, $\beta ^{NULL}=\beta
+),$ $z\sim \mathcal{N}(0,1)$
+
+\item Under the alternative $(\beta ^{NULL}\neq \beta ),$ we have $z=\frac{%
+\widehat{\beta }_{j}-\beta _{j}^{NULL}}{SE(\widehat{\beta }_{j})}=\frac{%
+\left( \widehat{\beta }_{j}-\beta _{j}+\beta _{j}-\beta _{j}^{NULL}\right) }{%
+SE(\widehat{\beta }_{j})}=\mathcal{N}(0,1)+\frac{\sqrt{n}\left( \beta
+_{j}-\beta _{j}^{NULL}\right) }{\sqrt{\sigma ^{2}\left[ Q^{-1}\right] _{jj}}}
+$ which diverges to $\pm $infinity as $n$ increases
+
+\item So we are in a situation where we can distinguish between the null and
+alternative
+
+\item We reject the null whenever $\left\vert z\right\vert >z_{\alpha
+/2}^{crit}$ for a two-sided and $z>z_{\alpha }^{crit}$ or $z<-z_{\alpha
+}^{crit}$ for a one-sided test at $1-\alpha $ significance level.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Hypothesis Testing}
+
+\begin{itemize}
+\item Note we can also apply hypothesis testing on continuously
+differentiable functions of $\beta ,$ since $\frac{\left( g\left( \widehat{%
+\beta }_{j}\right) -g\left( \beta _{j}\right) \right) }{SE\left( g\left( 
+\widehat{\beta }_{j}\right) \right) }\approx \mathcal{N}\left( 0,1\right) ,$
+hence the $z$ statistic is given by $z=\frac{\left( g\left( \widehat{\beta }%
+_{j}\right) -g\left( \beta _{j}^{NULL}\right) \right) }{SE\left( g\left( 
+\widehat{\beta }_{j}\right) \right) }$
+
+\item Note that a CI with $1-\alpha $ coverage contains all values which if
+hypothesised cannot be rejected at significance level $1-\alpha .$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{P-values}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{P-values}
+
+\begin{itemize}
+\item When we do hypothesis testing in practice, we make binary decision
+(accept ot reject the null)
+
+\item But the difference between getting $z=1.95$ and $z=1.96$ is small
+while the difference between accept and reject is large
+\end{itemize}
+
+\begin{definition}
+The asymptotic p-value is defined as $p=2\left( 1-F\left( \left\vert
+z\right\vert \right) \right) ,$ where $F$ is the cdf of $\mathcal{N}\left(
+0,1\right) .$
+\end{definition}
+
+\begin{itemize}
+\item Since the distribution function $F$ is monotonically increasing, the
+p-value is a monotonically decreasing function of $z$ and is equivalent to
+the $z$ test statistic
+
+\item Instead of rejecting $H_{0}$ at the significance level if $\left\vert
+z\right\vert >z^{crit},$ we can reject $H_{0}$ if $p>\alpha $
+
+\item 1-p-value gives us the largest significance level at which we can
+reject $H_{0}$ (which may be 94.9\% instead of 95\%)
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Testing Multiple Linear Hypotheses}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing Linear Restrictions}
+
+\begin{itemize}
+\item The previous result applied for testing hypothesis on a single element
+in $\beta $
+
+\item What if we wanted to test more than one restriction at a time?
+
+\item We wish to test a set of linear restrictions on $\beta $:%
+\begin{equation}
+H_{0}:R\beta =c\quad \text{vs.\quad }H_{1}:R\beta \neq c
+\label{restrictions}
+\end{equation}%
+where $c$ is a known $r\times 1$ vector and $R$ is a known $r\times k$
+matrix of with $rank\left( R\right) =r\leq k$. $H_{0}$ in (\ref{restrictions}%
+) imposes $r$ linear restrictions on $\beta $.
+
+\item We will employ a testing principle proposed by Wald.
+
+\item The idea is simple: \textit{in order to assess the validity of }$%
+R\beta =c$\textit{\ (equivalently }$R\beta -c=0$\textit{) we should examine
+whether }$R\hat{\beta}-c$\textit{\ is substantially different than the zero
+vector}.
+
+\item Equivalently, we should examine whether $\left\Vert R\hat{\beta}%
+-c\right\Vert _{V}^{2}$ is substantially greater than 0.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing Linear Restrictions}
+
+\begin{itemize}
+\item $\left\Vert \cdot \right\Vert _{V}^{2}$ denotes the Mahalanobis norm,
+defined as
+\end{itemize}
+
+\begin{definition}
+The Mahalanobis norm of a vector $x$ is defined%
+\begin{equation*}
+\left\Vert x\right\Vert _{V}^{2}=x^{\prime }var\left( x\right)
+^{-1}x\;\;\;var\left( x\right) =\mathbb{E}\left( xx^{\prime }\right) -%
+\mathbb{E}\left( x\right) \mathbb{E}\left( x^{\prime }\right) >0
+\end{equation*}%
+and arises from the transformation $var\left( x\right) ^{-1/2}x$, so it is
+invariant to the covariance matrix $var\left( x\right) $.
+\end{definition}
+
+\begin{itemize}
+\item The Wald statistic for testing the hypothesis in (\ref{restrictions})
+examines the Mahalanobis distance $\left\Vert R\hat{\beta}-c\right\Vert
+_{V\left( R\hat{\beta}-c\right) }^{2}$ between the random vector $R\hat{\beta%
+}-c$ and $0$ and rejects $H_{0}$ when this distance is large.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing Linear Restrictions} 
+\begin{equation*}
+var\left( R\hat{\beta}-c\right) =var\left( R\hat{\beta}\right) =Rvar\left( 
+\hat{\beta}\right) R^{\prime }=\frac{\sigma ^{2}}{n}RQ^{-1}R^{\prime }
+\end{equation*}%
+and then%
+\begin{equation*}
+\left\Vert R\hat{\beta}-c\right\Vert _{V\left( R\hat{\beta}-c\right) }^{2}=%
+\frac{n\left( R\hat{\beta}-c\right) ^{\prime }\left[ RQ^{-1}R^{\prime }%
+\right] ^{-1}\left( R\hat{\beta}-c\right) }{\sigma ^{2}}.
+\end{equation*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing Linear Restrictions}
+
+\begin{itemize}
+\item In order to make this workable, we can replace the unknown quantities $%
+\sigma ^{2}$ and $Q^{-1}$ by their consistent estimators
+
+\item This gives rise to the Wald statistic%
+\begin{equation*}
+W_{n}=\frac{\left( R\hat{\beta}_{n}-c\right) ^{\prime }\left[ R\left(
+X^{\prime }X\right) ^{-1}R^{\prime }\right] ^{-1}\left( R\hat{\beta}%
+_{n}-c\right) }{\widehat{\sigma }_{n}^{2}}
+\end{equation*}
+\end{itemize}
+
+\begin{theorem}
+Under $H_{0},$ $W_{n}\rightarrow \chi ^{2}\left( r\right) \;\;\;$as\ $%
+n\rightarrow \infty .$
+\end{theorem}
+
+The proof follows immediately, since by the delta method $\left[ \hat{\sigma}%
+^{2}R\left( X^{\prime }X\right) ^{-1}R^{\prime }\right] ^{-1/2}\left( R\hat{%
+\beta}-c\right) \rightarrow _{d}\mathcal{N}\left( 0,I_{r}\right) ,$ and we
+have the inner product of two $\mathcal{N}\left( 0,I_{r}\right) $ vectors,
+which is $\chi ^{2}\left( r\right) .$
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The z test as a special case of the Wald test}
+
+\begin{itemize}
+\item Also, the z-test is just a special case of the Wald test, when we test
+one restriction at a time.
+
+\item $R$ is just a $k\times 1$ selector vector (1 at the $j^{th}$ element,
+0 elsewhere),\ and $c=\beta ^{NULL}$
+
+\item The (Wald) test with one restriction is then%
+\begin{equation}
+W_{n}=\left[ \frac{(\hat{\beta}_{j}-\beta _{j}^{0})}{SE\left( \hat{\beta}%
+_{j}\right) }\right] ^{2}\sim \chi ^{2}\left( 1\right)  \label{W11}
+\end{equation}%
+which is just a square of $\mathcal{N}\left( 0,1\right) .$
+
+\item In this case simple case of one restriction the Wald test would reject
+if and only if the $z$ test rejects
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Type I and II Errors}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Errors in Hypothesis testing}
+
+\begin{itemize}
+\item A false rejection of the null hypothesis (rejecting $H_{0}$ when $%
+H_{0} $ is true) is called Type I error
+
+\item The probability of Type I error (also referred to as size of the test)
+is given by%
+\begin{equation*}
+\mathbb{P}\left( \text{reject }H_{0}|H_{0}\text{ is true}\right)
+\end{equation*}
+
+\item In the case of $z$ statistic, $\mathbb{P}\left( \text{reject }%
+H_{0}|H_{0}\text{ is true}\right) =\mathbb{P}\left( \left\vert z\right\vert
+>z^{crit}|H_{0}\text{ is true}\right) .$
+
+\item Since $z\approx \mathcal{N}\left( 0,1\right) $ for large $n,$ and the
+researcher pre-selects the significance level $1-\alpha ,$ $z^{crit}$ is
+selected so that the (asymptotic) size is no larger than $\alpha $.
+
+\item We can accomplish this by setting $z^{crit}$ equal to the $\left(
+1-\alpha \right) /2$ quantile of the limit distribution of the test statistic
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Errors in Hypothesis testing}
+
+\begin{itemize}
+\item A false acceptance of the null (accepting $H_{0}$ when $H_{0}$ is not
+true) is called Type II error
+
+\item The acceptance probability of the alternative is called power of the
+test
+
+\item The power is one minus probability of Type II error%
+\begin{equation*}
+\pi \left( \beta \right) =\mathbb{P}\left( \text{reject }H_{0}|H_{1}\text{
+is true}\right) =\mathbb{P}\left( \left\vert z\right\vert >z^{crit}|H_{1}%
+\text{ is true}\right)
+\end{equation*}
+
+\item $\pi \left( \beta \right) $ is a power function that depends on $\beta 
+$
+
+\item The goal is usually to have a test with very high power subject to the
+constraint that the size of the test is lower than the pre-specified
+significance level.
+
+\item Generally,the power of a test depends on the true value of the
+parameter $\beta $, and for a well behaved test the power is increasing both
+as $\beta $ moves away from the hypothesised value $\beta ^{NULL}$ and when
+the sample size increases
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Errors in Hypothesis testing}
+
+\begin{itemize}
+\item Given the two possible states of the world ($H_{0}$ or $H_{1}$) and
+the two possible decisions (Accept $H_{0}$ or Reject $H_{0}$), there are
+four possible pairings of states and decisions
+\end{itemize}
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{2.6048in}{0.5102in}{0pt}{}{}{accept.png}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 2.6048in;height 0.5102in;depth 0pt;original-width 5.3195in;original-height 1.0205in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'accept.png';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=1.0205in, natwidth=5.3195in, height=0.5102in, width=2.6048in]
+{Y:/TEACHING/Econometrics UPF/graphics/accept__1.png}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Errors in Hypothesis testing}
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{3.0519in}{2.2295in}{0pt}{}{}{confusionmatrix.jpg}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 3.0519in;height 2.2295in;depth 0pt;original-width 6.4273in;original-height 4.6873in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename 'confusionmatrix.jpg';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=4.6873in, natwidth=6.4273in, height=2.2295in, width=3.0519in]
+{Y:/TEACHING/Econometrics UPF/graphics/confusionmatrix__2.jpg}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 7 and 9.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

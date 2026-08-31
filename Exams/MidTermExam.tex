@@ -1,0 +1,309 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\begin{center}
+{\Large --- Econometrics 25117 --- \\[1em] Mid-Term Exam \\[1em] \small{November 8th, 2023}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 60 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item Write your name and student ID number at the top of every page.
+    \item Write legibly and clearly. Illegible answers will not receive any credit.
+    \item This exam consists of 20 questions split into 3 independent exercises, each evaluated for a maximum of 10 points. These exercises include a 10-question multiple-choice test, a practical exercise, and a theory section.
+    \item Multiple-choice test answers must be recorded in the designated table and not anywhere else.
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food or drinks are allowed in the examination room.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+\textbf{Exercice 1 --- MCQ \textit{(10 points)}}\\[1em]
+\textbf{Correct Answer: +1pt, Wrong Answer: -0.25pt, No Answer: 0pt}\\[1em]
+
+\begin{enumerate}
+
+\item Explain the concept of "bias" in econometrics.
+
+\begin{itemize}
+\item[A.] Bias refers to the spread of data in a probability distribution and does not impact estimator accuracy.
+\item[B.] Bias is the systematic error in an estimator, causing it to occasionally overestimate the true parameter. To reduce bias, one can control for omitted variables.
+\item[C.] Bias is the likelihood of committing a Type I error in hypothesis testing. To reduce bias, the significance level should be increased.
+\item[D.] Bias is the level of confidence in a confidence interval. To reduce bias, the confidence level should be lowered.
+\end{itemize}
+
+\item What is the Gauss-Markov theorem?
+
+\begin{itemize}
+\item[A.] The Gauss-Markov theorem relates to non-linear regression models and does not have any implications for OLS estimators.
+\item[B.] The Gauss-Markov theorem only applies to cross-sectional data and never to time series data.
+\item[C.] The Gauss-Markov theorem states that OLS estimators are BLUE (Best Linear Unbiased Estimators) when the assumptions of linearity, independence, and homoskedasticity are met. It emphasizes that OLS estimators are efficient and unbiased under these conditions.
+\item[D.] The Gauss-Markov theorem asserts that OLS estimators are always biased, and it suggests using alternative estimation methods for regression models.
+\end{itemize}
+
+\item Discuss the concept of ``homoskedasticity''.
+\begin{itemize}
+\item[A.] Homoskedasticity is the presence of outliers in the data, which can be handled by removing extreme values if justified.
+\item[B.] Homoskedasticity is the assumption that all residuals have equal variance in a regression model. When violated, it can lead to inefficient OLS estimators. Methods for addressing it include White's robust standard errors.
+\item[C.] Homoskedasticity refers to the normal distribution of residuals in a regression model. It has no effect on the efficiency of OLS estimators.
+\item[D.] Homoskedasticity is the assumption that all residuals have different variances, which results in more efficient OLS estimators.
+\end{itemize}
+
+\item What is a randomized controlled experiment in econometrics?
+  \begin{itemize}
+  \item[A.] A study that uses observational data to draw causal conclusions.
+  \item[B.] An experiment where subjects are randomly assigned to groups, mitigating the risk of selection.
+  \item[C.] An experiment where subjects are not randomly assigned to groups, potentially introducing biases.
+  \item[D.] A study that uses time series data, which is particularly useful for causal inference.
+  \end{itemize}
+
+\item In a randomized controlled experiment, which group receives the treatment, and what role does the control group play in the study?
+  \begin{itemize}
+  \item[A.] The control group receives the treatment, while the treatment group serves as a comparison.
+  \item[B.] The treatment group receives the treatment, and the control group is the benchmark for comparison.
+  \item[C.] The observational data group receives the treatment, and the control group is irrelevant.
+  \item[D.] A prediction group is used, and the control group is excluded in such experiments.
+  \end{itemize}
+
+\newpage
+\item What is a causal effect in econometrics?
+  \begin{itemize}
+  \item[A.] Causal effect is the correlation between two variables; causality is not essential in econometrics.
+  \item[B.] Causal effect is the forecasted impact of a variable; causality is important for precise predictions.
+  \item[C.] Causal effect refers to the \textit{ceteris paribus} influence of one variable on another, critical for understanding relationships in the real world.
+  \item[D.] Causal effect is an observational data concept and is not relevant for experimental research.
+  \end{itemize}
+
+\item What do high skewness and leptokurtic distributions tell about your data distribution?
+  \begin{itemize}
+  \item[A.] High skewness suggests a symmetrical distribution, while leptokurtic distributions indicate a heavy-tailed data distribution.
+  \item[B.] High skewness suggests a symmetrical distribution, while leptokurtic distributions indicate a light-tailed data distribution.
+  \item[C.] High skewness suggests an asymmetrical distribution, while leptokurtic distributions indicate a heavy-tailed data distribution.
+  \item[D.] High skewness suggests an asymmetrical distribution, while leptokurtic distributions indicate a light-tailed data distribution.
+  \end{itemize}
+
+\item What is the relationship between covariance and correlation?
+  \begin{itemize}
+  \item[A.] Covariance measures the strength of linear association between two variables, while correlation is a standardized measure of the covariance.
+  \item[B.] Independence is the basis of both covariance and correlation calculations, making them identical.
+  \item[C.] Covariance is always positive, while correlation accounts for the data distribution and can be negative.
+  \item[D.] Covariance is a more comprehensive measure of data relationships than correlation, as it considers both linear and nonlinear associations.
+  \end{itemize}
+
+\item How does the F distribution differ from the Student t distribution?
+  \begin{itemize}
+  \item[A.] The F distribution is used for hypothesis testing involving several restrictions, while the Student t distribution is suitable for testing single restrictions.
+  \item[B.] The F distribution is employed in hypothesis testing to assess the difference between two population means, whereas the Student t distribution is used to test differences between sample means.
+  \item[C.] The F distribution is a specialized form of the normal distribution and is typically used in very advanced statistical methods.
+  \item[D.] The F distribution is used for small sample sizes, while the Student t distribution is for large sample sizes.
+  \end{itemize}
+
+\item What is the significance of the significance level in hypothesis testing, and how does it relate to the concept of Type I error?
+  \begin{itemize}
+  \item[A.] The significance level is the probability of making a Type I error.
+  \item[B.] The significance level determines the statistical power of a test and is not connected to Type I error.
+  \item[C.] The significance level is used to calculate the p-value in hypothesis testing, and it is not connected to Type I or Type II errors.
+  \item[D.] The significance level represents the likelihood of committing a Type II error, not Type I error.
+  \end{itemize}
+
+\end{enumerate}
+
+
+
+\newpage
+
+\textbf{Exercice 2 --- Practice \textit{(10 points)}} \\[1em]
+\textbf{NB: None of these questions require more than 2-3 short sentences answers. Long answers will be disregarded. This exercise refers to Table 1.}\\[1em]
+
+
+Research indicates that low birthweight babies are at a higher risk for various health complications and developmental challenges, which can persist throughout their lives. Inadequate birthweight is often linked to poorer cognitive abilities and a higher likelihood of chronic illnesses, limiting educational, employment opportunities, and personal development.\\
+
+You are asked to study the impact of smoking on birthweight. You access a dataset collected on a random sample of 3000 babies born in Pennsylvania in 1989 from the 1989 linked National Natality-Mortality Detail files. The data include the baby’s birth weight together with various characteristics of the mother, including whether she smoked during the pregnancy. The average birthweight is 3383 grams, with a standard deviation of 592 grams. The smallest registered birthweight in your sample is 425 grams, and the largest is 5755 grams.\\
+
+The variables are the following:
+\begin{itemize}
+    \item[-] birthweight: birth weight of infant (in grams)
+    \item[-] smoker: indicator equal to one if the mother smoked during pregnancy and zero, otherwise.
+    \item[-] alcohol: indicator=1 if mother drank alcohol during pregnancy
+    \item[-] educ: years of educational attainment (more than 16 years coded as 17)
+    \item[-] \# prenatal visits: total number of prenatal visits
+    \item[-] no prenatal visits: indicator=1 if no prenatal care visit was made
+    \item[-] prenatal visits (1st semester): indicator=1 if 1st prenatal care visit in 1st trimester
+    \item[-] prenatal visits (2nd semester): indicator=1 if 1st prenatal care visit in 2nd trimester
+    \item[-] prenatal visits (3rd semester): indicator=1 if 1st prenatal care visit in 3rd trimester
+\end{itemize}
+
+\vspace{.5cm}
+
+\begin{enumerate}[label=\alph*)]
+\item Before collecting data, you are thinking about the ideal experiment to study how smoking affects birthweight. What would it be? Why would it be ideal? What are the practical limits to running such an ideal experiment? \textit{(2.5 points)}
+\item Consider column (1). What is the estimated effect of smoking on birthweight? Is the coefficient statistically significant? Is the magnitude of the coefficient large? (\textit{2 point)}
+%\item Consider columns (2)-(4). Why would you include other variables such as \textit{alcohol} or \textit{\# prenatal visits} in your regression specification?  \textit{(1 point)}
+%\item Jane smoked during her pregnancy, did not drink alcohol, and had 3 prenatal care visits. Use the regression in column (3), to approximately predict the birth weight of Jane’s child. \textit{(0.5 point)}
+\item  Consider columns (3)-(4). How should you interpret the coefficient on \textit{\# prenatal visits}? Does the coefficients measure a causal effect of prenatal visits on birth weight? If not, what does it measure? \textit{(2 point)}
+\item Consider column (5). An alternative way to control for prenatal visits is to use the binary variables \textit{prenatal visits (1st semester)},  \textit{prenatal visits (2nd semester)},  \textit{prenatal visits (3rd semester)} and \textit{no prenatal visits}. Why is \textit{prenatal visits (3rd semester)} excluded from the regression? \textit{(.5 point)}
+%\item  Does the regression in column (5) explain a larger fraction of the variance in birthweight than the regression in column (4)? \textit{(1 point)}
+\item Consider columns (1)-(5). Have you identified the causal effect of smoking on birthweight? Discuss. \textit{(3 points)}
+\end{enumerate}
+
+\newpage
+
+%\textbf{Exercise 2 --- Output Table} \vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Smoker$ on $Birthweight$.}\vspace{.25cm}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{l|ccccc|}
+\cline{2-6}
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{\textbf{Dependent Variable: Birthweight}}}   \\
+\multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\textit{\textbf{}}                                                     & (1)         & (2)         & (3)         & (4)         & (5)              \\ \multicolumn{1}{c|}{\textit{}}                                         & \multicolumn{5}{c|}{\textit{}}   \\
+\hline
+\multicolumn{1}{|l|}{\textit{\textbf{smoker}}}                         & -253.228*** & -250.803*** & -217.580*** & -207.932*** & -213.431***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (26.81)     & (26.87)     & (26.11)     & (27.12)     & (27.58)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{alcohol}}}                        &             & -57.601     & -30.491     & -35.491     & -23.942          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             & (77.39)     & (72.60)     & (72.76)     & (69.94)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{\# prenatal visits}}}             &             &             & 34.070***   & 33.168***   &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             & (3.61)      & (3.64)      &                  \\
+\multicolumn{1}{|l|}{\textit{\textbf{years of education}}}             &             &             &             & 8.118       & 13.724**         \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             & (5.01)      & (5.17)           \\
+\multicolumn{1}{|l|}{\textit{\textbf{no prenatal visits}}}             &             &             &             &             & -563.298***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (160.70)         \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (1st semester)}}} &             &             &             &             & 117.176          \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (67.39)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (2nd semester)}}} &             &             &             &             & 34.532           \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (72.41)          \\
+\multicolumn{1}{|l|}{\textit{\textbf{prenatal visits (3rd semester)}}} &             &             &             &             & \textit{omitted} \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               &             &             &             &             & (.)              \\
+\multicolumn{1}{|l|}{\textit{\textbf{constant}}}                       & 3432.060*** & 3432.703*** & 3051.249*** & 2954.604*** & 3153.803***      \\
+\multicolumn{1}{|l|}{\textit{\textbf{}}}                               & (11.89)     & (11.94)     & (43.71)     & (74.79)     & (93.27)          \\ \hline
+\multicolumn{1}{|l|}{\textit{\textbf{$N$}}}                              & 3000.000    & 3000.000    & 3000.000    & 3000.000    & 3000.000         \\
+\multicolumn{1}{|l|}{\textit{\textbf{$F-statistic$}}}                    & 89.211      & 44.754      & 59.484      & 45.578      & 21.146           \\
+\multicolumn{1}{|l|}{\textit{\textbf{$R^2$}}}           & 0.029       & 0.029       & 0.073       & 0.074       & 0.049            \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Robust standard errors are reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$.\par}
+\end{minipage}
+\end{table}
+
+\vspace{1cm}
+\textbf{Exercise 3 --- Theory \textit{(10 points)}} \\[1em]
+
+\begin{enumerate}[label=\alph*)]
+
+\item State the Central Limit Theorem for a sequence of i.i.d. random
+variables carefully stating any conditions required. Briefly explain the
+theorem's importance for statistical inference. \textit{(3 points)}
+
+\item Carefully define Type I and Type II errors in hypothesis testing. \textit{(1 point)}
+
+\item Show that the first least squares assumption, $\mathbb{E}(u_i \mid X_i) = 0$, implies that $\mathbb{E}(Y_i\mid X_i) = \beta_0 +\beta_1 X_i$. \textit{(1 point)}
+
+\item Show that the first least squares assumption, $\hat{\beta}_1$ is an unbiased estimator of $\beta_1$. \textit{(2 points)}
+
+%\item Show that $\hat{\beta}_0$ is an unbiased estimator of $\beta_0$.
+
+\item Show that  $\hat{\beta}_1 = r_{XY}\frac{s_Y}{s_X}$, where $r_{XY}$ is the sample correlation between $X$ and $Y$ and ${s_X}$ and ${s_Y}$ are the sample standard deviations of $X$ and $Y$. \textit{(3 points)}
+
+\end{enumerate}
+
+
+\newpage
+\pagenumbering{gobble}
+
+\begin{center}
+    \textbf{\Large \underline{ANSWER SHEET}}
+\end{center}
+\vspace{1cm}
+
+\textbf{Exercise 1}\vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textit{Question} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+\textit{Answer}   &   &   &   &   &   &   &   &   &   &    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\vspace{1cm}
+
+\textbf{Exercise 2}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+
+\textbf{Exercise 3}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+\end{document}

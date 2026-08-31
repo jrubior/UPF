@@ -1,0 +1,404 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{tablefootnote}
+\usepackage{subfig}
+\usepackage{graphicx}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[R]{\begin{minipage}{10em}\textbf{\color{red} \large ID:}\end{minipage}}
+\fancyhead[L]{\begin{minipage}{13em}\textbf{\color{red} \large NAME:}\end{minipage}}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{\fbox{\begin{minipage}{6em}\textbf{\color{red} \Large TYPE 1}\end{minipage}}}
+
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Final Exam} \\[1em] \small{December, 9th 2024}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 90 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item You must write your name and identification numbers wherever it is required on the optical sheet and main document. Please, fill in ``00'' plus the numbers following the ``U'' of your NIA identification.
+    \item Report the permutation in the optical sheet. Failing to do so will result in disqualification.
+    \item Write legibly and clearly in the dedicated boxes. Illegible answers and answers out of the boxes will not receive any credit.
+    \item Multiple-choice test answers must be recorded in the designated optical sheet and not anywhere else. 
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food is allowed in the examination room. Water is allowed.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART I: MULTIPLE CHOICE (10 points)}}\\
+
+{\large \textbf{Correct Answer: +.5pt, Wrong Answer: -0.25pt, No Answer: 0pt}}%
+}\\[2em]
+
+
+\parindent
+
+\begin{enumerate}
+
+    \item In panel data regression analysis, time fixed effects primarily control for:
+    \begin{enumerate}[label=\alph*)]
+        \item Unobserved individual-specific characteristics.
+        \item {\color{blue} Heterogeneity across time periods that does not vary between individuals.}
+        %\item Heterogeneity across individuals that does not vary between time periods.
+        \item Heterogeneity across time periods that varies between individuals.
+        \item Unobserved time-invariant characteristics.
+    \end{enumerate}\vspace{.25cm}
+
+    \item In instrumental variable regression, how many instruments should be included to address endogeneity issues?
+    \begin{enumerate}[label=\alph*)]
+        \item One instrument is sufficient for any regression model.
+        \item The more instruments, the better, regardless of the model complexity.
+        \item {\color{blue} At least as many instruments as the total number of endogenous regressors.}
+        \item At least two instruments to be able to test for overidentification.
+    \end{enumerate}
+\vspace{.25cm}
+
+
+\item In panel data models, why are serially clustered robust standard errors (clustered standard errors robust to serially correlated errors) different than simple heteroskedasticity robust standard errors?
+
+
+\begin{enumerate}[label=\alph*)]
+        \item Simple heteroskedastic standard errors are biased due to Omitted Variable Bias (OVB)
+        \item {\color{blue}Simple heteroskedastic standard errors do not account for the autocovariances.} %(\textbf{Correct})
+        \item Serially clustered standard errors are inconsistent in Panel Data
+        \item Serially clustered standard errors are used with random effects while heteroskedastic standard errors are used with fixed effects
+\end{enumerate}\vspace{.25cm}
+
+\item Consider a random variable $X\stackrel{iid}{\sim}\mathcal{N}(\mu, \sigma^2)$. You wish to estimate $\mu$. The estimator $\hat{\mu}\equiv \overline{X} + \frac{1}{n} $ is...
+
+\begin{enumerate}[label=\alph*)]
+\item unbiased and consistent
+\item unbiased and inconsistent
+\item {\color{blue} biased and consistent}
+\item biased and inconsistent
+\end{enumerate}\vspace{.25cm}
+
+\item Consider the following regression model: $Y_i = \beta_0 + \beta_1 \ln(X_i) + u_i$. A 1-unit change in $X$ is associated with…
+\begin{enumerate}[label=\alph*)]
+        \item A 1\% change in $Y$.
+        \item A $100 \times \beta_1 \%$ change in $Y$
+        \item A $\beta_1/100$ unit change in $Y$
+        \item {\color{blue} None of these answers.}
+\end{enumerate}\vspace{.25cm}
+
+\item In statistics, two variables \(X\) and \(Y\) are considered independent from one another if:
+    \begin{enumerate}[label=\alph*)]
+        \item They do not have a positive correlation.
+        \item The correlation coefficient is zero.
+        \item If they can be used as control variables.
+        \item {\color{blue} None of these answers}
+    \end{enumerate}\vspace{.25cm}
+
+    \newpage
+
+\item How is the significance level connected to the likelihood of a Type I or Type II error?
+
+\begin{enumerate}[label=\alph*)]
+  \item {\color{blue} The significance level is the probability of making a Type I error.}
+  \item The significance level determines the statistical power of a test and is not connected to Type I error.
+  \item The significance level is used to calculate the p-value in hypothesis testing, and it is not connected to Type I or Type II errors.
+  \item The significance level represents the likelihood of committing a Type II error, not a Type I error.
+\end{enumerate}\vspace{.25cm}
+
+\item Consider the IV regression model
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i + \beta_2 W_i + u_i
+\end{equation*}
+
+where $X_i$ is correlated with $u_i$ and $Z_i$ is an instrument. Suppose that $E[u_i~\vert~ W_{i}] = 0$; $\{X_{i}, W_{i}, Z_{i}, Y_i\}$ are i.i.d. draws from their joint
+distribution and that large outliers are unlikely. Under which condition(s) would $Z_i$ fail to be a relevant instrument?
+
+\begin{enumerate}[label=\alph*)]
+\item $Z_i = X_i$
+\item $W_i = 1$ for all i
+\item {\color{blue} $Z_i$ is independent of $(Y_i, X_i, W_i)$}
+\item All of these answers are correct
+\end{enumerate}\vspace{.25cm}
+
+
+
+\item Consider the IV regression model
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i + \beta_2 W_i + u_i
+\end{equation*}
+where $X_i$ is correlated with $u_i$ and $Z_i$ is an instrument that fulfills the exclusion restriction assumption. Then the two-stage least square estimator of $\beta_1$, $\hat{\beta}_1^{TSLS}$ is given by
+\begin{enumerate}[label=\alph*)]
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, X_i)}{Var(Z_i)}$
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, W_i)}{Var(Z_i)}$ 
+\item $\beta_1+\beta_2~\frac{Cov(Z_i, X_i)}{Cov(Z_i, W_i)}$
+\item {\color{blue}$\beta_1+\beta_2~\frac{Cov(Z_i, W_i)}{Cov(Z_i, X_i)}$ }
+\end{enumerate}\vspace{.25cm}
+
+
+\item You have a representative sample of women between 15 and 65 and want to study the impact of age on fertility, regressing the number of kids on the age of the mother. The following expression summarizes your results:
+\begin{equation*}
+    \widehat{Kids}_i = -7.742 + 0.35~age_i - 0.005~age_i^2 + \mathbf{\beta}\textbf{X}_{i}' + u_i
+\end{equation*}
+
+Where $Kids_i$ is the number of kids, $age_i$ is the age (in years) of woman $i$, and $\textbf{X}_{i}$ is a vector of control variables. The coefficients on $age_i$ and $age_i^2$ are both strongly statistically significant. From the results of this regression model, you can conclude that:
+
+\begin{enumerate}[label=\alph*)]
+\item {\color{blue}Fertility starts declining after age 35.}
+\item All else being equal, one more year increases fertility by 0.35 kids on average.
+\item The negative coefficient on  $age_i^2$ implies fertility decreases continuously with age.
+\item None of these answers is correct.
+\end{enumerate}\vspace{.25cm}
+
+
+
+\end{enumerate}
+
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART II: THEORY (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 points.}}%
+}\\[2em]
+
+
+%\textbf{Questions:}
+\begin{enumerate}
+    \item State the Central Limit Theorem for a sequence of i.i.d. random variables carefully stating any conditions required. Briefly explain the theorem's importance for statistical inference.\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\ {\color{blue} \large If $y_1, y_2, ..., y_n$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline{Y} \sim \mathcal{N}(\mu_Y, \sigma^2_{\overline{Y}})$ as $n$ grows.\\
+
+That is, regardless of the population's distribution, the sampling distribution of the sample mean approaches a normal distribution as the sample size increases, provided the samples are independent and identically distributed. This is powerful because it allows statisticians to use the well-understood properties of the normal distribution to estimate population parameters, calculate confidence intervals, and perform hypothesis tests, even when the original data does not follow a normal distribution and if the overall population is unobserved.
+~\\
+~\\
+~\\
+
+}
+
+}\\[1em]
+
+
+    \item  In panel regression, why is it important to use clustered standard errors for the regression? Do the regression results change if you do not use clustered standard errors? How? \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\ {\color{blue} \large  In Panel Data models, we generally assume independence across units but not within them. If \( u_{i,t} \) is correlated over time (serial correlation), standard OLS standard errors -- whether homoskedasticity-only or heteroskedasticity-robust -- become invalid as they assume no such correlation. This often understates true sampling uncertainty because serially correlated errors reduce the amount of independent information. \\
+
+As a consequence, the regression coefficients remain unchanged, the standard errors are incorrect. Clustered standard errors resolve this by accounting for dependencies within units. This reasoning can be further extend to clusters beyond the unit of analysis.
+~\\
+~\\
+
+}
+
+}\\[1em]
+
+    \item What is sample selection bias? Suppose you read a study using data on college graduates on the effects of an additional year of schooling on earnings. What is the potential sample selection bias present?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\ {\color{blue} \large Sample selection bias occurs when the process influencing data availability is related to the dependent variable, beyond its dependence on the regressors. In the above example, no inherent bias arises from focusing on college graduates to the extent they form a subset based on the regressor (i.e., 16 years of schooling or more). However, a potential bias can emerge because earnings are observed only for those with a job. This bias stems from overlooking the effect of an additional year of schooling on employment probability.\\
+
+In general, if the study aimed to estimate the returns to education for the general population, and not only for college graduates, the sample would be even more biased due to the selection of employed individuals, who are likely to be wealthier and have better employment prospects.
+~\\
+}
+
+}\\[1em]
+
+
+    \item Carefully explain the difference between internal validity and external validity. Is it possible for an empirical study to have internal validity but not external validity? Explain. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+{\color{blue} \large A statistical analysis is said to have internal validity if the statistical inferences about causal effects are valid for the population being studied. The analysis is said to have external validity if its inferences and conclusions can be generalized from the population and setting studied to other populations and settings.\\
+
+It is possible for a study to have internal validity but not external validity, e.g., when a study is conducted in a highly specific setting that isolates causal effects well but does not represent the broader population or other contexts.
+
+
+~\\
+~\\
+~\\
+
+}
+
+}\\[1em]
+
+
+\end{enumerate}
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART III: PRACTICE (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 point.}}%
+}\\[2em]
+
+What is the effect of permissive gun laws on crime? There is a debate (e.g., Lott and Mustard, 1997; Ayres and Donohue, 2003) regarding whether allowing private individuals to carry concealed weapons helps combat crime or, conversely, exacerbates it.\\
+
+To investigate this question, we assembled a balanced panel database encompassing all states in the U.S. between 1972 and 2019. This database includes data on the number of violent crimes (e.g., murders) and property crimes (e.g., burglary) sourced from the FBI's Unified Crime Reporting Statistics, along with the dates when states adopted shall-issue gun licensing. ``Shall-issue'' denotes that issuing a gun license is not discretionary; officials cannot refuse applicants a permit if they meet all the necessary criteria. As of 2019, there were 41 shall-issue states out of 51, including permitless states. \\
+
+We run the following regression specification:
+
+\begin{equation*}
+    Y_{it} = \alpha_i + \gamma_t + {\delta} Shall_{it} + \mathbf{{\beta}}\textbf{X}_{it}'+\epsilon_{it}
+\end{equation*}
+    
+where $Y_{it}$ is the log of the outcome of interest, $\alpha_i$ and $\gamma_t$ denote state and year fixed effects, respectively, $Shall_{it}$ is our treatment indicator for whether state $i$ had adopted shall-issue legislation in year $t$, and $\textbf{X}_{it}$ is a vector of control variables including log GDP per capita, log population, and the employment rate.\\
+
+The main results are reported in Tables 1 and 2.\\
+
+
+\begin{center}
+    \begin{table}[hbtp!]
+\parbox{.45\linewidth}{
+\centering
+\caption{Impact of $Shall$ on $Log~Property~Crimes$}
+\begin{tabular}{l|c|c|c|}
+%\multicolumn{1}{c|}{} & \multicolumn{5}{c}{Log Property Crimes} \\
+                      & (1)     & (2)     & (3)     \\  & Pooled OLS     &  Within Group     & TWFE        \\ \hline
+$\widehat{\delta}$  & -0.049 & -0.004 & 0.183***  \\
+\multicolumn{1}{c|}{} & (0.080) & (0.042)  & (0.052) \\ \hline
+N                        & 2448    & 2448     & 2448        \\
+$\alpha_i$                 & No       & Yes        & Yes             \\
+$\delta_t$                  & No       & No        & Yes         \\
+\hline   
+\end{tabular}
+}
+\hfill
+\parbox{.45\linewidth}{
+\centering
+\caption{Impact of $Shall$ on $Log~Violent~Crimes$}
+\begin{tabular}{l|c|c|c|}
+%\multicolumn{1}{c|}{} & \multicolumn{5}{c}{Log Violent Crimes} \\
+                      & (1)     & (2)     & (3)         \\  & Pooled OLS     &  Within Group    & TWFE         \\ \hline
+$\widehat{\delta}$                 & -0.244* & 0.296*** & 0.118* \\
+\multicolumn{1}{c|}{} & (0.145) & (0.047)  & (0.065)   \\ \hline
+N                      & 2448    & 2448     & 2448        \\
+$\alpha_i$                    & No       & Yes        & Yes            \\
+$\delta_t$                 & No       & No        & Yes         
+ \\\hline   
+\end{tabular}
+}\\[.5 em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{\textbf{Notes:} Standard errors are reported in parenthesis and are clustered at the state level. *: $p<.1$; **: $p<.05$; ***: $p<.01$.\par}
+\end{minipage}
+
+\end{table}
+\end{center}
+
+\textbf{Questions:}
+\begin{enumerate}
+    \item Report the economic magnitude and statistical significance of the results provided in column (1) in Tables 1 and 2. How do you interpret these results?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{ {\color{blue} \large Issuing a Shall regulation is associated with a decrease in property crimes by approximately 5\% compared to no-issue states (although this coefficient is not significantly different from 0 ($p>.1$)).\\
+
+Issuing a Shall regulation is associated with a reduction of violent crimes by approximately 24.5\% (exactly, the number of violent crimes are multiplied by $e^{-0.244}$, which amounts a 27\% increase). This result is significant at the 10\% significance level as $.1>p>.05$.\\
+
+In the absence of any bias, these results would suggest that adopting more permissive gun regulations could reduce crime.
+}
+~\\
+~\\~\\
+~\\
+}\\[1em]
+
+\newpage
+
+    \item Suggest a time-invariant variable and a unit-invariant variable that might cause omitted variable bias in this context. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{ {\color{blue} \large An example of a time-invariant characteristic ($X_i$) could be whether a state is rural or urban, northern or southern, etc., as this may both influence the passing of a Shall issue law (e.g., through the attitude towards fire weapons) and the number and type of crimes.\\
+
+An example of a unit-invariant characteristic ($X_t$) could be the party of the ruling federal government, the national economic conjecture, which may both incentivize states to pass Shall issue laws and the amount and type of crime.}
+~\\
+~\\
+~\\~\\
+~\\
+~\\
+
+}\\[1em]
+
+    \item Report the economic magnitude and statistical significance of the results provided in column (2) in Tables 1 and 2. Compare your results with those from Question 1. How do you explain any differences observed? \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{ {\color{blue} \large In this case, the estimates suggest that the issuing of Shall regulation has almost no effect on property crimes (the number of violent crimes gets decreases by 0.4\%), but violent crimes increase by approximately 30\% (exactly, by $(e^{0.296}-1)\times 100 \%)$). The effect on violent crimes is significant at the 1\% significance level ($p<.01$) whereas the effect on property crimes is not statistically significant ($p>.1$).\\
+
+These estimates differ from the results in Column 2 because the parameters are estimated using a within-transformation specification, which accounts for unobserved individual-specific characteristics ($\alpha_i$). The divergence between the results in Columns 1 and 2 suggests that these time-invariant characteristics were causing an omitted variable bias.}
+~\\
+~\\~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+
+    \item Now, focus on column (3) in both tables. Could the adoption of shall-issue laws still be endogenous to crime trends? If so, how would you address this issue?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{ {\color{blue} \large Yes, they could. Accounting for both unit and time fixed-effect does not shield against treatment endogenity. For example, shall-issue laws could be adopted as a response to increasing crime rates, causing a reverse causality bias. In this case, other methods of estimation, such as instrumental variable regression could potentially address this endogeneity issue. Here it is crucial that the instrument(s) affect crime only through the adoption of Shall-issue law.\\
+
+A potential instrument could be the adoption of shall-issue laws in neighboring or similar states, which may create pressure to pass similar laws but should not directly affect crime rates within the state in question, assuming cross-border crime effects are minimal or can be accounted for.}
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+\end{enumerate}
+
+
+
+\end{document}

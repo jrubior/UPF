@@ -1,0 +1,449 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{tablefootnote}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage[flushleft]{threeparttable}
+
+\renewcommand\fbox{\fcolorbox{red}{white}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[R]{\begin{minipage}{10em}\textbf{\color{red} \large ID:}\end{minipage}}
+\fancyhead[L]{\begin{minipage}{13em}\textbf{\color{red} \large NAME:}\end{minipage}}
+\fancyfoot{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[L]{\fbox{\begin{minipage}{6em}\textbf{\color{red} \Large TYPE 3}\end{minipage}}}
+
+
+\begin{center}
+{\Large ------ Econometrics ------ \\[1em] \large{Retake Exam} \\[1em] \small{January, 24th 2025}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 90 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item You must write your name and identification numbers wherever it is required on the optical sheet and main document. Please, fill in ``00'' plus the numbers following the ``U'' of your NIA identification.
+    \item Report the permutation in the optical sheet. Failing to do so will result in disqualification.
+    \item Write legibly and clearly in the dedicated boxes. Illegible answers and answers out of the boxes will not receive any credit.
+    \item Multiple-choice test answers must be recorded in the designated optical sheet and not anywhere else. 
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food is allowed in the examination room. Water is allowed.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART I: MULTIPLE CHOICE (10 points)}}\\
+
+{\large \textbf{Correct Answer: +1pt, Wrong Answer: -0.5pt, No Answer: 0pt}}%
+}\\[2em]
+
+
+\parindent
+
+\begin{enumerate}
+
+    \item Consider the following regression model:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{1i} + \beta_3 (D_{1i} \times X_{1i}) + u_i
+\end{equation*}
+where $D_1$ is an indicator (dummy) variable and $X_1$ is a continuous variable. To test if the two population regression lines of both groups captured by $D_1$ are the same, you should test if...
+    \begin{enumerate}[label=\alph*)]
+        \item $\beta_2$=0
+        \item $\beta_3$=0
+        \item $\beta_1$=$\beta_3$=0
+        \item $\beta_2$=$\beta_3$=0
+    \end{enumerate}\vspace{.25cm}
+
+    \item In econometric analysis, an instrumental variable (IV) must satisfy certain key characteristics to provide valid estimates. Which of the following is NOT a necessary characteristic of a valid instrument?
+    \begin{enumerate}[label=\alph*)]
+        \item The instrument must be correlated with the endogenous explanatory variable.
+        \item  The instrument must affect the dependent variable only through its impact on the endogenous explanatory variable.
+        \item The instrument must be highly correlated with the dependent variable.
+        \item None of these answers.
+    \end{enumerate}\vspace{.25cm}
+
+    \item You study the determinants of women’s earnings. You use a randomly selected sample of employed women and regress their earnings on the number of children they have, along with a set of control variables (age, education, occupation, and so on). You find that women with more children have higher wages, controlling for these other factors. Why does sample selection occur?
+    \begin{enumerate}[label=\alph*)]
+        \item Because having an extra child affects the probability of being employed.
+        \item Because wages also determine the number of children women have.
+        \item Because the number of children directly influences age and education levels.
+        \item Because the sample only includes women with the same occupation.
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item With classical measurement error, the coefficient $\hat{\beta}_1$ will be…
+    \begin{enumerate}[label=\alph*)]
+        \item Upward biased.
+        \item Downward biased.
+        \item Unbiased, as measurement error has no impact on coefficient estimates.
+        \item Biased towards zero. %(\textbf{Correct})
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item Consider the following regression model: $Y_i = \beta_0 + \beta_1 X_i + u_i$. Given the definition of $\hat{\beta}^{OLS}_1$,  $\hat{\beta}^{OLS}_1$ equals...
+    \begin{enumerate}[label=\alph*)]
+        \item $r_{XY}\frac{s_Y}{s_X}$, where $r_{XY}$ is the sample correlation between $X$ and $Y$ and ${s_X}$ and ${s_Y}$ are the sample standard deviations of $X$ and $Y$. 
+        \item $\rho_{XY}\frac{\sigma_Y}{\sigma_X}$, where $\rho_{XY}$ is the population correlation between $X$ and $Y$ and ${\sigma_X}$ and ${\sigma_Y}$ are the population standard deviations of $X$ and $Y$. 
+        \item $r_{XY}/{s_X^2}$, where $r_{XY}$ is the sample correlation between $X$ and $Y$ and ${s_X}$ is the sample standard deviation of $X$. 
+        \item None of these answers. 
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item The J-test of overidentifying restrictions (Anderson-Rubin test)  in instrumental variables (IV) estimation is used to:
+    \begin{enumerate}[label=\alph*)]
+        \item Test whether the instruments are strongly correlated with the endogenous explanatory variables.
+        \item Test whether the model is correctly specified with respect to the control variables included.
+        \item Test whether the instruments are uncorrelated with the error term.
+        \item None of these answers.
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item In a Probit model with $k>1$ explanatory variables, the size of the marginal effect  for an explanatory variable $x_k\in x'$ is the same for two individuals $i$ and $j$ if:
+\begin{enumerate}
+    \item[I.] $x_{k,i}=x_{k,j}$ ; i.e., for the explanatory variables $x_k$
+    \item[II.] $x_i'=x_j'$ ; i.e., for all the explanatory variables\\\\
+    Which of the previous statement/s is/are true? 
+    \end{enumerate}
+\begin{enumerate}[label=(\alph*)]
+        \item Statement I
+        \item Statement II
+        \item None of the statements are true
+        \item Both statements are true
+\end{enumerate}\vspace{.25cm}
+
+
+   \item Imagine we want to estimate the following relationship:
+\[
+Wages_{i,t}=\alpha+\beta Education_{i,t}+ \gamma IQ_i+u_{i,t}, 
+\]
+We do not observe $IQ$. Moreover, we know that $E[Education_{i,t} \cdot u_{i,t}]=0$ and  $E[Education_{i,t} \cdot IQ_i]\neq 0$.\\ Which of the following statements is correct:
+\begin{enumerate}[label=(\alph*)]
+    \item If we were to estimate the regression with the ``within group'' (unit fixed-effect) estimator, $\beta$ would be consistently estimated
+    \item We cannot directly estimate the effect of $IQ$ on wages with the ``within group'' (unit fixed-effect) estimator 
+    \item If we were to estimate the regression with the ``within group'' (fixed-effect) estimator, the variable $Education$ would be dropped out by the regression software
+    \item None of the answers are correct
+\end{enumerate}\vspace{.25cm}
+
+    \item The $R^2$ statistics...
+    \begin{enumerate}[label=\alph*)]
+        \item decreases with the total sum of squares
+        \item decreases with sum of squared residuals
+        \item increases with the explained sum of squares
+        \item All of these answers.
+    \end{enumerate}\vspace{.25cm}
+
+
+    \item Consider the following regression model: $\ln(Y_i) = \beta_0 + \beta_1 X_i + u_i$. A 1-unit change in $X$ is associated with…
+    \begin{enumerate}[label=\alph*)]
+        \item A 1\% change in $Y$.
+        \item A $100 \times \beta_1 \%$ change in $Y$
+        \item A $\beta_1 \%$ change in $Y$. %(\textbf{Correct})
+        \item None of these answers.
+    \end{enumerate}\vspace{.25cm}
+
+
+
+\end{enumerate}
+
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART II: THEORY (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 points.}}%
+}\\[2em]
+
+
+%\textbf{Questions:}
+
+\begin{enumerate}
+
+    \item What is meant by the efficiency of an estimator? Explain. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+    \item Carefully explain the concept of heteroskedasticity. Why is it important to use robust standard errors when running regressions?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+    \item  What is a likelihood function? What needs to be assumed to derive the maximum likelihood estimator?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+\newpage
+    \item  Assume that the variable $y_i\stackrel{iid}{\sim}\text{Bernouilli}(p)$. That is, $Pr(y_i=y) = p^y (1-p)^{(1-y)}$. A number of $n$ observations are drawn from this distribution. Derive the Maximum Likelihood estimator (i.e., you must indicate the likelihood function, \textit{then} the appropriate first-order conditions, and \textit{only then}, the Maximum Likelihood estimator): \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+
+
+\end{enumerate}
+
+\newpage
+\adjustbox{minipage=.9\textwidth,cfbox=black}{
+{\Large \textbf{PART III: PRACTICE (10 points)}}\\
+
+{\large \textbf{Each question counts for 2.5 point.}}%
+}\\[1.5em]
+
+In his seminal 1987 paper, Tomas Mroz examined the labor supply responses of married women, focusing on how various factors influenced their participation in the labor force. Let \texttt{inlf} (“in the labor force”) denote a binary variable indicating whether a married woman reported working for wages outside the home during 1975, where \(\texttt{inlf} = 1\) if the woman participated in the labor force and \(\texttt{inlf} = 0\) otherwise.\\
+
+We assume that a woman’s labor force participation is influenced by factors such as other sources of income -- including her husband’s earnings (\(\texttt{nwifeinc}\), measured in thousands of dollars) -- her years of education (\(\texttt{educ}\)), her past years of labor market experience (\(\texttt{exper}\)), her age, the number of children younger than six years old (\(\texttt{kidslt6}\)), and the number of children aged 6 to 18 years old (\(\texttt{kidsge6}\)).\\
+
+Using the data from Mroz (1987), you estimate three regression models for female labor force participation: a linear probability, a Logit, and a Probit model. In the sample, 428 of the 753 women reported being in the labor force during 1975. Other descriptive statistics are reported in Table 1 and the main results are reported in Table 2.
+
+
+\begin{center}
+\begin{table}[hbtp!]
+\centering
+\caption{Descriptive Statistics}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Variable    & Description                          & Mean       & SD         \\ \hline
+inlf & =1 if in labor force, 1975 & 0.568 & 0.496 \\
+nwifeinc & Non-wife income (in thousands of \$) & 20.129  & 11.635  \\
+educ     & years of schooling                   & 12.287  & 2.280   \\
+exper    & years of actual labor mkt exper      & 10.631  & 8.069   \\
+expersq  & exper x exper                        & 178.039 & 249.631 \\
+age      & woman's age in years                 & 42.538  & 8.073   \\
+kidslt6  & \# kids $<$ 6 years            & 0.238   & 0.524   \\
+kidsge6  & \# kids $\geq$ 6 years         & 1.353   & 1.320  \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{threeparttable}[hbtp!]
+\centering
+\caption{Determinants of Women's Participation in the Labor Market}
+\begin{tabular}{l|ccc|}
+\cline{2-4}
+                                    & LPM      & Logit    & Probit   \\ \hline
+\multicolumn{1}{|l|}{nwifeinc}                       & -0.003**         & -0.021**           & -0.012**  \\
+\multicolumn{1}{|l|}{}            & (0.002)          & (0.009)            & (0.005)   \\
+\multicolumn{1}{|l|}{educ}                           & 0.038***         & 0.221***           & 0.131***  \\
+\multicolumn{1}{|l|}{}        & (0.007)          & (0.044)            & (0.026)   \\
+\multicolumn{1}{|l|}{exper}                          & 0.039***         & 0.206***           & 0.123***  \\
+\multicolumn{1}{|l|}{}             & (0.006)          & (0.032)            & (0.019)   \\
+\multicolumn{1}{|l|}{expersq}                        & -0.001***        & -0.003***          & -0.002*** \\
+\multicolumn{1}{|l|}{}                & (0.000)          & (0.001)            & (0.001)   \\
+\multicolumn{1}{|l|}{age}                            & -0.016***        & -0.088***          & -0.053*** \\
+\multicolumn{1}{|l|}{}              & (0.002)          & (0.014)            & (0.008)   \\
+\multicolumn{1}{|l|}{kidslt6}                        & -0.262***        & -1.443***          & -0.868*** \\
+\multicolumn{1}{|l|}{}              & (0.032)          & (0.203)            & (0.116)   \\
+\multicolumn{1}{|l|}{kidsge6}                        & 0.013            & 0.060              & 0.036     \\
+\multicolumn{1}{|l|}{}           & (0.014)          & (0.080)            & (0.045)   \\
+\multicolumn{1}{|l|}{Intercept}                         & 0.586***         & 0.425              & 0.270     \\
+\multicolumn{1}{|l|}{}              & (0.152)          & (0.860)            & (0.505)   \\ \hline
+\multicolumn{1}{|l|}{N}             & 753      & 753      & 753      \\
+\multicolumn{1}{|l|}{$R^2$}            & 0.264    & ---      & ---      \\
+\multicolumn{1}{|l|}{McFadden’s $R^2$} & ---      & 0.220    & 0.221    \\
+\multicolumn{1}{|l|}{AIC}           & ---      & 819.530  & 818.604  \\ \hline
+\end{tabular}\\[.25em]
+\footnotesize{\textbf{Notes:} Standard errors are reported in parenthesis and are clustered at the state level. *: $p<.1$; **: $p<.05$; ***: $p<.01$.}
+\end{threeparttable}
+\end{center}
+
+\textbf{Questions:}
+\begin{enumerate}
+    \item Interpret the average impact of an additional year of education for the average individual in the sample based on the results from the LPM results shown in Table 2. Discuss the limit(s) of this interpretation, if any. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+    \item Interpret the average impact of an additional year of education for the average individual in the sample based on the results from the Logit and Probit results shown in Table 2. Discuss the limit(s) of these interpretations, if any.\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+\item Based on AIC and Mc Fadden's $R^2$ measures which model is preferred
+between the Probit and Logit models? Why? What do these statistics measure?\\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+\newpage
+\item A friend is interested in understanding the returns to education on women's labor force participation. Would you recommend using the Linear Probability Model or the Probit/Logit models? Justify your answer. \\[1em]
+\adjustbox{minipage=\textwidth,cfbox=black}{
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+}\\[1em]
+
+
+\end{enumerate}
+
+
+
+\end{document}

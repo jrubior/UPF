@@ -1,0 +1,136 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Monday, December 09, 2019 17:17:30}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Final Exam}
+\end{center}
+
+\textbf{Question 1}
+
+(a) Explain what the difference is between an unbiased and a consistent
+estimator. Explain why these are both desirable properties for estimators to
+have.
+
+(b) Define the size and the power of a hypothesis test and discuss how these
+relate to Type I and II errors in testing.
+
+(c) Define the score vector and Fisher information matrix and state the Cram%
+\'{e}r Rao theorem.
+
+\bigskip
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors of rank $k$, $\beta $ is a $k\times 1$ vector of unknown
+parameters, and $\varepsilon $ is an $n\times 1$ vector of unobserved random
+variables. The standard assumptions provided in the lecture are assumed to
+hold, particularly $\mathbb{E}\left[ \varepsilon |X\right] =0$ and $\mathbb{E%
+}\left[ \varepsilon \varepsilon ^{\prime }|X\right] =\sigma ^{2}I_{n}.$
+
+(a) Suppose there are two explanatory variables, $k=2,$ so that $%
+y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon .$ State and prove the
+Frisch-Waugh-Lovell theorem for the OLS estimator $\hat{\beta}_{1}.$
+
+(b) Consider two economists estimating the following regression models:
+Economist 1 estimates $y=X_{1}\beta _{1}+\varepsilon $ while Economist 2
+also includes $X_{2}$ and estimates instead $y=X_{1}\beta _{1}+X_{2}\beta
+_{2}+\varepsilon .$ What are the estimators of the two economists for $\beta
+_{1}$?
+
+(c) Given that the true data generating process is $y=X_{1}\beta
+_{1}+X_{2}\beta _{2}+\varepsilon ,$ show that that the estimator for $\beta
+_{1}$ of Economist 2 is unbiased.
+
+(d) Show that the estimator for $\beta _{1}$ of Economist 1 is biased.
+Discuss this result in relation to omitted variable bias.
+
+(e)\ Now suppose the true data generating process is $y=X_{1}\beta
+_{1}+\varepsilon ,$ so $\beta _{2}=0.$ Are the two estimators of the two
+economists unbiased?
+
+(f) Given that the true $\beta _{2}=0,$ compare the variance of $\hat{\beta}%
+_{1}$ for the two economists. What can you conclude about the tradeoff
+between bias and variance when deciding which explanatory variables to
+include?
+
+\bigskip
+
+\textbf{Question 3 }
+
+Consider the Gaussian linear model%
+\begin{equation*}
+y=X\beta +\varepsilon 
+\end{equation*}%
+where $\beta \in \mathbb{R}^{K}$, $X$ is an $n\times k$ matrix of regressors
+of rank $k,$ and $\varepsilon |X\sim \mathcal{N}\left( 0,\sigma ^{2}\Omega
+\right) $ for some known positive definite symmetric matrix $\Omega $.
+
+(a) Write down the log-likelihood function of the sample $y$, recalling that
+the density of an $m\times 1$ vector $z\sim \mathcal{N}\left( \mu ,\Sigma
+\right) $ is given by 
+\begin{equation*}
+f\left( z;\mu ,\Sigma \right) =\left( 2\pi \right) ^{-m/2}\det \left( \Sigma
+\right) ^{-1/2}\exp \left\{ -\frac{1}{2}\left( z-\mu \right) ^{\prime
+}\Sigma ^{-1}\left( z-\mu \right) \right\} .
+\end{equation*}
+
+(b) Show that the maximum likelihood estimator (MLE) of $\beta $ coincides
+with the generalised least squares estimator $\hat{\beta}^{GLS}$ of $\beta $.
+
+(c) Show that the MLE of $\beta $ is unbiased and calculate its covariance
+matrix conditional on $X$.
+
+(d) Find the maximum likelihood estimator (MLE) of $\sigma ^{2}$.
+
+(e) Compute the Fisher Information matrix conditional on $X$. 
+
+(f) Show that the variance of $\hat{\beta}^{MLE}$ conditional on $X$
+achieves the Cram\'{e}r Rao Lower Bound. Is this result the same as the
+Gauss Markov theorem for GLS?
+
+\end{document}

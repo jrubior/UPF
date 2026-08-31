@@ -1,0 +1,161 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Monday, December 13, 2021 21:39:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.8in}
+\if@twoside
+  \setlength{\oddsidemargin}{0.10in}
+  \setlength{\evensidemargin}{-0.30in}
+\else
+  \setlength{\oddsidemargin}{-0.30in}
+  \setlength{\evensidemargin}{0.00in}
+\fi
+\setlength{\textwidth}{7.1in}
+\newcommand{\m}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\ep}{\varepsilon}
+\def \dsp{\def \baselinestretch{1.1}\large \normalsize}
+\dsp
+\input{tcilatex}
+\renewenvironment{abstract}
+ {\small
+  \begin{center}
+  \bfseries \abstractname\vspace{-0.5em}\vspace{0pt}
+  \end{center}
+  \list{}{    \setlength{\leftmargin}{0mm}    \setlength{\rightmargin}{\leftmargin}  }  \item\relax}
+ {\endlist}
+\begin{document}
+
+
+\begin{center}
+{\Large Final Exam}
+
+\bigskip 
+\end{center}
+
+\textbf{Question 1}
+
+(a) Provide a definition for the bias of an estimator. How is the expression
+for the Mean Squared Error (MSE)\ of an estimator related to its bias?
+
+(b) Provide a definition for an efficient estimator. Explain why this is a
+desirable property and how it is related to the Mean Squared Error (MSE)\ of
+an estimator.
+
+(c) Define the score vector and the Fisher information matrix.
+
+(d) State and prove the Cramer Rao theorem for a one-dimensional parameter $%
+\theta $.
+
+\bigskip 
+
+\textbf{Question 2}
+
+Consider the linear regression model $y=X\beta +\varepsilon ,$ where $y$ is
+an $n\times 1$ vector of dependent variables, $X$ is an $n\times k$ matrix
+of regressors, $\beta $ is a $k\times 1$ vector of unknown parameters, and $%
+\varepsilon $ is an $n\times 1$ vector of unobserved random variables. The
+standard assumptions provided in the lecture are assumed to hold.
+
+(a) Suppose there are two explanatory variables, $k=2,$ so that $%
+y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon .$ State without proof the
+Frisch-Waugh-Lovell theorem for the OLS estimator $\hat{\beta}_{1}.$
+
+(b) Consider two economists estimating the following regression models:
+Economist 1 estimates $y=X_{1}\beta _{1}+\varepsilon $ while Economist 2
+also includes $X_{2}$ and estimates instead $y=X_{1}\beta _{1}+X_{2}\beta
+_{2}+\varepsilon .$ What are the estimators of the two economists for $\beta
+_{1}$?
+
+(c) Given that the true data generating process is $y=X_{1}\beta
+_{1}+X_{2}\beta _{2}+\varepsilon ,$ show that that the estimator for $\beta
+_{1}$ of Economist 2 is unbiased.
+
+(d) Given that the true data generating process is $y=X_{1}\beta
+_{1}+X_{2}\beta _{2}+\varepsilon ,$ show that the estimator for $\beta _{1}$
+of Economist 1 is biased. Discuss this result in relation to omitted
+variable bias.
+
+(e)\ Now suppose the true data generating process is $y=X_{1}\beta
+_{1}+\varepsilon ,$ so $\beta _{2}=0.$ Are the two estimators of the two
+economists unbiased?
+
+(f) Given that the true $\beta _{2}=0,$ compare the variance of $\hat{\beta}%
+_{1}$ for the two economists. What can you conclude about the tradeoff
+between bias and variance when deciding which explanatory variables to
+include?
+
+\bigskip 
+
+\textbf{Question 3 }
+
+Consider the Gaussian linear model $y=X\beta +\varepsilon ,$ where $\beta
+\in \mathbb{R}^{K}$ and $\varepsilon |X\sim \mathcal{N}\left( 0,\sigma
+^{2}\Omega \right) $ for an unknown scalar $\sigma ^{2}$ and some \textbf{%
+known} $n\times n$ positive definite matrix $\Omega $.
+
+(a) Write down the log-likelihood function of the sample. 
+
+HINT: Recall the definition of a Normal density of an $m\times 1$ vector $%
+z\sim \mathcal{N}\left( \mu ,\Sigma \right) $: $\ $%
+\begin{equation*}
+f\left( z;\mu ,\Sigma \right) =\left( 2\pi \right) ^{-m/2}\det \left( \Sigma
+\right) ^{-1/2}\exp \left\{ -\frac{1}{2}\left( z-\mu \right) ^{\prime
+}\Sigma ^{-1}\left( z-\mu \right) \right\} .
+\end{equation*}
+
+(b) Show that the maximum likelihood estimator $\hat{\beta}^{_{MLE}}$ of $%
+\beta $ coincides with the generalised least squares estimator $\hat{\beta}%
+^{_{GLS}}$ of $\beta $.
+
+(c) Show that $\hat{\beta}^{_{MLE}}$ is unbiased and calculate its variance
+conditional on $X$.
+
+(d) Find the maximum likelihood estimator for $\sigma ^{2}$.
+
+(e) Compute the Fisher Information matrix of $[\beta ,\sigma ^{2}]$
+conditional on $X$.
+
+(f) Does the $\hat{\beta}^{_{MLE}}$ achieves the Cramer Rao Lower bound
+[conditional on $X$]? How does this relate to the Gauss Markov theorem for
+the GLS estimator?
+
+\end{document}

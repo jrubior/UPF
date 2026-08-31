@@ -1,0 +1,342 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{caption}
+
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\begin{document}
+
+
+\begin{center}
+{\Large --- Econometrics 25117 --- \\[1em] Final Exam \\[1em] \small{December 18th, 2023}}\bigskip 
+\end{center}
+\vspace{1cm}
+\underline{Exam Rules:}
+\begin{itemize}
+    \item You have a total of 90 minutes to complete this exam. Attempting to hand in your paper later will result in disqualification.
+    \item Write your name and student ID number at the top of every page.
+    \item Write legibly and clearly. Illegible answers will not receive any credit.
+    \item This exam consists of approximately 20 questions split into 3 independent exercises, each evaluated for a maximum of 10 points. These exercises include a 10-question multiple-choice test, a practical exercise, and a theory section.
+    \item Multiple-choice test answers must be recorded in the designated table and not anywhere else.
+    \item You only need your ID, a few pens/pencils, and an eraser if necessary. Calculators will not be required.
+    \item You must leave your bags with your phones and electronic devices, including smartwatches, turned off at the entrance of the classroom.
+    \item If any phone or electronic device is visible with you during the exam, regardless of whether it is in use, it will be considered cheating, and you will be disqualified.
+    \item Do not begin the exam until instructed to do so.
+    \item Keep your eyes on your own paper; looking at or attempting to copy another student's work is considered cheating.
+    \item If you have a question or need clarification during the exam, raise your hand and wait for a proctor to assist you.
+    \item You can enter the exam room until 30 minutes after the exam has started. You may not leave the exam room before 30 minutes have elapsed since the start of the exam.
+    \item No food or drinks are allowed in the examination room.
+\end{itemize}
+
+\vspace{1cm}
+
+Best of luck!
+
+\newpage
+
+\textbf{Exercice 1 --- MCQ \textit{(10 points)}}\\[1em]
+\textbf{Correct Answer: +1pt, Wrong Answer: -0.25pt, No Answer: 0pt}\\[1em]
+
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+    \item What are the two conditions required for an instrumental variable to be valid?
+    \begin{enumerate}[label=\Alph*)]
+        \item The instrumental variable must be highly correlated with the endogenous regressor and must also be a determinant of the outcome variable.
+        \item The instrumental variable must be uncorrelated with the error term and relevant to the endogenous regressor. %(\textbf{Correct})
+        \item The instrumental variable must be included in the regression model, and it should be highly correlated with the dependent variable.
+        \item The instrumental variable should be chosen based on its correlation with the dependent variable, and it must be orthogonal to the error term.
+    \end{enumerate}
+
+    \item What are the advantages and disadvantages of the linear probability model?
+    \begin{enumerate}[label=\Alph*)]
+        \item The linear probability model always yields more accurate predictions than other models due to its simplicity, but in practice, it builds on data rarely found in the real world.
+        \item Statistical inference is more challenging in the linear probability model, but it guarantees unbiased predictions.
+        \item Statistical inference is the same as for multiple OLS regression, making interpretation straightforward, but it might yield unrealistic predictions. %(\textbf{Correct})
+        \item The linear probability model is not suitable for binary outcomes, but it is highly robust in the presence of outliers.
+    \end{enumerate}
+
+    \item In panel data models, why are serially clustered robust standard errors generally larger than simple robust standard errors?
+    \begin{enumerate}[label=\Alph*)]
+        \item Serially clustered standard errors are larger because they do not account for autocovariances in the variance of the sampling distribution.
+        \item Simple heteroskedastic standard errors are biased upward due to Omitted Variable Bias (OVB), leading to larger estimates.
+        \item Simple heteroskedastic standard errors do not account for the autocovariances in the variance of the sampling distribution. %(\textbf{Correct})
+        \item Serially clustered standard errors are larger because they assume independence across time periods.
+    \end{enumerate}
+
+    \item Why are panel data useful?
+    \begin{enumerate}[label=\Alph*)]
+        \item Panel data allows us to control for factors that vary across units and time, making it easier to interpret regression results.
+        \item Panel data enables the inclusion of more variables in the regression model, leading to increased precision in parameter estimates.
+        \item Panel data allows us to control for factors that vary across units but are constant in time and factors that vary in time but are constant across units, which could be complicated to measure otherwise. %(\textbf{Correct})
+        \item Panel data is useful as it mitigates multicollinearity issues in regression models.
+    \end{enumerate}
+
+    \item Simultaneous causality occurs when…
+    \begin{enumerate}[label=\Alph*)]
+        \item The independent variable causes changes in the dependent variable.
+        \item The regresand is a determinant of the regressor. %(\textbf{Correct})
+        \item There is a perfect correlation between the independent and dependent variables.
+        \item The errors in the regression model are correlated with the independent variable.
+    \end{enumerate}
+
+    \item With classical measurement error, the coefficient $\hat{\beta}_1$ will be…
+    \begin{enumerate}[label=\Alph*)]
+        \item Upward biased.
+        \item Downward biased.
+        \item Unbiased, as measurement error has no impact on coefficient estimates.
+        \item Biased towards zero. %(\textbf{Correct})
+    \end{enumerate}
+
+    \item Consider the following regression model: $\ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i$. A 1\% change in $X$ is associated with…
+    \begin{enumerate}[label=\Alph*)]
+        \item A 1\% change in $Y$.
+        \item A $100 \times \beta_1 \%$ change in $Y$
+        \item A $\beta_1 \%$ change in $Y$. %(\textbf{Correct})
+        \item A $\beta_1$ change in $Y$.
+    \end{enumerate}
+
+    \item Consider the following regression model: $Y_i = \beta_0 + \beta_1 X_{1i} + \ldots +  \beta_k X_{ki} + u_i$. The likelihood function is…
+    \begin{enumerate}[label=\Alph*)]
+        \item The joint probability of $Y_1, \ldots, Y_n$ given $X_{1i}, \ldots, X_{ki}; i=1, \ldots, n$, treated as a function of the unknown parameters $\beta_0, \beta_1, \ldots, \beta_k$. %(\textbf{Correct})
+        \item The marginal probability of $Y_1, \ldots, Y_n$ given $X_{1i}, \ldots, X_{ki}; i=1, \ldots, n$, treated as a function of the unknown parameters $\beta_0, \beta_1, \ldots, \beta_k$.
+        \item The probability of the parameters given the observed data.
+        \item The expected value of the parameters given the observed data.
+    \end{enumerate}
+
+    \item The two conditions for an unobserved variable $\Tilde{X}$ to cause an omitted variable bias are…
+    \begin{enumerate}[label=\Alph*)]
+        \item $\Tilde{X}$ needs to be orthogonal to the outcome, $Y$, and uncorrelated with any regressor.
+        \item $\Tilde{X}$ needs to be a determinant of the outcome, $Y$, and correlated with a regressor $X$. %(\textbf{Correct})
+        \item $\Tilde{X}$ needs to be included in the regression model, and it should be highly correlated with the dependent variable.
+        \item Omitted variable bias only occurs when $\Tilde{X}$ is perfectly correlated with the error term.
+    \end{enumerate}
+
+    \item In hypothesis testing, the larger the difference between the $R^2$s of the restricted and unrestricted models…
+    \begin{enumerate}[label=\Alph*)]
+        \item The more irrelevant is the homoskedasticity-only $F$-statistic.
+        \item The smaller is the homoskedasticity-only $F$-statistic.
+        \item The more irrelevant is the heteroskedasticity-robust $F$-statistic.
+        \item The larger is the homoskedasticity-only $F$-statistic. %(\textbf{Correct})
+    \end{enumerate}
+
+\end{enumerate}
+
+
+\newpage
+
+\textbf{Exercice 2 --- Practice \textit{(10 points)}} \\[1em] %EX12.E01 SW
+\textbf{NB: None of these questions require more than 2-3 short sentences answers. Long answers will be disregarded. This exercise refers to Table 1.}\\[1em]
+
+How does fertility affect labor supply? That is, how much does a woman’s
+labor supply fall when she has an additional child? In this exercise, you will
+estimate this effect using data for married women from the 1980 U.S. Census. The
+data set contains information on married women aged 21–35 with two or
+more children. These data were provided by William Evans of the University of Maryland and were used in his paper with Joshua Angrist ``Children and Thier
+Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.'' \\[1em]
+
+The variables contained in the dataset are:
+\begin{itemize}
+    \item \textit{morekids:}  =1 if mom had more than 2 children
+%    \item \textit{boy1st:}  =1 if 1st child was a boy
+%    \item \textit{boy2nd:}  =1 if 2nd child was a boy
+    \item \textit{samesex:} =1 if 1st two children same sex
+    \item \textit{agem1:} age of mom at census
+    \item \textit{black:} =1 if mom is black
+    \item \textit{hispan:} =1 if mom is Hispanic
+    \item \textit{othrace:} =1 if mom is not black, Hispanic or white
+    \item \textit{weeksm1:}  mom's weeks worked in 1979
+\end{itemize}
+\vspace{.5cm}
+The main descriptive statistics are summarized in the following table:
+\begin{center}
+\begin{table}[hb!]
+\centering
+
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Variable}} & \textbf{Observations} & \textbf{Mean} & \textbf{Standard Deviation} & \textbf{Minimum} & \textbf{Maximum} \\ \hline
+\textit{morekids}                       & 254,654               & .3805634      & .4855263                    & 0                & 1                \\ \hline
+%\textit{boy1st}                         & 254,654               & .5143607      & .4997947                    & 0                & 1                \\ \hline
+%\textit{boy2nd}                         & 254,654               & .5125504      & .4998434                    & 0                & 1                \\ \hline
+\textit{samesex}                        & 254,654               & .5055683      & .49997                      & 0                & 1                \\ \hline
+\textit{agem1}                          & 254,654               & 30.39327      & 3.386447                    & 21               & 35               \\ \hline
+\textit{black}                          & 254,654               & .0516623      & .2213447                    & 0                & 1                \\ \hline
+\textit{hispan}                         & 254,654               & .0742066      & .2621073                    & 0                & 1                \\ \hline
+\textit{othrace}                        & 254,654               & .0563431      & .2305836                    & 0                & 1                \\ \hline
+\textit{weeksm1}                        & 254,654               & 19.01833      & 21.86728                    & 0                & 52               \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+%\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+
+\item First, read TextBox 1. Carefully explain what the authors mean by ``endogeneity of fertility''. What does it imply for causal identification? \textit{(3 points)}
+\item Consider the first column of Table 1. On average, do women with more than two children work less than women with two children? What is the comparison group? Is the effect large? Is it statistically significant?  \textit{(1 point)}
+\item Consider the second column of Table 1. Are couples whose first two children are of the same sex more likely to have a third child? What is the comparison group? Is the effect large? Is it statistically significant? \textit{(1 point)}
+\item  Consider the second column of Table 1. Is \textit{samesex} a valid instrument for the IV regression of \textit{weeksworked} on \textit{morekids} (third and fourth columns)? Carefully explain why or why not. \textit{(3 points)}
+\item Consider the second stage of the IV regression in the third column, using \textit{samesex} as an instrument. What is the marginal effect of \textit{morekids} on \textit{weeksm1}?\textit{(.5 point)}
+\item  Consider the second stage of the IV regression in the fourth column, using \textit{samesex} as an instrument and \textit{agem1, black, hispan} and \textit{othrace} as controls. Carefully explain why the main results do not change significantly compared with the results in the third column. \textit{(1.5 points)}
+\end{enumerate}
+
+
+\begin{figure}[!htbp]
+\caption*{Textbox 1: Chilbearing and Labor Supply}
+\fbox{\begin{minipage}{45em}
+\hspace{1cm} Research on the labor-supply consequences of childbearing is complicated by the endogeneity of fertility. [...]\\
+
+\hspace{1cm} An understanding of the relationship between fertility and labor supply is important for a number of theoretical and practical reasons. First, economists and demographers have developed a variety of models linking the family and the labor market. Empirical studies of childbearing and labor supply are sometimes seen as tests of these models (e.g., Reuben Gronau, 1973; Mark R. Rosenzweig and Kenneth I. Wolpin, 1980; T. Paul Schultz, 1990). Second, the link between fertility and labor supply might partly explain the postwar increase in women's labor-force participation rates if having fewer children causes an increase in labor-force attachment (Mary T. Coleman and John Pencavel, 1993). Evidence for this thesis includes Claudia Goldin's (1995) study, which shows that few women in the 1940's and 1950's birth cohorts were able to combine childbearing with strong labor-force attachment. Other researchers have also drawn a link between fertility-induced withdrawals from the labor force and lower wages of women (e.g., Gronau, 1988; Sanders Korenman and David Neumark, 1992). So perhaps childbearing keeps women from developing their careers.\\
+
+\hspace{1cm} Any success in disentangling the causal mechanisms linking fertility and labor supply should shed light on other substantive issues as well. For example, reductions in female labor supply could increase the total time parents devote to child care, making at least some children better off (see, e.g., Frank P. Stafford, 1987; Francine Blau and Adam J. Grossberg, 1992). Some theories of family behavior also suggest that changes in wives' earnings affect marital stability (Becker et al., 1977; Becker, 1985).\\
+
+\hspace{1cm} Not surprisingly, given the wide and longstanding interest in the connection between childbearing and labor supply, hundreds of empirical studies report estimates of this relationship. The vast majority of these studies find a negative correlation between fertility (or family size) and female labor supply. As noted in two recent literature surveys, however, the interpretation of these correlations remains unclear. In his assessment of the ``economics of the family,'' Robert J. Willis (1987, p. 74) writes,
+\begin{displayquote}
+``...it has proven difficult to find enough well-measured exogenous variables to permit cause and effect relationships to be extracted from correlations among factors such as the delay of marriage, decline of childbearing, growth of divorce, and increased female labor force participation..."
+\end{displayquote}
+Martin Browning (1992, p. 1435) expresses similar views:
+\begin{displayquote}
+``... although we have a number of robust correlations, there are very few credible inferences that can be drawn from them.''
+\end{displayquote}
+\vspace{.5cm}
+\flushright{Angrist, J. D., \& Evans, W. N. (1998). Children and Their Parents' Labor Supply: Evidence from Exogenous Variation in Family Size. American Economic Review, 450-477.}
+
+\end{minipage}}
+\end{figure}
+
+\newpage
+
+%\textbf{Exercise 2 --- Output Table} \vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\caption{Effect of $Smoker$ on $Birthweight$.}\vspace{.25cm}
+\begin{adjustbox}{width=.7\textwidth}
+\begin{tabular}{l|cccc|}
+\cline{2-5}
+\multicolumn{1}{c|}{}                   & \multicolumn{4}{c|}{ \small \textbf{Dependent Variable:} }                                        \\
+                                        & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} \\
+                                        & \textit{weeksm1}     & \textit{morekids}    & \textit{weeksm1}     & \textit{weeksm1}      \\ \hline
+\multicolumn{1}{|l|}{\textit{morekids}} & -5.387***            &                      & -6.314***            & -5.821***             \\
+\multicolumn{1}{|l|}{\textit{}}         & (0.087)              &                      & (1.275)              & (1.246)               \\
+\multicolumn{1}{|l|}{\textit{samesex}}  &                      & 0.068***             &                      &                       \\
+\multicolumn{1}{|l|}{\textit{}}         &                      & (0.002)              &                      &                       \\
+\multicolumn{1}{|l|}{\textit{agem1}}    &                      &                      &                      & 0.832***              \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.023)               \\
+\multicolumn{1}{|l|}{\textit{black}}    &                      &                      &                      & 11.623***             \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.232)               \\
+\multicolumn{1}{|l|}{\textit{hispan}}   &                      &                      &                      & 0.404                 \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.261)               \\
+\multicolumn{1}{|l|}{\textit{othrace}}  &                      &                      &                      & 2.131***              \\
+\multicolumn{1}{|l|}{\textit{}}         &                      &                      &                      & (0.211)               \\
+\multicolumn{1}{|l|}{\textit{Intercept}}   & 21.068***            & 0.346***             & 21.421***            & -4.792***             \\
+\multicolumn{1}{|l|}{\textit{}}         & (0.056)              & (0.001)              & (0.487)              & (0.390)               \\ \hline
+\multicolumn{1}{|l|}{\textit{N}}        & 254654.000           & 254654.000           & 254654.000           & 254654.000            \\
+\multicolumn{1}{|l|}{\textit{$R^2$}}       & 0.014                & 0.005                & 0.014                & 0.044                 \\
+\multicolumn{1}{|l|}{\textit{F}}        & 3820.912             & 1238.171             & ---                  & ---                   \\ \hline
+\end{tabular}
+\end{adjustbox}
+\\[1em]
+\begin{minipage}{\textwidth} % choose width suitably
+\footnotesize{Robust standard errors are reported in parenthesis. *: $p<0.05$, **: $p<0.01$, ***: $p<0.001$. \par}
+\end{minipage}
+\end{table}
+
+\vspace{1cm}
+\textbf{Exercise 3 --- Theory \textit{(10 points)}} \\[1em]
+
+\begin{enumerate}[label=\alph*)]
+
+\item State the procedure to perform a test of joint hypothesis with two restrictions. \textit{(2 points)}%lecture 6
+\item Carefully explain the difference between an unbiased estimator and a consistent estimator. \textit{(2 points)}%SW 3 review of concepts
+\item Consider the regression model $Y_i = \beta_0 + \beta_1X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i$. Show that $\Delta Y/ \Delta X_1 = \beta_1 + \beta_3 X_2$. \textit{(2 points)}%SW EX8.10
+\item  Carefully explain the difference between internal validity and external validity. Is it possible for an empirical study to have internal validity but not external validity? Explain. \textit{(2 points)} %SW 9 review of concepts
+\item What is sample selection bias? Suppose you read a study using data on college graduates of the effects of an additional year of schooling on earnings. What is the potential sample selection bias present? \textit{(2 points)} %SW 9 review of concepts
+%\item What are the advantages of using maximum likelihood estimators such as the probit and the logit, instead of the linear probability model?
+
+\end{enumerate}
+
+
+\newpage
+\pagenumbering{gobble}
+
+\begin{center}
+    \textbf{\Large \underline{ANSWER SHEET}}
+\end{center}
+\vspace{1cm}
+
+\textbf{Exercise 1}\vspace{.25cm}
+\begin{table}[hp!]
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textit{Question} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+\textit{Answer}   &   &   &   &   &   &   &   &   &   &    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\vspace{1cm}
+
+\textbf{Exercise 2}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+
+\textbf{Exercise 3}\vspace{.25cm}
+
+\begin{enumerate}[label=\alph*)]
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\item ~\\\vspace{5cm}
+\end{enumerate}
+\end{document}

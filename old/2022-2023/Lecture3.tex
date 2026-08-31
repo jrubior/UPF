@@ -1,0 +1,624 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Wednesday, October 19, 2022 18:02:47}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics Lecture 3: \\
+Large Sample Properties}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{Formal Assumptions for the Linear Regression}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Assumptions for OLS}
+
+\begin{enumerate}
+\item The linear regression model in is correctly specified, and crucially,
+linear in $\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $p\lim_{n\rightarrow \infty }(\frac{1}{n}X^{\prime
+}X)=p\lim_{n\rightarrow \infty }\frac{1}{n}\sum_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }=\mathbb{E[}\mathbf{x}_{1}\mathbf{x}_{1}^{\prime
+}]=Q,$ where $\left\Vert Q\right\Vert <\infty $ and $Q$ is positive definite
+matrix.
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Some useful results}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Some useful results}
+
+Let $X_{1},...,X_{n}$ is a sequence of random variables and let $X$ be
+another random variable. Let $F_{n}$ denote the cdf of $X_{n}$ and let $F$
+denote the cdf of $X$.
+
+\begin{definition}
+$X_{n}$ converges to $X$ in distribution, written $X_{n}\rightarrow _{d}X,$
+(you can also find it written $X_{n}\rightsquigarrow X$) if%
+\begin{equation*}
+\lim_{n\rightarrow \infty }F_{n}(t)=F(t)
+\end{equation*}%
+for all $t$ for which $F$ is continuous.
+\end{definition}
+
+\begin{itemize}
+\item This can be extended to vector sequence $X_{1},...,X_{n}$ and vector
+limit $X$ with $F_{n}$ and $F$ denoting cdf of vector-valued random
+variables.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{definition}
+$X_{n}$ converges to $X$ in probability, written $X_{n}\rightarrow _{p}X,$
+if for every $\varepsilon >0$ (no matter how small),%
+\begin{equation*}
+P(|X_{n}-X|\geq \varepsilon )\rightarrow 0\text{ as }n\rightarrow \infty
+\end{equation*}%
+of equivalently, for any $\varepsilon ,\delta >0$, $\exists N(\varepsilon
+,\delta )$, s.t. 
+\begin{equation*}
+\text{for each }n\geq N(\varepsilon ,\delta )\text{ \ \ \ \ }P(\left\vert
+X_{n}-X\right\vert \geq \varepsilon )<\delta .
+\end{equation*}%
+Suppose that $X_{n}$ and $X$ are now random vectors in $\mathbb{R}^{k}.$ We
+define $X_{n}\rightarrow _{p}X$ by element-wise convergence in probability: $%
+X_{n,i}\rightarrow _{p}X_{i}$ as $n\rightarrow \infty $ for all $i\in
+\left\{ 1,...,k\right\} .$ Equivalently, 
+\begin{equation*}
+\left\Vert X_{n}-X\right\Vert \rightarrow _{p}0,
+\end{equation*}%
+where $\left\Vert .\right\Vert $ denotes the Euclidian norm, $\left\Vert
+x\right\Vert =\sqrt{x^{\prime }x}.$
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Some useful results}
+
+\begin{enumerate}
+\item $X_{n}\rightarrow _{p}X$ implies that $X_{n}\rightarrow _{d}X.$
+
+\item If $X_{n}\rightarrow _{d}X$ and if $P(X=c)=1$ for some real number $c,$
+then $X_{n}\rightarrow _{p}X.$
+
+\item If $X_{n}\rightarrow _{p}X$ and $g(.)$ is a continuous function, then $%
+g(X_{n})\rightarrow _{p}g(X)$ (Continuous Mapping Theorem)
+
+\item If $X_{n}\rightarrow _{d}X$ and $g(.)$ is a continuous function, then $%
+g(X_{n})\rightarrow _{d}g(X)$ (Continuous Mapping Theorem)
+
+\item If $X_{n}\rightarrow _{d}X$ and $Y_{n}\rightarrow _{p}Y,$ then $%
+X_{n}Y_{n}\rightarrow _{d}XY$ (Slutsky Theorem)
+
+\item If $X_{n}\rightarrow _{d}X$ and $Y_{n}\rightarrow _{p}Y,$ then $%
+X_{n}+Y_{n}\rightarrow _{d}X+Y$ (Slutsky Theorem)
+
+\item If $X_{n}\rightarrow _{d}X$ and $Y_{n}\rightarrow _{p}Y,$ then $%
+X_{n}/Y_{n}\rightarrow _{d}X/Y$ if $Y\neq 0$ (Slutsky Theorem)
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Weak Law of Large Numbers}
+
+\begin{itemize}
+\item Let $X_{1},...,X_{n}$ be an i.i.d. sample, let $\mu =\mathbb{E}[X_{1}]$
+(note than $\mu =\mathbb{E}[X_{i}]$ is the same for all $i,$ so by
+convention, we are often going to write $\mu =\mathbb{E}[X_{1}])$ and $%
+\sigma ^{2}=V(X_{1}).$ Recall that the sample mean is defined $\overline{X}%
+_{n}=\frac{1}{n}\dsum\nolimits_{i=1}^{n}X_{i}.$
+\end{itemize}
+
+\begin{theorem}[The Weak Law of Large Numbers]
+If $X_{1},...,X_{n}$ are i.i.d. variables, and $\mathbb{E[}\left\vert
+X_{1}\right\vert ]<\infty ,$ then $\frac{1}{n}\dsum\nolimits_{i=1}^{n}X_{i}%
+\rightarrow _{p}\mu .$ Equivalently, $\left\vert \frac{1}{n}%
+\dsum\nolimits_{i=1}^{n}X_{i}-\mathbb{E}[X_{1}]\right\vert \rightarrow
+_{p}0. $
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Weak Law of Large Numbers}
+
+\begin{itemize}
+\item Recall that 
+\begin{equation*}
+\mathbb{E}[\overline{X}_{n}]=\mathbb{E}[\frac{1}{n}\dsum%
+\nolimits_{i=1}^{n}X_{i}]=\frac{1}{n}\dsum\nolimits_{i=1}^{n}\mathbb{E}%
+[X_{i}]=\frac{n\mu }{n}=\mu
+\end{equation*}%
+and by independence of $X^{\prime }s$ 
+\begin{equation*}
+V(\overline{X}_{n})=V(\frac{1}{n}\dsum\nolimits_{i=1}^{n}X_{i})=\frac{1}{%
+n^{2}}\dsum\nolimits_{i=1}^{n}V(X_{i})=\frac{n\sigma ^{2}}{n^{2}}=\frac{%
+\sigma ^{2}}{n}
+\end{equation*}
+
+\item Another way to think about the Law of Large Numbers is that the random
+variable $\overline{X}_{n}$ becomes more and more concentrated around a
+single value, $\mu ,$ as $n$ gets large (note that its variance $\frac{%
+\sigma ^{2}}{n}$ vanishes as $n\rightarrow \infty $).
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Central Limit Theorem}
+
+\begin{theorem}[The Central Limit Theorem]
+Let $X_{1},...,X_{n}$ be i.i.d. with $\mathbb{E}\left( X_{1}\right) =\mu $
+and $V\left( X_{1}\right) =\sigma ^{2}<\infty .$ Then, 
+\begin{eqnarray*}
+Z_{n} &=&\frac{\overline{X}_{n}-\mu }{\sqrt{V(\overline{X}_{n})}}=\frac{%
+\sqrt{n}}{\sigma }(\overline{X}_{n}-\mu )=\frac{1}{\sigma \sqrt{n}}%
+\sum_{i=1}^{n}(X_{i}-\mu )\rightarrow _{d}Z\text{ } \\
+\text{\ where }Z &\sim &\mathcal{N}(0,1)
+\end{eqnarray*}
+
+In other words, 
+\begin{equation*}
+\lim_{n\rightarrow \infty }F_{Z_{n}}=\Phi (z)=\int_{-\infty }^{z}(2\pi
+)^{-1/2}\exp (-x^{2}/2)dx.
+\end{equation*}
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reflection }
+
+\begin{itemize}
+\item The LLN tells us that the distribution of $\overline{X}_{n}$ piles up
+around $\mu .$
+
+\item The CLT\ says that probability of $\frac{\sqrt{n}\left( \bar{X}%
+_{n}-\mu \right) }{\sigma }$ converges to a $N\left( 0,1\right) $\ r.v.
+
+\item This is a remarkable result, since nothing was assumed about the
+distribution of the i.i.d. sequence $\left\{ X_{1},..,X_{n}\right\} $, apart
+from the existence of their mean and variance; so the $X^{\prime }s$ could
+be generated by any distribution.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Multivariate Extensions}
+
+\begin{itemize}
+\item Let $\mathbf{y}_{1},...,\mathbf{y}_{n}$ be an i.i.d. sequence of $%
+k\times 1$ vectors, let $\mu =\mathbb{E}[\mathbf{y}_{1}]$ be the $k\times 1$
+vector of expectations.
+\end{itemize}
+
+\begin{theorem}[The Weak Law of Large Numbers]
+If $\mathbf{y}_{1},...,\mathbf{y}_{n}$ is an i.i.d. sequence of $k\times 1$
+vectors, and $\mathbb{E}\left\Vert \mathbf{y}_{1}\right\Vert <\infty ,$ then 
+$\frac{1}{n}\dsum\nolimits_{i=1}^{n}\mathbf{y}_{i}\rightarrow _{p}\mu .$
+Equivalently, $\left\Vert \frac{1}{n}\dsum\nolimits_{i=1}^{n}\mathbf{y}_{i}-%
+\mathbb{E}\mathbf{y}_{1}\right\Vert \rightarrow _{p}0.$
+\end{theorem}
+
+\begin{itemize}
+\item This extension implies that each element in the vector $\overline{%
+\mathbf{y}}$ converges, this is referred to as pointwise convergence.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Multivariate Extensions}
+
+\begin{theorem}[The Central Limit Theorem]
+If $\mathbf{y}_{1},...,\mathbf{y}_{n}$ is an i.i.d. sequence of $k\times 1$
+vectors, let $\mu =\mathbb{E}[\mathbf{y}_{1}]$ be the $k\times 1$ vector of
+expectations and let $V$ be a $k\times k$ p.d. matrix $V\left( \mathbf{y}%
+_{1}\right) =\mathbb{E}\left( \mathbf{y}_{1}-\mathbb{E}[\mathbf{y}%
+_{1}]\right) \left( \mathbf{y}_{1}-\mathbb{E}[\mathbf{y}_{1}]\right)
+^{\prime }$ with $\left\Vert V\right\Vert <\infty ,$ then%
+\begin{equation*}
+Z_{n}=\sqrt{n}\left( \overline{\mathbf{y}}_{n}-\mu \right) =\frac{1}{\sqrt{n}%
+}\sum_{i=1}^{n}(\mathbf{y}_{i}-\mu )\rightarrow _{d}\mathcal{N}(0,V)
+\end{equation*}
+\end{theorem}
+
+\begin{itemize}
+\item Here the limit is a multivariate normal random vector
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Multivariate Extensions}
+
+\begin{definition}
+A $k\times 1$ vector $\mathbf{y}$ is multivariate normal with mean $\mu \in 
+\mathbb{R}^{k}$ and covariance matrix $V\in \mathbb{R}^{k\times k}$ with $V$
+p.d definite, denoted $\mathbf{y\sim }\mathcal{N}\left( \mu ,V\right) \ $if
+it has a joint density%
+\begin{equation*}
+f_{\mathbf{y}}=\left( 2\pi \right) ^{-k/2}\det \left( V\right)
+^{-1/2}e^{-0.5\left( \mathbf{y-}\mu \right) ^{\prime }V^{-1}\left( \mathbf{y-%
+}\mu \right) }.
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+If $\mathbf{y\sim }\mathcal{N}\left( \mu ,V\right) $ and $\mathbf{x=}c+B%
+\mathbf{y,}$ then $\mathbf{x\sim }\mathcal{N}\left( c+B\mu ,BVB^{\prime
+}\right) .$
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Delta Method}
+
+\begin{itemize}
+\item The delta method is just an application of Taylor expansion
+
+\item It is often used in econometrics to compute the limit distribution of
+standardised and centred quantities.
+\end{itemize}
+
+\begin{theorem}[the Delta method]
+If $\sqrt{n}\left( \hat{\mu}-\mu \right) \rightarrow _{d}z$ and $g\left(
+.\right) $ is a continuous and differentiable function in a neighbourhood of 
+$\mu ,$ then 
+\begin{equation*}
+\sqrt{n}\left( g\left( \hat{\mu}\right) -g\left( \mu \right) \right)
+\rightarrow _{d}Gz
+\end{equation*}%
+where $G=\frac{\partial \left( g\left( \mu \right) \right) }{\partial \mu }.$
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Asymptotic Properties of OLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency}
+
+\begin{definition}
+An estimator $\hat{\theta}_{n}$ of $\theta $ is called \textbf{consistent}
+if $\hat{\theta}_{n}\rightarrow _{p}\theta $ as the sample size $n$ tends to 
+$\infty $.
+\end{definition}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of OLS}
+
+\begin{theorem}[Consistency]
+Under Assumptions 1-4, $p\lim_{n\rightarrow \infty }\widehat{\beta }%
+_{n}^{OLS}=\beta .$
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consistency of OLS}
+
+\begin{proof}
+$p\lim_{n\rightarrow \infty }\widehat{\beta }_{n}=\beta +p\lim_{n\rightarrow
+\infty }\left[ \left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}\frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right] $%
+\begin{eqnarray*}
+&=&\beta +p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right) \text{ {\tiny by CMT}} \\
+&=&\beta +\left( p\lim_{n\rightarrow \infty }\frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right) \text{ {\tiny by CMT and Ass. 4}} \\
+&=&\beta +Q^{-1}\mathbb{E[}\mathbf{x}_{i}\varepsilon _{i}]\text{ {\tiny by
+CMT, WLLN and Ass. 4}} \\
+&=&\beta \text{ \ }
+\end{eqnarray*}%
+since $\mathbb{E[}\mathbf{x}_{i}\varepsilon _{i}]=\mathbb{E[}\mathbf{x}_{i}%
+\mathbb{E}\left( \varepsilon _{i}|x_{i}\right) ]=0$ by Assumption 3, note
+that because of the i.i.d. assumptions, $\mathbb{E[}\mathbf{x}%
+_{i}\varepsilon _{i}]=\mathbb{E[}\mathbf{x}_{1}\varepsilon _{1}].$
+\end{proof}
+
+\begin{itemize}
+\item $\widehat{\beta }_{n}$ is a consistent estimator of $\beta .$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Asymptotic Normality}
+
+\begin{theorem}[Asymptotic Normality]
+Under Assumptions 1-4, $\sqrt{n}(\widehat{\beta }_{n}-\beta )\rightarrow _{d}%
+\mathcal{N}(0,\sigma ^{2}Q^{-1}).$
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+$\sqrt{n}(\widehat{\beta }_{n}-\beta )=\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right) ^{-1}\frac{1%
+}{\sqrt{n}}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon _{i}$%
+\begin{gather}
+\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }\right) ^{-1}\rightarrow _{p}Q^{-1}\text{ {\tiny by WLLN, CMT
+and Ass. 4}}  \notag \\
+\frac{1}{\sqrt{n}}(\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon _{i}-%
+\mathbb{E[}\mathbf{x}_{1}\varepsilon _{1}])\rightarrow _{d}\mathcal{N}(0,var(%
+\mathbf{x}_{1}\varepsilon _{1}))\text{ {\tiny by the CLT}}  \notag \\
+\frac{1}{\sqrt{n}}(\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon
+_{i})\rightarrow _{d}\mathcal{N}(0,\sigma ^{2}Q)  \notag \\
+\Rightarrow \sqrt{n}(\widehat{\beta }_{n}-\beta )\rightarrow _{d}\mathcal{N}%
+(0,\sigma ^{2}Q^{-1}QQ^{-1})\text{ {\tiny by Slutsky Theorem}}  \notag \\
+\sqrt{n}(\widehat{\beta }_{n}-\beta )\rightarrow _{d}\mathcal{N}(0,\sigma
+^{2}Q^{-1}).  \label{clt}
+\end{gather}
+\end{proof}
+
+since $\mathbb{E[}\mathbf{x}_{i}\varepsilon _{i}]=\mathbb{E[}\mathbf{x}%
+_{1}\varepsilon _{1}]=0$ and $var(\mathbf{x}_{i}\varepsilon _{i})=var(%
+\mathbf{x}_{1}\varepsilon _{1})=$ $\mathbb{E[}\mathbf{x}_{1}\mathbb{E}\left[
+\varepsilon _{1}^{2}\right] \mathbf{x}_{1}^{\prime }]=\sigma ^{2}Q.$
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Remarks}
+
+\begin{itemize}
+\item The asymptotic normality result tells us that for large enough $n$, we
+can use the normal distribution for inference
+
+\item So we can construct confidence intervals for $\beta $ and conduct
+hypothesis testing
+
+\item We obtained this result without assuming anything on the distribution
+of $\varepsilon $
+
+\item In fact, all results so far (Gauss Markov, unbiasedness, etc) were
+derived \textit{without} assuming a particular distribution for $\varepsilon
+;$ in this sense, OLS is a semi-parametric (or partial information) procedure
+
+\item Matching moment estimators are all partial information methods
+
+\item Maximum likelihood and Bayesian methods are full information, in the
+sense that they require distributional assumptions
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Remarks}
+
+\begin{itemize}
+\item If we assumed in Assumption 3 in addition that $\varepsilon |X\sim 
+\mathcal{N}(0,\sigma ^{2}I_{n}),$ then the result in equation (\ref{clt})
+holds without evoking the CLT; and crucially $\widehat{\beta }_{n}\sim 
+\mathcal{N}$ even for small $n.$
+
+\item We will revisit the Gaussian linear regression model when we study
+maximum likelihood estimation, and we will state some small sample testing
+procedures such as the $t$ and $F$ test
+
+\item For now, we will rely on the large sample result
+
+\item The advantage: it applies to any error distribution, the disadvantage:
+it is an approximation that only works when $n$ is large
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 6 and 7.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

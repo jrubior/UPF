@@ -1,0 +1,532 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Wednesday, November 17, 2021 14:23:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics Lecture 6: \\
+Endogeneity, Instrumental Variables and Two Stage Least Squares}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{The Model}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Classical Assumptions for OLS}
+
+\begin{itemize}
+\item We have been working with the following model 
+\begin{equation}
+y=X\beta +\varepsilon  \label{model}
+\end{equation}
+
+\item Let's recall the assumptions we made
+\end{itemize}
+
+\begin{enumerate}
+\item The model in (\ref{model}) is correctly specified, and crucially,
+linear in $\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $p\lim_{n\rightarrow \infty }(\frac{1}{n}X^{\prime
+}X)=p\lim_{n\rightarrow \infty }\frac{1}{n}\sum_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }=\mathbb{E[}\mathbf{x}_{1}\mathbf{x}_{1}^{\prime
+}]=Q,$ where $\left\Vert Q\right\Vert <\infty $ and $Q$ is positive definite
+matrix.
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Endogeneity}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Relaxing Assumption 3}
+
+\begin{itemize}
+\item In this lecture, we will maintain all the classical assumptions above
+but we will relax the assumption of exogenous regressors
+
+\item In particular, we relax the assumption that $X$ are exogenous
+regressors, that is $\mathbb{E}[\varepsilon |X]\neq 0.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+$\widehat{\beta }_{n}^{OLS}$ is now biased.
+
+\begin{eqnarray*}
+\mathbb{E}[\widehat{\beta }_{n}^{OLS}] &=&\beta +\mathbb{E}[(X^{\prime
+}X)^{-1}X^{\prime }\varepsilon ] \\
+&=&\beta +\mathbb{E[E[}(X^{\prime }X)^{-1}X^{\prime }\varepsilon |X]] \\
+&=&\beta +\mathbb{E[}(X^{\prime }X)^{-1}X^{\prime }\underset{\neq 0}{%
+\underbrace{\mathbb{E[}\varepsilon |X]}]}\neq \beta
+\end{eqnarray*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+\begin{itemize}
+\item Crucially, it is no longer consistent!
+\end{itemize}
+
+$p\lim_{n\rightarrow \infty }\widehat{\beta }_{n}^{OLS}=\beta
++p\lim_{n\rightarrow \infty }\left[ \left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}x_{i}x_{i}^{\prime }\right) ^{-1}\frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}x_{i}\varepsilon _{i}\right] $%
+\begin{eqnarray*}
+&=&\beta +p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}x_{i}x_{i}^{\prime }\right) ^{-1}p\lim_{n\rightarrow
+\infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}x_{i}\varepsilon
+_{i}\right) \\
+&&\overset{\text{WLLN}}{=}\beta +Q^{-1}\underset{\neq 0}{\underbrace{\mathbb{%
+E[}x_{i}\varepsilon _{i}]}} \\
+&\neq &\beta
+\end{eqnarray*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Consequences}
+
+\begin{itemize}
+\item Endogeneity of the regressors $X$ invalidates the OLS procedure even
+asymptotically
+
+\item Sources: measurement error in $X,$ simultaneous equation models,
+unobserved causal variable correlated with $y$ and $X$
+
+\item Solution: turns out that if we can find a variable $Z$ (of the same
+dimension as $X$), such that $Z$ satisfies the original exogeneity
+assumption $\mathbb{E}[\varepsilon _{i}|z_{i}]=0,$ and in the same time $%
+\mathbb{E[}z_{i}x_{i}^{\prime }]\neq 0$ (i.e. $Z$ is correlated with $X$),
+then we can construct a new estimator, which will be unbiased and consistent
+
+\item In this case, we will refer to $Z$ as instrumental variable, we will
+refer to condition $\mathbb{E}[\varepsilon _{i}|z_{i}]=0$ as a validity of
+the instrument and to condition $\mathbb{E[}z_{i}x_{i}^{\prime }]\neq 0$ as
+a relevance of the instrument
+
+\item The resulting estimator is called Instrumental variables (or IV)
+estimator
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{The IV\ estimator}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{New assumptions for IV}
+
+\begin{itemize}
+\item So let's modify the assumptions
+
+\item Assumption 3$^{\text{*}}$: $\varepsilon _{i}$ are random variables,
+such that $\mathbb{E}[\varepsilon _{i}|x_{i}]\neq 0$, but we can find a full
+rank matrix of identically distributed instruments $Z=\left[ 
+\begin{array}{c}
+z_{1}^{\prime } \\ 
+\vdots \\ 
+z_{n}^{\prime }%
+\end{array}%
+\right] ,$ where $z_{i}$ is of the same size ($k\times 1$) as $x_{i},$ are
+exogenous regressors$,$ such that $\mathbb{E}[\varepsilon _{i}|z_{i}]=0$ and 
+$\mathbb{E}[\varepsilon _{i}^{2}|z_{i}]=\sigma ^{2}.$
+
+\item Assumption 4$^{\text{*}}$: $p\lim_{n\rightarrow \infty }(\frac{1}{n}%
+Z^{\prime }X)=p\lim_{n\rightarrow \infty }\frac{1}{n}%
+\sum_{i=1}^{n}z_{i}x_{i}^{\prime }=S,$ where $\left\Vert S\right\Vert
+<\infty $ and $rank(S)=k.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Remarks}
+
+\begin{itemize}
+\item If $z_{i}$ is of dimension smaller than $x_{i},$ the IV estimator will
+not be defined and we will say that the model is under-identified
+
+\item For the IV to work, we need to assume that $z_{i}$ is of the same
+dimension of $x_{i}$; in this case, we say that the model is just-identified
+
+\item On the other hand, if we had more valid and relevant instruments than
+endogenous variables, then, we will arrive at the Two Stage Least Squares
+(2SLS) estimator, which is an over-identified model and will turn out to be
+efficient
+
+\item If only one of the regressors in $X$ was endogenous, we could
+partition $X$ and instrument only the endogenous part
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The IV estimator}
+
+\begin{itemize}
+\item The IV estimator solves the following moment condition%
+\begin{gather*}
+\mathbb{E}[z_{i}\varepsilon _{i}]=0 \\
+\mathbb{E}[z_{i}(y_{i}-x_{i}^{\prime }\beta )]=0 \\
+\mathbb{E}[z_{i}x_{i}^{\prime }]\beta =\mathbb{E}[z_{i}y_{i}] \\
+\widehat{\beta }^{IV}=\left( \frac{1}{n}\sum_{i=1}^{n}z_{i}x_{i}^{\prime
+}\right) ^{-1}\frac{1}{n}\sum_{i=1}^{n}z_{i}y_{i}
+\end{gather*}
+
+\item We can invert the $\mathbb{E}[z_{i}x_{i}^{\prime }]$ matrix, because
+of the additional assumption we made in 4$^{\text{*}}$.
+
+\item Obviously, we don't know the population quantities $\mathbb{E}%
+[z_{i}x_{i}^{\prime }]$ and $\mathbb{E}[z_{i}y_{i}],$ but we can replace
+them with their sample counterparts: $\frac{1}{n}\sum_{i=1}^{n}z_{i}x_{i}^{%
+\prime }$ and $\frac{1}{n}\sum_{i=1}^{n}z_{i}y_{i}.$
+
+$\widehat{\beta }^{IV}=\left( \frac{1}{n}\sum_{i=1}^{n}z_{i}x_{i}^{\prime
+}\right) ^{-1}\frac{1}{n}\sum_{i=1}^{n}z_{i}y_{i}=\left( Z^{\prime }X\right)
+^{-1}Z^{\prime }Y.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Large Sample Properties}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{IV: Asymptotic Properties}
+
+\begin{gather*}
+p\lim_{n\rightarrow \infty }\widehat{\beta }^{IV}=\beta +p\lim_{n\rightarrow
+\infty }\left[ \left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime
+}\right) ^{-1}\frac{1}{n}\tsum\nolimits_{i=1}^{n}z_{i}\varepsilon _{i}\right]
+\\
+=\beta +\left( p\lim_{n\rightarrow \infty }\left( \frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime }\right) \right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}z_{i}\varepsilon _{i}\right) \text{ by CMT} \\
+=\beta +\underset{=S^{-1}}{\underbrace{\mathbb{E}[z_{1}x_{1}^{\prime }]^{-1}}%
+}\underset{\mathbb{E[}z_{i}\mathbb{E}[\varepsilon _{i}|z_{i}]]=0\text{ by 3}%
+^{\text{*}}}{\underbrace{\mathbb{E[}z_{i}\varepsilon _{i}]}} \\
+=\beta
+\end{gather*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{IV: Asymptotic Properties}
+
+\begin{eqnarray*}
+\sqrt{n}(\widehat{\beta }^{IV}-\beta ) &=&\left( \frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime }\right) ^{-1}\frac{1}{\sqrt{n}}%
+\tsum\nolimits_{i=1}^{n}z_{i}\varepsilon _{i} \\
+\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime }\right) ^{-1}
+&\rightarrow &_{p}\text{ }S^{-1}\text{ by 4}^{\text{*}}\text{ and CMT} \\
+\frac{1}{\sqrt{n}}\tsum\nolimits_{i=1}^{n}z_{i}\varepsilon _{i} &\rightarrow
+&_{d}\text{ }\mathcal{N}(0,var(z_{1}\varepsilon _{1})) \\
+&\rightarrow &_{d}\text{ }\mathcal{N}(0,\sigma ^{2}Q_{z}) \\
+\sqrt{n}(\widehat{\beta }^{IV}-\beta ) &\rightarrow &_{d}\mathcal{N}%
+(0,\sigma ^{2}S^{-1}Q_{z}\left( S^{\prime }\right) ^{-1})\text{ by Slutsky }
+\end{eqnarray*}%
+with $Q_{z}=\mathbb{E[}z_{i}z_{i}^{\prime }].$
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{IV: Discussion}
+
+\begin{itemize}
+\item We saw that under endogeneity, OLS is invalid even asymptotically
+
+\item However, given the right instruments (valid and relevant), we are back
+in business, and $\widehat{\beta }^{IV}$ is consistent, and we can use the
+asymptotic distribution to do testing or construct confidence intervals
+
+\item Everything we have done on testing with OLS applies immediately, by
+replacing $\widehat{\beta }^{OLS}\ $with $\widehat{\beta }^{IV}$ and the
+standard error of $\widehat{\beta }^{OLS}$ with the standard error of $%
+\widehat{\beta }^{IV}.$
+
+\item What about when we have more instruments that regressors in $X,$ i.e. $%
+Z$ is a $n\times l$ matrix, where $l>k?$ Can we gain efficiency by using all
+of them?
+
+\item The IV procedure is not directly applicable, since $(Z^{\prime }X)$ is
+a $l\times k$ matrix, so we cannot invert it
+
+\item We could, however, do two stage least squares (2SLS)
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{2SLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{2SLS}
+
+\begin{itemize}
+\item Stage one: regress $Z$ on $X$ using OLS%
+\begin{eqnarray*}
+\underset{n\times k}{X} &=&\underset{n\times l}{Z}\text{ }\underset{l\times k%
+}{\gamma }+\underset{n\times k}{v} \\
+\widehat{\gamma } &=&(Z^{\prime }Z)^{-1}Z^{\prime }X\text{ \ }\Rightarrow 
+\widehat{X}=Z\widehat{\gamma }
+\end{eqnarray*}
+
+\item Stage 2: use the prediction $\widehat{X}$ instead of the endogenous $X$
+in the model and do OLS%
+\begin{eqnarray*}
+Y &=&\widehat{X}\beta +\varepsilon \text{ \ \ }\Rightarrow \widehat{\beta }%
+^{2SLS}=(\widehat{X}^{\prime }\widehat{X})^{-1}\widehat{X}^{\prime }y \\
+&=&(\widehat{\gamma }^{\prime }Z^{\prime }Z\widehat{\gamma })^{-1}\widehat{%
+\gamma }^{\prime }Z^{\prime }y \\
+&=&(X^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime
+}X)^{-1}X^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime }y \\
+&=&(X^{\prime }\underset{P_{Z}}{\underbrace{Z(Z^{\prime }Z)^{-1}Z^{\prime }}}%
+X)^{-1}X^{\prime }\underset{P_{Z}}{\underbrace{Z(Z^{\prime }Z)^{-1}Z^{\prime
+}}}y \\
+&\Rightarrow &\widehat{\beta }^{2SLS}=(X^{\prime }P_{Z}X)^{-1}X^{\prime
+}P_{Z}y
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{2SLS}
+
+\begin{itemize}
+\item What happens with $\widehat{\beta }^{2SLS}$ when $l=k?$
+
+\item In that case $X^{\prime }Z$ is a square full rank matrix, so that we
+can open the bracket%
+\begin{eqnarray*}
+\widehat{\beta }^{2SLS} &=&(X^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime
+}X)^{-1}X^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime }y \\
+&=&(Z^{\prime }X)^{-1}(Z^{\prime }Z)(X^{\prime }Z)^{-1}X^{\prime
+}Z(Z^{\prime }Z)^{-1}Z^{\prime }y \\
+&=&(Z^{\prime }X)^{-1}Z^{\prime }y=\widehat{\beta }^{IV}
+\end{eqnarray*}
+
+\item 2SLS is a special case of optimal GMM.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{2SLS Consistency}
+
+\begin{itemize}
+\item Consistency of 2SLS follows immediately since $\widehat{\beta }%
+^{2SLS}=\beta +(X^{\prime }Z(Z^{\prime }Z)^{-1}Z^{\prime }X)^{-1}X^{\prime
+}Z(Z^{\prime }Z)^{-1}Z^{\prime }\varepsilon $
+
+\item $p\lim_{n\rightarrow \infty }\widehat{\beta }^{2SLS}$%
+\begin{gather*}
+=\beta +p\lim_{n\rightarrow \infty }\left[ \left( \frac{\tsum%
+\nolimits_{i=1}^{n}x_{i}z_{i}^{\prime }}{n}\left( \frac{\tsum%
+\nolimits_{i=1}^{n}z_{i}z_{i}^{\prime }}{n}\right) ^{-1}\frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime }}{n}\right) ^{-1}\right] \\
+\times p\lim_{n\rightarrow \infty }\left[ \frac{\tsum%
+\nolimits_{i=1}^{n}x_{i}z_{i}^{\prime }}{n}\left( \frac{\tsum%
+\nolimits_{i=1}^{n}z_{i}z_{i}^{\prime }}{n}\right) ^{-1}\frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}\varepsilon _{i}}{n}\right] \\
+=\beta +\left( S^{\prime }Q_{z}^{-1}S\right) ^{-1}S^{\prime }Q_{z}^{-1}%
+\mathbb{E[}z_{i}\varepsilon _{i}]\text{ by CMT, WLLN} \\
+=\beta \text{ by Assumption 3}^{\text{*}}.
+\end{gather*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{2SLS Asymptotic Distribution}%
+\begin{gather*}
+\sqrt{n}\left( \widehat{\beta }^{2SLS}-\beta \right) =\left( \frac{%
+\tsum\nolimits_{i=1}^{n}x_{i}z_{i}^{\prime }}{n}\left( \frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}z_{i}^{\prime }}{n}\right) ^{-1}\frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}x_{i}^{\prime }}{n}\right) ^{-1} \\
+\times \frac{\tsum\nolimits_{i=1}^{n}x_{i}z_{i}^{\prime }}{n}\left( \frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}z_{i}^{\prime }}{n}\right) ^{-1}\frac{%
+\tsum\nolimits_{i=1}^{n}z_{i}\varepsilon _{i}}{\sqrt{n}} \\
+\rightarrow _{d}\left( S^{\prime }Q_{z}^{-1}S\right) ^{-1}S^{\prime
+}Q_{z}^{-1}\mathcal{N}\left( 0,\sigma ^{2}Q_{z}\right) \text{ } \\
+\text{{\small by CMT, Slutsky, WLLN, CLT, Ass. 3 and 4}} \\
+\rightarrow _{d}\mathcal{N}\left( 0,\sigma ^{2}\left( S^{\prime
+}Q_{z}^{-1}S\right) ^{-1}\right) .
+\end{gather*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 12
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

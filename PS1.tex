@@ -1,0 +1,182 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 13, 2016 11:26:35}
+%TCIDATA{LastRevised=Tuesday, October 15, 2019 14:55:43}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%\input{tcilatex}
+\begin{document}
+
+
+\begin{center}
+{\Large Problem Set 1}
+\end{center}
+
+
+\begin{exercise} %EX1.2 SW
+Describe a hypothetical ideal randomized controlled experiment to study the
+effect of the consumption of alcohol on long-term memory loss. Suggest some
+impediments to implementing this experiment in practice.
+\end{exercise}
+
+
+\begin{exercise}
+Show the identities:\\
+
+(a) $\sum\nolimits_{i=1}^{n}\left( y_{i}-\bar{y}\right) \left( x_{i}-\bar{x}%
+\right) =\sum\nolimits_{i=1}^{n}\left( y_{i}-\bar{y}\right) x_{i}$
+
+(b) $\sum\nolimits_{i=1}^{n}\left( x_{i}-\bar{x}\right)
+^{2}=\sum\nolimits_{i=1}^{n}\left( x_{i}-\bar{x}\right) x_{i}$
+
+\end{exercise}
+
+
+\begin{exercise} %EX1.19 SW
+Consider two random variables, $X$ and $Y$. Suppose that Y takes on k values
+$y_1, \dots, y_k$ and that $X$ takes on $l$ values $x_1, \dots, x_l$.\\
+
+(a) Show that $Pr(Y=y_i) = \sum_{i=1}^l Pr(Y=y_j \mid X = x_i) Pr(X=x_i)$
+
+(b) Verify that $\mathbb{E}(Y) = \sum_{i=1}^l \mathbb{E}(Y\mid X=x_i) Pr(X=x_i)$
+
+(c) Suppose that $X$ and $Y$ are independent. Show that $\sigma_{XY} = 0$ and
+$\rho_{XY}=0$
+\end{exercise}
+
+
+\begin{exercise} %EX2.6 SW
+The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age population of South Africa.
+
+\begin{table}[h!]
+\begin{tabular}{l|c|c|c|}
+\cline{2-4}
+                                                           & \textbf{\begin{tabular}[c]{@{}c@{}}Unemployed\\ ($Y=0$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Employed\\ ($Y=1$)\end{tabular}} & \textbf{Total} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Non-College Graduates ($X=0$)}} & 0.078                                                               & 0.673                                                             & 0.751          \\ \hline
+\multicolumn{1}{|l|}{\textbf{College Graduates ($X=1$)}}     & 0.042                                                               & 0.207                                                             & 0.249          \\ \hline
+\multicolumn{1}{|l|}{\textbf{Total}}                       & 0.12                                                                & 0.88                                                              & 1              \\ \hline
+\end{tabular}
+\end{table}
+
+(a) Compute $\mathbb{E}(Y)$.
+
+(b) The unemployment rate is the fraction of the labor force that is unemployed. Show that the unemployment rate is given by $1 - \mathbb{E}(Y)$.
+
+(c) Calculate $\mathbb{E}(Y\mid X=1)$ and $\mathbb{E}(Y\mid X=0)$.
+
+(d) Calculate the unemployment rate for (i) college graduates and (ii) non-college graduates.
+
+(e) A randomly selected member of this population reports being unemployed. What is the probability that this worker is a college graduate? A non-college graduate?
+
+(f) Are educational achievement and employment status independent? Explain.
+\end{exercise}
+
+
+\begin{exercise} %EX 2.27 SW
+Consider the problem of predicting $Y$ using another variable, $X$, so that the prediction of $Y$ is some function of $X$, say $g(X)$. Suppose that the quality of the prediction is measured by the squared prediction error made on average over all predictions, that is, by $\mathbb{E}\{[Y-g(X)]^2\}$. This exercise provides a non-calculus proof that of all possible prediction functions $g$, the best prediction is made by the conditional expectation, $\mathbb{E}(Y \mid X)$.\\
+
+(a) Let $\hat{Y}=\mathbb{E}(Y \mid X)$ and $u=Y-\hat{Y}$ denote its prediction error. Show
+that $\mathbb{E}(u)=0$.
+
+(b) Show that $\mathbb{E}(uX)=0$.
+
+(c) Let $\tilde{Y}=g(x)$ denote a different prediction of $Y$ using $X$, and let $v=Y-\tilde{Y}$. Show that $\mathbb{E}[(Y-\tilde{Y})^2]>\mathbb{E}[(Y-\hat{Y})^2]$
+\end{exercise}
+
+
+\begin{exercise} %EX 3.2 SW
+Let $Y$ be a Bernoulli random variable with success probability $Pr(Y = 1) = p$,
+and let $Y_1, \dots, Y_n$ be i.i.d. draws from this distribution. Let $\hat{p}$ be the fraction of successes (1s) in this sample.\\
+
+(a) Show that $\hat{p}=\overline{Y}$.
+
+(b) Show that $\hat{p}$ is an unbiased estimator of $p$.
+
+(c) Show that $var(\hat{p}) = p(1-p)/n$
+
+\end{exercise}
+
+
+\begin{exercise}%EX 3.11 SW
+Consider the estimator $\tilde{Y} = \frac{1}{n}(\frac{1}{2}Y_1+\frac{3}{n}Y_2+\frac{1}{2}Y_3+\frac{3}{n}Y_4+\dots+\frac{1}{2}Y_{n-1}+\frac{3}{n}Y_n)$.\\
+
+(a) Show that $\mathbb{E}(\Tilde{Y})=\mu_Y$
+
+(b) Show that $var(\Tilde{Y})=1.25\sigma^2_Y/n$
+\end{exercise}
+
+
+\begin{exercise}%EX 3.18 SW
+This exercise shows that the sample variance is an unbiased estimator of the population variance when $Y_1, \dots, Y_n$ are i.i.d. with mean $\mu_Y$ and variance $s_Y^2$.\\
+
+(a) Using the following identity -- $var(aX+bY)=a^2\sigma_X^2 +b^2\sigma_Y^2 + 2ab\sigma_{XY}$; show that $\mathbb{E}(Y_i-\overline{Y})^2 = var(Y_i) + var(\overline{Y}) - 2cov(Y_i, \overline{Y}) $
+
+(b) Using the following identity -- $cov(a+bX+cV, Y)=b\sigma_{XY} + c\sigma_{VY}$; show that $cov(Y_i, \overline{Y}) = \sigma^2_Y/n $
+
+(c) Use your previous answers to show that $\mathbb{E}(s^2_Y)=\sigma^2_Y$
+
+\end{exercise}
+
+\begin{exercise}%EX 3.20 SW
+Suppose $(X_i, Y_i)$ are i.i.d. with finite fourth moments. Prove that the sample covariance is a consistent estimator of the population covariance.
+\end{exercise}
+
+\begin{exercise}%EX 3.22 SW
+Suppose $Y_i$ are i.i.d. and $Y_i\sim\mathcal{N}(\mu_Y, \sigma_Y^2)$ for $i=1, \dots, n$. With $\sigma_Y^2$ known, the t-statistic for testing $H_0=:\mu_Y=0$ vs. $H_1=:\mu_Y>0$ is $t=\overline{Y}/SE(\overline{Y})$ with $SE(\overline{Y})=\sigma_Y/\sqrt{n}$. Suppose that $\sigma_Y=10$ and $n=100$ so that $SE(\overline{Y})=1$. Using a test with a size of 5\%, the null hypothesis is rejected if $\mid t \mid > 1.64$ (one-sided test).\\
+
+(a) Suppose $\mu_Y = 0$, so the null hypothesis is true. What is the probability that the null hypothesis is rejected?
+
+(b) Suppose $\mu_Y = 2$, so the alternative hypothesis is true. What is the probability that the null hypothesis is rejected?
+
+(c) Suppose that in 90\% of cases the data are drawn from a population where the null is true ($\mu_Y = 0$) and in 10\% of cases the data come from a population where the alternative is true and $\mu_Y = 2$. Your data came from either the first or the second population, but you don’t know which.
+
+\hspace{.5cm} (i) You compute the t-statistic. What is the probability that $\mid t \mid > 1.64$ -- that is, that you reject the null hypothesis?
+
+\hspace{.5cm} (ii) Suppose you reject the null hypothesis; that is, $\mid t \mid > 1.64$. What is the probability that the sample data were drawn from the $\mu_Y = 0$ population?
+
+(d) It is hard to discover a new effective drug. Suppose 90\% of new drugs are ineffective and only 10\% are effective. Let $Y$ denote the drop in the level of a specific blood toxin for a patient taking a new drug. If the drug is ineffective, $\mu_Y = 0$ and $\sigma_Y=10$; if the drug is effective,$\mu_Y = 2$ and $\sigma_Y=10$.
+
+\hspace{.5cm} (i) A new drug is tested on a random sample of $n = 100$ patients, data are collected, and the resulting t-statistic is found to be greater than 1.64. What is the probability that the drug is ineffective (i.e., what is the false positive rate for the test using $\mid t \mid > 1.64$)?
+
+\hspace{.5cm} (ii) Suppose the one-sided test uses instead the 0.5\% significance level. What is the probability that the drug is ineffective (i.e., what is the false positive rate)?
+
+\end{exercise}
+
+
+
+\end{document}

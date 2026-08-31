@@ -1,0 +1,836 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Monday, November 15, 2021 13:59:12}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Lecture 5: \\
+Generalised Least Squares}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{The Model}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Classical Assumptions for OLS}
+
+\begin{itemize}
+\item We have been working with the following model 
+\begin{equation}
+y=X\beta +\varepsilon  \label{model}
+\end{equation}
+
+\item Let's recall the assumptions we made
+\end{itemize}
+
+\begin{enumerate}
+\item The model in (\ref{model}) is correctly specified, and crucially,
+linear in $\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $p\lim_{n\rightarrow \infty }(\frac{1}{n}X^{\prime
+}X)=p\lim_{n\rightarrow \infty }\frac{1}{n}\sum_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }=Q,$ where $\left\Vert Q\right\Vert <\infty $ and $Q$
+is positive definite matrix.
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Consequences for OLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Relaxing Assumption 3}
+
+\begin{itemize}
+\item In this lecture, we will maintain all the classical assumptions above
+but we will relax the assumption of no heteroskedasticity, no serial
+correlation in the error term
+
+\item In particular, we continue to assume that $\varepsilon $ is a random
+vector and $X$ are exogenous regressors so that $\mathbb{E}[\varepsilon
+|X]=0 $
+
+\item But now, we will relax the assumption of i.i.d. $\varepsilon $, so
+that $\mathbb{E}[\varepsilon \varepsilon ^{\prime }|X]=\left[ 
+\begin{array}{cccc}
+var(\varepsilon _{1}) & cov(\varepsilon _{1},\varepsilon _{2}) & \cdots & 
+cov(\varepsilon _{1},\varepsilon _{n}) \\ 
+cov(\varepsilon _{2},\varepsilon _{1}) & var(\varepsilon _{2}) &  &  \\ 
+\vdots &  & \ddots &  \\ 
+cov(\varepsilon _{n},\varepsilon _{1}) &  &  & var(\varepsilon _{n})%
+\end{array}%
+\right] =\sigma ^{2}\Omega ,$ where $\Omega $ can be a full p.d. covariance
+matrix.
+
+\item Assumption 3: $\varepsilon _{i}$ are random variables and $X$ are
+exogenous regressors, satisfying $\mathbb{E}[\varepsilon _{i}|X]=0$ and $%
+\mathbb{E}[\varepsilon \varepsilon ^{\prime }|X]=\sigma ^{2}\Omega $
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+$\widehat{\beta }_{n}^{OLS}$ is still unbiased. Recall that $\widehat{\beta }%
+_{n}^{OLS}=\beta +(X^{\prime }X)^{-1}X^{\prime }\varepsilon .$
+
+\begin{eqnarray*}
+\mathbb{E}[\widehat{\beta }_{n}^{OLS}] &=&\beta +\mathbb{E}[(X^{\prime
+}X)^{-1}X^{\prime }\varepsilon ] \\
+&&=\mathbb{E[E[}(X^{\prime }X)^{-1}X^{\prime }\varepsilon |X]] \\
+&=&\beta +\mathbb{E[}(X^{\prime }X)^{-1}X^{\prime }\underset{=0}{\underbrace{%
+\mathbb{E[}\varepsilon |X]}]}=\beta
+\end{eqnarray*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+\begin{itemize}
+\item Crucially, it is also still consistent.
+\end{itemize}
+
+\begin{eqnarray*}
+p\lim_{n\rightarrow \infty }\widehat{\beta }_{n}^{OLS} &=&\beta
++p\lim_{n\rightarrow \infty }\left[ \left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right) ^{-1}\frac{1%
+}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon _{i}\right] \\
+&&\overset{\text{CMT}}{=}\beta +\left( p\lim_{n\rightarrow \infty }\frac{1}{n%
+}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right)
+^{-1}p\lim_{n\rightarrow \infty }\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}%
+\mathbf{x}_{i}\varepsilon _{i}\right) \\
+&&\overset{\text{WLLN}}{=}\beta +Q^{-1}\underset{=0}{\underbrace{\mathbb{E[}%
+\mathbf{x}_{i}\varepsilon _{i}]}} \\
+&=&\beta
+\end{eqnarray*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+\begin{gather*}
+var[\widehat{\beta }_{n}^{OLS}]=\mathbb{E}[(\widehat{\beta }_{n}^{OLS}-\beta
+)(\widehat{\beta }_{n}^{OLS}-\beta )^{\prime }] \\
+=\mathbb{E}[((X^{\prime }X)^{-1}X^{\prime }\varepsilon )((X^{\prime
+}X)^{-1}X^{\prime }\varepsilon )^{\prime }] \\
+\overset{\text{LIE, CT}}{=}\mathbb{E}[((X^{\prime }X)^{-1}X^{\prime }\mathbb{%
+E[}\varepsilon \varepsilon ^{\prime }|X]X(X^{\prime }X)^{-1}] \\
+=\sigma ^{2}\mathbb{E}[((X^{\prime }X)^{-1}X^{\prime }\Omega X(X^{\prime
+}X)^{-1}].
+\end{gather*}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+\begin{gather*}
+\sqrt{n}(\widehat{\beta }_{n}^{OLS}-\beta )=\left( \frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right) ^{-1}%
+\frac{1}{\sqrt{n}}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon _{i} \\
+=\underset{\rightarrow _{p}Q^{-1}}{\underbrace{\left( \frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\right) ^{-1}}}%
+\underset{\rightarrow _{d}\mathcal{N}(0,S)}{\underbrace{\frac{1}{\sqrt{n}}%
+\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\varepsilon _{i}}} \\
+\rightarrow _{d}\mathcal{N}(0,Q^{-1}SQ^{-1})\text{ where }S=\limfunc{plim}%
+_{n\rightarrow \infty }\frac{1}{n}\tsum\nolimits_{i=1}^{n}\varepsilon
+_{i}^{2}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }
+\end{gather*}%
+where a non-i.i.d. CLT\ has to be used (see textbook for technical
+conditions).
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{What has changed?}
+
+\begin{itemize}
+\item So ignoring the heteroscedasticity/serial correlation of the errors,
+we remain unbiased and consistent
+
+\item However, in this case, if we applied the standard OLS we will end up
+using the wrong variance
+
+\item In this case, $\widehat{\beta }_{n}^{OLS}$ will no longer be
+efficient: we can prove that there exists another linear unbiased estimator
+which has smaller variance.
+
+\item Moreover, the variance in the asymptotic distribution is different
+(sandwich), so ignoring the heteroskedasticity/serial correlation would
+invalidate testing!!!
+
+\item Recall that because $\Omega $ is symmetric positive definite matrix,
+so is $\Omega ^{-1}$, and there exists a nonsingular $P$ such that $\Omega
+^{-1}=P^{\prime }P$ and equivalently $\Omega =(P^{^{\prime
+}}P)^{-1}=P^{-1}P^{\prime -1}.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{The GLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Transforming the Model}
+
+\begin{itemize}
+\item Let's premultiply our model with $P:$ 
+\begin{equation}
+\underset{\widetilde{y}}{\underbrace{Py}}=\underset{\widetilde{X}}{%
+\underbrace{PX}}\beta +\underset{\widetilde{\varepsilon }}{\underbrace{%
+P\varepsilon }}  \label{transformed}
+\end{equation}
+
+\item Then, $var(\widetilde{\varepsilon })=Pvar(\varepsilon )P^{\prime
+}=P\sigma ^{2}\Omega P^{\prime }=\sigma ^{2}PP^{-1}P^{\prime -1}P^{\prime
+}=\sigma ^{2}I_{n}.$
+
+\item So by premultiplying the model with $P$, we obtained our original
+assumption 3.
+
+\item This is known as standardising (since premultiplying by $P$ is the
+matrix equivalent to deviding by the standard deviation)
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The GLS estimator}
+
+\begin{itemize}
+\item The transformation above gives rise to a new estimator
+
+\item $\arg \min \left\Vert \widetilde{y}-\widetilde{X}\beta \right\Vert
+^{2}=(\widetilde{y}-\widetilde{X}\beta )^{\prime }(\widetilde{y}-\widetilde{X%
+}\beta )$
+
+$\Rightarrow \widehat{\beta }^{GLS}=(\widetilde{X}^{\prime }\widetilde{X}%
+)^{-1}\widetilde{X}^{\prime }\widetilde{y}=(X^{\prime }P^{\prime
+}PX)^{-1}X^{\prime }P^{\prime }Py=(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime
+}\Omega ^{-1}y.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The GLS estimator}
+
+\begin{itemize}
+\item $\widehat{\beta }^{GLS}$ is unbiased: $\widehat{\beta }%
+^{GLS}=(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime }\Omega ^{-1}(X\beta
++\varepsilon )$
+
+\item $\mathbb{E}[\widehat{\beta }^{GLS}]=\beta +\mathbb{E}\left[ (X^{\prime
+}\Omega ^{-1}X)^{-1}X^{\prime }\Omega ^{-1}\mathbb{E[}\varepsilon |X]\right]
+=\beta .$
+
+\item $var(\widehat{\beta }^{GLS})=\mathbb{E}[(\widehat{\beta }^{GLS}-\beta
+)(\widehat{\beta }^{GLS}-\beta )^{\prime }]=\mathbb{E}\left[ ((X^{\prime
+}\Omega ^{-1}X)^{-1}X^{\prime }\Omega ^{-1}\varepsilon )((X^{\prime }\Omega
+^{-1}X)^{-1}X^{\prime }\Omega ^{-1}\varepsilon )^{\prime }\right] =$
+
+$=\mathbb{E}\left[ ((X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime }\Omega ^{-1}%
+\mathbb{E[}\varepsilon \varepsilon ^{\prime }|X]\Omega ^{-1}X(X^{\prime
+}\Omega ^{-1}X)^{-1}\right] =\mathbb{\sigma }^{2}\mathbb{E}(X^{\prime
+}\Omega ^{-1}X)^{-1}.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Weighted Least Squares}
+
+\begin{itemize}
+\item Consider the special case when $\Omega $ is a diagonal matrix%
+\begin{equation*}
+\Omega =\left[ 
+\begin{array}{ccc}
+\omega _{ii} & \cdots & 0 \\ 
+\vdots & \ddots & \vdots \\ 
+0 & \cdots & \omega _{nn}%
+\end{array}%
+\right]
+\end{equation*}
+
+\item $P$ is a diagonal matrix, containing as elements $\frac{1}{\sqrt{%
+\omega _{jj}}},$ $j=1,...,n$
+
+\item The GLS estimator is then given by $\widehat{\beta }^{GLS}=(X^{\prime
+}\Omega ^{-1}X)^{-1}X^{\prime }\Omega ^{-1}y=\left(
+\tsum\nolimits_{i=1}^{n}\omega _{ii}^{-1}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }\right) ^{-1}\tsum\nolimits_{i=1}^{n}\omega _{ii}^{-1}\mathbf{x%
+}_{i}y_{i}$
+
+\item This estimator is often referred to as WLS because of the weighted sums
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Gauss Markov Theorem}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Efficiency}
+
+\begin{itemize}
+\item With heteroskedasticity/autocorrelation, OLS - not efficient
+
+\item In fact GLS has smaller variance in this case
+
+\item To see this, recall that $\Omega =P^{-1}P^{\prime -1}$, compute
+\end{itemize}
+
+\newline
+\begin{eqnarray*}
+&&var(\widehat{\beta }^{OLS}|X)-var(\widehat{\beta }^{GLS}|X) \\
+&=&\sigma ^{2}\left( X^{\prime }X\right) ^{-1}X^{\prime }\Omega X\left(
+X^{\prime }X\right) ^{-1}-\sigma ^{2}\left( X^{\prime }\Omega ^{-1}X\right)
+^{-1} \\
+&=&\sigma ^{2}\left( X^{\prime }X\right) ^{-1}X^{\prime
+}P^{-1}(I_{n}-PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime
+}P^{\prime })P^{\prime -1}X\left( X^{\prime }X\right) ^{-1} \\
+&\geq &0
+\end{eqnarray*}%
+since $\left[ I_{n}-PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime
+}P^{\prime }\right] $ is symmetric idempotent, and hence positive
+semi-definite.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Gauss Markov Theorem for GLS}
+
+\begin{theorem}[Gauss Markov]
+Let $\widetilde{\beta }$ be any linear unbiased estimator for $\beta $ in
+the transformed model (\ref{transformed}). Then all the classical
+assumptions hold and $var(\widetilde{\beta })\geq var(\widehat{\beta }%
+^{GLS}).$
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Gauss Markov Theorem for GLS}
+
+\begin{proof}
+The model 
+\begin{equation}
+\widetilde{y}=\widetilde{X}\beta +\widetilde{\varepsilon }  \label{star}
+\end{equation}%
+satisfies the classical assumption for OLS, hence the OLS estimator in (\ref%
+{star}) which is $\widehat{\beta }^{GLS}$ is BLUE by construction.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+Consider another linear estimator $\widetilde{\beta }=A^{\prime }y$ where $A$
+is an $n\times k$ function of $X.$ Since $\widetilde{\beta }$ is unbiased, 
+\begin{equation*}
+\beta =\mathbb{E[}\widetilde{\beta }|X]=A^{\prime }\mathbb{E}\left[ y|X%
+\right] =A^{\prime }\mathbb{E}\left[ \left( X\beta +\varepsilon \right) |X%
+\right] =A^{\prime }X\beta ,
+\end{equation*}%
+hence $A^{\prime }X=I_{k}.$ Moreover, 
+\begin{eqnarray*}
+var\left( \widetilde{\beta }|X\right)  &=&var\left( A^{\prime }y|X\right)
+=A^{\prime }var\left( y|X\right) A \\
+&=&A^{\prime }var\left( \varepsilon |X\right) A=\sigma ^{2}A^{\prime }\Omega
+A.
+\end{eqnarray*}%
+We also know, that $var\left( \hat{\beta}^{GLS}|X\right) =\sigma
+^{2}(X^{\prime }\Omega ^{-1}X)^{-1}.$ Now, let's show that $var\left( 
+\widetilde{\beta }|X\right) \geq var\left( \hat{\beta}^{GLS}|X\right) ,$
+that is $A^{\prime }\Omega A-(X^{\prime }\Omega ^{-1}X)^{-1}$ is positive
+semi-definite matrix.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+Define $C=P^{\prime -1}A-PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1},$
+noting that 
+\begin{gather*}
+C^{\prime }PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1} \\
+=\left( P^{^{\prime }-1}A-PX\left( X^{\prime }\Omega ^{-1}X\right)
+^{-1}\right) ^{\prime }PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1} \\
+=A^{\prime }P^{-1}PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}-\left(
+X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime }P^{\prime }PX\left(
+X^{\prime }\Omega ^{-1}X\right) ^{-1} \\
+=0
+\end{gather*}%
+since $A^{\prime }X=I_{k}.$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+We have that 
+\begin{gather*}
+A^{\prime }\Omega A-(X^{\prime }\Omega ^{-1}X)^{-1}=A^{\prime
+}P^{-1}P^{\prime -1}A-(X^{\prime }\Omega ^{-1}X)^{-1} \\
+=\left( C+PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}\right) ^{\prime
+}\left( C+PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}\right) -(X^{\prime
+}\Omega ^{-1}X)^{-1} \\
+=C^{\prime }C+C^{\prime }PX\left( X^{\prime }\Omega ^{-1}X\right)
+^{-1}+\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime }P^{\prime }C+ \\
+\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime }\Omega ^{-1}X\left(
+X^{\prime }\Omega ^{-1}X\right) ^{-1}-(X^{\prime }\Omega ^{-1}X)^{-1} \\
+=C^{\prime }C\geq 0
+\end{gather*}%
+since $C^{\prime }C$ is a quadratic form, hence positive semi-definite. So, $%
+\widehat{\beta }^{OLS}$ is efficient among a class of linear estimators.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof 2]
+\begin{gather*}
+A^{\prime }\Omega A-(X^{\prime }\Omega ^{-1}X)^{-1}=A^{\prime
+}P^{-1}P^{\prime -1}A-A^{\prime }X(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime }A
+\\
+=A^{\prime }P^{-1}\left( I_{n}-PX(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime
+}P^{\prime }\right) P^{\prime -1}A\geq 0
+\end{gather*}%
+since $(I_{n}-PX\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime
+}P^{\prime })$ is idempotent and hence positive semi-definite.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{More properties}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Equivalence of OLS and GLS}
+
+\begin{itemize}
+\item Note that whenever $\Omega =I_{n},$ so that $\mathbb{E}[\varepsilon
+\varepsilon ^{\prime }|X]=\sigma ^{2}\Omega =\sigma ^{2}I_{n},$ $\widehat{%
+\beta }^{GLS}=(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime }\Omega
+^{-1}y=(X^{\prime }X)^{-1}X^{\prime }y=\widehat{\beta }^{OLS}$
+
+\item So the GLS estimator reduces to OLS
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Projection Interpretation}
+
+\begin{itemize}
+\item The matrix $R_{X}=X(X^{\prime }\Omega ^{-1}X)^{-1}X^{\prime }\Omega
+^{-1}$ is idempotent, but no longer symmetric
+
+\item This implies that $R_{X}$ is oblique (but not orthogonal) projection
+of $y$ on the space spanned by $X$
+
+\item It also implies that the GLS resudual $\widehat{\varepsilon }^{GLS}$
+is not orthogonal to the space spanned by $X$
+
+\item In fact, $\widehat{\varepsilon }^{GLS}$ is orthogonal to $\Omega
+^{-1}X.$
+
+\item Another way to think about the GLS procedure is as the minimiser of
+the Mahalanobis norm%
+\begin{gather*}
+\arg \min_{\beta }\left\Vert y-X\beta \right\Vert _{V}^{2}=\arg \min_{\beta
+}(y-X\beta )^{\prime }[\Omega ^{-1}/\sigma ^{2}](y-X\beta ) \\
+=\arg \min_{\beta }(y-X\beta )^{\prime }P^{\prime }P(y-X\beta )\text{ 
+{\small since} }{\small \sigma }^{2}\text{ {\small doesn't matter}} \\
+=\arg \min_{\beta }(\widetilde{y}-\widetilde{X}\beta )^{\prime }(\widetilde{y%
+}-\widetilde{X}\beta )
+\end{gather*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Inference}
+
+\begin{itemize}
+\item We can use the asymptotic distribution of GLS to test linear
+restrictions
+\end{itemize}
+
+\begin{theorem}
+Under the null hypothesis $R\beta ^{0}=c$,%
+\begin{equation*}
+\frac{(R\widehat{\beta }^{GLS}-c)^{\prime }[R(X^{\prime }\Omega
+^{-1}X)^{-1}R^{\prime }]^{-1}(R\widehat{\beta }^{GLS}-c)}{\hat{\sigma}^{2}}%
+\sim \chi ^{2}(r).
+\end{equation*}
+\end{theorem}
+
+\begin{itemize}
+\item The left-hand side above can serve as a test statistic for the linear
+hypothesis $R\beta ^{0}=c.$
+
+\item The $z$ test is a special case of this when $r=1$
+
+\item Note for this result to hold, we treat $\Omega $ as known
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Feasible and Infeasible GLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{A serious drawback: Feasible GLS}
+
+\begin{itemize}
+\item In practice, $\Omega $ is typically unknown so that the GLS estimator
+is not available.
+
+\item Substituting an estimator $\widehat{\Omega }$ for $\Omega $ yields the 
+\textbf{feasible} generalized least squares (FGLS) estimator%
+\begin{equation*}
+\widehat{\beta }^{FGLS}=(X^{\prime }\widehat{\Omega }^{-1}X)^{-1}X^{\prime }%
+\widehat{\Omega }^{-1}y
+\end{equation*}
+
+\item Note, however, that $\Omega $ contains too many $n(n+1)/2$ parameters.
+
+\item Proper estimation of $\Omega $ would not be possible unless further
+structure on the elements of $\Omega $ are imposed.
+
+\item Under different assumptions on $var(\varepsilon ),$ $\Omega $ has a
+simpler structure with much fewer (say, $p\ll n$) unknown parameters and may
+be properly estimated.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Feasible GLS}
+
+\begin{itemize}
+\item The properties of FGLS estimation crucially depend on these assumptions
+
+\item A clear disadvantage of the FGLS estimator is that its finite sample
+properties are usually unknown
+
+\item Note that $\widehat{\Omega }_{n}$ is, in general, a function of $y$,
+so that $\widehat{\beta }^{FGLS}$ is a complex function of the elements of $%
+y $
+
+\item It is therefore difficult, and in most cases not possible, to derive
+the finite-sample properties, such as expectation and variance, of $\widehat{%
+\beta }^{FGLS}$
+
+\item Consequently, the efficiency gain of an FGLS estimator is not at all
+clear
+
+\item Deriving exact tests based on the FGLS estimator is also a difficult
+job
+
+\item We must rely on the asymptotic properties of $\widehat{\beta }^{FGLS}$
+to draw statistical inferences
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Robust OLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Heteroskedasticity Robust Standard Errors}
+
+\begin{itemize}
+\item Consider the simple case of diagonal $\Omega $
+
+\item Since GLS or WLS are difficult to obtain unless additional assumptions
+are imposed in order to estimate $\Omega ,$ is it possible to use OLS
+instead?
+
+\item Recall that 
+\begin{equation*}
+\sqrt{n}(\widehat{\beta }_{n}^{OLS}-\beta )\rightarrow _{d}\mathcal{N}%
+(0,Q^{-1}SQ^{-1}),\text{ }S=\limfunc{plim}_{n\rightarrow \infty }\frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\varepsilon _{i}^{2}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }
+\end{equation*}
+
+\item In order to do valid inference we must use the correct variance for $%
+\widehat{\beta }_{n}^{OLS}$
+
+\item We need a consistent estimator for $Q^{-1}SQ^{-1}$
+
+\item We already know how to estimate $Q,$ using Matching moments $\hat{Q}=%
+\frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Heteroskedasticity Robust Standard Errors}
+
+\begin{itemize}
+\item A consistent estimate for $S$ is given by $\frac{1}{n}%
+\tsum\nolimits_{i=1}^{n}\hat{\varepsilon}_{i}^{2}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }$ (for which a non-i.i.d. WLLN is required)
+
+\item The resulting robust standard error for $\hat{\beta}_{j}$ is given by $%
+SE\left( \hat{\beta}_{j}\right) =$ 
+\begin{equation*}
+\sqrt{\left[ \frac{\left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}\left( \frac{1}{n}\tsum%
+\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }\hat{\varepsilon}%
+_{i}^{2}\right) \left( \frac{1}{n}\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }\right) ^{-1}}{n}\right] _{jj}}
+\end{equation*}
+
+\item These standard errors are known as Heteroskedasticity Consistent
+(White) SEs
+
+\item There are also Heteroskedasticity Autocorrelation Consistent (Newey
+West) SEs, which allow for autocorrelation in $\varepsilon ,$ so that $%
+\Omega $ is not necessarily diagonal
+
+\item This is beyond the scope of the course.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 4.9, 4.14, 4.15, 7.7.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

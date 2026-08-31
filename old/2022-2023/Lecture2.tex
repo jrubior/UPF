@@ -1,0 +1,902 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 1252
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=1252}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, May 01, 2013 14:54:39}
+%TCIDATA{LastRevised=Monday, October 19, 2020 12:29:36}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{PageSetup=72,72,72,83,0}
+%TCIDATA{Counters=arabic,1}
+%TCIDATA{AllPages=
+%H=36
+%F=36
+%}
+
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\input{tcilatex}
+\usetheme{JuanLesPins}
+\usecolortheme{whale}
+
+\begin{document}
+
+\title{Econometrics Lecture 2: \\
+Finite Sample Properties of OLS}
+\author{Katerina Petrova \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\date{}
+\maketitle
+
+\section{Formal Assumptions for the Linear Regression}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Assumptions for OLS}
+
+\begin{enumerate}
+\item The linear regression model in is correctly specified, and crucially,
+linear in $\beta $ and $\varepsilon .$
+
+\item The columns of $X$ are linearly independent, so that $rank(X^{\prime
+}X)=rank(X)=k<n.$
+
+\item $\varepsilon _{i}$ are i.i.d. variables and $X$ are exogenous
+identically distributed regressors, such that $\mathbb{E}[\varepsilon
+_{i}|X]=0$ and $\mathbb{E}[\varepsilon _{i}^{2}|X]=\sigma ^{2}.$
+
+\item $p\lim_{n\rightarrow \infty }(\frac{1}{n}X^{\prime
+}X)=p\lim_{n\rightarrow \infty }\frac{1}{n}\sum_{i=1}^{n}\mathbf{x}_{i}%
+\mathbf{x}_{i}^{\prime }=\mathbb{E[}\mathbf{x}_{1}\mathbf{x}_{1}^{\prime
+}]=Q,$ where $\left\Vert Q\right\Vert <\infty $ and $Q$ is positive definite
+matrix.
+\end{enumerate}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Discussion of the assumptions}
+
+\begin{itemize}
+\item The model is linear in $\beta $ and $\varepsilon ,$ so models of the
+form $y_{i}=x_{i1}^{\beta _{1}}x_{i2}^{\beta ^{2}}\varepsilon _{i}$ can
+conform to the OLS framework
+
+\item Think of assumption 2 (no multicollinearity) as requiring in a system
+with $m$ unknowns to have $m$ linearly independent equations
+
+\item The assumption that $\mathbf{x}_{i}$ are identically distributed is a
+shortcut (that does not encompass even the simple case of non-stochastic $%
+\mathbf{x}_{i}$), we are making it to avoid having to use a more complicated
+CLT for heterogeneously distributed r.v.'s
+
+\item We will relax this when we study time series
+
+\item By the law of iterated expectations, Assumption 3 implies $\mathbb{E}%
+[X^{\prime }\varepsilon ]=\mathbb{E}[X^{\prime }\mathbb{E}[\varepsilon
+|X]]=0;$ so $X$ and $\varepsilon $ are uncorrelated
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Discussion of the assumptions}
+
+\begin{itemize}
+\item In addition, Assumption 3 implies that $var[\varepsilon |X]=\mathbb{E}%
+[\varepsilon \varepsilon ^{\prime }|X]-\mathbb{E}[\varepsilon |X]\mathbb{E}%
+[\varepsilon |X]^{\prime }=\left[ 
+\begin{array}{ccc}
+\sigma ^{2} & \cdots & 0 \\ 
+\vdots & \ddots &  \\ 
+0 &  & \sigma ^{2}%
+\end{array}%
+\right] =\sigma ^{2}I_{n},$ under the i.i.d. assumption, i.e. there is i) no
+heteroscedasticity and ii) serial correlation: $\mathbb{E}[\varepsilon
+_{j}\varepsilon _{i}|X]=0$ for $j,i=1,...,n,$ $j\neq i.$
+
+\item Assumption 4 imposes conditions on the probability limit of $\frac{1}{n%
+}\sum_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}_{i}^{\prime }$ (note that a WLLN for
+the sample mean $\frac{1}{n}\sum_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime }$ is guaranteed by i.i.d. assumption on $\mathbf{x}_{i}$)
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Finite Sample Properties of OLS}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The Law of Iterated Expectations}
+
+\begin{definition}
+If $X$ and $Y$ are r.v.'s, then $\mathbb{E}[X]=\mathbb{E}[\mathbb{E}[X|Y]]$
+if $\mathbb{E}\left\vert X\right\vert <\infty .$
+\end{definition}
+
+\begin{itemize}
+\item The expectation of the conditional expectation is the unconditional
+expectation. It is easy to see why this happens
+
+$\qquad \ \ \ \ \ \ \ \ \ \ \mathbb{E}[\mathbb{E}[X|Y]]=\int_{\gamma }\left[
+\int_{\chi }x\frac{f(x,y)}{f(y)}dx\right] f(y)dy$
+
+$\qquad \qquad \qquad =\int_{\gamma }\int_{\chi }xf(x,y)dxdy=\mathbb{E}[X].$
+
+\item Note $\mathbb{E}[X|X]=X$ and $\mathbb{E}[g\left( X\right) |X]=g\left(
+X\right) .$ More generally,
+\end{itemize}
+
+\begin{theorem}[Conditioning theorem]
+If $\mathop{\mathbb E \/}|g(X)Y|<\infty $ then: 
+\begin{gather*}
+\mathop{\mathbb E \/}(g(X)Y|X)=g(X)\mathop{\mathbb E \/}(Y|X) \\
+\mathop{\mathbb E \/}(g(X)Y)=\mathop{\mathbb E \/}\big(g(X)\mathop{\mathbb E
+\/}(Y|X)\big)
+\end{gather*}
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Finite Sample Properties: Bias}
+
+\begin{definition}
+An estimator $\hat{\theta}_{n}$ is called unbiased if it satisfies $\mathbb{E%
+}[\widehat{\theta }_{n}]=\theta .$
+\end{definition}
+
+First thing we would like to ask is if $\widehat{\beta }_{n}$ is unbiased.
+Recall that $\widehat{\beta }_{n}=(X^{\prime }X)^{-1}X^{\prime }y=(X^{\prime
+}X)^{-1}X^{\prime }(X\beta +\varepsilon )=\beta +(X^{\prime
+}X)^{-1}X^{\prime }\varepsilon .$
+
+\begin{eqnarray*}
+\mathbb{E}[\widehat{\beta }_{n}] &=&\beta +\mathbb{E}[(X^{\prime
+}X)^{-1}X^{\prime }\varepsilon ] \\
+&=&\beta +\mathbb{E[E[}(X^{\prime }X)^{-1}X^{\prime }\varepsilon |X]] \\
+&=&\beta +\mathbb{E[}(X^{\prime }X)^{-1}X^{\prime }\underset{=0}{\underbrace{%
+\mathbb{E[}\varepsilon |X]}]}=\beta
+\end{eqnarray*}%
+So, under assumptions 1-4, $\widehat{\beta }_{n}$ is unbiased.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Bias}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Finite Sample Properties: Bias}
+
+\begin{itemize}
+\item An alternative proof: 
+\begin{eqnarray*}
+\mathbb{E}[\widehat{\beta }_{n}] &=&\mathbb{E}\left( \mathbb{E}\left[ \left(
+(X^{\prime }X)^{-1}X^{\prime }y\right) |X\right] \right) =\mathbb{E}\left(
+(X^{\prime }X)^{-1}X^{\prime }\mathbb{E}\left[ y|X\right] \right) \\
+&=&\mathbb{E}\left( (X^{\prime }X)^{-1}X^{\prime }\mathbb{E}\left[ \left(
+X\beta +\varepsilon \right) |X\right] \right) =\mathbb{E}\left( (X^{\prime
+}X)^{-1}X^{\prime }X\beta \right) \\
+&=&\beta
+\end{eqnarray*}
+
+\item We will need an estimator for $\sigma ^{2}$ as many quantities will
+depend on it. The sample variance of the fitted residuals is given by:%
+\begin{equation*}
+\widehat{\sigma }_{n}^{2}=\frac{1}{n}\tsum\nolimits_{i=1}^{n}\hat{\varepsilon%
+}_{i}^{2}=\frac{1}{n}\hat{\varepsilon}^{\prime }\hat{\varepsilon}=\frac{1}{n}%
+(y-X\widehat{\beta }_{n})^{\prime }(y-X\widehat{\beta }_{n}).
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{itemize}
+\item Is $\widehat{\sigma }_{n}^{2}$ unbiased? Recall $\widehat{\varepsilon }%
+=y-X\widehat{\beta }_{n}=y-X(X^{\prime }X)^{-1}X^{\prime
+}y=y-P_{X}(y)=(I-P_{X})y=M_{X}(y),$ where $M_{X}$ is idempotent and:%
+\begin{gather*}
+M_{X}(y)=M_{X}(X\beta +\varepsilon )=(I-X(X^{\prime }X)^{-1}X^{\prime
+})X\beta +M_{X}\varepsilon \\
+=X\beta -X\beta +M_{X}\varepsilon =M_{X}\varepsilon .
+\end{gather*}
+
+\item Because $M_{X}$ is idempotent, it also follows that $\widehat{%
+\varepsilon }^{\prime }\widehat{\varepsilon }=\varepsilon ^{\prime
+}M_{X}M_{X}^{\prime }\varepsilon =\varepsilon ^{\prime }M_{X}\varepsilon .$ 
+\begin{gather*}
+\mathbb{E}[\widehat{\sigma }_{n}^{2}]=\mathbb{E}[\frac{1}{n}\widehat{%
+\varepsilon }^{\prime }\widehat{\varepsilon }]=\mathbb{E}[\frac{1}{n}%
+\varepsilon ^{\prime }M_{X}\varepsilon ]=\frac{1}{n}\mathbb{E}%
+[tr(\varepsilon ^{\prime }M_{X}\varepsilon )]=\frac{1}{n}\mathbb{E}%
+[tr(M_{X}\varepsilon \varepsilon ^{\prime })] \\
+=\frac{1}{n}tr(\mathbb{E[}M_{X}\mathbb{E}[\varepsilon \varepsilon ^{\prime
+}|X]])=\frac{\sigma ^{2}}{n}\mathbb{E[}tr(M_{X})] \\
+=\frac{\sigma ^{2}}{n}\mathbb{E[}tr(I_{n}-P_{X})]=\frac{\sigma ^{2}}{n}%
+\mathbb{E}\left[ tr(I_{n})-tr(X(X^{\prime }X)^{-1}X^{\prime })\right] \\
+=\frac{\sigma ^{2}}{n}\mathbb{E}\left[ n-tr(X^{\prime }X(X^{\prime }X)^{-1})%
+\right] =\frac{\sigma ^{2}}{n}\mathbb{E}\left[ n-tr(I_{k})\right] =\frac{%
+\sigma ^{2}(n-k)}{n}\text{.}
+\end{gather*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{itemize}
+\item So $\widehat{\sigma }_{n}^{2}$ is biased.
+
+\item We can bias correct it. How? Construct an estimator $\widehat{s}%
+_{n}^{2},$ such that $\mathbb{E}[\widehat{s}_{n}^{2}]=\sigma ^{2}.$
+
+\item We can do this, using that $\mathbb{E}[\widehat{\sigma }_{n}^{2}]=%
+\frac{\sigma ^{2}(n-k)}{n},$ so that%
+\begin{equation*}
+\mathbb{E}[\widehat{\sigma }_{n}^{2}]\frac{n}{n-k}=\sigma ^{2}
+\end{equation*}
+
+\item So $\widehat{s}_{n}^{2}=\widehat{\sigma }_{n}^{2}\frac{n}{n-k}=\frac{1%
+}{n-k}\widehat{\varepsilon }^{\prime }\widehat{\varepsilon }.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Variance}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Finite Sample Properties: Variance}
+
+\begin{definition}
+An estimator $\hat{\theta}_{n}$ is called efficient if it is unbiased and
+has the smallest variance, that is, $v[\widehat{\theta }_{n}]\leq v[\tilde{%
+\theta}_{n}]$ for all other unbiased estimators $\tilde{\theta}_{n}.$
+\end{definition}
+
+\begin{itemize}
+\item What is the variance of $\widehat{\beta }_{n}?$ 
+\begin{gather*}
+var[\widehat{\beta }_{n}]=\mathbb{E[(}\widehat{\beta }_{n}-\beta )(\widehat{%
+\beta }_{n}-\beta )^{\prime }\mathbb{]} \\
+=\mathbb{E}[\left( (X^{\prime }X)^{-1}X^{\prime }\varepsilon \right) \left(
+(X^{\prime }X)^{-1}X^{\prime }\varepsilon \right) ^{\prime }] \\
+=\mathbb{E}[(X^{\prime }X)^{-1}X^{\prime }\mathbb{E[}\varepsilon \varepsilon
+^{\prime }|X]X(X^{\prime }X)^{-1}] \\
+=\mathbb{E}[(X^{\prime }X)^{-1}X^{\prime }\sigma ^{2}I_{n}X(X^{\prime
+}X)^{-1}]=\sigma ^{2}\mathbb{E}[(X^{\prime }X)^{-1}].
+\end{gather*}
+
+\item We don't know $\mathbb{E}[(X^{\prime }X)^{-1}]$ or $\sigma ^{2},$ so
+we need to make this operational; we can use the sample counterparts, $%
+(X^{\prime }X)^{-1}=(\tsum\nolimits_{i=1}^{n}\mathbf{x}_{i}\mathbf{x}%
+_{i}^{\prime })^{-1}$ and $\widehat{s}_{n}^{2},$ so $\widehat{var[\widehat{%
+\beta }_{n}]}=\widehat{s}_{n}^{2}(X^{\prime }X)^{-1}.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Efficiency and Gauss Markov Theorem}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Efficiency and Gauss Markov Theorem}
+
+\begin{theorem}[Gauss Markov]
+Let $\widetilde{\beta }$ be any linear unbiased estimator for $\beta $ in
+the linear regression model. Then, $var(\hat{\beta}^{OLS}|X)\leq var(%
+\widetilde{\beta }|X).$
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+Consider another linear estimator $\widetilde{\beta }=A^{\prime }y$ where $A$
+is an $n\times k$ function of $X.$ Since $\widetilde{\beta }$ is unbiased, 
+\begin{equation*}
+\beta =\mathbb{E[}\widetilde{\beta }|X]=A^{\prime }\mathbb{E}\left[ y|X%
+\right] =A^{\prime }\mathbb{E}\left[ \left( X\beta +\varepsilon \right) |X%
+\right] =A^{\prime }X\beta ,
+\end{equation*}%
+hence $A^{\prime }X=I_{k}.$ Moreover, 
+\begin{equation*}
+var\left( \widetilde{\beta }|X\right) =var\left( A^{\prime }y|X\right)
+=A^{\prime }var\left( y|X\right) A=A^{\prime }var\left( \varepsilon
+|X\right) A=\sigma ^{2}A^{\prime }A.
+\end{equation*}%
+We also know, that $var\left( \hat{\beta}|X\right) =\sigma ^{2}(X^{\prime
+}X)^{-1}.$ Now, let's show that $var\left( \widetilde{\beta }|X\right) \geq
+var\left( \hat{\beta}|X\right) ,$ that is $A^{\prime }A-(X^{\prime }X)^{-1}$
+is positive semi-definite matrix.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+Recall that $A^{\prime }X=I_{k}$ and define $C=A-X\left( X^{\prime }X\right)
+^{-1},$ noting that $X^{\prime }C=X^{\prime }A-X^{\prime }X\left( X^{\prime
+}X\right) ^{-1}=0.$ We have 
+\begin{gather*}
+A^{\prime }A-(X^{\prime }X)^{-1} \\
+=\left( C+X\left( X^{\prime }X\right) ^{-1}\right) ^{\prime }\left(
+C+X\left( X^{\prime }X\right) ^{-1}\right) -(X^{\prime }X)^{-1} \\
+=C^{\prime }C+C^{\prime }X\left( X^{\prime }X\right) ^{-1}+\left( X^{\prime
+}X\right) ^{-1}X^{\prime }C+ \\
+\left( X^{\prime }X\right) ^{-1}X^{\prime }X\left( X^{\prime }X\right)
+^{-1}-(X^{\prime }X)^{-1} \\
+=C^{\prime }C\geq 0
+\end{gather*}%
+since $C^{\prime }C$ is a quadratic form, hence positive semi-definite. So, $%
+\widehat{\beta }^{OLS}$ is efficient among a class of linear estimators.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+
+Recall that $A^{\prime }X=I_{k},$ so that we can write 
+\begin{eqnarray*}
+&&A^{\prime }A-(X^{\prime }X)^{-1} \\
+&=&A^{\prime }A-A^{\prime }X(X^{\prime }X)^{-1}X^{\prime }A \\
+&=&A^{\prime }(I_{n}-P_{X})A=A^{\prime }M_{X}A\geq 0
+\end{eqnarray*}%
+since $M_{X}$ is idempotent and hence positive semi-definite matrix, and $%
+A^{\prime }M_{X}A$ is a quadratic form.
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Partitioned Regression and Frisch-Waugh-Lovell Theorem}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{theorem}[Frisch-Waugh-Lovell]
+Suppose that we have a linear regression model and we take an arbitrary
+partition $X=[X_{1},X_{2}]$ with $X_{1}$ an $n\times k_{1}$ and $X_{2}$ an $%
+n\times \left( k-k_{1}\right) ,$ so that $y=X_{1}\beta _{1}+X_{2}\beta
+_{2}+\varepsilon .$ Then, $\widehat{\beta }_{1}^{OLS}=(X_{1}^{\prime
+}M_{X_{2}}X_{1})^{-1}X_{1}^{\prime }M_{X_{2}}y$ where $M_{X_{2}}$ is the
+projection matrix defined as $I_{n}-X_{2}(X_{2}^{\prime
+}X_{2})^{-1}X_{2}^{\prime }$.
+\end{theorem}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+\begin{eqnarray*}
+y &=&X_{1}\widehat{\beta }_{1}+X_{2}\widehat{\beta }_{2}+\hat{\varepsilon} \\
+\left( \widehat{\beta }_{1}^{\prime },\widehat{\beta }_{2}^{\prime }\right)
+^{\prime } &=&\arg \min_{\beta _{1},\beta _{2}}\left\Vert y-X_{1}\beta
+_{1}-X_{2}\beta _{2}\right\Vert ^{2} \\
+\widehat{\beta }_{1} &=&\arg \min_{\beta _{1}}\left( \min_{\beta
+_{2}}\left\Vert y-X_{1}\beta _{1}-X_{2}\beta _{2}\right\Vert ^{2}\right)
+\end{eqnarray*}%
+where the inner bracket minimises wrt $\beta _{2},$ given $\beta _{1}$ (or
+holding it fixed). This inner minimisation for given $\beta _{1}$ is
+equivalent to minimising $\left\Vert \tilde{y}-X_{2}\beta _{2}\right\Vert
+^{2}$ with $\tilde{y}=y-X_{1}\beta _{1},$ and we know the minimiser is
+defined as $\hat{\beta}_{2}=\left( X_{2}^{\prime }X_{2}\right)
+^{-1}X_{2}^{\prime }\left( y-X_{1}\beta _{1}\right) .$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}
+The residuals of this first step are given by%
+\begin{eqnarray*}
+&&\tilde{y}-X_{2}\left( X_{2}^{\prime }X_{2}\right) ^{-1}X_{2}^{\prime
+}\left( y-X_{1}\beta _{1}\right) \\
+&=&\left( y-X_{1}\beta _{1}\right) -P_{X_{2}}\left( y-X_{1}\beta _{1}\right)
+=M_{X_{2}}\left( y-X_{1}\beta _{1}\right) .
+\end{eqnarray*}
+Now, the outer minimisation yields 
+\begin{equation*}
+\widehat{\beta }_{1}=\arg \min_{\beta _{1}}\left( \left( y-X_{1}\beta
+_{1}\right) ^{\prime }M_{X_{2}}\left( y-X_{1}\beta _{1}\right) \right)
+\end{equation*}%
+since $M_{X_{2}}$ is symmetric idempotent. Taking FOCs wrt $\beta _{1}$
+yields $\frac{\partial \left( y^{\prime }y-2\beta _{1}^{\prime
+}X_{1}^{\prime }M_{X_{2}}y+\beta _{1}^{\prime }X_{1}^{\prime
+}M_{X_{2}}X_{1}\beta _{1}\right) }{\partial \beta _{1}}=-2X_{1}^{\prime
+}M_{X_{2}}y+2X_{1}^{\prime }M_{X_{2}}X_{1}\beta _{1}=0$ 
+\begin{equation*}
+\widehat{\beta }_{1}=\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right)
+^{-1}X_{1}^{\prime }M_{X_{2}}y
+\end{equation*}%
+By a similar argument, $\widehat{\beta }_{2}=\left( X_{2}^{\prime
+}M_{X_{1}}X_{2}\right) ^{-1}X_{2}^{\prime }M_{X_{1}}y.$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+We know that our OLS estimator is $\widehat{\beta }=\left( X^{\prime
+}X\right) ^{-1}Xy.$ We can partition $X=[X_{1},X_{2}]$ and $\beta =\left(
+\beta _{1}^{\prime },\beta _{2}^{\prime }\right) ^{\prime }$ and do the
+algebra carefully. 
+\begin{equation*}
+\left[ 
+\begin{array}{c}
+\widehat{\beta }_{1} \\ 
+\widehat{\beta }_{2}%
+\end{array}%
+\right] =\left[ 
+\begin{array}{cc}
+X_{1}^{\prime }X_{1} & X_{1}^{\prime }X_{2} \\ 
+X_{2}^{\prime }X_{1} & X_{2}^{\prime }X_{2}%
+\end{array}%
+\right] ^{-1}\left[ 
+\begin{array}{c}
+X_{1}^{\prime }y \\ 
+X_{2}^{\prime }y%
+\end{array}%
+\right] .
+\end{equation*}%
+We make use of the partitioned inverse formula, we have that $\left(
+X^{\prime }X\right) ^{-1}=\left[ 
+\begin{array}{cc}
+Q_{11} & Q_{12} \\ 
+Q_{21} & Q_{22}%
+\end{array}%
+\right] $ with 
+\begin{eqnarray*}
+Q_{11} &=&\left( X_{1}^{\prime }X_{1}-X_{1}^{\prime }X_{2}\left(
+X_{2}^{\prime }X_{2}\right) ^{-1}X_{2}^{\prime }X_{1}\right) ^{-1} \\
+&=&\left( X_{1}^{\prime }X_{1}-X_{1}^{\prime }P_{X_{2}}X_{1}\right)
+^{-1}=\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right) ^{-1}.
+\end{eqnarray*}%
+Also, $Q_{22}=\left( X_{2}^{\prime }M_{X_{1}}X_{2}\right) ^{-1},$ and $%
+Q_{12}=-Q_{11}X_{1}^{\prime }X_{2}\left( X_{2}^{\prime }X_{2}\right) ^{-1}$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof]
+We therefore have that 
+\begin{eqnarray*}
+\hat{\beta}_{1} &=&Q_{11}X_{1}^{\prime }y+Q_{12}X_{2}^{\prime
+}y=Q_{11}X_{1}^{\prime }y-Q_{11}X_{1}^{\prime }X_{2}\left( X_{2}^{\prime
+}X_{2}\right) ^{-1}X_{2}^{\prime }y \\
+&=&\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right) ^{-1}\left( X_{1}^{\prime
+}y-X_{1}^{\prime }X_{2}\left( X_{2}^{\prime }X_{2}\right) ^{-1}X_{2}^{\prime
+}y\right)  \\
+&=&\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right) ^{-1}\left( X_{1}^{\prime
+}\left( I-P_{X_{2}}\right) y\right)  \\
+&=&\left( X_{1}^{\prime }M_{X_{2}}X_{1}\right) ^{-1}\left( X_{1}^{\prime
+}M_{X_{2}}y\right) .
+\end{eqnarray*}
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{proof}[Alternative Proof 2]
+$y=X_{1}\widehat{\beta }_{1}+X_{2}\widehat{\beta }_{1}+M_{X}(y)$ and since $%
+M_{X_{2}}X_{2}=0$ by definition,%
+\begin{equation}
+M_{X_{2}}(y)=M_{X_{2}}X_{1}\widehat{\beta }_{1}+M_{X_{2}}M_{X}(y)
+\label{eqq2}
+\end{equation}%
+Note that $M_{X}$ projects $y$ to the orthogonal complement of $X,$ which is
+orthogonal to both $X_{1}$ and $X_{2,}$ so projecting $y$ to the orthogonal
+complement of $X_{2}$ leaves $M_{X}(y)$ unchanged; so $%
+M_{X_{2}}M_{X}(y)=M_{X}(y).$ Using this in (\ref{eqq2}) and premultiplying
+both sides by $X_{1}^{\prime },$ we have $X_{1}^{\prime
+}M_{X_{2}}(y)=X_{1}^{\prime }M_{X_{2}}X_{1}\widehat{\beta }%
+_{1}+X_{1}^{\prime }M_{X}(y).$ $X_{1}^{\prime }M_{X}(y)=0,$ $\Rightarrow 
+\widehat{\beta }_{1}=(X_{1}^{\prime }M_{X_{2}}X_{1})^{-1}X_{1}^{\prime
+}M_{X_{2}}y.$
+\end{proof}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Implications of FWL Theorem}
+
+\begin{itemize}
+\item As first recognised by Frisch and Waugh (1933) and Lovell (1963),
+these partitioned expressions for $\widehat{\beta }_{1}$ and $\widehat{\beta 
+}_{2}$ can be found by a two-step procedure.
+
+\item $\widehat{\beta }_{2}=(X_{2}^{\prime
+}M_{X_{1}}X_{2})^{-1}X_{2}^{\prime }M_{X_{1}}y=(X_{2}^{\prime
+}M_{X_{1}}^{\prime }M_{X_{1}}X_{2})^{-1}X_{2}^{\prime }M_{X_{1}}^{\prime
+}M_{X_{1}}y$ and since $M_{X_{1}}$ is symmetric idempotent, $\widehat{\beta }%
+_{2}=(\tilde{X}_{2}^{\prime }\tilde{X}_{2})^{-1}\tilde{X}_{2}^{\prime }%
+\tilde{\varepsilon}_{1},$ where $\tilde{X}_{2}=M_{X_{1}}X_{2}$ and $\tilde{%
+\varepsilon}_{1}=M_{X_{1}}y.$
+
+\item Hence, $\widehat{\beta }_{2}$ is algebraically equivalent to
+regressing $\tilde{X}_{2}$ on $\tilde{\varepsilon}_{1}$
+
+\item But we know that multiplication by $M_{X_{1}}$ is equivalent to
+creating least-squares residuals
+
+\item Therefore $\tilde{\varepsilon}_{1}$ is just the least-squares residual
+from regressing $y$ on $X_{1}$, and the columns of $\tilde{X}_{2}$ are the
+least-squares residuals from regressing the columns of $X_{2}$ on $X_{1}$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Implications of FWL Theorem}
+
+\begin{itemize}
+\item This argument suggests the following algorithm
+
+\item The OLS estimator of $\beta _{2}$ and the OLS residuals $\hat{%
+\varepsilon}$ be may be equivalently computed by
+
+\begin{enumerate}
+\item Regress $y$ on $X_{1}$and obtain the residuals $\tilde{\varepsilon}%
+_{1} $
+
+\item Regress $X_{2}$ on $X_{1}$ and obtain the residuals $\tilde{X}_{2}$
+
+\item Regress $\tilde{\varepsilon}_{1}$ on $\tilde{X}_{2}$ to obtain OLS
+estimates $\widehat{\beta }_{2}$ and the residuals $\hat{\varepsilon}$
+\end{enumerate}
+
+\item This result can greatly speed up computation in some computationally
+expensive models
+
+\item It also provides insight into interpreting regression coefficients
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Implications of FWL Theorem}
+
+\begin{itemize}
+\item FWL theorem gives us an important intuition: in the multiple
+regression model, individual slope parameters project $y$ onto the space of
+the corresponding regressor by excluding any correlation between that
+regressor and all other regressors
+
+\item It helps us understand that $\widehat{\beta }_{1}^{OLS}$ measures the
+unique effect that $X_{1}$ has on $y$
+
+\item Think what happens if we forget to include a relevant regressor, so we
+estimate 
+\begin{equation*}
+y=X_{1}\beta _{1}+\varepsilon
+\end{equation*}%
+but the true data generating process (DGP) is 
+\begin{equation*}
+y=X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Implications of FWL Theorem}
+
+\begin{itemize}
+\item Our naive estimate is $\widehat{\beta }_{1}=(X_{1}^{\prime
+}X_{1})^{-1}X_{1}^{\prime }y.$ Is it biased?%
+\begin{eqnarray*}
+\mathbb{E}[\widehat{\beta }_{1}] &=&\mathbb{E}[(X_{1}^{\prime
+}X_{1})^{-1}X_{1}^{\prime }(X_{1}\beta _{1}+X_{2}\beta _{2}+\varepsilon )] \\
+&=&\beta _{1}+\mathbb{E}[(X_{1}^{\prime }X_{1})^{-1}X_{1}^{\prime
+}X_{2}\beta _{2}]+\mathbb{E}[(X_{1}^{\prime }X_{1})^{-1}X_{1}^{\prime
+}\varepsilon ] \\
+&=&\beta _{1}+\mathbb{E}[(X_{1}^{\prime }X_{1})^{-1}X_{1}^{\prime
+}X_{2}]\beta _{2}
+\end{eqnarray*}
+
+\item The second term would only ever be zero if either $\beta _{2}=0$ (i.e. 
+$X_{2}$ wasn't relevant) or if $X_{1}^{\prime }X_{2}=0;$ that is, if $%
+X_{1}\perp X_{2},$ so that $X_{1}$ is uncorrelated with $X_{2}$.
+
+\item This problem is known as \textit{omitted variable bias}.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Omitted Variable Bias}
+
+\begin{tabular}{ll}
+%TCIMACRO{%
+%\FRAME{itbpF}{2.0859in}{1.8438in}{0in}{}{}{venn.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 2.0859in;height 1.8438in;depth 0in;original-width 4.0465in;original-height 3.5725in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/venn.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\includegraphics[
+natheight=3.5725in, natwidth=4.0465in, height=1.8438in, width=2.0859in]
+{X:/TEACHING/Econometrics UPF/graphics/venn__1.pdf}%
+%EndExpansion
+& 
+%TCIMACRO{%
+%\FRAME{itbpF}{2.1629in}{1.7755in}{0in}{}{}{venn2.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";display "USEDEF";valid_file "F";width 2.1629in;height 1.7755in;depth 0in;original-width 4.3206in;original-height 3.3607in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/venn2.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\includegraphics[
+natheight=3.3607in, natwidth=4.3206in, height=1.7755in, width=2.1629in]
+{X:/TEACHING/Econometrics UPF/graphics/venn2__2.pdf}%
+%EndExpansion
+\end{tabular}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Goodness of Fit}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Goodness of Fit}
+
+\begin{itemize}
+\item We would like some measure of how well our regression model actually
+fits the data, i.e. goodness of fit
+
+\item Recall that we can decompose $y$ into explained and unexplained part, $%
+y=\hat{y}+\hat{\varepsilon},$ where $\hat{y}^{\prime }\hat{\varepsilon}=0.$
+
+\item Then, $y^{\prime }y=\hat{y}^{\prime }\hat{y}+\hat{\varepsilon}^{\prime
+}\hat{\varepsilon},$ or $\tsum\nolimits_{i=1}^{n}{y_{i}{}^{2}=}%
+\tsum\nolimits_{i=1}^{n}{\hat{y}_{i}{}^{2}+}\tsum\nolimits_{i=1}^{n}{\hat{%
+\varepsilon}_{i}{}^{2}}$
+
+\item More generally, demeaning $y,$ we have $y-\mathbf{1}_{n}\bar{y}=\hat{y}%
+-\mathbf{1}_{n}\bar{y}+\hat{\varepsilon}$
+
+\item So ($y-\mathbf{1}_{n}\bar{y})^{\prime }(y-\mathbf{1}_{n}\bar{y}%
+)=\left( \hat{y}-\mathbf{1}_{n}\bar{y}\right) ^{\prime }\left( \hat{y}-%
+\mathbf{1}_{n}\bar{y}\right) +\hat{\varepsilon}^{\prime }\hat{\varepsilon}$
+since $\left( \hat{y}-\mathbf{1}_{n}\bar{y}\right) ^{\prime }\hat{\varepsilon%
+}=0$
+
+\item We can decompose the variance of $y$ into two parts, the part which we
+have explained (explained sum of squares, ESS) and the part which we did not
+explain using the model (residual sum squares, RSS): $var\left( y\right)
+=ESS+RSS$%
+\begin{equation*}
+\tsum\nolimits_{i=1}^{n}{(y_{i}-\bar{y})^{2}}=\tsum\nolimits_{i=1}^{n}{(\hat{%
+y}_{i}-\bar{y})^{2}+\tsum\nolimits_{i=1}^{n}}\hat{\varepsilon}{{_{i}^{2}}}
+\end{equation*}
+
+\item The goodness of fit statistic is $R^{2}=ESS/TSS,$ and since $\emph{%
+TSS=ESS+RSS}$, we can also write $R^{2}=1-RSS/TSS$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Example: Housing Prices}
+
+%TCIMACRO{%
+%\FRAME{ftbpF}{4.0862in}{3.0554in}{0pt}{}{}{example.bmp}{%
+%\special{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width 4.0862in;height 3.0554in;depth 0pt;original-width 4.6267in;original-height 3.4532in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename '../Financial Econometrics/example.bmp';file-properties "XNPEU";}}}%
+%BeginExpansion
+\begin{figure}[ptb]\begin{center}
+\includegraphics[
+natheight=3.4532in, natwidth=4.6267in, height=3.0554in, width=4.0862in]
+{X:/TEACHING/Econometrics UPF/graphics/example__3.pdf}%
+\end{center}\end{figure}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Reading}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Reading}
+
+\begin{itemize}
+\item Relevant chapters from the textbook: 3.16-3.18, 4.4-4.8, 4.11, 4.18
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}
