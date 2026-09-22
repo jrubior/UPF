@@ -24,6 +24,7 @@
 \usepackage{tikz}
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \usepackage{natbib}
+\usepackage{pgfplots}
 
 \usepackage{tikz}
 \usepackage{verbatim}
@@ -38,6 +39,16 @@
 \usepackage{dcolumn}
 \usepackage{bbm}
 \newcolumntype{d}[0]{D{.}{.}{5}}
+
+\DeclareMathOperator{\CDF}{cdf}
+
+\def\cdf(#1)(#2)(#3){0.5*(1+(erf((#1-#2)/(#3*sqrt(2)))))}%
+
+\tikzset{
+    declare function={
+        normcdf(\x,\m,\s)=1/(1 + exp(-0.07056*((\x-\m)/\s)^3 - 1.5976*(\x-\m)/\s));
+    }
+}
 
 \usepackage{changepage}
 \usepackage{appendixnumberbeamer}
@@ -145,11 +156,11 @@
 \setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
 
 
-\title[]{\textcolor{blue}{Lecture 10:\\An Introduction to Panel Data}}
+\title[]{\textcolor{blue}{Lecture 11:\\An Introduction to Binary Choice Models}}
 \author{25117 - Econometrics}
 \institute[shortinst]{Universitat Pompeu Fabra}
 
-\date{November 20th, 2024}
+\date{November 27nd, 2024}
 
 \begin{document}
 
@@ -160,78 +171,154 @@
 
 
 \begin{frame}{What we learned in the last lesson}
-
 \begin{itemize}
-    \item Instrumental variables regression is a way to estimate causal coefficients when one or more regressors are correlated with the error term.
-    \item  Endogenous variables are correlated with the error term in the equation of interest; exogenous variables are uncorrelated with this error term.
-    \item  For an instrument to be valid, it must be (1) correlated with the included endogenous variable and (2) exogenous.
-    \item  IV regression requires at least as many instruments as included endogenous variables.
-    \item The TSLS estimator has two stages.
-\begin{itemize}
-    \item First, the included endogenous variables are regressed against the included exogenous variables and the instruments.
-    \item Second, the dependent variable is regressed against the included exogenous variables and the predicted values of the included endogenous variables from the first-stage regression(s).
+\item Panel data consist of observations on multiple ($n$) units -- states, firms, people, and so forth -- where each unit is observed at two or more time periods ($T$).
+\item Regression with unit fixed effects controls for unobserved variables that differ from one entity to the next but remain constant over time.
+\item Unit fixed effects regression can be estimated by including binary variables for $n - 1$ entities plus the observable independent variables (the $X$’s) and an intercept.
+\item Time fixed effects control for unobserved variables that are the same across entities but vary over time.
+\item A regression with time and entity fixed effects can be estimated by including binary variables for $n - 1$ entities and binary variables for $T - 1$ time periods plus the $X$’s and an intercept.
+\item In panel data, variables are typically autocorrelated -- that is, correlated over time within an entity. Standard errors need to allow both for this autocorrelation and for potential heteroskedasticity, and one way to do so is to use clustered standard errors.
 \end{itemize}
-    \item Weak instruments (instruments that are nearly uncorrelated with the included endogenous variables) make the TSLS estimator biased and TSLS confidence intervals and hypothesis tests unreliable.
-    \item If an instrument is not exogenous, the TSLS estimator is inconsistent.
+\end{frame}
+
+
+\begin{frame}{Binary Choice Models}
+
+So far the dependent variable $Y$ has been continuous:
+\begin{itemize}
+    \item district-wide average test score
+    \item traffic fatality rate
+\end{itemize}
+\vspace{1em}
+\begin{center}
+    {\color{purple}\textbf{What if $Y$ is binary?}}
+\end{center}
+\begin{itemize}
+    \item get into college, or not
+    \item smoking, or not
+    \item passing exams, or not
+    \item mortgage application is accepted, or not
+\end{itemize}
+\vspace{1em}
+\textbf{Example: Mortgage Denial and Race The Boston Fed HMDA Dataset}
+\begin{itemize}
+    \item $Y$ -- Is mortgage accepted?
+    \item $X$ -- debt payments to income ratio (P/I ratio)
+    \item other covariates -- race of applicant, wealth, employment status, other loan, property characteristics
+
 \end{itemize}
 
 \end{frame}
 
 
-\section{Starting with Pooled Data}
+\begin{frame}{Binary Choice Models}
+To study the relationship between a set of variables $x_i'$ and the dependent variable $y_i$, we need to extract information about:
+\[
+E[y_i \mid x_i']
+\]
+The conditional expectation in the familiar linear regression case is $E[y_i \mid x_i']=x_i'\beta$. \\~\\
+In this topic, we will posit that the relationship between the vector of explanatory variables $x_i'$ and the dependent variable is not necessarily linear. In particular, we define:
+\[
+E[y_i \mid x_i']=F(x_i'\beta)
+\]
+So, a central element of this topic will be the choice of the distribution function $F$
+\end{frame}
 
-\begin{frame}
-  \vfill
-  \centering
-    {\huge \color{blue} \textit{Starting with Pooled Data}}
-  \vfill
+\begin{frame}{Linear Probability Model}
+A natural starting point is the linear regression model with a single regressor:
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_i +u_i
+\end{equation*}
+In the linear probability model (LPM), the predicted value of $Y$ is interpreted as the predicted probability that $Y=1$ and $\beta_1$ is the change in that predicted probability for a unit change in $X$.\\[1em]
+
+When $Y$ is binary,
+\begin{equation*}
+    \mathbb{E}(Y\mid X) = 1 \times Pr(Y=1\mid X) + 0 \times  Pr(Y=0\mid X) = Pr(Y=1\mid X)= \beta_0 + \beta_1 X_i
+\end{equation*}\\[1em]
+
+So $\hat{Y}$ is the predicted probability that $Y=1$ and $\beta_1$ is the difference in probability that $Y=1$ when $X$ increases by one unit.
+
+\begin{equation*}
+    \beta_1 = \frac{Pr(Y=1\mid X + \Delta X)-Pr(Y=1\mid X)}{\Delta X}
+\end{equation*}\\[1em]
 \end{frame}
 
 
+\begin{frame}{Linear Probability Model}
+Let's start by defining that $F(x_i'\beta)=x_i'\beta$. For example, if we have $k$ explanatory variables, the equation we aim to estimate will be:
+\[
+y_i=\beta_0+\beta_1x_{1,i}+\beta_2x_{2,i}+...+\beta_kx_{k,i}+u_i
+\]
+\begin{itemize}
+    \item \textbf{Parameter Interpretation}: $\beta_j$ captures the change in $Pr(y_i=1)$ when $x_j$ increases by one unit.
+    \[\frac{\partial y_i}{\partial x_{i,j}}=\beta_j\]
+    \item \textbf{Estimation:} The parameter vector $\beta=\{\alpha, \beta_1,...,\beta_k\}$ is estimated using ordinary least squares (OLS).
+    \[
+    \beta^{OLS} = \underset{\beta}{arg \ max } \sum_{i=1}^n (y_i-x_i'\beta)^2 
+    \]
+\end{itemize}
+\end{frame}
 
-\begin{frame}{Cross-Section}
+\begin{frame}{Properties of the Linear Probability Model}
+\begin{itemize}
+    \item \textbf{Conditional Expectation}: 
+    \[
+    E[y_i \mid x_i]=Pr[y_i=1 \mid x_i]=x_i'\beta
+    \]  
+    \item \textbf{Total Probability}: 
+    \[
+    Pr[y_i=0 \mid x_i]=1-x_i'\beta
+    \]
+    \item \textbf{Expectation of Errors:}
+    \[
+    Assumption: \ \ E[u_i \mid x_i']=0 
+    \]
+    \item \textbf{Error Variance (valid under the previous assumption)}: 
+    \[
+    Var(y_i \mid x_i)=x_i'\beta(1-x_i'\beta){\color{red} \ \ heteroscedasticity}
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of the Linear Probability Model}
+As we just mentioned, the error variance is heteroscedastic. In particular, we have:
+\[
+u_i=\begin{cases} 
+      1-x_i'\beta & \text{if} \ \  y_i=1  \\
+      -x_i'\beta & \text{if} \ \ y_i=0\\
+\end{cases}
+\]
+And therefore:
+\[
+u_i=\begin{cases} 
+      1-x_i'\beta & \text{with probability} \ \ x_i'\beta  \\
+      -x_i'\beta & \text{with probability} \ \  1-x_i'\beta \\
+\end{cases}
+\]
+\end{frame}
+
+\begin{frame}{Linear Probability Model}
  \begin{columns}
 \begin{column}{0.3\textwidth}
-So far we have been mostly focused on \textbf{cross-sectional data} --- a type of data collected at a single point in time or over a very short period, capturing information from multiple subjects or entities at that specific moment.\\[1em]
-
-In other words, it provides a snapshot or a ``cross-section'' of a population or a phenomenon at a particular point in time.
-
+\begin{itemize}
+    \item The linear probability model models $Pr(Y=1\mid X)$ as a linear function of $X$
+    \item Is it a correct functional form?
+    \item[$\rightarrow$] Here, mortgage denial v. ratio of debt payments to income (P/I ratio) in a subset of the HMDA data set (n = 127)
+\end{itemize}
 \end{column}
-\begin{column}{0.7\textwidth}
+\begin{column}{0.75\textwidth}
 \begin{figure}
   \centering
          \vspace{-1mm}
-        \includegraphics[scale=.4]{images/crossex0.png}
+        \includegraphics[scale=.3]{images/lpm.jpg}
 \end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
+\begin{frame}{Linear Probability Model}
 
-\begin{frame}{Pooled Cross-Section}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-A natural extension of the cross-sectional data is the \textbf{pooled cross-sectional data} --- where cross-sectional data is gathered at multiple points in time and where each cross-sectional study is independent of the others.\\[1em]
-
-In other words, different samples of subjects or entities are observed during each data collection period.
-
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-        \includegraphics[scale=.4]{images/repcrossex0.png}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{Pooled Cross-Section}
-Many surveys, randomly sampling individuals, families, or firms are repeated at regular time intervals (e.g., CPS in the U.S.)\\[1em]
-
-Pooled together $\Longrightarrow$ independently pooled cross section
-
+There advantages and disadvantages in modelling $Pr(Y=1\mid X)$ as a linear function of $X$
 \begin{columns} 
 % Column 1
     \begin{column}{.5\textwidth}
@@ -239,10 +326,8 @@ Pooled together $\Longrightarrow$ independently pooled cross section
             \textbf{Pros}
         \end{center}
         \begin{itemize}
-            \item Statistical inference is the same as for cross-sectional methods
-            \item Larger sample size (i.e., lower standard errors)
-            \item Enables us to estimate trends conditional on explanatory variables.
-            \item Enables us to estimate how the effect of one factor has changed over time (e.g., how did the gender wage gap change?)
+            \item Very simple to estimate and to interpret
+            \item Statistical inference is the same as for multiple OLS regression (need heteroskedasticity-robust standard errors, etc.)
         \end{itemize}
     \end{column}
     \begin{column}{.5\textwidth}
@@ -251,650 +336,548 @@ Pooled together $\Longrightarrow$ independently pooled cross section
         \end{center}
         \begin{itemize}
         \setcounter{enumi}{7}
-            \item Populations have different distribution across time periods, thus they are not \textit{identically} distributed\\
-            $\rightarrow$ we can allow the intercept to differ across periods! \textit{(how?)}
+            \item A LPM says that the change in the predicted probability for a given change in $X$ is the same (percentage-point) for all values of $X$, but that does not make sense.
+            \item LPM predicted probabilities can be larger than 1 and smaller than 0!
+
         \end{itemize}
 
     \end{column}
 \end{columns}
-\end{frame}
+\vspace{2em}
 
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps72.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps74.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps76.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps78.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps80.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps82.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Fertility over time}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/cps84.png}
-\end{figure}
+These disadvantages can be solved by using a nonlinear probability model...\\
+\begin{center}
+    $\longrightarrow$ probit and logit regressions
+\end{center}
 \end{frame}
 
 
 
-
-\begin{frame}{Fertility over time}
+\begin{frame}{Nonlinear Models}
  \begin{columns}
-\begin{column}{0.3\textwidth}
-From Lecture 7 --- We can use year-specific intercepts by including year-specific dummies\\[1em]
-Remember from Lecture 7 ---  the base year here is...?\\[1em]
-
-Sharp decline in the number of kids per woman in the 1980s which is $not$ explained by changes in main demographics
-
+\begin{column}{0.4\textwidth}
+The problem with the linear probability model is that it models the probability of $Y=1$ as a linear function of $X$:
+\begin{equation*}
+     Pr(Y=1\mid X)= \beta_0 + \beta_1 X_i
+\end{equation*}
+Instead, we want:
+\begin{itemize}
+    \item $Pr(Y=1\mid X)$ increases with $X$ if $\beta_1$ is positive
+    \item $0\leq Pr(Y=1\mid X)\leq1 \forall X$ 
+\end{itemize}
 \end{column}
-\begin{column}{0.7\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.9\linewidth]{images/cps1.png}
+        \includegraphics[scale=.25]{images/probit0.jpg}
 \end{figure}
 \end{column}
 \end{columns}
+This requires using a nonlinear functional form for the probability... Probit and Logit models satisfies these conditions
 \end{frame}
 
 
-\begin{frame}{Gender Gap}
-As in Lecture 7, we can allow for different intercepts \textit{and} slopes gradients by interacting a dummy and a continuous variable\\[1em]
+\begin{frame}{Nonlinear Models}
+So far, we have treated $Pr(y_i=1 \mid x_i')$ linearly. Now, assume that this probability is given by a distribution function $F(x_i'\beta)$. \\[1em]
+To introduce the distribution of the variable $y_i$, consider the following latent variable model:
+\[
+y_i^*=x_i'\beta+\varepsilon_i
+\]
+If in this latent variable model $y_i^*$ is positive, then $y_i=1$, and if $y_i^*$ is negative, then $y_i=0$. In this case:
+\[
+Pr(y_i=1 \mid x_i)=Pr(y_i^*>0 \mid x_i)=Pr(\varepsilon_i>-x_i'\beta\mid x_i)=F(x_i'\beta)
+\]
+Therefore, when choosing the distribution function of errors in the latent model, we are determining how the probability of choosing an alternative behaves.
+\end{frame}
 
-\textbf{Example:}
-\begin{itemize}
-    \item Pooled 2 cross-sectional datasets (1978 and 1985)
-    \item Data on wages, educational attainment, and gender
-    \item \underline{\textit{Questions:}}
-    \begin{itemize}
-        \item Did the gender wage gap change from 1978 to 1985?
-        \item Did the return to education change from 1978 to 1985?
-\end{itemize}
-\end{itemize}
+
+\begin{frame}{Probit Model}
+Probit regression models the probability that $Y=1$ using the cumulative standard  \textit{normal} distribution function, $\Phi(z)$, evaluated at $z=\beta_0 + \beta_1 X_1$. So the probit regression model reads:
+\begin{equation*}
+     Pr(Y=1\mid X_i)= \Phi(\beta_0 + \beta_1 X_i) = \frac{1}{\sqrt{2\pi}}\int^{\beta_0 + \beta_1 X_i}_{-\infty} e^{-t^2/2}dt
+\end{equation*}
+
+\textbf{Example:} Suppose that $\beta_0 = -3.5$ and $\beta_1 = 2$. Then
+
+\begin{equation*}
+     Pr(Y=1\mid X=.61)= \Phi(-3.5 + 2 \times .61)=\Phi(-2.28)=0.0113
+\end{equation*}
+$Pr(Y=1\mid X=.61)$ corresponds to the area under the standard normal density to left of $z=-2.28$
+\end{frame}
+
+
+\begin{frame}{Probit Model}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+        \includegraphics[scale=.4]{images/normal_pdf.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Logit Model}
+Logit regression models the probability that $Y=1$ using the cumulative standard \textit{logistic} distribution function, $F(z)$, evaluated at $z=\beta_0 + \beta_1 X_1$. So the logit regression model reads:
+\begin{equation*}
+     Pr(Y=1\mid X_i)= F(\beta_0 + \beta_1 X_i) =\frac{e^{\beta_0 + \beta_1 X_i}}{1+e^{\beta_0 + \beta_1 X_i}}=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_i)}}
+\end{equation*}
+
+\textbf{Example:} Suppose (again) that $\beta_0 = -3.5$ and $\beta_1 = 2$. Then
+
+\begin{equation*}
+     Pr(Y=1\mid X=.61)= F(-3.5 + 2 \times .61)=\frac{1}{1+e^{2.28}}=0.0928
+\end{equation*}
+$Pr(Y=1\mid X=.61)$ corresponds to the area under the standard \textit{logistic} density to left of $z=-2.28$\\[1em]
+
+Because logit and probit use different probability functions, the coefficients $\beta$s are different and have different interpretations...
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Coefficients interpretation -- Probit}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+        \includegraphics[scale=.5]{images/probit2.jpg}
+\end{figure}
+How can we interpret these coefficients?
+\end{frame}
+
+
+\begin{frame}{Coefficients interpretation -- Probit}
+Interpreting coefficients from a probit model is not straightforward. Here, imagine the case of a white person with a P/I ratio of .3. Then,
 \begin{eqnarray*}
-    &ln(wage) &= \beta_0 + \beta_1 \mathds{1}_{1985} + \beta_2 Educ + \beta_3 (Educ \times \mathds{1}_{1985} ) + \beta_4 Female + \beta_5 (Female \times \mathds{1}_{1985} ) \\
-    &{} &+ \beta_6 Experience  + \beta_7 {Experience}^2 + \beta_8 Union + u
-\end{eqnarray*}
-\end{frame}
-
-\begin{frame}{Gender Gap}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/gendergap0.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Testing Differences in Pooled regressions}
-When \textit{all} variables are interacted with the time dummies, the regression specification is equivalent to estimating separate regressions --- one for each year.\\[1em]
-
-As in Lecture 7, one can test whether the population regression lines differ across two different years by running a simple \textbf{Chow test}.\\[1em]
-
-First, run the fully interacted model ($year_1$ serves as the base period)
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \beta_{k+1} \mathds{1}_{year_2} + \beta_{k+2}  (\mathds{1}_{year_2} \times X_{1i}) + \cdots + \beta_{2k+1}(\mathds{1}_{year_2}\times X_{ki})  + u_i
-\end{equation*}
-
-Then test $\beta_{k+1}=\beta_{k+2}=\cdots=\beta_{2k+1}=0$\\[1em]
-
-We can also test whether the intercepts differ between the 2 groups ($H_0: \beta_{k+1}=0$) or whether the slopes differ ($H_0: \beta_{k+2}=\cdots=\beta_{2k+1}=0$)
-\end{frame}
-
-
-\section{From Pooled to Panel Data}
-
-\begin{frame}
-  \vfill
-  \centering
-    {\huge \color{blue} \textit{From Pooled to Panel Data}}
-  \vfill
-\end{frame}
-
-\begin{frame}{What is a panel dataset?}
-A panel dataset (also called longitudinal data) contains observations on multiple entities (e.g., individuals, states, companies, etc.), observed at two or more points in time (e.g., days, months, years, decades, etc.).\\[1em]
-
-For example,
-\begin{itemize}
-    \item Data on 420 California school districts in 1999 and again in 2000, for 840 observations total.
-    \item Data on 50 U.S. states, each state is observed in 3 years, for a total of 150 observations.
-    \item Data on 1000 individuals in four different months, for 4000 observations total.
-\end{itemize}\\[1em]
-
-Panel data with $k$ regressors: $\{X_{1,it}, X_{2,it}, ..., X_{k,it}, Y_{it}\}$ where $i=1, \dots, n$ and $t=1, \dots, T$\\[1em]
-
-When all $k+1$ variables are observed for all units $i$ at all points in time $t$ (i.e., no missing observations), we say the panel is balanced.
-\end{frame}
-
-
-
-
-\begin{frame}{Panel Data}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-\textbf{Panel} data is also known as \textbf{longitudinal} data or \textbf{cross-sectional time-series} data\\[1em]
-
-It involves observations of multiple entities over multiple time periods.\\[1em]
-
-We say a panel is \textbf{balanced} if all entities are observed in each time period, and there are no missing observations.\\[1em]
-
-We will focus on the case where $N>>T$
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.9\linewidth]{images/panelex0.png}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-% Types of datasets
-% Pooled data models
-% Chow test
-% Hicks 1994
-
-\begin{frame}{Why are panel data useful? }
-With panel data, we can control for factors that:
-\begin{itemize}
-    \item Vary across units but not over time (in the sample period) {\footnotesize $\longleftarrow$ (we will focus on that case first)}
-    \item Vary over time (in the sample period) but not across units
-\end{itemize}\\[1em]
-These `black boxes' could contain omitted variables, which are typically unobserved or unmeasured --- and therefore cannot be included in the regression using multiple regression.\\[1em]
-
-For example,
-\begin{itemize}
-    \item Average individual ability or preferences
-    \item Cultural attitudes
-    \item First geography (distances, topography, etc.) components
-    \item Aggregate trends
-\end{itemize}\\[1em]
-
-Here’s the key idea:\\
-\begin{itemize}
-    \item If an omitted variable does not change over time or across units, then any changes in Y over time and across units cannot be caused by the omitted variable.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Example of a panel data set}
-You want to study the impact of alcohol taxes on traffic death.\\[1em]
-\begin{itemize}
-    \item Observational unit: U.S. state ($n=48$), yearly ($T=7$) between 1982 and 1988
-    \item Balanced panel, so total observations $=7\times48=336$
-    \item Variables:
-    \begin{itemize}
-        \item Traffic fatality rate (# traffic deaths in that state in that year, per 10,000 state residents)
-        \item Tax on a case of beer
-        \item Other (legal driving age, drunk driving laws, etc.)
-    \end{itemize}\\[1em]
-Consider the simple following specification:
-\begin{equation*}
-    Fatalities_{i,t} = \beta_0 + \beta_1 BeerTax_{i,t} + u_{i,t}
-\end{equation*}
-where $t$ is a specific year, so we are just looking at individual cross-sections...
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1982}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1982.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1983}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1983.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1984}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1984.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1985}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1985.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1986}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1986.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1987}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1987.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1988}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax1988.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax -- First Differences}
-Simple analysis of individual cross sections return weird results... Higher alcohol taxes, more traffic deaths? Arguably, omitted factors could cause omitted variable bias (which ones?)\\[1em]
-Now consider the simple panel specification:
-\begin{equation*}
-    Fatalities_{i,t} = \beta_0 + \delta_0\mathds{1}_{1988} +\beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
-\end{equation*}
-where $t\in\{1982, 1988\}$.\\[1em]
-If $Z_i$ is not observed, we could run in an OVB issue. But taking the first difference eliminates the value of $Z_i$!
-\begin{equation*}
-    Fatalities_{i,1988}-  Fatalities_{i,1982}= \delta_0 +  \beta_1 (BeerTax_{i,1988}-BeerTax_{i,1982}) + (u_{i,1988}-u_{i,1982})
-\end{equation*}\\[1em]
-This “difference” equation can be estimated by OLS, even though $Z_i$ is unobserved!\\[1em]
-%$\delta_0$ captures the differences in the intercepts ($\beta_0^{1982}\neq\beta_0^{1988}$!) 
-\end{frame}
-
-\begin{frame}{Traffic Fatalities vs. Beer Tax -- First Differences}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertaxchange.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{First Differences when $T>2$}
-We can also use differencing with more than two time periods:
-
-\begin{equation*}
-    Fatalities_{i,t} = \beta_0 + \delta_1\mathds{1}_{1983} + \delta_2\mathds{1}_{1984}  + \cdots +  \delta_6\mathds{1}_{1988} +\beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
-\end{equation*}\\[1em]
-
-That is,
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.3, \text{black}=0)&= \Phi(-2.259 + 0.3 \times 2.741 + 0 \times 0.708)\\
+    &{} &=\Phi(-1.436)=0.075
+\end{eqnarray*}  
+A 50 percentage-point increase in the P/I ratio, \textit{ceteris paribus}, would yield:
 \begin{eqnarray*}
-    &Fatalities_{i,1982} = \beta_0 +\beta_1 BeerTax_{i,1982} + \beta_2 Z_i + u_{i,1982}\\
-    &Fatalities_{i,1983} = \beta_0 + \delta_1\mathds{1}_{1983} +\beta_1 BeerTax_{i,1983} + \beta_2 Z_i + u_{i,1983}\\
-    &Fatalities_{i,1984} = \beta_0 + \delta_2\mathds{1}_{1984} +\beta_1 BeerTax_{i,1984} + \beta_2 Z_i + u_{i,1984}\\
-    & \cdots\\
-    &Fatalities_{i,1988} = \beta_0 + \delta_6\mathds{1}_{1988} +\beta_1 BeerTax_{i,1988} + \beta_2 Z_i + u_{i,1988}
-\end{eqnarray*}\\[1em]
-We do so by taking differences between adjacent time periods:
-\begin{equation*}
-    \Delta Fatalities_{i,t}= \delta_1 + \Delta\delta_2\mathds{1}_{1984}+\cdots+ \Delta\delta_6\mathds{1}_{1988}+ \beta_1  \Delta BeerTax_{i,t} + \Delta u_{i,t}
-\end{equation*}
-\end{frame}
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.8, \text{black}=0)&= \Phi(-2.259 + 0.8 \times 2.741 + 0 \times 0.708)\\
+    &{} &=\Phi(-0.065)=0.474
+\end{eqnarray*}  
+So, conditional on being a white person, an increase in the P/I ratio from 0.3 to 0.8 is associated with an increase in the probability of mortgage denial from .075 to .474.\\[1em]
 
-\begin{frame}{Limits of First-Differences}
-\begin{itemize}
-    \item The main limitation of using FD compared to other methods is probably that we lose the initial period (there are $N(T-1)$ observations)\\[1em]
-    \item Because FD builds on ensuing observations, missing data can be very problematic (imagine if we only observe some $i$ once every other year)\\[1em]
-    \item Typically, the variation in the differenced independent variable is much smaller than the variation in the original independent variable. Thus, imprecise estimates could happen from the FD estimator.\\[1em]
-    \item Serial correlation (more on that later)\\[1em]
-    \item First differencing can enlarge classical errors-in-variable (i.e., measurement error) bias\\[1em]
-\end{itemize}
+But conditional on being a white person, an increase in the P/I ratio from 0 to 0.5 is associated with an increase in the probability of mortgage denial from .012 to .187 (non-linear marginal effects!)
 \end{frame}
 
 
-\section{Fixed Effects Models}
-
-\begin{frame}
-  \vfill
-  \centering
-    {\huge \color{blue} \textit{Fixed Effects Models}}
-  \vfill
-\end{frame}
-
-
-{ % all template changes are local to this group.
-    \setbeamertemplate{navigation symbols}{}
-    \begin{frame}<article:0>[plain]
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[at=(current page.center)] {
-                \includegraphics[keepaspectratio,
-                                 width=.9\paperwidth,
-                                 height=.9\paperheight]{images/fe0.png}
-            };
-        \end{tikzpicture}
-     \end{frame}
-}
-
-
-{ % all template changes are local to this group.
-    \setbeamertemplate{navigation symbols}{}
-    \begin{frame}<article:0>[plain]
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[at=(current page.center)] {
-                \includegraphics[keepaspectratio,
-                                 width=.9\paperwidth,
-                                 height=.9\paperheight]{images/fe1bis.png}
-            };
-        \end{tikzpicture}
-     \end{frame}
-}
-
-
-
-\begin{frame}{Fixed Effects Regressions}
-The general FE model reads
-\begin{equation*}
-    Fatalities_{i,t} = \beta_0 + \beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
-\end{equation*}\\[1em]
-For example, in the case of California,
+\begin{frame}{Coefficients interpretation -- Probit}
+Let's study the same case, now for a black person. Then,
 \begin{eqnarray*}
-    &Fatalities_{CA,t} &= \beta_0 + \beta_1 BeerTax_{CA,t} + \beta_2 Z_{CA} + u_{CA,t}\\
-    & &= (\beta_0 + \beta_2 Z_{CA}) + \beta_1 BeerTax_{CA,t}  + u_{CA,t}\\
-    & &= \alpha_{CA} + \beta_1 BeerTax_{CA,t}  + u_{CA,t}
-\end{eqnarray*}\\[1em]
-Where $\alpha_{CA}$ is the intercept for California, and $\beta_1$ is the slope.\\[1em]
-The intercept is unique to CA, but the slope is the same in all the states: parallel lines.
-\end{frame}
-
-\begin{frame}{Fixed Effects Regressions}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-Two equivalent ways of writing the same specification:\\[1em]
-    \begin{eqnarray*}
-        Y_{i,t} = \beta_0 + \beta_1 X_{i,t} + \gamma_1 D_{i}\mid_{i=1}\\
-        + \gamma_2 D_{i}\mid_{i=2}+ \dots + \gamma_n D_{i}\mid_{i=n} + u_{i,t}
-    \end{eqnarray*}
-where $D_{i}\mid_{i=n} = 1$ if $i=n$ (i.e., state \#$n$).\\[1em] And,
-    \begin{equation*}
-        Y_{i,t} = \alpha_i + \beta_1 X_{i,t}  + u_{i,t}
-    \end{equation*}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-        \includegraphics[scale=.3]{images/fixedeffects0.jpg}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{Fixed Effects Regressions}
-Including $n$ extra (fixed effect) dummies can be computationally intensive when $n$ is large. What regression softwares typically do is to (time-)\textit{demean} (\textbf{within transformation}) the specification:
-    \begin{equation*}
-        \bar{Y}_i = \alpha_i + \frac{1}{T}\sum_{t=1}^T \beta_1 X_{i,t}  + \frac{1}{T}\sum_{t=1}^T  u_{i,t}
-    \end{equation*}
-Which yields to
-    \begin{equation*}
-        Y_{i,t} - \bar{Y}_i =  \beta_1 (X_{i,t}-\frac{1}{T}\sum_{t=1}^T X_{i,t})  + (u_{i,t}-\frac{1}{T}\sum_{t=1}^T  u_{i,t})
-    \end{equation*}
-which can be estimated by simple OLS, that is
-    \begin{equation*}
-        \tilde{Y}_{i,t}= \beta_1 \tilde{X}_{i,t} + \tilde{u}_{i,t}
-    \end{equation*}
-and $\beta_1$ isolates the impact of changes in $X$ within a unit, ignoring the constant, unit-specific factors influencing both $X$ and $Y$.
-\end{frame}
-
-\begin{frame}{Fixed Effects Regressions}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/fixedeffects1.jpg}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Fixed Effects Regressions}
-By analogy, we can also include time FEs (i.e., they are the same across unit but vary in time). What omitted variable could be captured by time FEs in the traffic fatalities vs. beer taxes case?\\[1em]
-
-The population line for, say, 1985 reads
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.3, \text{black}=1)&= \Phi(-2.259 + 0.3 \times 2.741 + 1 \times 0.708)\\
+    &{} &=\Phi(-0.728)=0.233
+\end{eqnarray*}  
+A 50 percentage-point increase in the P/I ratio, \textit{ceteris paribus}, would yield:
 \begin{eqnarray*}
-    &Fatalities_{i,1985} &= \beta_0 + \beta_1 BeerTax_{i,1985} + \beta_2 Z_{1985} + u_{i,1985}\\
-    & &= (\beta_0 + \beta_2 Z_{1985}) + \beta_1 BeerTax_{i,1985}  + u_{i,1985}\\
-    & &= \lambda_{1985} + \beta_1 BeerTax_{i,1985}  + u_{i,1985}
-\end{eqnarray*}\\[1em]
-Where $\lambda_{1985}$ is the intercept for 1985, and $\beta_1$ is the slope.\\[1em]
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.8, \text{black}=1)&= \Phi(-2.259 + 0.8 \times 2.741 + 1 \times 0.708)\\
+    &{} &=\Phi(0.643)=0.74
+\end{eqnarray*}  
+So, conditional on being a black person, an increase in the P/I ratio from 0.3 to 0.8 is associated with an increase in the probability of mortgage denial from .233 to .74.\\[1em]
 
-The dummies notation holds, as in the preceding example with unit FEs.
-
+But conditional on being a white person, an increase in the P/I ratio from 0 to 0.5 is associated with an increase in the probability of mortgage denial from .06 to .43 (again, non-linear marginal effects!)
 \end{frame}
 
-
-\begin{frame}{Fixed Effects Regressions}
-Including $T$ extra (fixed effect) dummies can be computationally intensive when $T$ is large. As before, we can transform the panel model specification into a simple OLS one by demeaning:
-    \begin{equation*}
-        \bar{Y}_t = \lambda_t + \frac{1}{n}\sum_{i=1}^n \beta_1 X_{i,t}  + \frac{1}{n}\sum_{i=1}^n  u_{i,t}
-    \end{equation*}
-Which yields to
-    \begin{equation*}
-        Y_{i,t} - \bar{Y}_t =  \beta_1 (X_{i,t}-\frac{1}{n}\sum_{i=1}^n X_{i,t})  + (u_{i,t}-\frac{1}{n}\sum_{i=1}^n  u_{i,t})
-    \end{equation*}
-which can be estimated by simple OLS, that is
-    \begin{equation*}
-        \check{Y}_{i,t}= \beta_1 \check{X}_{i,t} + \check{u}_{i,t}
-    \end{equation*}
-and $\beta_1$ captures the effect of changes in $X$ within a specific time period, accounting for shared temporal factors that affect both $X$ and $Y$ at the same time.
-\end{frame}
-
-\begin{frame}{Raw Panel Data}
+\begin{frame}{Coefficients interpretation -- Logit}
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel0.png}
+        \includegraphics[scale=.5]{images/logit2.jpg}
 \end{figure}
-\end{frame}
-
-\begin{frame}{Accounting for $\alpha_i$}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel1.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Accounting for $\lambda_t$}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel2.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Both unit and time fixed effects}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel3.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Both unit and time fixed effects}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel4.jpg}
-\end{figure}
+%How can we interpret these coefficients?
 \end{frame}
 
 
-\begin{frame}{The Fixed Effects Simple Regression Assumptions}
-Consider the following regression model
-\begin{equation*}
-    Y_{it} = \alpha_i + \beta_1 X_{i,t} + u_{i,t}
-\end{equation*}
+\begin{frame}{Coefficients interpretation -- Logit}
+Interpreting coefficients from a logit model is way simpler. Again, imagine the case of a white person with a P/I ratio of .3. Then,
+\begin{eqnarray*}
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.3, \text{black}=0)&= F(-4.126 + 0.3 \times 5.37 + 0 \times 1.273)\\
+    &{} &=F(-2.514)=0.075
+\end{eqnarray*}  
+It is the (almost) the same as before! A 50 percentage-point increase in the P/I ratio, \textit{ceteris paribus}, would yield:
+\begin{eqnarray*}
+    &Pr(\text{denied}=1\mid \text{P/I ratio}=0.8, \text{black}=0)&= F(-4.126 + 0.3 \times 5.37 + 0 \times 1.273)\\
+    &{} &=F(.17)=.543
+\end{eqnarray*}  
+So, conditional on being a white person, an increase in the P/I ratio from 0.3 to 0.8 is associated with an increase in the probability of mortgage denial from .075 to .543.\\[1em]
+
+Again, conditional on being a white person, an increase in the P/I ratio from 0 to 0.5 is associated with an increase in the probability of mortgage denial from .016 to .808.
+\end{frame}
+
+\end{comment}
+
+\begin{frame}{Marginal Effects}
+The \textit{probit} and \textit{logit} estimates provide the vector $\beta$, but not the marginal effects, which are:
+
+ \[
+    \frac{\partial \Phi(x_i'\beta)}{\partial x_k}=\beta_k\phi(x_i'\beta) \ \ \ Probit
+    \]
+\[
+    \frac{\partial \frac{e^{x_i'\beta}}{1+e^{x_i'\beta}} }{\partial x_k}=\beta_kPr(y_i=1)(1-Pr(y_i=1)) \ \ \ Logit
+    \]
+Therefore, to evaluate the marginal effects, we need to provide values to $x_i'$. In Stata, we calculate the marginal effects using the \texttt{margins} function after estimating the corresponding model. With this function, Stata calculates the average marginal effects, i.e.:
+\[
+\frac{1}{n}\sum_i \frac{\partial E[y_i \mid x_i]}{\partial x_k}
+\]
+\end{frame}
+
+
+\begin{frame}{Marginal Effects}
+A distinction must be made between:\\~\\
 \begin{enumerate}
-    \item $\mathbb{E}(u_i\mid X_{i1}, X_{i2}, \dots, X_{iT}, \alpha_i, \lambda_t)=0$ 
-    \item $(X_{i1}, X_{i2}, \dots, X_{iT}, u_{i1}, u_{i2}, \dots, u_{iT})$ are i.i.d. draws from their joint distribution
-    \item Large outliers are unlikely: ($X_{it}, u_{i,t}$) have fourth moments.
-    \item There is no perfect multicollinearity (multiple $X$'s)
-\end{enumerate}\\[1em]
+    \item Average marginal effects: obtain the marginal effect on each individual and then calculate the average of the marginal effects
+    \[
+\frac{1}{n}\sum_i \frac{\partial E[y_i \mid x_i]}{\partial x_k}
+\]
+\item Marginal effects calculated at the mean: obtain the marginal effect by evaluating the expression at the mean of the explanatory variables:
+\[
+\frac{\partial E[y_i \mid x_i]}{\partial x_k} \mid_{x_i=\bar{x}}
+\]
+Since $E[y_i \mid x_i]$ is not linear in $x_i$, the two calculations yield different results. 
+\end{enumerate}
 
-Assumption 1 means that the error term cannot be correlated with any present, past, or future value of $X$ (no omitted lagged effects, no feedback loop!)\\[1em]
-
-Assumption 2 means that variables are independent across units but makes no such restriction within a unit.\\[1em]
-
-Assumption 3 and 4 did not change (see Lecture 7).
 \end{frame}
 
-\begin{frame}{Serial Correlation}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-\begin{itemize}
-    \item Following up on Assumption 2, when $u_{i,t}$ is correlated over time within a unit, i.e., when $cov(u_{i,t}, u_{i,t+j})\neq 0$ we say that $u_{i,t}$ is \textbf{autocorrelated}, or \textbf{serially correlated}.\\
-    \item If entities are sampled by simple random sampling, then $(u_{i1}, u_{i2}, \dots, u_{iT})$ is independent of $(u_{j1}, u_{j2}, \dots, u_{jT})$...
-\end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
+
+\begin{frame}{Marginal Effects (Logit)}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{images/LogitMargins.png}
+    \label{fig:my_label}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Marginal Effects (Logit)}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{images/AtmeansLogit.png}
+    \label{fig:my_label}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{So... Probit or Logit?}
 \begin{figure}
   \centering
-        \includegraphics[scale=.5]{images/serial0.jpg}
+         \vspace{-1mm}
+        \includegraphics[scale=.15]{images/logisticnormal.jpeg}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Solution to Fitted Probabilities}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{images/Cdf's.png}
+    \label{fig:my_label}
+\end{figure}  
+\end{frame}
+
+
+\begin{frame}{So... Probit or Logit?}
+Why do we have two different models? The main reason is historical: logit is computationally faster and easier, but that doesn't matter nowadays with modern computation softwares.\\[1em]
+
+Now, the logistic distribution displays fatter tails (i.e the probit curve approaches the axes more quickly than the logit curve.)\\[1em]
+
+This matters for extremes, but in practice, logit and probit are very similar when the binary outcome is decently balanced (perfectly balanced 50\% 0s, 50\% 1s)\\[1em]
+
+This is the case in the vast majority of the applications...\\[1em]
+
+Logit models tend to be slightly more used in practice because the $\beta$s are easier to interpret: they are in log-odds units ($ln(\frac{Pr(Y=1|X)}{1-Pr(Y=1|X)})$).\\[1em]
+
+\end{frame}
+
+
+\begin{frame}{Log-Odds-Ratio}
+Suppose that:
+\[
+\frac{Pr(y_i=1)}{Pr(y_i=0)}=1.1 \implies \textit{The probability of choosing 1 is 10\% greater than choosing 0}
+\]\\~\\
+In terms of log-odds ratio (assuming odds ratio is close to 1):\\
+\[
+ln(Pr(y_i=1))-ln(Pr(y_i=0))\approx 0.1
+\]\\
+Also indicates that the probability of choosing $1$ over $0$ is 10\% greater.\\~\\
 \begin{itemize}
-    \item But in many panel data applications, $u_{i,t}$ is serially correlated
-    \item[$\longrightarrow$] Clustering/Moulton's problem (1986)
+    \item Important: if $\beta_k>0$:
+    \[
+    \frac{\partial odds}{\partial x_k}>0 \ \ \&  \ \ \frac{\partial log-odds }{\partial x_k}>0
+    \]
 \end{itemize}
-\end{column}
-\end{columns}
 \end{frame}
 
 
-
-\begin{frame}{Clustered SEs}
-The usual OLS standard errors (both homoskedasticity-only and heteroskedasticity-robust) will in general be wrong because they assume that $u_{it}$ is serially uncorrelated.\\[1em]
-
-In practice, they often understate the true sampling uncertainty: if $u_{it}$ are correlated over time, you don’t have as much information (as much random variation) as you would if $u_{it}$ were uncorrelated!\\[1em]
-
-To see this, consider the panel the panel (time-)demeaned regression estimator
-\begin{equation*}
-    \hat{\beta}_1 = \frac{\sum_{i=1}^n\sum_{t=1}^T (X_{it}-\bar{X}_i)(Y_{it}-\bar{Y}_i)}{\sum_{i=1}^n\sum_{t=1}^T (X_{it}-\bar{X}_i)^2} = \frac{\sum_{i=1}^n\sum_{t=1}^T \tilde{X}_{it} \tilde{Y}_{it}}{\sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2} = \beta_1 +  \frac{\frac{1}{nT}\sum_{i=1}^n\sum_{t=1}^T \tilde{X}_{it} \tilde{u}_{it}}{\frac{1}{nT} \sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2}
-\end{equation*}\\[1em]
-This completely mirrors the basic OLS estimator equation!!!
-\end{frame}
-
-\begin{frame}{Clustered SEs}
-Rearranging the terms,
-
-    \begin{equation*}
-        \sqrt{nT}(\hat{\beta}_1 - \beta_1)  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \sqrt{\frac{1}{T}} \sum_{t=1}^T 
- \tilde{X}_{it} \tilde{u}_{it} }{\frac{1}{nT} \sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2}  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \eta_i }{\hat{Q}_{\tilde{X}}}
-    \end{equation*}
-
-Because $\eta_i$ is i.i.d across units (by Assumption 2), of mean 0 (by Assumption 1), with finite variance (by Assumption 3), then (same reasoning as in Lecture 3!)
-
-    \begin{equation*}
-  \sqrt{nT}(\hat{\beta}_1 - \beta_1)  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \eta_i }{\hat{Q}_{\tilde{X}}} \sim \mathcal{N}\Big(0, \frac{\sigma_\eta^2}{{Q}_{\tilde{X}}^2} \Big) \text{~~~~ as $n$ grows large}
-    \end{equation*}
-
-Now, note that
-
-\begin{equation*}
-    \sigma_\eta^2 = var\Bigg(\sqrt{\frac{1}{T}} \sum_{t=1}^T 
- \tilde{X}_{it} \tilde{u}_{it}\Bigg) = \frac{1}{T} var\Big(\sum_{t=1}^T 
- \tilde{X}_{it} \tilde{u}_{it}\Big) = \frac{1}{T} var\Big[\tilde{X}_{i1} \tilde{u}_{i1}+\dots+ \tilde{X}_{iT} \tilde{u}_{iT}\Big]
-\end{equation*}
-\end{frame}
-
-\begin{frame}{Clustered SEs}
-Remember that $var(X + Y) = var(X) + var(Y) + 2cov(X,Y)$... therefore
+\begin{frame}{Why log-odds units?}
 \begin{eqnarray*}
-    &\sigma_\eta^2 = &\frac{1}{T} \Big[var(\tilde{X}_{i1} \tilde{u}_{i1})+\dots+ var(\tilde{X}_{iT} \tilde{u}_{iT}) +\\
-    & &2cov(\tilde{X}_{i1} \tilde{u}_{i1}, \tilde{X}_{i2} \tilde{u}_{i2}) + \dots + 2cov(\tilde{X}_{i,T-1} \tilde{u}_{i,T-1}, \tilde{X}_{iT} \tilde{u}_{iT}) \Big]
+    &Pr(Y=1\mid X_i)&= F(\beta_0 + \beta_1 X_i) =\frac{e^{\beta_0 + \beta_1 X_i}}{1+e^{\beta_0 + \beta_1 X_i}}\\
+& \Leftrightarrow & \frac{1}{Pr(Y=1\mid X_i)} = \frac{1+e^{\beta_0 + \beta_1 X_i}}{e^{\beta_0 + \beta_1 X_i}}=1+\frac{1}{e^{\beta_0 + \beta_1 X_i}}\\
+& \Leftrightarrow & \frac{1 - Pr(Y=1\mid X_i)}{Pr(Y=1\mid X_i)}  =\frac{1}{e^{\beta_0 + \beta_1 X_i}}\\
+& \Leftrightarrow & \frac{Pr(Y=1\mid X_i)}{1 - Pr(Y=1\mid X_i)}  =e^{\beta_0 + \beta_1 X_i}\\
+& \Leftrightarrow & ln\Bigg[\frac{Pr(Y=1\mid X_i)}{1 - Pr(Y=1\mid X_i)}\Bigg]  =\beta_0 + \beta_1 X_i\\
 \end{eqnarray*}
-The heteroskedasticity-robust variance formula seen so far misses all the (auto)covariances in the final part the equation... If there is a serial correlation, the usual heteroskedasticity-robust variance estimator is inconsistent!\\[1em]
+Using the preceding example, a 10\%-point increase in the P/I ratio, \textit{ceteris paribus}, would yield a 0.537 ($.1\times5.37$) increase in the log odds of being denied a mortgage... Put differently, the odds (p/(1-p)) of being denied a mortgage would increase by 71\% ($e^{0.537}=1.71$) !
+\end{frame}
 
-Clustered SEs for panel data are the logical extension of heteroskedastic (HR) SEs for cross-section. In cross-section regression, HR SEs are valid whether or not there is HR. In panel data regression, clustered SEs are valid whether or not there is HR and/or serial correlation.\\[1em]
 
-To conclude, the HR-robust clustered SEs reads
-\begin{equation*}
-    SE(\hat{\beta}_1)=\sqrt{\frac{1}{nT}\frac{s_{\hat{\eta}}^2}{\hat{Q}_{\tilde{X}}^2}}
-\end{equation*}
+%MLE
+%Goodness of fit
+% Other models (truncated, poisson, etc.
+\section{Maximum Likelihood Estimation}
+
+\begin{frame}
+  \vfill
+  \centering
+    {\huge \color{blue} \textit{Maximum Likelihood Estimation}}
+  \vfill
+\end{frame}
+
+\begin{frame}{Estimation and Inference in the Logit and Probit Models}
+In your previous lectures, you were assuming regression models that are linear or nonlinear (e.g., polynomials) functions of the independent variables but are linear functions of the unknown coefficients (parameters) $\rightarrow$ can be estimated by OLS.\\[1em]
+In contrast, the probit and logit regression functions are nonlinear
+functions of the coefficients $\rightarrow$ cannot be estimated by OLS $\rightarrow$ {\color{green} NEW METHOD:} \textbf{Maximum Likelihood}\\[1em]
+Maximum Likelihood Estimation (MLE) in econometrics is a method for estimating the parameters of a statistical model by maximizing the likelihood function.\\[1em]
+The likelihood function represents the probability of observing the given sample data under different parameter values.\\[1em]
+Formally, MLE seeks to find the parameter values that maximize the likelihood function, or equivalently, minimize the negative log-likelihood.\\[1em]
+\end{frame}
+
+
+
+
+\begin{frame}{Estimation and Inference in the Logit and Probit Models}
+This process is akin to searching for the parameter values that make the observed data most probable, treating the sample as a realization of a probability distribution determined by the model.\\[1em]
+The theory of ML says that the ML estimator $\hat{p}^{MLE}$ is the most efficient estimator of $p$ --- of \textit{all} consistent estimators! --- at least for large $n$. (Much stronger than the Gauss-Markov theorem!).\\[1em]
+For this reason, the MLE is the primary estimator used for models in which the parameters (coefficients) enter nonlinearly. \\[1em]
+In large samples, the MLE is:
+\begin{itemize}
+    \item Consistent
+    \item Normally distributed
+    \item Efficient (has the smallest variance of all consistent estimators)
+\end{itemize}
+
+
 
 \end{frame}
 
-\begin{frame}{Final Remarks on Clustered SEs}
-We can cluster SEs by unit of observation (e.g., serial correlation within states), but also across units (e.g., regions above states) if we suspect potential correlation in observations within these higher-level clusters.\\[1em]
 
-However, asymptotic inference (as $n$ grows large) supposes we have a large number of clusters...\\[1em]% since we are at least clustering SEs at the unit-level (e.g., states)
 
-This is not always the case. When there are too few clusters and serial correlation, standard errors might be biased!\\[1em]
-
-In the Traffic Fatalities vs. Beer Tax example, is 48 (states) a number of clusters that is large enough? What should be done when there are too few clusters? This is out of the scope of this (introductory) lecture!
+\begin{frame}{Bernoulli example}
+  \begin{itemize}
+    \item Suppose that we know that the following ten numbers were simulated using a Bernoulli distribution: $0, 0, 0, 1, 1, 0, 0, 1, 0, 1$.\\[1em]
+    \item Denote them by $y_1, y_2, \ldots, y_{10}$. So $y_1=0$ and $y_{10}=1$\\[1em]
+    \item The probability of 1 is $p$, while the probability of 0 is $(1 - p)$.\\[1em]
+    \item Recall that the pdf of a Bernoulli random variable is $f(y; p) = p^y (1 - p)^{1-y}$, where $y \in \{0, 1\}$\\[1em]
+    \item We want to find the $p$ that was used to simulate the ten numbers.\\[1em]
+    \item \textbf{All we know} is that 1) they are drawn from a Bernoulli distribution and 2) independently from each other
+  \end{itemize}
 \end{frame}
+
+\begin{frame}{Bernoulli example (contd.)}
+  \begin{itemize}
+    \item Since we know the pdf that generated the numbers is Bernoulli, we know that the probability of the \textit{first} number is $f(y_1; p) = p^{y_1} (1 - p)^{1-{y_1}}$\\[1em]
+    \item ... and we know that the probability of the \textit{second}  number is $f(y_2; p) = p^{y_2} (1 - p)^{1-{y_2}}$, etc.\\[1em]
+    \item We could replace the $y_i$ with the actual numbers. For example, the first one is $y_1 = 0$, so the probability is just $(1-p)$.\\[1em]
+    \item What we do not know is \textbf{the value of the parameter} $p$\\[1em]
+    \item Since we know that they are independent, we could also write down the probability of observing \underline{all ten numbers}. That is, their \textbf{joint probability}.\\[1em]
+    \item Since they are independent, their joint probability distribution is the multiplication of the ten pdfs: $P(A\cap B) = P(A) \times P(B)$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bernoulli example (contd.)}
+  \begin{itemize}
+    \item Since they are independent, we could write down the joint probability or the \textbf{likelihood} ($L$) of seeing those 10 numbers as:
+    \[ L(p) = \prod_{i=1}^{10} p^{y_i} (1 - p)^{1 - y_i} \]
+    \item We want to find the $\hat{p}$ that maximizes the likelihood function $L(p)$, i.e., the probability of observing all ten $y_i$\\[1em]
+    \item Taking that derivative is complicated because we would need to use the chain rule several times so we take the log to simplify the notation. The log function is a \underline{monotonic} transformation, it won’t change the optimal $\hat{p}$:
+    \[ \ln L(p) = \sum_{i=1}^{n} y_i \ln(p) + \sum_{i=1}^{n} (1 - y_i) \ln(1 - p) \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bernoulli example (contd.)}
+  \begin{itemize}
+    \item In this case, the log-likelihood function simplifies to
+    \[ \ln L(p) = n \Bar{y} \ln(p) + n (1 - \Bar{y}) \ln(1 - p) \]\\[1em]
+    \item Taking the derivative with respect to $p$ and setting it to zero, we find the MLE estimator of $p$:
+    \[ \frac{\partial \ln(p)}{\partial p} = \frac{\bar{y}}{p} - \frac{1 - \bar{y}}{1 - p} = 0 \]\\[1em]
+    \item Solving, we find that $\hat{p} = \bar{y} = \sum_{i=1}^{n} y_i / n$.\\[1em]
+    \item So that’s the MLE estimator of p. This is saying more or less the obvious: our best guess for the p that generated the data is the proportion of 1s; in this case $p = 0.4$
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}{Maximum Likelihood Estimation (MLE)}
+% Maximize the log likelihood by setting the derivative to zero $\frac{\partial ln[f(p)]}{\partial p} = 0$.\\[1em]
+
+% In this case, 
+% \begin{eqnarray*}
+%     &\frac{\partial ln[f(p)]}{\partial p} &= \sum_{i=1}^n y_i \frac{1}{\hat{p}^{MLE}}-(n-\sum_{i=1}^n y_i)\frac{1}{1-\hat{p}^{MLE}}=0\\
+%     &\Leftrightarrow & \frac{\sum_{i=1}^n y_i}{n-\sum_{i=1}^n y_i} = \frac{\hat{p}^{MLE}}{1-\hat{p}^{MLE}}\\
+%     &\Leftrightarrow & \frac{\Bar{Y}}{1-\Bar{Y}} = \frac{\hat{p}^{MLE}}{1-\hat{p}^{MLE}}\Leftrightarrow \hat{p}^{MLE}=\Bar{Y}
+% \end{eqnarray*}
+
+% So, for $Y_i$ i.i.d Bernouilli, $\Bar{Y}$ is the MLE, the ``natural'' estimator of $p$\\[1em]
+
+% In large $n$, the sampling distribution of  $\hat{p}^{MLE}$ is normally distributed. Thus, inference is “as usual”: hypothesis testing via t-test statistic, confidence interval as $1.96\times SE$, etc.
+% \end{frame}
+
+
+\begin{frame}{Maximum Likelihood Estimation (MLE)}
+Analogously, the probit likelihood function is the joint density of $Y_1, Y_2, \dots, Y_n$ given $X_1=x_1, X_2=x_2, \dots, X_n=x_n$ treated as function of the unknown parameters $\beta_0, \beta_1$ (for only one regressor):
+\begin{eqnarray*}
+    &f(\beta_0, \beta_1; Y_1, Y_2, \dots, Y_n \mid X_1, X_2, \dots, X_n) &= \{[\Phi(\beta_0 + \beta_1 x_1)]^{y_1}\times[1-\Phi(\beta_0 + \beta_1 x_1)]^{1-y_1}\}\\
+    &{} &\times\{[\Phi(\beta_0 + \beta_1 x_2)]^{y_2}\times[1-\Phi(\beta_0 + \beta_1 x_2)]^{1-y_2}\}\\
+    &{} &\times\dots\\
+    &{} &\times\{[\Phi(\beta_0 + \beta_1 x_n)]^{y_n} \times[1-\Phi(\beta_0 + \beta_1 x_n)]^{1-y_n}\}
+\end{eqnarray*}
+The parameters $\hat{\beta}^{MLE}_0, \hat{\beta}^{MLE}_1$ maximize this likelihood function!\\[1em]
+
+We can easily extend this to multiple regressors and/or the logistic regression model...
+\end{frame}
+
+
+\begin{frame}{Maximum Likelihood Estimation (MLE)}
+The logit likelihood function is the joint density of $Y_1, Y_2, \dots, Y_n$ given $X_1=x_1, X_2=x_2, \dots, X_n=x_n$ treated as function of the unknown parameters $\beta_0, \beta_1$ (for only one regressor):
+\begin{eqnarray*}
+    &f(\beta_0, \beta_1; Y_1, Y_2, \dots, Y_n \mid X_1, X_2, \dots, X_n) &= \{[F(\beta_0 + \beta_1 x_1)]^{y_1}\times[1-F(\beta_0 + \beta_1 x_1)]^{1-y_1}\}\\
+    &{} &\times\{[F(\beta_0 + \beta_1 x_2)]^{y_2}\times[1-F(\beta_0 + \beta_1 x_2)]^{1-y_2}\}\\
+    &{} &\times\dots\\
+    &{} &\times\{[F(\beta_0 + \beta_1 x_n)]^{y_n} \times[1-F(\beta_0 + \beta_1 x_n)]^{1-y_n}\}
+\end{eqnarray*}
+In both cases, we cannot solve for the maximum explicitly! So, the MLE must be maximized using numerical methods (dynamic optimization algorithms).
+\end{frame}
+
+
+\begin{frame}{Model Selection Criteria}
+When comparing two models that contain the same set of variables, we only need to examine the values of the likelihood functions. The higher, the better the model fits.\\~\\
+There are different methods for choosing between models that do not have the same explanatory variables:
+\begin{enumerate}
+    \item Likelihood Ratio Test
+    \item Number of correct predictions
+    \item McFadden's $R^2$
+    \item Akaike Information Criterion (AIC)
+    \item Weighted Residual Sum of Squares
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Model Selection Criteria}
+\begin{itemize}
+    \item Likelihood Ratio Test:
+    \[
+    LR=2[\mathcal{L}(\hat{\beta}_N)-\mathcal{L}(\hat{\beta}_R)] \sim \chi_q^2
+    \]
+Where N and R represent the unrestricted and restricted (i.e., without explanatory variables) models respectively, and q is the difference in parameters. If we reject $H_0$, the unrestricted model will be better. \\[1em]
+
+\item Number of correct predictions: we assign $\hat{y}_i=1$ if $\hat{P}_i>a$ and count the number of incorrect predictions from the model $\sum_{i=1}^N (y_i-\hat{y}_i)^2$\\[1em]
+\item $WSSR=\sum_{i=1}^n \frac{(y_i-\hat{P}_i)^2}{\hat{P}_i(1-\hat{P}_i)}$. The model that minimizes this is preferable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model Selection Criteria}
+\begin{itemize}
+    \item Akaike Information Criterion (AIC): $AIC=-ln(\mathcal{L})+K$, where K is the number of estimated parameters. The smaller the AIC, the better.\\~\\
+    \item McFadden's $R^2$: $R^2=1-\frac{ln(\mathcal{L}_N)}{ln(\mathcal{L}_R)} \in [0,1]$, where $L_R$ is the value of the likelihood function when only a constant is included, and $L_N$ is that of the unrestricted model.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Application: Women's Participation in the Labor Market}
+Dependent Variable $y_i\to \textit{inlf} \in \{0,1\}$ (0 if the woman is not in the labor market, 1 if she is)
+
+\vspace{1em}
+Explanatory Variables $x_i': (nwifeinc,educ,exp,exp^2,age,kidslt6,kidsge6)$
+
+\vspace{1em}
+\begin{itemize}
+\item LPM:
+\[
+E[infl_i \mid x_i]=x_i'\beta
+\]
+\item  Probit:
+\[
+E[infl_i \mid x_i]=\Phi(x_i'\beta)
+\]
+\item Logit:
+\[
+E[infl_i \mid x_i]=\frac{e^{x_i'\beta}}{1+e^{x_i'\beta}}
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{LPM}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{images/LPMStata.png}
+    \label{fig:my_label}
+\end{figure}    
+\end{frame}
+
+\begin{frame}{Probit}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{images/ProbitStata.png}
+    \label{fig:my_label}
+\end{figure}    
+\end{frame}
+
+\begin{frame}{Logit}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{images/LogitStata.png}
+    \label{fig:my_label}
+\end{figure}
+\end{frame}
+
+% \begin{frame}{Pseudo-R2 in Maximum Likelihood Regression}
+%   \begin{itemize}
+%     \item Unlike traditional R-squared in ordinary least squares (OLS) regression, MLE does not have a direct equivalent. Therefore, pseudo-R2 measures are employed.
+%         \item Pseudo-R2 and Likelihood Function:
+%       \begin{itemize}
+%         \item Adding regressors increases maximized likelihood, similar to OLS.
+%         \item Compares maximized likelihood with all regressors to that with none (Bernouilli).
+%       \end{itemize}
+%         \item Easy to understand BUT Doesn't reflect prediction quality; treats 51\% and 90\% predictions equally.
+% \item Commonly used pseudo-R2 measures in MLE include:
+%       \begin{itemize}
+%         \item McFadden (1974)'s $R^2$: $\Bigg[1 - \frac{\text{Log-Likelihood of Model}}{\text{Log-Likelihood of Null Model}}\Bigg]$
+%         \item Cox and Snell (1989) $R^2$:$ \Bigg[1 - \left( \frac{\text{Log-Likelihood of Model}}{\text{Log-Likelihood of Null Model}} \right)^{\frac{2}{n}}\Bigg]$
+%         \item Nagelkerke (1991)'s $R^2$: An adjustment to Cox and Snell for improved scaling.
+%       \end{itemize}
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}{Summary and Conclusion}
+  \begin{itemize}
+    \item If $Y_i$ is binary, $\mathbb{E}(Y\mid X)=Pr(Y=1\mid X)$
+    \item Three models: 
+    \begin{itemize}
+        \item linear probability model (linear multiple regression)
+        \item probit (cumulative standard normal distribution)
+        \item logit (cumulative standard logistic distribution)
+    \end{itemize}
+    \item LPM, probit, logit all produce predicted probabilities
+    \item Effect of $\Delta X$ is the change in conditional probability that $Y=1$. But for logit and probit, this depends on the initial $X$
+    \item Probit and logit are estimated via maximum likelihood
+  \begin{itemize}
+    \item Coefficients are normally distributed for large n
+    \item Large-n hypothesis testing, conf. intervals is as usual
+  \end{itemize}
+  There are many models for limited dependent variables, other than binary variables,  in econometric applications.
+  \begin{itemize}
+    \item Discrete choice or multiple choice data (multinomial probit/logit)
+    \item Censored Data Models (Tobin's Tobit)
+    \item Truncated Data Models (Heckman's Sample Selection)
+    \item Count Data Models (Poisson and Negative Binomial)
+    \item Ordered response data (Ordered probit/logit)
+  \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
 
 
 \begin{frame}[allowframebreaks]{Material}
 \begin{itemize}
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
-        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapters 10 - 13
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge -- Chapters 13-14.
-        \item Causal Inference, The Mixtape, by Scott Cunningham -- Chapter 7
-    \end{itemize}
-    \item[--] \textbf{Papers:}
-    \begin{itemize}
-        \item Ashenfelter, O., \& Krueger, A. (1994). Estimates of the economic return to schooling from a new sample of twins. The American economic review, 1157-1173.
-        \item Ashenfelter, O., \& Rouse, C. (1998). Income, schooling, and ability: Evidence from a new sample of identical twins. The Quarterly Journal of Economics, 113(1), 253-284.
-        \item Bertrand, M., Duflo, E., \& Mullainathan, S. (2004). How much should we trust differences-in-differences estimates?. The Quarterly journal of economics, 119(1), 249-275.
-        \item Tanaka, S. (2014). Does abolishing user fees lead to improved health status? Evidence from post-apartheid South Africa. American economic Journal: economic policy, 6(3), 282-312.
+        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapters 11
     \end{itemize}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
-
-
 
 \end{document}

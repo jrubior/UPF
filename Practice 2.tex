@@ -157,11 +157,11 @@
 \begin{frame}
 \frametitle{Introduction to Ordinary Least Squares (OLS)}
 \begin{itemize}
-    \item Ordinary Least Squares (OLS) is a fundamental statistical technique used in linear regression analysis.\\\\[1em]
-    \item It seeks to determine the best-fitting linear relationship between a dependent variable (e.g., earnings) and one or more independent variables (e.g., working hours)...\\\\[1em]
-    \item ...by minimizing the sum of squared differences between observed and predicted values.\\\\[1em]
+    \item Ordinary Least Squares (OLS) is a fundamental statistical technique used in linear regression analysis.\vspace{1em}
+    \item It seeks to determine the best-fitting linear relationship between a dependent variable (e.g., earnings) and one or more independent variables (e.g., working hours)...\vspace{1em}
+    \item ...by minimizing the sum of squared differences between observed and predicted values.\vspace{1em}
     \begin{itemize}
-        \item \textbf{Example:} Consider a young researcher who wants to understand the relationship between their monthly earnings and the number of hours worked each week. OLS helps in finding the linear relationship between earnings and working hours.\\\\[1em]
+        \item \textbf{Example:} Consider a young researcher who wants to understand the relationship between their monthly earnings and the number of hours worked each week. OLS helps in finding the linear relationship between earnings and working hours.\vspace{1em}
     \end{itemize}
 \end{itemize}
 
@@ -174,8 +174,8 @@
 \frametitle{The Regression Line}
 
 \begin{itemize}
-    \item  The regression line, often represented as $Y = aX + b$, is the central output of OLS.\\\\[1em]
-    \item In this equation, $Y$ represents the dependent variable (e.g., earnings), $X$ represents the independent variable (e.g., working hours), and $a$ and $b$ are coefficients to be estimated by OLS.\\\\[1em]
+    \item  The regression line, often represented as $Y = aX + b$, is the central output of OLS.\vspace{1em}
+    \item In this equation, $Y$ represents the dependent variable (e.g., earnings), $X$ represents the independent variable (e.g., working hours), and $a$ and $b$ are coefficients to be estimated by OLS.\vspace{1em}
     \begin{itemize}
         \item \textbf{Example:} For instance, if the OLS analysis suggests the equation $Earnings = 15 \times Hours + 100$ it implies that for every additional hour worked, earnings are expected to increase by \$15. The starting point for earnings, even with no hours worked, is \$100.
     \end{itemize}
@@ -191,8 +191,8 @@ In the equation $Y = aX + b$, what does the coefficient 'a' represent, and what 
 \frametitle{Residuals and Minimizing Squared Errors}
 
 \begin{itemize}
-    \item  Residuals are the discrepancies between actual observed values (e.g., actual earnings) and the values predicted by the regression line.\\\\[1em]
-    \item OLS minimizes the sum of squared residuals, effectively striving to minimize these differences.\\\\[1em]
+    \item  Residuals are the discrepancies between actual observed values (e.g., actual earnings) and the values predicted by the regression line.\vspace{1em}
+    \item OLS minimizes the sum of squared residuals, effectively striving to minimize these differences.\vspace{1em}
     \begin{itemize}
         \item \textbf{Example:} Suppose the regression model predicts earnings of \$300 for 20 hours worked, but the actual earnings are \$280. In this case, the residual is \$280 - \$300 = -\$20.
     \end{itemize}
@@ -207,9 +207,9 @@ What are residuals, how to interpret them, and how does OLS utilize them to find
 \begin{frame}
 \frametitle{Goodness-of-Fit}
 \begin{itemize}
-    \item  The R-squared, or $R^2$ is a statistical measure that assesses the goodness of fit of a regression model.\\\\[1em]
-    \item It quantifies the proportion of variance in the dependent variable (e.g., earnings) that is explained by the independent variable(s) (e.g., working hours) in the model.\\\\[1em]
-    \item R-squared values range from 0 (no fit) to 1 (perfect fit).\\\\[1em]
+    \item  The R-squared, or $R^2$ is a statistical measure that assesses the goodness of fit of a regression model.\vspace{1em}
+    \item It quantifies the proportion of variance in the dependent variable (e.g., earnings) that is explained by the independent variable(s) (e.g., working hours) in the model.\vspace{1em}
+    \item R-squared values range from 0 (no fit) to 1 (perfect fit).\vspace{1em}
     \begin{itemize}
         \item \textbf{Example:} If your earnings and working hours model has an R-squared value of 0.75, it signifies that 75\% of the variability in earnings can be attributed to the number of hours worked.
     \end{itemize}
@@ -224,9 +224,9 @@ Is a high $R^2$ an indicator of a strong causal relationship between the indepen
 \begin{frame}
 \frametitle{Limitations of OLS}
 \begin{itemize}
-    \item Although OLS is a powerful and widely used tool, it has limitations.\\\\[1em]
-    \item E.g., it assumes a linear relationship between variables, which may not hold in all cases.\\\\[1em]
-    \item Additionally, OLS can be sensitive to outliers, which are extreme data points that can unduly influence the model's accuracy.\\\\[1em]
+    \item Although OLS is a powerful and widely used tool, it has limitations.\vspace{1em}
+    \item E.g., it assumes a linear relationship between variables, which may not hold in all cases.\vspace{1em}
+    \item Additionally, OLS can be sensitive to outliers, which are extreme data points that can unduly influence the model's accuracy.\vspace{1em}
  \begin{itemize}
         \item \textbf{Example:} Consider a case where an individual received an unusually large bonus due to exceptional performance in one month. OLS might not handle this outlier well, potentially leading to inaccurate future earnings predictions, as it inherently assumes a linear relationship.
     \end{itemize}
@@ -240,54 +240,54 @@ Is a high $R^2$ an indicator of a strong causal relationship between the indepen
 
 \begin{frame}
 \frametitle{The Impact of Healthcare Insurance on Medical Spending}
-Healthcare insurance can significantly influence medical spending...\\\\[1em]
+Healthcare insurance can significantly influence medical spending...\vspace{1em}
 
 \begin{enumerate}
   \item \textbf{Moral Hazard}:
     \begin{itemize}
-      \item Insured individuals may seek more medical care due to reduced financial burden, potentially increasing medical costs.\\\\[1em]
+      \item Insured individuals may seek more medical care due to reduced financial burden, potentially increasing medical costs.\vspace{1em}
     \end{itemize}
 
   \item \textbf{Price Sensitivity}:
     \begin{itemize}
-      \item Well-insured patients may not closely examine or negotiate healthcare costs, leading to higher prices in the healthcare industry.\\\\[1em]
+      \item Well-insured patients may not closely examine or negotiate healthcare costs, leading to higher prices in the healthcare industry.\vspace{1em}
     \end{itemize}
 
   \item \textbf{Provider Behavior}:
     \begin{itemize}
-      \item When patients have insurance, providers may order more tests and treatments to maximize revenue, increasing healthcare expenses.\\\\[1em]
+      \item When patients have insurance, providers may order more tests and treatments to maximize revenue, increasing healthcare expenses.\vspace{1em}
     \end{itemize}
 
   % \item \textbf{Government Intervention}:
   %   \begin{itemize}
-  %     \item Public policies and regulations can shape the extent of insurance coverage, reimbursement rates, and overall healthcare spending.\\\\[1em]
+  %     \item Public policies and regulations can shape the extent of insurance coverage, reimbursement rates, and overall healthcare spending.\vspace{1em}
   %   \end{itemize}
 \end{enumerate}
 \end{frame}
 
 \begin{frame}
 \frametitle{Balancing Act - Healthcare Insurance and Medical Spending}
-However, healthcare insurance also plays a complex role in the economic ecosystem, with numerous positive aspects.\\\\[1em]
+However, healthcare insurance also plays a complex role in the economic ecosystem, with numerous positive aspects.\vspace{1em}
 
 \begin{enumerate}
   \item \textbf{Risk Pooling}:
     \begin{itemize}
-      \item Insurance provides risk pooling benefits, spreading the cost of expensive treatments across a larger group of policyholders, reducing the financial burden of catastrophic health events for individuals.\\\\[1em]
+      \item Insurance provides risk pooling benefits, spreading the cost of expensive treatments across a larger group of policyholders, reducing the financial burden of catastrophic health events for individuals.\vspace{1em}
     \end{itemize}
 
   \item \textbf{Preventive Care}:
     \begin{itemize}
-      \item Health insurance encourages individuals to seek preventive care and early treatment for health issues, potentially reducing the overall cost of healthcare by avoiding more expensive treatments down the road.\\\\[1em]
+      \item Health insurance encourages individuals to seek preventive care and early treatment for health issues, potentially reducing the overall cost of healthcare by avoiding more expensive treatments down the road.\vspace{1em}
     \end{itemize}
 
   \item \textbf{Innovation and Technology}:
     \begin{itemize}
-      \item Health insurance influences the development and adoption of new medical technologies and drugs. Insured patients are more likely to use advanced and expensive treatments, driving innovation but also contributing to rising healthcare costs.\\\\[1em]
+      \item Health insurance influences the development and adoption of new medical technologies and drugs. Insured patients are more likely to use advanced and expensive treatments, driving innovation but also contributing to rising healthcare costs.\vspace{1em}
     \end{itemize}
 
 %   \item \textbf{Government Policies}:
 %     \begin{itemize}
-%       \item Government policies significantly shape healthcare insurance and spending and can determine the effectiveness of healthcare systems.\\\\[1em]
+%       \item Government policies significantly shape healthcare insurance and spending and can determine the effectiveness of healthcare systems.\vspace{1em}
 %     \end{itemize}
 \end{enumerate}
 \end{frame}
@@ -311,15 +311,15 @@ However, healthcare insurance also plays a complex role in the economic ecosyste
 
 \begin{frame}{The RAND Health Insurance Experiment}
   \begin{itemize}
-    \item The RAND experiment was a groundbreaking study conducted between 1974 and 1981.\\\\[1em]
-    \item \textbf{Objective}: To assess the impact of different health insurance plans on medical spending and health outcomes.\\\\[1em]
-    \item \textbf{Methodology}: Randomized controlled trial with over 5,800 individuals in 2,750 families.\\\\[1em]
+    \item The RAND experiment was a groundbreaking study conducted between 1974 and 1981.\vspace{1em}
+    \item \textbf{Objective}: To assess the impact of different health insurance plans on medical spending and health outcomes.\vspace{1em}
+    \item \textbf{Methodology}: Randomized controlled trial with over 5,800 individuals in 2,750 families.\vspace{1em}
     \item \textbf{Insurance Plans}: Participants were randomly assigned to 6 different insurance plans for 3 to 5 years:
       \begin{itemize}
         \item \textbf{4 different copayments plans}: 0, 25, 50, 95\%
         \item \textbf{1 mixed plan}: 25\% in general \& 50\% for dental and outpatient services
         \item \textbf{1 individually deductible}: 95\%  outpatient and 0\% inpatient services
-      \end{itemize}\\\\[1em]
+      \end{itemize}\vspace{1em}
     \item \textbf{Key Findings}:
       \begin{itemize}
         \item \textbf{Moral Hazard}: Those with free care consumed more healthcare services, leading to higher costs.
@@ -377,11 +377,11 @@ However, healthcare insurance also plays a complex role in the economic ecosyste
 \frametitle{The Oregon Health Insurance Experiment}
 
 \begin{itemize}
-  \item \textbf{Study Focus}: The Oregon Health Insurance Experiment (OHIE) examined the effects of a Medicaid expansion program targeting low-income adults not categorically eligible for traditional Medicaid program.\\\\[1em]
+  \item \textbf{Study Focus}: The Oregon Health Insurance Experiment (OHIE) examined the effects of a Medicaid expansion program targeting low-income adults not categorically eligible for traditional Medicaid program.\vspace{1em}
 
-  \item \textbf{Eligibility Criteria}: To qualify, individuals needed to be aged 19 to 64, Oregon residents, U.S. citizens or legal immigrants, uninsured for six months, with income below the federal poverty level (e.g., \$10,400 for an individual in 2008), and have assets below \$2,000.\\\\[1em]
+  \item \textbf{Eligibility Criteria}: To qualify, individuals needed to be aged 19 to 64, Oregon residents, U.S. citizens or legal immigrants, uninsured for six months, with income below the federal poverty level (e.g., \$10,400 for an individual in 2008), and have assets below \$2,000.\vspace{1em}
 
-  \item \textbf{Program Details}: OHIE offered comprehensive medical benefits, including prescription drug coverage. It had no cost-sharing and low monthly premiums (ranging from \$0 to \$20, based on income), mainly provided through managed care organizations.\\\\[1em]
+  \item \textbf{Program Details}: OHIE offered comprehensive medical benefits, including prescription drug coverage. It had no cost-sharing and low monthly premiums (ranging from \$0 to \$20, based on income), mainly provided through managed care organizations.\vspace{1em}
 \end{itemize}
 \end{frame}
 
@@ -389,11 +389,11 @@ However, healthcare insurance also plays a complex role in the economic ecosyste
 \frametitle{The Oregon Health Insurance Experiment}
 
 \begin{itemize}
-  \item \textbf{Lottery Drawings}: Oregon conducted eight lottery drawings from a waiting list between March and September 2008. Individuals randomly selected by lottery, who met eligibility criteria upon application, were enrolled in the program.\\\\[1em]
+  \item \textbf{Lottery Drawings}: Oregon conducted eight lottery drawings from a waiting list between March and September 2008. Individuals randomly selected by lottery, who met eligibility criteria upon application, were enrolled in the program.\vspace{1em}
 
-  \item \textbf{Research Approval}: The Oregon Health Insurance Experiment had ethical approval from multiple institutional review boards.\\\\[1em]
+  \item \textbf{Research Approval}: The Oregon Health Insurance Experiment had ethical approval from multiple institutional review boards.\vspace{1em}
 
-  \item \textbf{Prior Findings}: Previous research found that Medicaid improved self-reported general health, reduced depression, and decreased financial strain. However, no statistically significant effects were observed on measured physical health (e.g., blood pressure, cholesterol, or glycated hemoglobin levels), employment, or earnings.\\\\[1em]
+  \item \textbf{Prior Findings}: Previous research found that Medicaid improved self-reported general health, reduced depression, and decreased financial strain. However, no statistically significant effects were observed on measured physical health (e.g., blood pressure, cholesterol, or glycated hemoglobin levels), employment, or earnings.\vspace{1em}
 
   \item \textbf{Effects on Healthcare Use}: Medicaid increased healthcare use, with improved access to primary care, prescription drugs, and preventive care. Notably, hospital use increased when measured from hospital administrative data, contrasting self-reported data.
 

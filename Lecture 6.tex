@@ -367,7 +367,8 @@ where
     \item $R^2_{restricted}$ is the $R^2$ for the restricted regression
     \item $q$ is the number of restrictions under $H_0$
     \item $k_{unrestricted}$ is the number of regressors in the unrestricted regression
-\end{itemize}\\[1em]
+\end{itemize}
+\vspace{1em}
 So the bigger the difference between the restricted and unrestricted $R^2$ -- i.e., the greater the improvement in fit by adding the variables in question -- the larger the homoskedasticity-only F.
 
 \end{frame}
@@ -376,19 +377,17 @@ So the bigger the difference between the restricted and unrestricted $R^2$ -- i.
 \begin{frame}{The Homoskedastic-only F-statistic}
 \underline{\textbf{Restricted population regression (that is, under $H_0$):}}
 \begin{equation*}
-  \begin{alignedat}{2}
-    TestScore_i = 705&.157 &{}+ 203&.582 \times edfracbachplus_i &{} + u_i\\
-        (5&.106)  &   (21&.472) &
-  \end{alignedat}
+TestScore_i = 705.157 + 203.582 \times edfracbachplus_i + u_i
 \end{equation*}
+Standard errors: $(5.106)\ (21.472)$
+
 with $R^2_{restricted}$ = 0.2320\\[2em]
 \underline{\textbf{Unrestricted population regression (that is, under $H_0$):}}
 \begin{equation*}
-  \begin{alignedat}{4}
-    TestScore_i = 802&.045 &{} -128&.685 \times frpmfracs_i &{} +  60&.729 \times edfracbachplus_i &{}+  0&.564 \times strs_i &{}+ u_i\\
-    (19&.841)  &   (10&.817) & (20&.420) & (0&.576) &
-  \end{alignedat}   
+TestScore_i = 802.045 - 128.685 \times frpmfracs_i + 60.729 \times edfracbachplus_i + 0.564 \times strs_i + u_i
 \end{equation*}
+Standard errors: $(19.841)\ (10.817)\ (20.420)\ (0.576)$
+
 with $R^2_{unrestricted}$ = 0.4775
 \end{frame}
 
@@ -582,24 +581,11 @@ It is easy to fall into the trap of maximizing the $R^2$ and $\overline{R}^2$ bu
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
         \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 7
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge  -- Chapter 4-6.
-    \end{itemize}
-    \item[--] \textbf{Papers:}
-    \begin{itemize}
-        \item Krueger, A. B. (1993). How computers have changed the wage structure: evidence from microdata, 1984–1989. The Quarterly Journal of Economics, 108(1), 33-60.
-        \item DiNardo, J. E., \& Pischke, J. S. (1997). The returns to computer use revisited: Have pencils changed the wage structure too?. The Quarterly Journal of Economics, 112(1), 291-303.
     \end{itemize}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
 
 
 
 
 \end{document}
-
-
-

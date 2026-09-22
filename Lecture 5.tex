@@ -172,7 +172,7 @@
 \begin{itemize}
     \item Hypothesis testing for regression coefficients is analogous to hypothesis testing for the population mean: Use the t-statistic to calculate the p-values and either accept or reject the null hypothesis. Like a confidence interval for the population mean, a 95\% confidence interval for a regression coefficient is computed as the estimator $\pm$1.96 standard errors.\\[1em]
     \item When X is binary, the regression model can be used to estimate and test hypotheses about the difference between the population means of the “X = 0” group and the “X = 1” group.\\[1em]
-    \item In general, the error $u_i$ is heteroskedastic; that is, the variance of $u_$ at a given value of $X_i$, $var(u_i\mid X_i=x$, depends on $x$. A special case is when the error is homoskedastic; that is, when $var(u_i\mid X_i=x)$ is constant. \\[1em]Homoskedasticity-only standard errors do not produce valid statistical inferences when the errors are heteroskedastic, but heteroskedasticity-robust standard errors do.\\[1em]
+    \item In general, the error $u_i$ is heteroskedastic; that is, the variance of $u_i$ at a given value of $X_i$, $var(u_i\mid X_i=x)$, depends on $x$. A special case is when the error is homoskedastic; that is, when $var(u_i\mid X_i=x)$ is constant. \\[1em]Homoskedasticity-only standard errors do not produce valid statistical inferences when the errors are heteroskedastic, but heteroskedasticity-robust standard errors do.\\[1em]
 \end{itemize}
 \end{frame}
 
@@ -459,7 +459,6 @@ There are systematic differences in educational attainment across districts with
 \end{itemize}
 \begin{center}
         \resizebox{.9\linewidth}{!}{%
-            \begin{table}[]
             \begin{tabular}{l|cc|cc|cc|}
             \cline{2-7}
                                                                           & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Above-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Below-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Difference in\\ Test Scores\end{tabular}} \\ \cline{2-7} 
@@ -475,7 +474,6 @@ There are systematic differences in educational attainment across districts with
             \multicolumn{1}{|l|}{{[}.1997542; .3260502{]}}                & 731.9475                                                       & 40                             & 774.4559                                                       & 84                             & \multicolumn{1}{c|}{42.50845}                                     & 5.2279               \\
             \multicolumn{1}{|l|}{{[}.3309678 ; .7696404{]}}               & 742.05                                                         & 12                             & 813.2955                                                       & 112                            & \multicolumn{1}{c|}{71.24553}                                     & 4.2628               \\ \hline
             \end{tabular}
-            \end{table}
             
 }
 
@@ -508,7 +506,6 @@ Clearly, this is not the case here: treatment and control groups differ in syste
 
 \begin{center}
         \resizebox{.9\linewidth}{!}{%
-            \begin{table}[]
             \begin{tabular}{l|cc|cc|cc|}
             \cline{2-7}
                                                                           & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Above-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Below-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Difference in\\ Test Scores\end{tabular}} \\ \cline{2-7} 
@@ -524,7 +521,6 @@ Clearly, this is not the case here: treatment and control groups differ in syste
             \multicolumn{1}{|l|}{{[}.1997542; .3260502{]}}                & 731.9475                                                       & 40                             & 774.4559                                                       & 84                             & \multicolumn{1}{c|}{42.50845}                                     & 5.2279               \\
             \multicolumn{1}{|l|}{{[}.3309678 ; .7696404{]}}               & 742.05                                                         & 12                             & 813.2955                                                       & 112                            & \multicolumn{1}{c|}{71.24553}                                     & 4.2628               \\ \hline
             \end{tabular}
-            \end{table}
             
 }
 
@@ -577,8 +573,8 @@ The population regression line is therefore given by:
 \end{equation*}
 \begin{itemize}
     \item $\beta_k$ is the slope of $X_{ki}$
-    \item $\beta_k$ is the expected difference in $Y_i$ associated with a unit change in $X_{ki}$ holding all other $X_{kj}_{\{j\neq i\}}$ constant
-    \item $\beta_0$, the intercept, can be thought of as the coefficient on a regressor $X_{0i}$ that is equal to 1 for all observations. $\beta_0$ is the expected value of $Y_i$ when all $X_ki$ are equal to zero.
+    \item $\beta_k$ is the expected difference in $Y_i$ associated with a unit change in $X_{ki}$ holding all other regressors constant
+    \item $\beta_0$, the intercept, can be thought of as the coefficient on a regressor $X_{0i}$ that is equal to 1 for all observations. $\beta_0$ is the expected value of $Y_i$ when all $X_{ki}$ are equal to zero.
 \end{itemize}
 
 \end{frame}
@@ -603,7 +599,7 @@ When $X_2$ is constant, i.e., $X_{2i}=X_{2j}$, then $\Delta X_{2i}=0$ and theref
 \begin{equation*}
     \Delta Y_i = \beta_1 \Delta X_{1i}
 \end{equation*}
-In general, holding all other $X_{kj}_{\{j\neq i\}}$ constant, $\frac{\Delta Y_i}{\Delta X_{ki}}= \beta_k$. 
+In general, holding all other regressors constant, $\frac{\Delta Y_i}{\Delta X_{1i}}= \beta_1$.
 \end{frame}
 
 
@@ -847,17 +843,9 @@ $\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators 
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
         \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 6.
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge -- Chapter 3.
     \end{itemize}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
 
 
 \end{document}
-
-
-

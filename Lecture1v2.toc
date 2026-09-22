@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Review of Probability Theory - Random Variables}{7}{0}{2}
+\beamer@sectionintoc {3}{Two Variables}{12}{0}{3}
+\beamer@sectionintoc {4}{Random Sampling}{17}{0}{4}
+\beamer@sectionintoc {5}{Estimation}{23}{0}{5}

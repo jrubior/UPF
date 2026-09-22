@@ -129,13 +129,13 @@
 
 
 
-% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% If you like Traffic maps, rather than having clutter at the top, have a Trafficmap show up at the end of each section 
 % (and after your introduction)
-% Uncomment this is if you want the roadmap!
+% Uncomment this is if you want the Trafficmap!
 % \AtBeginSection[]
 % {
 %    \begin{frame}
-%        \frametitle{Roadmap of Talk}
+%        \frametitle{Trafficmap of Talk}
 %        \tableofcontents[currentsection]
 %    \end{frame}
 % }
@@ -145,11 +145,11 @@
 \setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
 
 
-\title[]{\textcolor{blue}{Lecture 9:\\An Introduction to Instrumental Variables}}
+\title[]{\textcolor{blue}{Lecture 10:\\An Introduction to Panel Data}}
 \author{25117 - Econometrics}
 \institute[shortinst]{Universitat Pompeu Fabra}
 
-\date{November 18th, 2024}
+\date{November 20th, 2024}
 
 \begin{document}
 
@@ -160,485 +160,721 @@
 
 
 \begin{frame}{What we learned in the last lesson}
-\item Statistical studies are evaluated by asking whether the analysis is internally and externally valid.\\[1em]
-\begin{itemize}
-    \item A study is internally valid if the statistical inferences about causal effects are valid for the population being studied. In regression estimation of causal effects, there are two main types of threats to internal validity:
-    \begin{itemize}
-        \item First, OLS estimators are biased and inconsistent if the regressors and error terms are correlated.
-        \item Second, confidence intervals and hypothesis tests are not valid when the standard errors are incorrect.
-    \end{itemize}\\[1em]
-    \item A study is externally valid if its inferences and conclusions can be generalized from the population and setting studied to other populations and settings.
-\end{itemize} 
-\end{frame}
 
-
-\begin{frame}{Instrumental Variables}
-Consider the following regression model:
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_i + u_i
-\end{equation*}
 \begin{itemize}
-    \item OVB,  Simultaneous causality bias, Errors-in-variables bias... all three result in $\mathbb{E}(u\mid X)\neq0$\\[1em]
-    \item Instrumental variables regression can eliminate bias when $\mathbb{E}(u\mid X)\neq0$, using an instrumental variable (IV), $Z$.\\[1em]
-    \item Intuitively, IV regression breaks $X$ into two parts:
-    \begin{enumerate}
-        \item an \textit{endogenous} part that might be correlated with $u$, and 
-        \item an \textit{exogenous}  part that is not. 
-    \end{enumerate}\\[1em]
-By isolating the part that is not correlated with $u$, it is possible to estimate $\beta_1$
+    \item Instrumental variables regression is a way to estimate causal coefficients when one or more regressors are correlated with the error term.
+    \item  Endogenous variables are correlated with the error term in the equation of interest; exogenous variables are uncorrelated with this error term.
+    \item  For an instrument to be valid, it must be (1) correlated with the included endogenous variable and (2) exogenous.
+    \item  IV regression requires at least as many instruments as included endogenous variables.
+    \item The TSLS estimator has two stages.
+\begin{itemize}
+    \item First, the included endogenous variables are regressed against the included exogenous variables and the instruments.
+    \item Second, the dependent variable is regressed against the included exogenous variables and the predicted values of the included endogenous variables from the first-stage regression(s).
 \end{itemize}
+    \item Weak instruments (instruments that are nearly uncorrelated with the included endogenous variables) make the TSLS estimator biased and TSLS confidence intervals and hypothesis tests unreliable.
+    \item If an instrument is not exogenous, the TSLS estimator is inconsistent.
+\end{itemize}
+
+\end{frame}
+
+
+\section{Starting with Pooled Data}
+
+\begin{frame}
+  \vfill
+  \centering
+    {\huge \color{blue} \textit{Starting with Pooled Data}}
+  \vfill
 \end{frame}
 
 
 
-\begin{frame}{Instrumental Variables}
-For an instrumental variable (an “instrument”) Z to be valid, it must satisfy two conditions:
-\begin{enumerate}
-    \item \textbf{Instrument relevance:} $Z$ is a strong determinant of $X$ ($corr(Z, X)\neq 0$)
-    \item \textbf{Instrument exogeneity (exclusion restriction):} $Z$ is unrelated to $u$ ($corr(Z, u) = 0$)
-\end{enumerate}
+\begin{frame}{Cross-Section}
+ \begin{columns}
+\begin{column}{0.3\textwidth}
+So far we have been mostly focused on \textbf{cross-sectional data} --- a type of data collected at a single point in time or over a very short period, capturing information from multiple subjects or entities at that specific moment.\\[1em]
 
-\begin{center}
+In other words, it provides a snapshot or a ``cross-section'' of a population or a phenomenon at a particular point in time.
+
+\end{column}
+\begin{column}{0.7\textwidth}
 \begin{figure}
-    \resizebox{.9\linewidth}{!}{%
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,292); %set diagram left start at 0, and has height of 292
-
-%Shape: Ellipse [id:dp6518310746416693] 
-\draw   (187.23,223.93) .. controls (187.23,206.77) and (201.01,192.85) .. (218,192.85) .. controls (234.99,192.85) and (248.77,206.77) .. (248.77,223.93) .. controls (248.77,241.09) and (234.99,255) .. (218,255) .. controls (201.01,255) and (187.23,241.09) .. (187.23,223.93) -- cycle ;
-%Shape: Ellipse [id:dp21717165537664984] 
-\draw   (556.46,222.68) .. controls (556.46,205.52) and (570.24,191.61) .. (587.23,191.61) .. controls (604.22,191.61) and (618,205.52) .. (618,222.68) .. controls (618,239.85) and (604.22,253.76) .. (587.23,253.76) .. controls (570.24,253.76) and (556.46,239.85) .. (556.46,222.68) -- cycle ;
-%Shape: Ellipse [id:dp6180865660156953] 
-\draw   (358.31,66.07) .. controls (358.31,48.91) and (372.08,35) .. (389.08,35) .. controls (406.07,35) and (419.85,48.91) .. (419.85,66.07) .. controls (419.85,83.23) and (406.07,97.15) .. (389.08,97.15) .. controls (372.08,97.15) and (358.31,83.23) .. (358.31,66.07) -- cycle ;
-%Shape: Ellipse [id:dp049861641718563554] 
-\draw  [color={rgb, 255:red, 11; green, 8; blue, 234 }  ,draw opacity=1 ] (42,84.72) .. controls (42,67.56) and (55.78,53.64) .. (72.77,53.64) .. controls (89.76,53.64) and (103.54,67.56) .. (103.54,84.72) .. controls (103.54,101.88) and (89.76,115.79) .. (72.77,115.79) .. controls (55.78,115.79) and (42,101.88) .. (42,84.72) -- cycle ;
-%Straight Lines [id:da038069870660455196] 
-\draw [color={rgb, 255:red, 6; green, 20; blue, 244 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (94.92,107.09) -- (192.48,203.18) ;
-\draw [shift={(194.62,205.28)}, rotate = 224.57] [fill={rgb, 255:red, 6; green, 20; blue, 244 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
-%Straight Lines [id:da7311874040313404] 
-\draw [color={rgb, 255:red, 244; green, 6; blue, 31 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (361.09,88.06) -- (243.53,203.18) ;
-\draw [shift={(241.38,205.28)}, rotate = 315.6] [fill={rgb, 255:red, 244; green, 6; blue, 31 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
-\draw [shift={(363.23,85.96)}, rotate = 135.6] [fill={rgb, 255:red, 244; green, 6; blue, 31 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
-%Straight Lines [id:da7673731200325982] 
-\draw [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ]   (248.77,223.93) -- (553.46,222.7) ;
-\draw [shift={(556.46,222.68)}, rotate = 179.77] [fill={rgb, 255:red, 126; green, 211; blue, 33 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
-%Straight Lines [id:da44429091772583584] 
-\draw [color={rgb, 255:red, 61; green, 222; blue, 2 }  ,draw opacity=1 ]   (414,84) -- (562.71,199.71) ;
-\draw [shift={(565.08,201.55)}, rotate = 217.89] [fill={rgb, 255:red, 61; green, 222; blue, 2 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
-%Curve Lines [id:da5510041670949384] 
-\draw  [dash pattern={on 0.84pt off 2.51pt}]  (328,124) .. controls (400.64,233.45) and (560.39,197.37) .. (530.47,89.63) ;
-\draw [shift={(530,88)}, rotate = 73.64] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-%Curve Lines [id:da9877608396858246] 
-\draw  [dash pattern={on 0.84pt off 2.51pt}]  (463,120) .. controls (457.06,122.97) and (548.15,150.44) .. (530.57,89.86) ;
-\draw [shift={(530,88)}, rotate = 72.39] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-%Curve Lines [id:da31587639785238864] 
-\draw  [dash pattern={on 0.84pt off 2.51pt}]  (80.14,51.79) .. controls (98.88,16.95) and (120.26,40.2) .. (133,50) ;
-\draw [shift={(79,54)}, rotate = 296.57] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
-\draw (66,75) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 13; green, 16; blue, 187 }  ,opacity=1 ] [align=left] {$Z$};
-% Text Node
-\draw (212,217.29) node [anchor=north west][inner sep=0.75pt]   [align=left] {$X$};
-% Text Node
-\draw (580.23,214.05) node [anchor=north west][inner sep=0.75pt]   [align=left] {$Y$};
-% Text Node
-\draw (383,60) node [anchor=north west][inner sep=0.75pt]   [align=left] {$u$};
-% Text Node
-\draw (489,69) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\mathbb{E}(u\mid X)\neq0$};
-% Text Node
-\draw (113,53) node [anchor=north west][inner sep=0.75pt]   [align=left] {Instrumental Variable (IV)};
-
-
-\end{tikzpicture}
-}
+  \centering
+         \vspace{-1mm}
+        \includegraphics[scale=.4]{images/crossex0.png}
 \end{figure}
-\end{center}
+\end{column}
+\end{columns}
+\end{frame}
 
+
+\begin{frame}{Pooled Cross-Section}
+ \begin{columns}
+\begin{column}{0.3\textwidth}
+A natural extension of the cross-sectional data is the \textbf{pooled cross-sectional data} --- where cross-sectional data is gathered at multiple points in time and where each cross-sectional study is independent of the others.\\[1em]
+
+In other words, different samples of subjects or entities are observed during each data collection period.
+
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+        \includegraphics[scale=.4]{images/repcrossex0.png}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Pooled Cross-Section}
+Many surveys, randomly sampling individuals, families, or firms are repeated at regular time intervals (e.g., CPS in the U.S.)\\[1em]
+
+Pooled together $\Longrightarrow$ independently pooled cross section
+
+\begin{columns} 
+% Column 1
+    \begin{column}{.5\textwidth}
+        \begin{center}
+            \textbf{Pros}
+        \end{center}
+        \begin{itemize}
+            \item Statistical inference is the same as for cross-sectional methods
+            \item Larger sample size (i.e., lower standard errors)
+            \item Enables us to estimate trends conditional on explanatory variables.
+            \item Enables us to estimate how the effect of one factor has changed over time (e.g., how did the gender wage gap change?)
+        \end{itemize}
+    \end{column}
+    \begin{column}{.5\textwidth}
+        \begin{center}
+            \textbf{Cons}
+        \end{center}
+        \begin{itemize}
+        \setcounter{enumi}{7}
+            \item Populations have different distribution across time periods, thus they are not \textit{identically} distributed\\
+            $\rightarrow$ we can allow the intercept to differ across periods! \textit{(how?)}
+        \end{itemize}
+
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps72.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps74.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps76.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps78.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps80.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps82.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fertility over time}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/cps84.png}
+\end{figure}
 \end{frame}
 
 
 
 
-\begin{frame}{Two Stages Least Squares (2SLS)}
-Assume that $Z$ satifies both conditions. Then the 2SLS estimator of $\beta_1$ is obtained by
+\begin{frame}{Fertility over time}
+ \begin{columns}
+\begin{column}{0.3\textwidth}
+From Lecture 7 --- We can use year-specific intercepts by including year-specific dummies\\[1em]
+Remember from Lecture 7 ---  the base year here is...?\\[1em]
+
+Sharp decline in the number of kids per woman in the 1980s which is $not$ explained by changes in main demographics
+
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.9\linewidth]{images/cps1.png}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Gender Gap}
+As in Lecture 7, we can allow for different intercepts \textit{and} slopes gradients by interacting a dummy and a continuous variable\\[1em]
+
+\textbf{Example:}
 \begin{itemize}
-    \item \textbf{First Stage ---} Regress $X_i$ on $Z_i$ (including the intercept), and obtain the predicted values $\hat{X}_i$.
-    \item \textbf{Second Stage ---} Regress $Y_i$ on $\hat{X}_i$ (including the intercept), the coefficient on $\hat{X}_i$ is the 2SLS estimator $\hat{\beta}_1^{2SLS}$
-\end{itemize}\\[.5em]
-Formally, suppose that $Z$ satisfies both conditions. As a first step, suppose that we use it as a proxy for $X$. The reduced-form estimator, $\beta_1^{RF}$, reads
+    \item Pooled 2 cross-sectional datasets (1978 and 1985)
+    \item Data on wages, educational attainment, and gender
+    \item \underline{\textit{Questions:}}
+    \begin{itemize}
+        \item Did the gender wage gap change from 1978 to 1985?
+        \item Did the return to education change from 1978 to 1985?
+\end{itemize}
+\end{itemize}
 \begin{eqnarray*}
-    & \beta_1^{RF} = \frac{cov(Z_i, Y_i)}{var(Z_i)}=\frac{cov(Z_i, [\beta_0 + \beta_1 X_i + u_i])}{var(Z_i)}=\beta_1\frac{cov(Z_i, X_i)}{var(Z_i)}\\
-    &\Rightarrow \beta_1 = \frac{cov(Z_i, Y_i)}{var(Z_i)}/\frac{cov(Z_i, X_i)}{var(Z_i)} = \frac{cov(Z_i, Y_i)}{cov(Z_i, X_i)}
+    &ln(wage) &= \beta_0 + \beta_1 \mathbbm{1}_{1985} + \beta_2 Educ + \beta_3 (Educ \times \mathbbm{1}_{1985} ) + \beta_4 Female + \beta_5 (Female \times \mathbbm{1}_{1985} ) \\
+    &{} &+ \beta_6 Experience  + \beta_7 {Experience}^2 + \beta_8 Union + u
 \end{eqnarray*}
-The IV estimator (replacing population covariances with the sample covariances) is a consistent estimator of $\beta_1$:
- \begin{eqnarray*}
-    &\hat{\beta}_1^{2SLS}= \frac{s_{ZY}}{s_{ZX}} \overset{p}{\to}  \frac{cov(Z_i, Y_i)}{cov(Z_i, X_i)} = \beta_1 \text{~~~~~~~~~}\Biggl(\text{Note that~} \hat{\beta}_1^{OLS}= \frac{s_{XY}}{s_{XX}} \Biggr)
-\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Gender Gap}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.8\linewidth]{images/gendergap0.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Testing Differences in Pooled regressions}
+When \textit{all} variables are interacted with the time dummies, the regression specification is equivalent to estimating separate regressions --- one for each year.\\[1em]
+
+As in Lecture 7, one can test whether the population regression lines differ across two different years by running a simple \textbf{Chow test}.\\[1em]
+
+First, run the fully interacted model ($year_1$ serves as the base period)
+\begin{equation*}
+    Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \beta_{k+1} \mathbbm{1}_{year_2} + \beta_{k+2}  (\mathbbm{1}_{year_2} \times X_{1i}) + \cdots + \beta_{2k+1}(\mathbbm{1}_{year_2}\times X_{ki})  + u_i
+\end{equation*}
+
+Then test $\beta_{k+1}=\beta_{k+2}=\cdots=\beta_{2k+1}=0$\\[1em]
+
+We can also test whether the intercepts differ between the 2 groups ($H_0: \beta_{k+1}=0$) or whether the slopes differ ($H_0: \beta_{k+2}=\cdots=\beta_{2k+1}=0$)
+\end{frame}
+
+
+\section{From Pooled to Panel Data}
+
+\begin{frame}
+  \vfill
+  \centering
+    {\huge \color{blue} \textit{From Pooled to Panel Data}}
+  \vfill
+\end{frame}
+
+\begin{frame}{What is a panel dataset?}
+A panel dataset (also called longitudinal data) contains observations on multiple entities (e.g., individuals, states, companies, etc.), observed at two or more points in time (e.g., days, months, years, decades, etc.).\\[1em]
+
+For example,
+\begin{itemize}
+    \item Data on 420 California school districts in 1999 and again in 2000, for 840 observations total.
+    \item Data on 50 U.S. states, each state is observed in 3 years, for a total of 150 observations.
+    \item Data on 1000 individuals in four different months, for 4000 observations total.
+\end{itemize}
+\vspace{1em}
+
+Panel data with $k$ regressors: $\{X_{1,it}, X_{2,it}, ..., X_{k,it}, Y_{it}\}$ where $i=1, \dots, n$ and $t=1, \dots, T$\\[1em]
+
+When all $k+1$ variables are observed for all units $i$ at all points in time $t$ (i.e., no missing observations), we say the panel is balanced.
+\end{frame}
+
+
+
+
+\begin{frame}{Panel Data}
+ \begin{columns}
+\begin{column}{0.3\textwidth}
+\textbf{Panel} data is also known as \textbf{longitudinal} data or \textbf{cross-sectional time-series} data\\[1em]
+
+It involves observations of multiple entities over multiple time periods.\\[1em]
+
+We say a panel is \textbf{balanced} if all entities are observed in each time period, and there are no missing observations.\\[1em]
+
+We will focus on the case where $N>>T$
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.9\linewidth]{images/panelex0.png}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+% Types of datasets
+% Pooled data models
+% Chow test
+% Hicks 1994
+
+\begin{frame}{Why are panel data useful? }
+With panel data, we can control for factors that:
+\begin{itemize}
+    \item Vary across units but not over time (in the sample period) {\footnotesize $\longleftarrow$ (we will focus on that case first)}
+    \item Vary over time (in the sample period) but not across units
+\end{itemize}
+\vspace{1em}
+These `black boxes' could contain omitted variables, which are typically unobserved or unmeasured --- and therefore cannot be included in the regression using multiple regression.\\[1em]
+
+For example,
+\begin{itemize}
+    \item Average individual ability or preferences
+    \item Cultural attitudes
+    \item First geography (distances, topography, etc.) components
+    \item Aggregate trends
+\end{itemize}
+\vspace{1em}
+
+Here’s the key idea:\\
+\begin{itemize}
+    \item If an omitted variable does not change over time or across units, then any changes in Y over time and across units cannot be caused by the omitted variable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example of a panel data set}
+You want to study the impact of alcohol taxes on traffic death.\\[1em]
+\begin{itemize}
+    \item Observational unit: U.S. state ($n=48$), yearly ($T=7$) between 1982 and 1988
+    \item Balanced panel, so total observations $=7\times48=336$
+    \item Variables:
+    \begin{itemize}
+        \item Traffic fatality rate (\# traffic deaths in that state in that year, per 10,000 state residents)
+        \item Tax on a case of beer
+        \item Other (legal driving age, drunk driving laws, etc.)
+    \end{itemize}
+    \vspace{1em}
+Consider the simple following specification:
+\begin{equation*}
+    Fatalities_{i,t} = \beta_0 + \beta_1 BeerTax_{i,t} + u_{i,t}
+\end{equation*}
+where $t$ is a specific year, so we are just looking at individual cross-sections...
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{Two Stages Least Squares (2SLS)}
-For another way to see it, consider the system of reduced-form equations:
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1982}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1982.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1983}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1983.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1984}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1984.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1985}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1985.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1986}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1986.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1987}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1987.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax --- 1988}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax1988.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax -- First Differences}
+Simple analysis of individual cross sections return weird results... Higher alcohol taxes, more traffic deaths? Arguably, omitted factors could cause omitted variable bias (which ones?)\\[1em]
+Now consider the simple panel specification:
+\begin{equation*}
+    Fatalities_{i,t} = \beta_0 + \delta_0\mathbbm{1}_{1988} +\beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
+\end{equation*}
+where $t\in\{1982, 1988\}$.\\[1em]
+If $Z_i$ is not observed, we could run in an OVB issue. But taking the first difference eliminates the value of $Z_i$!
+\begin{equation*}
+    Fatalities_{i,1988}-  Fatalities_{i,1982}= \delta_0 +  \beta_1 (BeerTax_{i,1988}-BeerTax_{i,1982}) + (u_{i,1988}-u_{i,1982})
+\end{equation*}\\[1em]
+This “difference” equation can be estimated by OLS, even though $Z_i$ is unobserved!\\[1em]
+%$\delta_0$ captures the differences in the intercepts ($\beta_0^{1982}\neq\beta_0^{1988}$!) 
+\end{frame}
+
+\begin{frame}{Traffic Fatalities vs. Beer Tax -- First Differences}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertaxchange.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{First Differences when $T>2$}
+We can also use differencing with more than two time periods:
+
+\begin{equation*}
+    Fatalities_{i,t} = \beta_0 + \delta_1\mathbbm{1}_{1983} + \delta_2\mathbbm{1}_{1984}  + \cdots +  \delta_6\mathbbm{1}_{1988} +\beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
+\end{equation*}\\[1em]
+
+That is,
 \begin{eqnarray*}
-    & X_i &= \pi_0 + \pi_1 Z_i + v_i\\
-    & Y_i &= \gamma_0 + \gamma_1 Z_i + w_i
+    &Fatalities_{i,1982} = \beta_0 +\beta_1 BeerTax_{i,1982} + \beta_2 Z_i + u_{i,1982}\\
+    &Fatalities_{i,1983} = \beta_0 + \delta_1\mathbbm{1}_{1983} +\beta_1 BeerTax_{i,1983} + \beta_2 Z_i + u_{i,1983}\\
+    &Fatalities_{i,1984} = \beta_0 + \delta_2\mathbbm{1}_{1984} +\beta_1 BeerTax_{i,1984} + \beta_2 Z_i + u_{i,1984}\\
+    & \cdots\\
+    &Fatalities_{i,1988} = \beta_0 + \delta_6\mathbbm{1}_{1988} +\beta_1 BeerTax_{i,1988} + \beta_2 Z_i + u_{i,1988}
+\end{eqnarray*}\\[1em]
+We do so by taking differences between adjacent time periods:
+\begin{equation*}
+    \Delta Fatalities_{i,t}= \delta_1 + \Delta\delta_2\mathbbm{1}_{1984}+\cdots+ \Delta\delta_6\mathbbm{1}_{1988}+ \beta_1  \Delta BeerTax_{i,t} + \Delta u_{i,t}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Limits of First-Differences}
+\begin{itemize}
+    \item The main limitation of using FD compared to other methods is probably that we lose the initial period (there are $N(T-1)$ observations)\\[1em]
+    \item Because FD builds on ensuing observations, missing data can be very problematic (imagine if we only observe some $i$ once every other year)\\[1em]
+    \item Typically, the variation in the differenced independent variable is much smaller than the variation in the original independent variable. Thus, imprecise estimates could happen from the FD estimator.\\[1em]
+    \item Serial correlation (more on that later)\\[1em]
+    \item First differencing can enlarge classical errors-in-variable (i.e., measurement error) bias\\[1em]
+\end{itemize}
+\end{frame}
+
+
+\section{Fixed Effects Models}
+
+\begin{frame}
+  \vfill
+  \centering
+    {\huge \color{blue} \textit{Fixed Effects Models}}
+  \vfill
+\end{frame}
+
+
+{ % all template changes are local to this group.
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}<article:0>[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[keepaspectratio,
+                                 width=.9\paperwidth,
+                                 height=.9\paperheight]{images/fe0.png}
+            };
+        \end{tikzpicture}
+     \end{frame}
+}
+
+
+{ % all template changes are local to this group.
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}<article:0>[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[keepaspectratio,
+                                 width=.9\paperwidth,
+                                 height=.9\paperheight]{images/fe1bis.png}
+            };
+        \end{tikzpicture}
+     \end{frame}
+}
+
+
+
+\begin{frame}{Fixed Effects Regressions}
+The general FE model reads
+\begin{equation*}
+    Fatalities_{i,t} = \beta_0 + \beta_1 BeerTax_{i,t} + \beta_2 Z_i + u_{i,t}
+\end{equation*}\\[1em]
+For example, in the case of California,
+\begin{eqnarray*}
+    &Fatalities_{CA,t} &= \beta_0 + \beta_1 BeerTax_{CA,t} + \beta_2 Z_{CA} + u_{CA,t}\\
+    & &= (\beta_0 + \beta_2 Z_{CA}) + \beta_1 BeerTax_{CA,t}  + u_{CA,t}\\
+    & &= \alpha_{CA} + \beta_1 BeerTax_{CA,t}  + u_{CA,t}
+\end{eqnarray*}\\[1em]
+Where $\alpha_{CA}$ is the intercept for California, and $\beta_1$ is the slope.\\[1em]
+The intercept is unique to CA, but the slope is the same in all the states: parallel lines.
+\end{frame}
+
+\begin{frame}{Fixed Effects Regressions}
+ \begin{columns}
+\begin{column}{0.35\textwidth}
+Two equivalent ways of writing the same specification:\\[1em]
+    \begin{eqnarray*}
+        Y_{i,t} = \beta_0 + \beta_1 X_{i,t} + \gamma_1 D_{i}\mid_{i=1}\\
+        + \gamma_2 D_{i}\mid_{i=2}+ \dots + \gamma_n D_{i}\mid_{i=n} + u_{i,t}
+    \end{eqnarray*}
+where $D_{i}\mid_{i=n} = 1$ if $i=n$ (i.e., state \#$n$).\\[1em] And,
+    \begin{equation*}
+        Y_{i,t} = \alpha_i + \beta_1 X_{i,t}  + u_{i,t}
+    \end{equation*}
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+        \includegraphics[scale=.3]{images/fixedeffects0.jpg}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Fixed Effects Regressions}
+Including $n$ extra (fixed effect) dummies can be computationally intensive when $n$ is large. What regression softwares typically do is to (time-)\textit{demean} (\textbf{within transformation}) the specification:
+    \begin{equation*}
+        \bar{Y}_i = \alpha_i + \frac{1}{T}\sum_{t=1}^T \beta_1 X_{i,t}  + \frac{1}{T}\sum_{t=1}^T  u_{i,t}
+    \end{equation*}
+Which yields to
+    \begin{equation*}
+        Y_{i,t} - \bar{Y}_i =  \beta_1 (X_{i,t}-\frac{1}{T}\sum_{t=1}^T X_{i,t})  + (u_{i,t}-\frac{1}{T}\sum_{t=1}^T  u_{i,t})
+    \end{equation*}
+which can be estimated by simple OLS, that is
+    \begin{equation*}
+        \tilde{Y}_{i,t}= \beta_1 \tilde{X}_{i,t} + \tilde{u}_{i,t}
+    \end{equation*}
+and $\beta_1$ isolates the impact of changes in $X$ within a unit, ignoring the constant, unit-specific factors influencing both $X$ and $Y$.
+\end{frame}
+
+\begin{frame}{Fixed Effects Regressions}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/fixedeffects1.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Fixed Effects Regressions}
+By analogy, we can also include time FEs (i.e., they are the same across unit but vary in time). What omitted variable could be captured by time FEs in the traffic fatalities vs. beer taxes case?\\[1em]
+
+The population line for, say, 1985 reads
+\begin{eqnarray*}
+    &Fatalities_{i,1985} &= \beta_0 + \beta_1 BeerTax_{i,1985} + \beta_2 Z_{1985} + u_{i,1985}\\
+    & &= (\beta_0 + \beta_2 Z_{1985}) + \beta_1 BeerTax_{i,1985}  + u_{i,1985}\\
+    & &= \lambda_{1985} + \beta_1 BeerTax_{i,1985}  + u_{i,1985}
+\end{eqnarray*}\\[1em]
+Where $\lambda_{1985}$ is the intercept for 1985, and $\beta_1$ is the slope.\\[1em]
+
+The dummies notation holds, as in the preceding example with unit FEs.
+
+\end{frame}
+
+
+\begin{frame}{Fixed Effects Regressions}
+Including $T$ extra (fixed effect) dummies can be computationally intensive when $T$ is large. As before, we can transform the panel model specification into a simple OLS one by demeaning:
+    \begin{equation*}
+        \bar{Y}_t = \lambda_t + \frac{1}{n}\sum_{i=1}^n \beta_1 X_{i,t}  + \frac{1}{n}\sum_{i=1}^n  u_{i,t}
+    \end{equation*}
+Which yields to
+    \begin{equation*}
+        Y_{i,t} - \bar{Y}_t =  \beta_1 (X_{i,t}-\frac{1}{n}\sum_{i=1}^n X_{i,t})  + (u_{i,t}-\frac{1}{n}\sum_{i=1}^n  u_{i,t})
+    \end{equation*}
+which can be estimated by simple OLS, that is
+    \begin{equation*}
+        \check{Y}_{i,t}= \beta_1 \check{X}_{i,t} + \check{u}_{i,t}
+    \end{equation*}
+and $\beta_1$ captures the effect of changes in $X$ within a specific time period, accounting for shared temporal factors that affect both $X$ and $Y$ at the same time.
+\end{frame}
+
+\begin{frame}{Raw Panel Data}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax_panel0.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Accounting for $\alpha_i$}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax_panel1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Accounting for $\lambda_t$}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax_panel2.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Both unit and time fixed effects}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax_panel3.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Both unit and time fixed effects}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.75\linewidth]{images/beertax_panel4.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{The Fixed Effects Simple Regression Assumptions}
+Consider the following regression model
+\begin{equation*}
+    Y_{it} = \alpha_i + \beta_1 X_{i,t} + u_{i,t}
+\end{equation*}
+\begin{enumerate}
+    \item $\mathbb{E}(u_i\mid X_{i1}, X_{i2}, \dots, X_{iT}, \alpha_i, \lambda_t)=0$ 
+    \item $(X_{i1}, X_{i2}, \dots, X_{iT}, u_{i1}, u_{i2}, \dots, u_{iT})$ are i.i.d. draws from their joint distribution
+    \item Large outliers are unlikely: ($X_{it}, u_{i,t}$) have fourth moments.
+    \item There is no perfect multicollinearity (multiple $X$'s)
+\end{enumerate}
+\vspace{1em}
+
+Assumption 1 means that the error term cannot be correlated with any present, past, or future value of $X$ (no omitted lagged effects, no feedback loop!)\\[1em]
+
+Assumption 2 means that variables are independent across units but makes no such restriction within a unit.\\[1em]
+
+Assumption 3 and 4 did not change (see Lecture 7).
+\end{frame}
+
+\begin{frame}{Serial Correlation}
+ \begin{columns}
+\begin{column}{0.35\textwidth}
+\begin{itemize}
+    \item Following up on Assumption 2, when $u_{i,t}$ is correlated over time within a unit, i.e., when $cov(u_{i,t}, u_{i,t+j})\neq 0$ we say that $u_{i,t}$ is \textbf{autocorrelated}, or \textbf{serially correlated}.\\
+    \item If entities are sampled by simple random sampling, then $(u_{i1}, u_{i2}, \dots, u_{iT})$ is independent of $(u_{j1}, u_{j2}, \dots, u_{jT})$...
+\end{itemize}
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{figure}
+  \centering
+        \includegraphics[scale=.5]{images/serial0.jpg}
+\end{figure}
+\begin{itemize}
+    \item But in many panel data applications, $u_{i,t}$ is serially correlated
+    \item[$\longrightarrow$] Clustering/Moulton's problem (1986)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Clustered SEs}
+The usual OLS standard errors (both homoskedasticity-only and heteroskedasticity-robust) will in general be wrong because they assume that $u_{it}$ is serially uncorrelated.\\[1em]
+
+In practice, they often understate the true sampling uncertainty: if $u_{it}$ are correlated over time, you don’t have as much information (as much random variation) as you would if $u_{it}$ were uncorrelated!\\[1em]
+
+To see this, consider the panel the panel (time-)demeaned regression estimator
+\begin{equation*}
+    \hat{\beta}_1 = \frac{\sum_{i=1}^n\sum_{t=1}^T (X_{it}-\bar{X}_i)(Y_{it}-\bar{Y}_i)}{\sum_{i=1}^n\sum_{t=1}^T (X_{it}-\bar{X}_i)^2} = \frac{\sum_{i=1}^n\sum_{t=1}^T \tilde{X}_{it} \tilde{Y}_{it}}{\sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2} = \beta_1 +  \frac{\frac{1}{nT}\sum_{i=1}^n\sum_{t=1}^T \tilde{X}_{it} \tilde{u}_{it}}{\frac{1}{nT} \sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2}
+\end{equation*}\\[1em]
+This completely mirrors the basic OLS estimator equation!!!
+\end{frame}
+
+\begin{frame}{Clustered SEs}
+Rearranging the terms,
+
+    \begin{equation*}
+        \sqrt{nT}(\hat{\beta}_1 - \beta_1)  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \sqrt{\frac{1}{T}} \sum_{t=1}^T 
+ \tilde{X}_{it} \tilde{u}_{it} }{\frac{1}{nT} \sum_{i=1}^n\sum_{t=1}^T  \tilde{X}_{it}^2}  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \eta_i }{\hat{Q}_{\tilde{X}}}
+    \end{equation*}
+
+Because $\eta_i$ is i.i.d across units (by Assumption 2), of mean 0 (by Assumption 1), with finite variance (by Assumption 3), then (same reasoning as in Lecture 3!)
+
+    \begin{equation*}
+  \sqrt{nT}(\hat{\beta}_1 - \beta_1)  = \frac{\sqrt{\frac{1}{n}}\sum_{i=1}^n \eta_i }{\hat{Q}_{\tilde{X}}} \sim \mathcal{N}\Big(0, \frac{\sigma_\eta^2}{{Q}_{\tilde{X}}^2} \Big) \text{~~~~ as $n$ grows large}
+    \end{equation*}
+
+Now, note that
+
+\begin{equation*}
+    \sigma_\eta^2 = var\Bigg(\sqrt{\frac{1}{T}} \sum_{t=1}^T 
+ \tilde{X}_{it} \tilde{u}_{it}\Bigg) = \frac{1}{T} var\Big(\sum_{t=1}^T 
+ \tilde{X}_{it} \tilde{u}_{it}\Big) = \frac{1}{T} var\Big[\tilde{X}_{i1} \tilde{u}_{i1}+\dots+ \tilde{X}_{iT} \tilde{u}_{iT}\Big]
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Clustered SEs}
+Remember that $var(X + Y) = var(X) + var(Y) + 2cov(X,Y)$... therefore
+\begin{eqnarray*}
+    &\sigma_\eta^2 = &\frac{1}{T} \Big[var(\tilde{X}_{i1} \tilde{u}_{i1})+\dots+ var(\tilde{X}_{iT} \tilde{u}_{iT}) +\\
+    & &2cov(\tilde{X}_{i1} \tilde{u}_{i1}, \tilde{X}_{i2} \tilde{u}_{i2}) + \dots + 2cov(\tilde{X}_{i,T-1} \tilde{u}_{i,T-1}, \tilde{X}_{iT} \tilde{u}_{iT}) \Big]
 \end{eqnarray*}
-Because $Z$ is exogenous, $Z$ is uncorrelated with both $v_i$ and $w_i$.\\[1em]
-\underline{\textbf{The idea:}} An exogenous unit change in $Z$ results in a change in $X$ by $\pi_1$ units and a change in $Y$ by $\gamma_1$ units.\\[1em]
+The heteroskedasticity-robust variance formula seen so far misses all the (auto)covariances in the final part the equation... If there is a serial correlation, the usual heteroskedasticity-robust variance estimator is inconsistent!\\[1em]
 
-Thus an exogenous change in  $X$ by $\pi_1$ is associated with an exogenous change in $Y$ by $\gamma_1$ units.\\[1em]
+Clustered SEs for panel data are the logical extension of heteroskedastic (HR) SEs for cross-section. In cross-section regression, HR SEs are valid whether or not there is HR. In panel data regression, clustered SEs are valid whether or not there is HR and/or serial correlation.\\[1em]
 
-So the effect on $Y$ of an exogenous change in $X$ is $\beta_1^{2SLS} = \gamma_1/\pi_1$
-\end{frame}
-
-\begin{frame}{A Buttery Example}
-IV regressions were first developed in 1928 by Philip G. Wright to estimate supply and demand elasticities for agricultural goods,in particular, butter.\\[1em]
-
-Consider the following demand equation:
+To conclude, the HR-robust clustered SEs reads
 \begin{equation*}
-    ln(Q^{butter}_i) = \beta_0 + \beta_1 ln(P^{butter}_i)+ u_i
-\end{equation*}
-Here, $\beta_1$ captures the price-elasticity of butter, i.e., the percentage change in quantities due to a 1\% change in price.\\[1em]
-
-\textbf{\underline{Problem:}} The OLS regression of $ln(Q^{butter}_i)$ on $ln(P^{butter}_i)$ suffers from simultaneity (reverse causality) bias.\\[1em]
-
-Because prices, $ln(P^{butter}_i)$, are simultaneously determined in equilibrium by the interplay of supply and demand, $\beta_1$ was unlikely to capture neither the supply or demand elasticity of butter.
-
-\end{frame}
-
-
-\begin{frame}{A Buttery Example}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-        \item In every period, prices are determined in equilibrium by the simultaneous movements of supply and demand 
-        \item The equilibrium is determined by the intersection of the demand curve $D_k$ and supply curve $S_k$  
-    \end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-        \includegraphics[scale=.35]{images/butter1.jpg}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{A Buttery Example}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-        \item As a result, the set of $\{Price_k, Quantity_k\}$ is not informative about the specific demand and supply elasticities (i.e., the curves' slopes)
-        \item In this example, demand and supply elasticities could be anything, from perfectly elastic (a small change in $P$ is associated with a high change in $Q$) to completely inelastic (a high change in $P$ is associated with a little change in $Q$).
-    \end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-        \includegraphics[scale=.35]{images/butter2.jpg}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{A Buttery Example}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-        \item To determine the elasticity of demand, we need an IV that would shift only supply curves while leaving demand curves unchanged.
-        \item What could be such an instrument?
-    \end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-        \includegraphics[scale=.35]{images/butter3.jpg}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{A Buttery Example}
-A potential IV for the butter prices to estimate the demand elasticity for butter could be drought shocks to dairy regions ($Z$).\\[1em]
-It is a plausibly revelant IV: below-average rainfall in a dairy region  ($Z$) could impair grazing and thus reduce butter production at a given price, shifting the supply curve to the left and increasing the equilibrium price  ($X$)\\[1em]
-Drought shocks are also plausibly unrelated to the quantities of butter demanded  ($Y$)... except through the price increase ($X$)!\\[1em]
-Can you think of an instrument to estimate the supply elasticity of butter? In the California Schools example, what could be an instrument for the share of subsidized meals?
-\end{frame}
-
-\begin{frame}{Large-Sample properties}
-\begin{itemize}
-    \item As $n\rightarrow\infty$, $\hat{\beta}_1^{2SLS}\sim\mathcal{N}(\beta_1, \sigma^2_{\hat{\beta}_1})$ where $\sigma^2_{\hat{\beta}_1}=\frac{1}{n}\frac{var(Zi-\mu_Z)u_i}{[cov(Z_i, X_i)]^2}$
-    \item Statistical inference proceeds in the usual way.
-    \item The justification is (as usual) based on large samples
-    \item This all assumes that the instruments are valid -- we’ll discuss what happens if they aren’t valid shortly.
-    \item However, the OLS standard errors from the second stage regression aren’t right because they do not account for the estimation in the first stage
-    \item Instead, use a single specialized command that computes the 2SLS estimator and the correct SEs.
-    \item As usual, use heteroskedasticity-robust SEs
-\end{itemize}
-\end{frame}
-
-\begin{frame}{The General  IV  Regression Model }
-We can extend the simple IV framework to multiple endogenous regressors ($X$s), exogenous regressors or control variables ($W$s), and exogenous instruments ($Z$s).\\[1em]
-We say the coefficients $\beta_1, \dots, \beta_k$ are
-\begin{itemize}
-    \item \textbf{underidentified} if there are more regressors than instruments ($m<k)$.
-    \item \textbf{exactly identified} if there are as many regressors as instruments ($m=k)$.
-    \item \textbf{overidentified} if there are less regressors than instruments ($m>k)$.
-\end{itemize}\\[1em]
-E.g., with a single endogenous regressor:
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 W_{1i} + \dots + \beta_{r+1} W_{ri} + u_i
-\end{equation*}
-and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$.
-\end{frame}
-
-\begin{frame}{2SLS with a single endogenous regressor}
-With a single endogenous regressor:
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 W_{1i} + \dots + \beta_{r+1} W_{ri} + u_i
-\end{equation*}
-and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$.\\[1em]
-
-\textbf{First Stage:}\\
-\begin{itemize}
-    \item Regress $X_{1}$ on \textit{all} exogenous regressors, $W_{1}, \dots, W_{r}, Z_{1i}, \dots,Z_{mi}$, plus intercept.
-    \item Compute predicted values of $\hat{X}_1$
-\end{itemize}\\[1em]
-\textbf{Second Stage:}\\
-\begin{itemize}
-    \item Regress $Y$ on $\hat{X}_1$, $W_{1}, \dots, W_{r}$ and the intercept.
-    \item The coefficients from this second stage regression are the 2SLS estimators, but SEs are wrong
-    \item To get correct SEs, do this in a single step in your regression software
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Example with $m=1$ -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_FS_ols.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_FS_ivreg.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_SS_ols.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_SS_ivreg.png}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{The General IV Regression Assumptions}
-Consider the following specification
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \dots   \beta_k X_{ki} +  \beta_{k+1} W_{1i} + \dots + \beta_{k+r+1} W_{ri} + u_i
-\end{equation*}
-and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$. Under the following assumptions, the 2SLS estimator is consistent and has a sampling distribution that, in large samples, is approximately normal
-\setbeamertemplate{enumerate items}[default]
-\begin{enumerate}
-    \item $\mathbb{E}(u_i\mid W_{1i}, \dots, W_{ri}) = 0$ 
-    \item $(Y_i, X_{1i},  \dots , X_{ki}, W_{1i}, \dots, W_{ri},Z_{1i}, \dots,Z_{mi})$ are i.i.d.
-    \item Large outliers are unlikely: The $X$’s, $W$’s, $Z$’s, and $Y$ have nonzero finite fourth moments;
-    \item The instruments $Z_{1i}, \dots,Z_{mi}$ are valid:
-    \begin{enumerate}
-        \item \textit{Instrument exogeneity:} $corr(Z_{1i}, u_i)=0, \dots, corr(Z_{mi}, u_i)=0$
-        \item \textit{Instrument relevance:} Suppose the second stage regression could be run using the predicted values from the \textit{population} first stage regression. Then there is no perfect multicollinearity in this (infeasible) second-stage regression. Intuitively, the instruments must provide enough information about the exogenous movements in these variables to sort out their separate effects on $Y$.
-    \end{enumerate}
-\end{enumerate}
-\end{frame}
-
-
-\begin{frame}{Checking Assumption 4.1 -- Instrument exogeneity}
-\begin{itemize}
-    \item Instrument exogeneity: All the instruments are uncorrelated with the error term
-    \item In other words, $Z$ can only impact $Y$ \underline{through} $X$
-    \item If the instruments are correlated with the error team, the first stage of 2SLS cannot isolate a component of $X$ that is uncorrelated with the error team, so $\hat{X}$ is correlated with $u$ and 2SLS inconsistent.
-    \item If there are more instruments than endogenous regressors, it is possible to test -- \underline{partially} -- for instrument exogeneity.
-    \item Intuition: Consider the simplest case:
-    \begin{equation*}
-        Y_i = \beta_0 + \beta_1 X_i + u_i
-    \end{equation*}
-    Suppose there are two valid instruments: $Z_{1i}$ and $Z_{2i}$, then you can compute two separate 2SLS estimates. If these 2 2SLS estimates are very different from each other, then something must be wrong: one or the other (or both) of the instruments must be invalid
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Checking Assumption 4.1 -- Instrument exogeneity}
-The \textbf{J-test of overidentifying restrictions} (Anderson-Rubin test) makes this comparison in a statistically precise way.\\[1em]
-
-Suppose you have $m>k$. Then,
-\begin{enumerate}
-    \item Estimate the residuals $\hat{u}^{2SLS}_i$ from
-    \begin{equation*}
-        Y_i = \beta_0 + \beta_1 X_{1i} + \dots   \beta_k X_{ki} +  \beta_{k+1} W_{1i} + \dots + \beta_{k+r+1} W_{ri} + u_i
-    \end{equation*}
-    \item Estimate the following model
-    \begin{equation*}
-        \hat{u}^{2SLS}_i = \gamma_0 + \gamma_1 Z_{1i} + \dots   \gamma_m Z_{mi} +  \gamma_{m+1} W_{1i} + \dots + \gamma_{m+r+1} W_{ri} + e_i
-    \end{equation*}
-    \item Recover the homoskedasticity-only F-statistic testing $H_0: \gamma_0=\gamma_1=\dots=\gamma_m=0$. The overidentifying restrictions test statistic is $J = mF$
-    \item Under the null hypothesis that all the instruments
-are exogenous, if $e_i$ is homoskedastic, in large samples $J\sim\chi^2_{m-k}$ where $m-k$ is the degree of \textit{over}identification
-\end{enumerate}
-\end{frame}
-
-
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-In the first stage, we regress
-\begin{equation*}
-    X_i = \pi_0 + \pi_1 Z_{1i}+ \pi_2 Z_{2i} + \dots + \pi_m Z_{mi} + \pi_{m+1} W_{1i} + \pi_{m+2} W_{2i} + \dots + \pi_{m+k} W_{ki} +u_i
+    SE(\hat{\beta}_1)=\sqrt{\frac{1}{nT}\frac{s_{\hat{\eta}}^2}{\hat{Q}_{\tilde{X}}^2}}
 \end{equation*}
 
-The instruments are relevant \underline{\textit{if at least one}} of $\pi_1, \dots, \pi_m$ is non-zero\\
-
-The instruments are said to be \underline{\textit{weak}} if all the $\pi_1, \dots, \pi_m$ are either zero or nearly zero\\[1em]
-
-$\Rightarrow$ \textbf{Weak instruments} explain very little of the variation in $X$, beyond that explained by the $W$’s.\\[1em]
-
-If instruments are weak, the sampling distribution of 2SLS and its t-statistic are not (at all) normal, even with $n$ large.\\[1em]
-
-Remember that $\hat{\beta}_1^{2SLS}= \frac{s_{ZY}}{s_{ZX}} \overset{p}{\to}  \frac{cov(Z_i, Y_i)}{cov(Z_i, X_i)}$ and when instruments are weak, $cov(Z_i, X_i)$ tends to zero...\\[1em]
-
-We cannot conduct statistical inference with the usual methods when instruments are weak (inference under weak instruments is beyond the scope of this course).
-
 \end{frame}
 
+\begin{frame}{Final Remarks on Clustered SEs}
+We can cluster SEs by unit of observation (e.g., serial correlation within states), but also across units (e.g., regions above states) if we suspect potential correlation in observations within these higher-level clusters.\\[1em]
 
+However, asymptotic inference (as $n$ grows large) supposes we have a large number of clusters...\\[1em]% since we are at least clustering SEs at the unit-level (e.g., states)
 
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-\begin{center}
-\begin{figure}
-    \resizebox{.9\linewidth}{!}{%
+This is not always the case. When there are too few clusters and serial correlation, standard errors might be biased!\\[1em]
 
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Shape: Circle [id:dp7275541051674568] 
-\draw  [color={rgb, 255:red, 98; green, 178; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 242; blue, 36 }  ,fill opacity=0.24 ] (68,146) .. controls (68,89.67) and (113.67,44) .. (170,44) .. controls (226.33,44) and (272,89.67) .. (272,146) .. controls (272,202.33) and (226.33,248) .. (170,248) .. controls (113.67,248) and (68,202.33) .. (68,146) -- cycle ;
-%Shape: Circle [id:dp29955697964696837] 
-\draw  [color={rgb, 255:red, 9; green, 107; blue, 178 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 179; blue, 242 }  ,fill opacity=0.24 ] (161.5,147.5) .. controls (161.5,74.6) and (220.6,15.5) .. (293.5,15.5) .. controls (366.4,15.5) and (425.5,74.6) .. (425.5,147.5) .. controls (425.5,220.4) and (366.4,279.5) .. (293.5,279.5) .. controls (220.6,279.5) and (161.5,220.4) .. (161.5,147.5) -- cycle ;
-%Shape: Circle [id:dp26088917675528234] 
-\draw  [color={rgb, 255:red, 178; green, 9; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 242; green, 15; blue, 31 }  ,fill opacity=0.24 ] (122,153.5) .. controls (122,113.74) and (154.24,81.5) .. (194,81.5) .. controls (233.76,81.5) and (266,113.74) .. (266,153.5) .. controls (266,193.26) and (233.76,225.5) .. (194,225.5) .. controls (154.24,225.5) and (122,193.26) .. (122,153.5) -- cycle ;
-%Curve Lines [id:da7864761338128692] 
-\draw    (550,159) .. controls (546.04,220.38) and (503.86,225.89) .. (460.32,192.04) ;
-\draw [shift={(459,191)}, rotate = 38.5] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
-\draw (186,139) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{1,0,0}{{\large $Z$}}};
-% Text Node
-\draw (330,136) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 10; green, 6; blue, 235 }  ,opacity=1 ] [align=left] {$Y$};
-% Text Node
-\draw (89,127) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 79; green, 139; blue, 13 }  ,opacity=1 ] [align=left] {$X$};
-% Text Node
-\draw (469,134) node [anchor=north west][inner sep=0.75pt]   [align=left] {$Z$ is a \textbf{strong} instrument};
-
-
-\end{tikzpicture}
-}
-\end{figure}
-\end{center}
-
-\end{frame}
-
-
-
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-\begin{center}
-\begin{figure}
-    \resizebox{.9\linewidth}{!}{%
-
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Shape: Circle [id:dp7275541051674568] 
-\draw  [color={rgb, 255:red, 98; green, 178; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 242; blue, 36 }  ,fill opacity=0.24 ] (68,146) .. controls (68,89.67) and (113.67,44) .. (170,44) .. controls (226.33,44) and (272,89.67) .. (272,146) .. controls (272,202.33) and (226.33,248) .. (170,248) .. controls (113.67,248) and (68,202.33) .. (68,146) -- cycle ;
-%Shape: Circle [id:dp29955697964696837] 
-\draw  [color={rgb, 255:red, 9; green, 107; blue, 178 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 179; blue, 242 }  ,fill opacity=0.24 ] (161.5,147.5) .. controls (161.5,74.6) and (220.6,15.5) .. (293.5,15.5) .. controls (366.4,15.5) and (425.5,74.6) .. (425.5,147.5) .. controls (425.5,220.4) and (366.4,279.5) .. (293.5,279.5) .. controls (220.6,279.5) and (161.5,220.4) .. (161.5,147.5) -- cycle ;
-%Shape: Circle [id:dp26088917675528234] 
-\draw  [color={rgb, 255:red, 178; green, 9; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 242; green, 15; blue, 31 }  ,fill opacity=0.24 ] (127.5,148.25) .. controls (127.5,134.03) and (139.03,122.5) .. (153.25,122.5) .. controls (167.47,122.5) and (179,134.03) .. (179,148.25) .. controls (179,162.47) and (167.47,174) .. (153.25,174) .. controls (139.03,174) and (127.5,162.47) .. (127.5,148.25) -- cycle ;
-%Curve Lines [id:da7864761338128692] 
-\draw    (550,159) .. controls (546.04,220.38) and (503.86,225.89) .. (460.32,192.04) ;
-\draw [shift={(459,191)}, rotate = 38.5] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
-\draw (143,139) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{1,0,0}{{\large $Z$}}};
-% Text Node
-\draw (330,136) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 10; green, 6; blue, 235 }  ,opacity=1 ] [align=left] {$Y$};
-% Text Node
-\draw (89,127) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 79; green, 139; blue, 13 }  ,opacity=1 ] [align=left] {$X$};
-% Text Node
-\draw (469,134) node [anchor=north west][inner sep=0.75pt]   [align=left] {$Z$ is a \textbf{weak} instrument};
-
-
-\end{tikzpicture}
-}
-\end{figure}
-\end{center}
-
-\end{frame}
-
-
-
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-So... how relevant must the instruments be to draw causal inference in practice? How weak is weak?
-
-\begin{itemize}
-    \item Staiger and Stock (1997)’s Rule of thumb (1 endogenous variable!): Reject that your instruments are weak if $F\geq10$
-    \item Stock and Yogo (2005) formalized and generalized Staiger and Stock (1997) : Reject that your instruments are weak if $F > J_{10}(m)$ where $J_{10}(m)$ is chosen such that $P(F > J_{10}(m) ~~|~~ \text{2SLS bias $\leq$ 10\% $\times$ OLS bias)}= 0.05$
-
-\end{itemize}\\[1em]
-
-The literature on weak instrument testing is still ongoing (technical details are beyond the scope of this class)\\[1em]
-
-So if you have weak instruments,
-\begin{itemize}
-    \item Get better instruments (often easier said than done!)
-    \item If you have many instruments, some are probably weaker than others and it’s a good idea to drop the weaker ones (dropping an irrelevant instrument will increase the first-stage F)
-    \item If you only have a few instruments, and all are weak, then you need to switch from 2SLS to a method that is robust to weak instruments.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Summary}
-\begin{itemize}
-    \item A valid instrument lets us isolate a part of $X$ that is uncorrelated with $u$, and that part can be used to estimate the effect of a change in $X$ on $Y$\\[1em]
-    \item IV regression hinges on having valid instruments:
-    \begin{enumerate}
-        \item Exogeneity: Test overidentifying restrictions via the J-statistic + exercise your judgment 
-        \item Relevance: Check via first-stage F
-    \end{enumerate}\\[1em]
-    \item A valid instrument isolates variation in $X$ that is ``as if'' randomly assigned.\\[1em]
-    \item The critical requirement of at least $m$ valid instruments cannot be tested -- you must use your head!
-\end{itemize}
+In the Traffic Fatalities vs. Beer Tax example, is 48 (states) a number of clusters that is large enough? What should be done when there are too few clusters? This is out of the scope of this (introductory) lecture!
 \end{frame}
 
 
@@ -646,25 +882,11 @@ So if you have weak instruments,
 \begin{itemize}
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
-        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapters 12 - 13
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge -- Chapter 15.
-        \item Causal Inference, The Mixtape, by Scott Cunningham -- Chapter 6
-    \end{itemize}
-    \item[--] \textbf{Papers:}
-    \begin{itemize}
-        \item Angrist, J. D., \& Krueger, A. B. (1991). Does compulsory school attendance affect schooling and earnings?. The Quarterly Journal of Economics, 106(4), 979-1014.
-        \item Hoxby, C. M. (2000). Does competition among public schools benefit students and taxpayers?. American Economic Review, 90(5), 1209-1238.
-        \item Gruber, J., \& Hungerman, D. M. (2007). Faith-based charity and crowd-out during the great depression. Journal of Public Economics, 91(5-6), 1043-1069.
+        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapters 10 - 13
     \end{itemize}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
 
 
+
 \end{document}
-
-
-

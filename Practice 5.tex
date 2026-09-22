@@ -61,7 +61,7 @@
 \usepackage{minted}   % code prettyfier
 \usepackage{xsavebox} % file-size-efficient saveboxes
 \usepackage{animate}  % for animated scrolling
-\usepackage{MnSymbol} % \triangle, \triangledown for scroll buttons
+\usepackage{amssymb}  % \triangle, \triangledown for scroll buttons
 \usepackage{media9}   % buttons
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -265,7 +265,7 @@ Remember... There are 5 threats to the internal validity of regression studies:
     \item Errors-in-variables bias
     \item Sample selection bias
     \item Simultaneous causality bias
-\end{itemize}\\[1em]
+\end{itemize}\vspace{1em}
 All of these imply that $\mathbb{E}(u_i\mid X_1, X_2, \dots, X_k)\neq 0$ (or that the conditional mean independence fails) -- in which case OLS is biased and inconsistent!
 
 

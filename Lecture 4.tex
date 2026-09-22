@@ -173,12 +173,12 @@
     \begin{itemize}
         \item The slope, $\beta_1$, is the expected difference in $Y$ between two observations with $X$ values that differ by one unit.
         \item The intercept, $\beta_0$, determines the level (or height) of the regression line.
-    \end{itemize} \\[1em]
+    \end{itemize}\vspace{1em}
     \item The population regression line can be estimated using sample observations $(Y_i, X_i)$ with $i = 1, \dots, n$ by ordinary least squares (OLS).
     \begin{itemize}
         \item The OLS estimators of the regression intercept and slope are denoted $\hat{\beta}_0$ and $\hat{\beta}_1$.
         \item The predicted value of Y given X is $\hat{Y}=\hat{\beta}_0 + \hat{\beta}_1 X$.
-    \end{itemize} \\[1em]
+    \end{itemize}\vspace{1em}
 \end{itemize}
 \end{frame}
 
@@ -188,13 +188,15 @@
     \begin{itemize}
         \item The $R^2$ is between 0 and 1, indicating how much variance in our outcome is explained by the variance of our regressors.
         \item The standard error of the regression estimates the standard deviation of the regression error.
-    \end{itemize}\\[1em]
+    \end{itemize}
+    \vspace{1em}
     \item There are three key assumptions for estimating causal effects using the linear regression model:
     \begin{enumerate}
         \item The regression errors, $u_i$, have a mean of 0, conditional on the regressors $X_i$;
         \item the sample observations are i.i.d. random draws from the population; and 
         \item large outliers are unlikely
-    \end{enumerate}\\[1em]
+    \end{enumerate}
+    \vspace{1em}
    \item If these assumptions hold, the OLS estimator $\hat{\beta}_1$ is 
     \begin{enumerate}
         \item  an unbiased estimator of the causal effect ${\beta}_1$
@@ -602,7 +604,7 @@ Y_i = \beta_0 + \beta_1 X_{i}  + u_i
 Subject to the following assumptions:
 
 \begin{enumerate}
-    \item Zero Conditional Mean: The errors $\u_i$ have a conditional mean of zero given the values of the independent variables, i.e., $\mathbb{E}(u_i|X_{i}) = 0$ for all $i$.
+    \item Zero Conditional Mean: The errors $u_i$ have a conditional mean of zero given the values of the independent variables, i.e., $\mathbb{E}(u_i|X_{i}) = 0$ for all $i$.
 
     \item Random Draws: observations $(Y_i;X_i)$ are randomly drawn from the same population distribution, i.e., they are i.i.d. for all $i$.
     
@@ -614,7 +616,7 @@ Subject to the following assumptions:
 \end{enumerate}
 
 \begin{exampleblock}{Gauss-Markov Theorem}
-Under assumptions 1-4, the ordinary least squares (OLS) estimators $\hat{\beta}_0$ and $\hat{\beta}_1$  have the minimum variance among all linear unbiased estimators, making them Best Linear Unbiased Estimators (BLUE).
+Under assumptions 1-4, the OLS estimators are Best Linear Unbiased Estimators (BLUE).
 \end{exampleblock}
 \end{frame}
 
@@ -658,19 +660,8 @@ Suppose schools receive extra transfers from the central government so the share
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
         \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 5
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge  -- Chapter 8.
     \end{itemize}
-    \item[--] \textbf{Papers:}
-    \begin{itemize}
-        \item Aron-Dine, Aviva, Liran Einav, and Amy Finkelstein. "The RAND health insurance experiment, three decades later." Journal of Economic Perspectives 27.1 (2013): 197-222.
-        \item Taubman, S. L., Allen, H. L., Wright, B. J., Baicker, K., \& Finkelstein, A. N. (2014). Medicaid increases emergency-department use: evidence from Oregon's Health Insurance Experiment. Science, 343(6168), 263-268.
-    \end{itemize}
-    %\item[--] \textbf{Additional Readings:}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
 
 

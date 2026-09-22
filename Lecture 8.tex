@@ -75,6 +75,8 @@
 \useinnertheme[shadow]{rounded}
 \setbeamercolor{block title example}{fg=black,bg=orange!50!white}
 \setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+\setbeamercolor{block title alert}{fg=black,bg=green!50!white}
+\setbeamercolor{block body alert}{fg=black, bg=green!30!white}
 \setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
 \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
 
@@ -143,11 +145,11 @@
 \setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
 
 
-\title[]{\textcolor{blue}{Lecture 7:\\Functional Forms}}
+\title[]{\textcolor{blue}{Lecture 8:\\Threats to Identification}}
 \author{25117 - Econometrics}
 \institute[shortinst]{Universitat Pompeu Fabra}
 
-\date{November 11th, 2024}
+\date{November 13th, 2024}
 
 \begin{document}
 
@@ -156,556 +158,359 @@
 \end{frame}
 
 
+
 \begin{frame}{What we learned in the last lesson}
 \begin{itemize}
-    \item Hypothesis tests and confidence intervals for a single regression coefficient are carried out using essentially the same procedures used in the simple linear regression model. For example, a 95\% confidence interval for $\hat{\beta}_1$ is given by $\hat{\beta}_1\pm 1.96 SE(\hat{\beta}_1)$\\[1em]
-    \item Hypotheses involving more than one restriction on the coefficients are called joint hypotheses. Joint hypotheses can be tested using an F-statistic. F-statistics relate to $F_{q,n-k-1}$ distributions. \\[1em]
-    \item Regression specification proceeds by first determining a base specification chosen to address concern about omitted variable bias. The base specification can be modified by including additional regressors that control for other potential sources of omitted variable bias.\\[1em]
-    \item Simply choosing the specification with the highest $R^2$ can lead to regression models that do not estimate the causal effect of interest.
+    \item What if the marginal effect of $X$ on $Y$ is not constant? A linear regression is misspecified: the functional form is wrong.\\
+    \item We can extend the multiple OLS framework to introduce non-linearities. The effect on $Y$ of a change in the independent variable(s) can be computed by evaluating the regression function at two values of the independent variable(s).\\
+    \item A polynomial regression includes powers of $X$ as regressors. A quadratic regression includes $X$ and $X^2$, and a cubic regression includes $X$, $X^2$, and $X^3$.
+    \item Small changes in logarithms can be interpreted as proportional or percentage changes in a variable. Regressions involving logarithms are used to estimate proportional changes and elasticities.
+    \item The product of two variables is called an interaction term. When interaction terms are included as regressors, they allow the regression slope and/or intercept of one variable to depend on the value of another variable.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Introduction}
+\begin{frame}{Classic Pitfalls to Regression Analysis}
 \begin{itemize}
-    \item The regression function so far has been linear in the $X$’s... But the linear approximation is not always a good one!\\[1em]
-    \item The multiple regression model can handle regression functions that are nonlinear in one or more $X$.\\[1em]
-    \item If a relation between $Y$ and $X$ is nonlinear:
-    \begin{itemize}
-        \item The effect on $Y$ of a change in $X$ depends on the value of   X – that is, the marginal effect of $X$ is not constant
-        \item A linear regression is misspecified: the functional form is wrong
-        \item The estimator of the effect on $Y$ of $X$ is biased: in general, it isn’t even right on average.
-        \item The solution is to estimate a regression function that is nonlinear in $X$
-    \end{itemize}
+    \item Let’s step back and take a broader look at regression. Is there a systematic way to assess (critique) regression studies? We know the strengths of multiple regression – but what are the pitfalls?\\[1em]
+    \item We will list the most common reasons that multiple regression estimates, based on observational data, can result in biased estimates of the causal effect of interest.
+\end{itemize}
+\begin{exampleblock}{Internal validity}
+The statistical inferences about causal effects are valid for the population being studied.
+\end{exampleblock}
+\begin{exampleblock}{External validity}
+The statistical inferences can be generalized from the population and setting studied to other populations and settings, where the ``setting'' refers to the legal, policy, and physical environment and related salient features.
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{External Validity}
+Assessing threats to external validity requires detailed substantive knowledge and judgment on a case-by-case basis... How far can we generalize class size results from California?\\[1em]
+\begin{itemize}
+    \item[$\longrightarrow$] Differences in time (California in 1999 vs California in 2023? )\\[1em]
+    \item[$\longrightarrow$] Differences in space (California in 1999 vs Catalonia in 1999?)\\[1em]
+    \item[$\longrightarrow$] Differences in settings (Robust across different legal and institutional requirements/frameworks?)\\[1em]
+\end{itemize}
+Would you expect the magnitude and direction of the effects in the 1999 California schools sample to be the same for Catalonia in 2023?\\[1em]
+
+A comparison of many related studies on the same topic is called a meta-analysis.
+\end{frame}
+
+
+\begin{frame}{A Meta-Analysis -- Lane (2016)}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[scale=1.2]{images/extvalidity.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{A Meta-Analysis -- Hahn-Holbrook et al. (2018)}
+\begin{figure}
+  \centering
+         \vspace{-1mm}
+         \includegraphics[width=.65\linewidth]{images/extvalidity2.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Internal Validity}
+Are the statistical inferences about causal effects valid for the population being studied?\\[1em]
+Five threats to the internal validity of regression studies:
+\begin{itemize}
+    \item Omitted variable bias
+    \item Wrong functional form
+    \item Errors-in-variables bias
+    \item Sample selection bias
+    \item Simultaneous causality bias
+\end{itemize}
+\vspace{1em}
+All of these imply that $\mathbb{E}(u_i\mid X_1, X_2, \dots, X_k)\neq 0$ (or that the conditional mean independence fails) – in which case O L S is biased and inconsistent!
+\end{frame}
+
+\begin{frame}{Omitted Variable Bias (revision)}
+The bias in the OLS estimator that occurs as a result of an omitted factor, or variable, is called omitted variable bias. For omitted variable bias to occur, the omitted variable $Z$ must satisfy two conditions:
+\begin{enumerate}
+    \item $Z$ is a determinant of $Y$ (i.e. $Z$ is part of $u$); and
+    \item $Z$ is correlated with the regressor $X$ (i.e., $corr(Z,X)\neq 0)$
+\end{enumerate}
+
+\begin{center}
+\begin{figure}
+    \resizebox{.6\linewidth}{!}{%
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,285); %set diagram left start at 0, and has height of 285
+
+%Shape: Ellipse [id:dp36615011120920427] 
+\draw   (254.41,66.5) .. controls (254.41,39.16) and (276.37,17) .. (303.46,17) .. controls (330.54,17) and (352.5,39.16) .. (352.5,66.5) .. controls (352.5,93.83) and (330.54,115.99) .. (303.46,115.99) .. controls (276.37,115.99) and (254.41,93.83) .. (254.41,66.5) -- cycle ;
+%Shape: Ellipse [id:dp34906029723118115] 
+\draw   (19,211.02) .. controls (19,183.69) and (40.96,161.53) .. (68.04,161.53) .. controls (95.13,161.53) and (117.09,183.69) .. (117.09,211.02) .. controls (117.09,238.36) and (95.13,260.52) .. (68.04,260.52) .. controls (40.96,260.52) and (19,238.36) .. (19,211.02) -- cycle ;
+%Shape: Ellipse [id:dp6974919182309072] 
+\draw   (587.91,213) .. controls (587.91,185.67) and (609.87,163.51) .. (636.96,163.51) .. controls (664.04,163.51) and (686,185.67) .. (686,213) .. controls (686,240.34) and (664.04,262.5) .. (636.96,262.5) .. controls (609.87,262.5) and (587.91,240.34) .. (587.91,213) -- cycle ;
+%Straight Lines [id:da04124970397057681] 
+\draw [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ][line width=2.25]    (117.09,211.02) -- (583.91,212.99) ;
+\draw [shift={(587.91,213)}, rotate = 180.24] [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ][line width=2.25]    (17.49,-5.26) .. controls (11.12,-2.23) and (5.29,-0.48) .. (0,0) .. controls (5.29,0.48) and (11.12,2.23) .. (17.49,5.26)   ;
+%Straight Lines [id:da035209354566531736] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=2.25]  [dash pattern={on 6.75pt off 4.5pt}]  (254.41,66.5) -- (104.26,173.18) ;
+\draw [shift={(101,175.5)}, rotate = 324.6] [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=2.25]    (17.49,-5.26) .. controls (11.12,-2.23) and (5.29,-0.48) .. (0,0) .. controls (5.29,0.48) and (11.12,2.23) .. (17.49,5.26)   ;
+%Straight Lines [id:da19389419961485554] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=2.25]  [dash pattern={on 6.75pt off 4.5pt}]  (352.5,66.5) -- (592.16,183.53) ;
+\draw [shift={(595.76,185.29)}, rotate = 206.03] [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=2.25]    (17.49,-5.26) .. controls (11.12,-2.23) and (5.29,-0.48) .. (0,0) .. controls (5.29,0.48) and (11.12,2.23) .. (17.49,5.26)   ;
+%Curve Lines [id:da92152652585756] 
+\draw    (486,126.5) .. controls (518.84,126.5) and (613.05,122.54) .. (546.02,51.57) ;
+\draw [shift={(545,50.5)}, rotate = 46.22] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da6333756929191379] 
+\draw    (180,130) .. controls (189,213) and (432,148.5) .. (545,50.5) ;
+\draw [shift={(545,50.5)}, rotate = 139.07] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (56.08,195.51) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\LARGE X}};
+% Text Node
+\draw (295.97,47.97) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\LARGE Z}};
+% Text Node
+\draw (630.08,197.51) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\LARGE Y}};
+% Text Node
+\draw (413,13) node [anchor=north west][inner sep=0.75pt]  [font=\Large] [align=left] {Omitting Z results in OVB};
+
+
+\end{tikzpicture}
+
+}
+\end{figure}
+\end{center}
+
+If the multiple regression includes control variables, then we need to ask whether there are omitted factors that are not adequately controlled for, that is, whether the error term is correlated with the variable of interest even after we have included the control variables.
+\end{frame}
+
+\begin{frame}{Solutions to OVB}
+
+\begin{itemize}
+    \item If the omitted causal variable can be measured, include it as an additional regressor in multiple regression;\\[1em]
+    \item If you have data on one or more controls and they are adequate (that is, if conditional mean independence plausibly holds), then include the control variables;\\[1em]
+    \item If the omitted variable(s) cannot be measured or adequately controlled for, use instrumental variables regression ($Lecture~9$);\\[1em]
+    \item Possibly, use panel data in which each entity (individual) is observed more than once ($Lecture~10$);\\[1em]
+    \item Run a randomized controlled experiment if you can (again, randomization of treatment $X$ ensures that $X$ necessarily will be distributed independently of $u$.)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{A linear fit on a (possibly) linear relationship}
-\begin{center}
-    \includegraphics[width=.9\linewidth]{images/nonlin0.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{A linear fit on a non-linear relationship}
-\begin{center}
-    \includegraphics[width=.6\linewidth]{images/nonlin1.png}
-\end{center}
-\end{frame}
 
 
 
-\begin{frame}{The general nonlinear population regression function}
-
-The general nonlinear population regression function  is defined as
-\begin{equation*}
-    Y_i = f(X_{1i}, X_{2i}, \dots, X_{ki}) +u_i
-\end{equation*}
-Assumptions:
-\begin{itemize}
-    \item $\mathbb{E}(u_i\mid X_{1i}, X_{2i}, \dots, X_{ki})=0$ so $f(.)$ is the conditional expectation of $Y$ given the $X$'s.
-    \item $(Y_i, X_{1i}, X_{2i}, \dots, X_{ki})$ are i.i.d.
-    \item Big outliers are rare (same idea as with linear OLS; the precise mathematical condition depends on the specific $f(.)$).
-    \item No perfect multicollinearity (same idea; the precise statement depends on the specific $f(.)$).
-\end{itemize}
-
-The expected difference in $Y$ associated with a difference in $X_1$, ceteris paribus, is
-
-\begin{equation*}
-    \Delta Y = f(X_{1} + \Delta X_{1}, X_{2}, \dots, X_{k}) -  f(X_{1}, X_{2}, \dots, X_{k}) 
-\end{equation*}
-
-\end{frame}
-
-
-\begin{frame}{Nonlinear Functions of a Single Independent Variable}
-We’ll look at two complementary approaches:\\[1em]
-
-\begin{itemize}
-    \item \textbf{Polynomials in $X$}
-    \begin{itemize}
-        \item The population regression function is approximated by a quadratic, cubic, or higher-degree polynomial
-    \end{itemize}
-    \\[1em]
-    \item \textbf{Logarithmic transformations}
-    \begin{itemize}
-        \item $Y$ and/or $X$ is transformed by taking its logarithm, which provides a ``percentages'' interpretation (i.e., elasticities and semi-elasticities) of the coefficients that makes sense in many applications
-    \end{itemize}
-\end{itemize}\\[1em]
-    The choice of specification (functional form) should be guided by judgment (which interpretation makes the most sense in your application?), tests, and plotting predicted values
-\end{frame}
-
-
-\begin{frame}{Polynomials in $X$}
-Approximate the population regression function by a polynomial:
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + \dots + \beta_r X_i^r + u_i
-\end{equation*}
-\begin{itemize}
-    \item This is just the linear multiple regression model -- except that the regressors are powers of $X$!
-    \item  Estimation, hypothesis testing, etc. proceeds as in the multiple regression model using OLS
-    \item The coefficients are difficult to interpret, but the regression function itself is interpretable
-\end{itemize}\\[1em]
-
-For example, let's estimate the following quadratic specification:
-\begin{equation*}
-    \text{TestScore}_i = \beta_0 + \beta_1 \text{Income}_i + \beta_2 \text{Income}_i^2  + u_i
-\end{equation*}
-\end{frame}
-
-\begin{frame}{Polynomials in $X$}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/quadratic0.jpg}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Polynomials in $X$}
+\begin{frame}{Wrong Functional Form (revision)}
  \begin{columns}
 \begin{column}{0.45\textwidth}
-    \begin{itemize}
-    \item We can plot the predicted values...\\[1em]
-    \item The predicted change in $TestScore$ for a change in income from \$5K per capita to \$6K per capita is :\\[0.5em]
-    $(6\times3.85 - 6^2\times 0.042)-(5\times3.85 - 5^2\times 0.042)=3.4$
-    \end{itemize}
-    \begin{table}[]
-\begin{tabular}{|c|c|}
-\hline
-\rowcolor[HTML]{EFEFEF} 
-\textbf{$\Delta Income$} & \textbf{$\Delta TestScore$} \\ \hline
-from 5 to 6                             & 3.4                                        \\ \hline
-from 25 to 26                           & 1.7                                        \\ \hline
-from 45 to 46                           & 0.0                                          \\ \hline
-\end{tabular}
-\end{table}
-    \begin{itemize}
-    \item Caution! What is the effect of a change from \$100K to \$101K?  
-    \end{itemize}
+Arises if the functional form is incorrect -- e.g., an interaction term is incorrectly omitted; then inferences on causal effects will be biased.\\[1em]
+
+\textbf{Solutions to functional form mispecification:}
+\begin{itemize}
+    \item Continuous dependent variable: use the “appropriate” nonlinear specifications in $X$ (logarithms, interactions, etc.) ($last~lecture$)
+    \item Discrete (example: binary) dependent variable: need an extension of multiple regression methods (``probit'' or ``logit'' analysis for binary dependent variables). ($Lecture~11$)
+\end{itemize}
 
 \end{column}
 \begin{column}{0.6\textwidth}
 \begin{figure}
   \centering
          \vspace{-2mm}
-        \includegraphics[scale=.3]{images/quadratic1.jpg}
+        \includegraphics[scale=.5]{images/loglog.jpg}
 \end{figure}
-    \begin{itemize}
-    \item The ``effect'' of a change in income is greater at low than high income levels (i.e., a declining marginal effect of income)
-    \end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 
-\begin{frame}{Polynomials in $X$}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/quadratic2.jpg}
-\end{center}
-\end{frame}
 
+\begin{frame}{Errors-in-variables}
+So far we have assumed that $X$ is measured without error.\\[1em]
 
-\begin{frame}{Polynomials in $X$}
-We just ran
-
-\begin{equation*}
-    \text{TestScore}_i = \beta_0 + \beta_1 \text{Income}_i + \beta_2 \text{Income}_i^2 + \beta_3 \text{Income}_i^3  + u_i
-\end{equation*}
+In reality, economic data often have measurement error
 \begin{itemize}
-    \item We can test the linear model against this cubic model:\\
-\begin{equation*}
-    H_0: \beta_2=\beta_3 = 0 \textbf{~~~VS~~~}  H_1: \beta_2\neq 0 \text{~and/or~} \beta_3\neq 0
-\end{equation*}
-    \item The F-statistic of the test is $37.69>>4.61$\\[1em]
-    \item The hypothesis that the population regression is linear is rejected at the 1\% significance level against the alternative that it is a polynomial of degree up to 3.
+    \item Data entry errors in administrative data
+    \item Recollection errors in surveys (when did you start your current job?)
+    \item Ambiguous questions (what was your income last year?)
+    \item Intentionally false response problems with surveys (What is the current value of your financial assets? How often do you drink and drive?)
 \end{itemize}
+\vspace{1em}
+Now consider $\tilde{X}$, the mis-measured version of X (which is the actually observed data) vs $X$, the true, unobserved value of your treatment...
 \end{frame}
 
-
-\begin{frame}{Logarithmic functions of $Y$ and/or $X$}
-\begin{itemize}
-    \item Remember that, according to Taylor's expansion, $f(x)\approx f(a) + f'(a)(x-a)$
-    \item Following this equation, $log(x)\approx log(x)\mid_{x=a} + \frac{\partial log(x)}{\partial x}\mid_{x=a}(x-a)$
-    \item Therefore, for $a=1$, $log(x)\approx x-1$
-    \item It follows that, in the neighborhood of 1,  $log(x)$ can be approximated by $x-1$.
-    \item Consider $Y + \Delta Y \approx Y$ (i.e., $x=\frac{Y + \Delta Y}{Y}\approx1$).
-    \item Then $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$... the percent change is a linear approximation of the log difference!
-    \item Approximating the curve of $log(x)$ with $x-1$ gets worse and worse as we move away from $x=1$... For instance:
-    \begin{equation*}
-        log(.7+.5)- log(.7) = .54 \neq \frac{.5}{.7}=.71
-    \end{equation*}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{[short digression] Logarithmic functions of $Y$ and/or $X$}
-\begin{itemize}
-    \item So how should we think about log changes? 
-        \begin{eqnarray*}
-            &log(.7+.5)- log(.7) &= .54 =54\times0.01\\
-            & {} &\approx 54\times log(1.01) \\
-            &\Leftrightarrow \frac{.7+.5}{.7}= \frac{1.2}{.7}&\approx 1.01^{54}           \\
-        \end{eqnarray*}
-    \item 1.2 is, relative to .7, approximately equivalent to 54 different 1\% increases \textit{compounded}!\\[1em]
-    \item In economics, we often think in terms of compounding percent changes (e.g., compound interest rates, inflation, population growth, investments returns, price elasticity, etc.), i.e.,
-    \begin{equation*}
-        Y_T = \prod_t (1+R_t)
-    \end{equation*}
-    \item Then, it is easier to write
-        \begin{equation*}
-        log(Y_T) = \sum_t log(1+R_t)= \sum_t log(Y_t) - log(Y_{t-1})
-    \end{equation*}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Logarithmic functions of $Y$ and/or $X$}
-In the linear regression model,
-\begin{eqnarray*}
-    &Y_i &= \beta_0 + \beta_1 X_{1i} + u_i\\
-\end{eqnarray*}
-1-unit increase in $X_{1i}$ was associated with a $\beta_1$-unit increase in $Y_i$.\\[1em] 
-
-Now, depending on the hypothesis we derived from the theory, data can be log-transformed on the RHS or the LHS or both.\\
-
-\begin{eqnarray*}
-    &Y_i &= \beta_0 + \beta_1 log(X_{1i}) + u_i\\
-    &log(Y_i) &= \beta_0 + \beta_1 X_{1i} + u_i\\
-    &log(Y_i) &= \beta_0 + \beta_1 log(X_{1i}) + u_i\\
-\end{eqnarray*}
-In each case, $\beta_1$ has a different interpretation.
-\end{frame}
-
-
-\begin{frame}{Linear-log population regression function}
-
-\begin{eqnarray*}
-    & Y &= \beta_0 + \beta_1 log(X) + u\\
-    & \Rightarrow Y + \Delta Y &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
-    &\Rightarrow  \Delta Y &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\Delta Y &\approx \beta_1  \frac{\Delta X}{X}  \\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y}{\Delta X/X}\\    
-\end{eqnarray*}
-Because $100\times\Delta X/X$= percentage change in $X$, a 1\% change in $X$ is associated with a $\beta_1/100$ change in $Y$.
-\end{frame}
-
-\begin{frame}{Log-linear population regression function}
-
-\begin{eqnarray*}
-    & log(Y) &= \beta_0 + \beta_1 X + u\\
-    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 (X + \Delta X) + u\\
-    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1  \Delta X\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\frac{\Delta Y}{Y} &\approx \beta_1 \Delta X\\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X}\\    
-\end{eqnarray*}
-Because $100\times\Delta Y/Y$= percentage change in $Y$, a change in $X$ by 1 unit is associated with a $100\times \beta_1$\% change in $Y$. \hfill[$\beta_1$=semi-elasticity]
-\end{frame}
-
-
-\begin{frame}{Log-Log population regression function}
-
-\begin{eqnarray*}
-    & log(Y) &= \beta_0 + \beta_1 log(X) + u\\
-    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
-    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\frac{\Delta Y}{Y} &\approx \beta_1 \frac{\Delta X}{X}\\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X/X}\\    
-\end{eqnarray*}
-A 1\% change in $X$ by 1 unit is associated with a $\beta_1$\% change in $Y$.\hfill[$\beta_1$=elasticity]
-\end{frame}
-
-\begin{frame}{(Linear-)Cubic vs. Linear-Log}
-\begin{center}
-    \includegraphics[width=.6\linewidth]{images/linlog.jpg}
-\end{center}
-\end{frame}
-
-
-
-\begin{frame}{Log-Linear vs. Log-Log}
-\begin{center}
-    \includegraphics[width=.6\linewidth]{images/loglog.jpg}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Interactions and heterogenous effects}
-\begin{itemize}
-    \item In the California Schools example, at the beginning of the course, we were interested in knowing the impact of the Share of Subsidized Meals on TestScores\\[1em]
-    \item We saw that the Share of Subsidized Meals was, on average, negatively associated with TestScores\\[1em]
-    \item We said that the impact of the Share of Subsidized Meals on on TestScores could be cofounded by local Educational Attainment\\[1em]
-    \item But we might be interested in knowing the \textit{heterogenous} effects of the Share of Subsidized Meals depending on different levels of Educational Attainment\\[1em]
-    \item Is the effect of subsidizing meals still associated with lower test scores, even when local educational attainment is low?
-\end{itemize}
-\end{frame}
-
-\begin{comment}
-\begin{frame}{Interactions between two dummies}
-Consider the following specification
+\begin{frame}{Errors-in-variables}
+You think you are running
 \begin{equation*}
-    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i
+    Y_i = \beta_0 + \beta_1 X_i + u_i
 \end{equation*}
-where $D_{1i}$ and $D_{2i}$ are dummy variables.\\[1em]
-\begin{itemize}
-    \item $\beta_1$ is the unconditional effect of $D_{1}$ alone, i.e., irrespective of the value of $D_{2}$
-    \item $\beta_2$ is the unconditional effect of $D_{2}$ alone, i.e., irrespective of the value of  $D_{1}$
-    \item $\beta_3$ is the \textit{interaction} effect of $D_{1}=1$ and $D_{2}=1$, i.e., the additional effect of an increase in both $D_{1}$ and $D_{2}$, at the same time
-\end{itemize}
-\end{frame}
-\end{comment}
-
-\begin{frame}{Interactions between two dummies}
-Consider the following specification
+But because $X$ is mis-measured, you are actually running
 \begin{equation*}
-    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i
+    Y_i = \beta_0 + \beta_1 \tilde{X}_i + [\beta_1 (X-\tilde{X}) + u_i]
 \end{equation*}
-where $D_{1i}$ and $D_{2i}$ are dummy variables.\\[1em]
-\begin{itemize}
-    \item (Comparison category) $D_{1i}=0$ and $D_{2i}=0$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=0, D_{2i}=0) = \beta_0$ 
-    \item When $D_{1i}=1$ but $D_{2i}=0$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=1, D_{2i}=0) = \beta_0 + \beta_1$ 
-    \item When $D_{1i}=0$ but $D_{2i}=1$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=0, D_{2i}=1) = \beta_0 + \beta_2$ 
-    \item Full model when $D_{1i}=1$ and $D_{2i}=1$ $\Rightarrow \mathbb{E}(Y\mid D_{1i}=1, D_{2i}=1) = \beta_0 + \beta_1 + \beta_2 + \beta_3$ 
-\end{itemize}
-\\[1em]
-$\beta_3$ can be interpreted as the incremental effect to $D_{1}$ (resp. $D_{2}$) \underline{when} $D_{2}=1$ (resp. $D_{1}=1$)
-\end{frame}
-
-\begin{frame}{Interactions between two dummies}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/dumdum.png}
-\end{center}
-\end{frame}
-
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-How to think about dummies in the presence of a continuous variables? First, consider the simple case without interaction:
+i.e., since $X-\tilde{X}$ is unobserved,
 \begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 D_{1i} 
- + u_i
+    Y_i = \beta_0 + \beta_1 \tilde{X}_i + \tilde{u}_i
 \end{equation*}
-where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
-
-The regression line when $D_1=0$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_1 X_{2i} 
-\end{equation*}
-While the regression line when $D_1=1$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = (\beta_0 + \beta_2) + \beta_1 X_{1i} 
-\end{equation*}
-The intercepts are different but the slopes are the same!
-\end{frame}
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=.75\linewidth]{images/inter1.png}
-\end{center}
-\end{frame}
-
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-This framework can be extended to the interaction between a dummy and a continuous variable. Next, consider
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 (D_{1i} \times X_{1i}) + u_i
-\end{equation*}
-where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
-
-The regression line when $D_1=0$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_1 X_{1i} 
-\end{equation*}
-While the regression line when $D_1=1$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = \beta_0 + \ (\beta_1 + \beta_2) X_{1i} 
-\end{equation*}
-The intercept is the same, but slopes are different!
-\end{frame}
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=.7\linewidth]{images/inter2.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-Next consider the fully interacted model:
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{1i} + \beta_3 (D_{1i} \times X_{1i}) + u_i
-\end{equation*}
-where $D_{1i}$ is a dummy and $X_{1i}$ is a continuous variable.\\[1em]
-
-The regression line when $D_1=0$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=0, X_{1i}) = \beta_0 +  \beta_2 X_{1i} 
-\end{equation*}
-While the regression line when $D_1=1$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=1, X_{1i}) = (\beta_0 + \beta_1) + (\beta_2 + \beta_3) X_{1i} 
-\end{equation*}
-The intercepts and slopes depend on the groups defined by $D_1$!
-\end{frame}
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=.7\linewidth]{images/inter3.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\textbf{How to discriminate between the last 3 models?}\\[1em]
-Run the fully interacted model
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{1i} + \beta_3 (D_{1i} \times X_{1i}) + u_i
-\end{equation*}
-\begin{itemize}
-    \item \textbf{Test if the two lines are the same ---} (In other words, does the interaction matter?) Compute the F-statistic testing the joint hypothesis that $\beta_1=\beta_3=0$ (Chow Test)\\[1em]
-    \item \textbf{Test if the two lines have the same slope ---} Compute the t-statistic testing the simple hypothesis that $\beta_3=0$  \\[1em]
-    \item \textbf{Test if the two lines have the same intercept ---} Compute the t-statistic testing the simple hypothesis that $\beta_1=0$ 
-\end{itemize}
-\end{frame}
-
-
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/contdum.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=.75\linewidth]{images/contdumgraph.png}
-\end{center}
-\end{frame}
-
-\begin{comment}
-\begin{frame}{Interactions between a dummy and a continuous variable}
-This framework can be extended to the interaction between a dummy and a continuous variable
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 X_{2i} + \beta_3 (D_{1i} \times X_{2i}) + u_i
-\end{equation*}
-where $D_{1i}$ is a dummy and $X_{2i}$ is a continuous variable.\\[1em]
-
-The regression line when $D_1=0$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=0, X_{2i}) = \beta_0 +  \beta_2 X_{2i} 
-\end{equation*}
-While the regression line when $D_1=1$ reads
-\begin{equation*}
-    \mathbb{E}(Y\mid D_{1i}=0, X_{2i}) = (\beta_0 + \beta_1) + (\beta_2 + \beta_3) X_{2i} 
-\end{equation*}
-The intercepts and slopes depend on $D_1$.
-\end{frame}
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/contdum.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-\begin{center}
-    \includegraphics[width=.88\linewidth]{images/contdumgraph.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Interactions between a dummy and a continuous variable}
-We can extend this to two continuous variables
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i
-\end{equation*}
-where both $X_{1i}$ and $X_{2i}$ are continuous variable.\\[1em]
-
-A change in $Y$ due to $X_1$ reads
-\begin{equation*}
-    Y_i + \Delta Y_i = \beta_0 + \beta_1 (X_{1i} + \Delta X_{1i} ) + \beta_2 X_{2i} + \beta_3 [(X_{1i} + \Delta X_{1i} ) \times X_{2i}] + u_i
-\end{equation*}
+where $\tilde{u}_i=\beta_1 (X-\tilde{X}) + u_i$..\\[1em]
 
 Therefore,
-
 \begin{equation*}
-    \Delta Y_i = \beta_1\Delta X_{1i} + \beta_3 (\Delta X_{1i} \times X_{2i}) = \Delta X_{1i} (\beta_1 + \beta_3 X_{2i}) \text{~~~i.e.,~~}\frac{\Delta Y}{\Delta X_{1}} = \beta_1 + \beta_3 X_{2}
+    cov(\tilde{X}_i, \tilde{u}_i) = \beta_1 cov(\tilde{X}_i, X_i-\tilde{X}_i) + cov(\tilde{X}_i, u_i)
 \end{equation*}
-\\[1em]
-We made obvious that the impact of $X_1$ on $Y$ varies with $X_2$!
+It is often plausible that $cov(\tilde{X}_i, u_i)=0$, but typically $cov(\tilde{X}_i, X-\tilde{X})\neq 0$, and therefore, $cov(\tilde{X}_i, \tilde{u}_i) \neq 0$... yielding a biased $\hat{\beta_1}$.
+
+
 \end{frame}
 
+\begin{frame}{Classical Measurement Error}
+The classical measurement error model assumes that $\tilde{X}_i=X_i+v_i$ where $v_i$ is is mean-zero random noise (e.g., white noise) with $\rho_{X_i, v_i}=0$ and $\rho_{u_i, v_i}=0$.\\[1em]
 
-\end{comment}
+Under the classic measurement error model, $\hat{\beta}_1$ will be biased towards zero...\\[1em]
 
-\begin{frame}{Interactions between two continuous variable}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/contcont.png}
-\end{center}
+Intuitively: Take the true variable and add a very large amount of random noise. In the limit, $\tilde{X}_i$ will be completely unrelated to $Y_i$ so $\mathbb{E}(\hat{\beta}_1)$ is zero...\\[1em]
+
+Before reaching this limit, the relationship between  $\tilde{X}_i$ and $Y_i$ will be toned down, biasing $\hat{\beta}_1$ towards zero.\\[1em]
+
 \end{frame}
 
+\begin{frame}{Classical Measurement Error}
+Starting from,
+\begin{eqnarray*}
+    cov(\tilde{X}_i, \tilde{u}_i) = \beta_1 cov(\tilde{X}_i, X_i-\tilde{X}_i) + cov(\tilde{X}_i, u_i)
+\end{eqnarray*}
+Then, for $\tilde{X}_i=X_i+v_i$,  with $\rho_{X_i, v_i}=0$ and $\rho_{u_i, v_i}=0$,
+\begin{eqnarray*}
+        &cov(\tilde{X}_i, \tilde{u}_i) &= \beta_1 cov(X_i+v_i, -v_i)=-\beta_1\sigma_v^2\\
+        &var(\tilde{X}_i)&=\sigma_X^2 + \sigma_v^2
+\end{eqnarray*}
+And back to basics:
+\begin{eqnarray*}
+        &\hat{\beta}_1 \overset{p}{\to} & \beta_1 + \frac{cov(\tilde{X}_i, \tilde{u}_i)}{var(\tilde{X}_i)}\\
+        & {} &= \beta_1 -\beta_1\frac{\sigma_v^2}{\sigma_X^2 + \sigma_v^2} = \beta_1  \frac{\sigma_X^2}{\sigma_X^2 + \sigma_v^2}
+\end{eqnarray*}
+so $\hat{\beta}_1$ will be biased towards 0, even in large samples, and even approximate zero if the noise's variance is large enough.
+\end{frame}
+
+\begin{frame}{Missing Data}
+Data are often missing. Sometimes missing data introduces bias, sometimes it doesn’t. It is useful to consider three cases:
+\begin{enumerate}
+    \item Data are missing at random.
+    \item Data are missing based on the value of one or more $X$’s
+    \item Data are missing based in part on the value of Y or u
+\end{enumerate}
+\vspace{1em}
+Cases 1 and 2 don’t introduce bias: the standard errors are larger than they would be if the data weren’t missing, but $\hat{\beta}_k$ is unbiased.
+
+\textbf{\textit{Case 1:}} Suppose you took a random sample of 100 workers and recorded their answers, but your dog randomly ate 20 of the response sheets. This is equivalent to having taken a simple random sample of 80 workers, so no bias is introduced.
+
+\vspace{0.5em}
+\textbf{\textit{Case 2:}} In the test scores exercise, suppose you do not observe schools with a share of subsidized meals below $40\%$. You cannot draw conclusions for those schools, but you can still draw conclusions about the subset with a share of subsidized meals at least $40\%$.
+
+\vspace{0.5em}
+\textbf{\textit{Case 3}} introduces sample selection bias.
+
+\end{frame}
+
+\begin{frame}{Sample Selection Bias}
+
+\begin{block}{Sample selection bias}
+Bias that arises when a selection process \textbf{a)} influences the availability of data, and  \textbf{b)} is related to the dependent variable beyond depending on the regressors.
+\end{block}
+\vspace{1em}
+\textbf{Fictuous Simple Example:} you want to estimate the average males' height in Barcelona. To collect your data, you go to the Palau Blaugrana and record the heights of the basketball team. Formally, you have sampled individuals in a way that is related to the outcome $Y$ (height), which results in bias.
+
+\vspace{1em}
+
+\textbf{Real Example:} In 1936, the Literary Gazette published a poll predicting that presidential candidate Landon would win by a landslide against Roosevelt. The opposite happened: Roosevelt won with 60.8\% of the votes. It turned out that the Literary Gazette had sampled phone records from automobile registration files. In 1936, people owning a car and a telephone were richer, and more likely Republicans... supporting Landon.
+
+\vspace{1em}
+
+\textbf{Solution:} Avoid it in the first place. If you cannot, some methods for estimating models with sample selection exist (not now,  a bit discussed in $Lecture~11$).
+\end{frame}
+
+\begin{frame}{Simultaneity Bias}
+\begin{block}{Simultaneity Bias}
+Also called simultaneous equations bias. It arises in a regression of $Y$ on $X$ when, in addition to the causal link of interest from $X$ to $Y$, there is a causal link from $Y$ to $X$. This reverse causality makes $X$ correlated with the error term in the population regression of interest.
+\end{block}
+\vspace{1em}
+\textbf{California Example:} The share of subsidised meals affects schools test scores. But schools with higher test scores might be allocated more resources, allowing them to subsidise more meals.
+
+\vspace{1em}
+
+Consider the following system of simultaneous equations:
+\begin{eqnarray*}
+    &Y_i &= \beta_0 + \beta_1 X_i + u_i\\
+    &X_i &= \gamma_0 + \gamma_1 Y_i + v_i
+\end{eqnarray*}
+$X_i$ is a function of $u_i$, the unexplained variation of $Y_i$.
+
+\vspace{1em}
+
+\textbf{Solution:} Mostly RCT or IV methods ($Lecture~9$).
+\end{frame}
 
 
 \begin{frame}
-\frametitle{Wrapping up: Linear vs. Non-Linear Models}
+\frametitle{Inconsistent Standard Errors}
 
-\textbf{In econometrics, we initially favor linear models for their simplicity:}
 \begin{itemize}
-    \item Linear models assume a constant relationship between variables (e.g., a one-unit increase in $X$ leads to a fixed change in $Y$).
-    \item However, economic relationships are often complex and dynamic, and this assumption \textit{might not hold in reality}.
-    \item Non-linear models, in contrast, allow for more flexible and \textit{realistic} relationships. They can capture intricate economic behaviors that linear models cannot.
-\end{itemize}\\[1em]
-\textbf{In practice, numerous economic phenomena exhibit non-linear characteristics:}
-\begin{itemize}
-    \item For example, consider luxury goods. The demand for such goods may not increase linearly with income. As income rises, the demand might accelerate.
-    \item Using linear models in such cases can lead to biased and inaccurate results because they fail to capture these \textit{nuanced relationships.}
-    \item Recognizing non-linear patterns in data is essential for \textit{accurately} modeling and understanding real-world economic dynamics.
+  \item Inconsistent standard errors can impact the internal validity of a multiple regression study.\\[1em]
+  \item Even with consistent OLS estimators and large samples, inconsistent standard errors lead to hypothesis tests with incorrect significance levels and unreliable 95\% confidence intervals.\\[1em]
+  \item Main reasons for inconsistent standard errors:
+    \begin{itemize}
+      \item \textbf{Heteroskedasticity:} For historical reasons, most regression software report by defaulkt homoskedastic-only standard errors. Use heteroskedasticity-robust standard errors and F-statistics with a heteroskedasticity-robust variance estimator.\\[.5em]
+      \item \textbf{Correlation of the Error Term Across Observations:} E.g., if the omitted variables that constitute the regression error are persistent (like district demographics or geographies), these omitted variables could result in serial and/or spatial correlation of the regression errors for adjacent observations. Common in panel data or time series data, requires alternative formulas for standard errors. (more in $Lecture~10$)
+    \end{itemize}
+    \vspace{1em}
+  \item Addressing these issues is crucial for maintaining internal validity.
+
 \end{itemize}
-
 \end{frame}
 
-
-
-
-\begin{frame}
-\frametitle{The Importance of Interactions}
-
-\textbf{Interactions in econometrics refer to how the effect of one variable depends on the level of another:}
-\begin{itemize}
-    \item Non-linear interactions can be critical in economic analysis. They enable us to explore \textit{how the relationship between two variables changes as one variable varies}.
-    \item For instance, think about the interaction between interest rates and GDP. The impact of interest rates on investment may vary at different levels of GDP. In times of economic growth, a change in interest rates might have a stronger or weaker effect on investment.
-    \item By incorporating non-linear interactions, we gain a more nuanced understanding of the \textit{interplay between variables}, making our models more realistic and insightful.
-\end{itemize}\\[1em]
-$\longrightarrow$ Choosing the right functional form may not only improve your predictive power, it can also have large policy implications!
+\begin{frame}{Internal Validity Checklist for Multiple Variables Regressions}
+Applying this list of threats to a multiple regression study provides a systematic way to assess the internal validity of that study.\\[1em]
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\textbf{$\mathbb{E}(u\mid X)\neq 0$ :}
+\begin{enumerate}
+    \item Omitted variables
+    \item Functional form misspecification
+    \item Errors in variables (measurement error in the regressors)
+    \item Sample selection
+    \item Simultaneous causality
+\end{enumerate}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Inconsistent SE :}
+\begin{enumerate}
+    \item Heteroskedasticity
+    \item Serial and Spatial Correlation
+    \item[]
+    \item[]
+    \item[]
+\end{enumerate}
+\end{column}
+\end{columns}
 \end{frame}
 
+\begin{frame}{What about prediction?}
+Prediction and estimation of causal effects are quite different objectives.\\[1em]
+For prediction:
+\begin{enumerate}
+    \item The data used to estimate the prediction model must be \textit{from the same distribution} as the out-of-sample observation for which the prediction is made. This is an external validity requirement for a prediction model.
+    \item The predictors should be ones \textit{that substantially contribute to explaining the variation in $Y$}. They do not need to have direct causal interpretations, and the regression coefficients in general need not estimate causal effects.
+    \item The estimator must be one that produces \textit{reliable out-of-sample predictions}. When the number of regressors (predictors) is small relative to the number of observations, OLS can be used. But when the number of predictors is large, there are better estimators than OLS -- ones developed specially for the prediction problem (Big Data techniques, beyond the scope of this course).
+\end{enumerate}
+\end{frame}
 
 
 \begin{frame}[allowframebreaks]{Material}
 \begin{itemize}
     \item[--] \textbf{Textbooks:}
     \begin{itemize}
-        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 8.
-        \item Introductory Econometrics, 5th Edition, A Modern Approach, by Jeff. Wooldridge -- Chapter 6-9.
+        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 9
     \end{itemize}
 \end{itemize}
-\scriptsize{
-\bibliographystyle{ecta}
-\bibliography{base} 
-}
 \end{frame}
 
 
 \end{document}
-
-
-

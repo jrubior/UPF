@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Lecture 1 v2: Introduction and Review of Probability</title>
+<meta name="Subject" content=""/>
+<meta name="Keywords" content=""/>
+<meta name="Author" content="25117 - Econometrics"/>
+<meta name="Creator" content="LaTeX with Beamer class"/>
+<meta name="Producer" content="pdfTeX-1.40.27"/>
+<meta name="CreationDate" content="2026-09-15T12:34:11+02"/>
+<meta name="ModDate" content="2026-09-15T12:34:11+02"/>
+</head>
+<body>
+<doc>
+  <page width="453.543000" height="255.118000">
+    <flow>
+      <block xMin="8.504000" yMin="9.303235" xMax="103.633652" yMax="22.272200">
+        <line xMin="8.504000" yMin="9.303235" xMax="103.633652" yMax="22.272200">
+          <word xMin="8.504000" yMin="9.303235" xMax="53.041778" yMax="22.272200">Course</word>
+          <word xMin="56.714405" yMin="9.303235" xMax="103.633652" yMax="22.272200">Outline</word>
+        </line>
+      </block>
+      <block xMin="100.233000" yMin="47.105066" xMax="133.149513" yMax="54.318007">
+        <line xMin="100.233000" yMin="47.105066" xMax="133.149513" yMax="54.318007">
+          <word xMin="100.233000" yMin="47.105066" xMax="126.590121" yMax="54.318007">BLOCK</word>
+          <word xMin="128.526855" yMin="47.105066" xMax="133.149513" yMax="54.318007">1</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="320.390000" yMin="47.105066" xMax="353.314483" yMax="54.318007">
+        <line xMin="320.390000" yMin="47.105066" xMax="353.314483" yMax="54.318007">
+          <word xMin="320.390000" yMin="47.105066" xMax="346.755091" yMax="54.318007">BLOCK</word>
+          <word xMin="348.691825" yMin="47.105066" xMax="353.314483" yMax="54.318007">3</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="14.529000" yMin="67.568917" xMax="167.370484" yMax="143.699199">
+        <line xMin="33.154000" yMin="67.568917" xMax="167.370484" yMax="74.773887">
+          <word xMin="33.154000" yMin="67.568917" xMax="76.280211" yMax="74.773887">Introduction</word>
+          <word xMin="78.320557" yMin="67.568917" xMax="91.192268" yMax="74.773887">and</word>
+          <word xMin="93.232614" yMin="67.568917" xMax="118.537681" yMax="74.773887">Review</word>
+          <word xMin="120.578027" yMin="67.568917" xMax="127.802923" yMax="74.773887">of</word>
+          <word xMin="129.843268" yMin="67.568917" xMax="167.370484" yMax="74.773887">Probability</word>
+        </line>
+        <line xMin="33.154000" yMin="79.025917" xMax="100.923760" yMax="86.230887">
+          <word xMin="33.154000" yMin="79.025917" xMax="58.459067" yMax="86.230887">Review</word>
+          <word xMin="60.499413" yMin="79.025917" xMax="67.724309" yMax="86.230887">of</word>
+          <word xMin="69.764654" yMin="79.025917" xMax="100.923760" yMax="86.230887">Statistics</word>
+        </line>
+        <line xMin="33.154000" yMin="90.482917" xMax="67.839875" yMax="97.687887">
+          <word xMin="33.154000" yMin="90.482917" xMax="61.176872" yMax="97.687887">Practice</word>
+          <word xMin="63.217217" yMin="90.482917" xMax="67.839875" yMax="97.687887">1</word>
+        </line>
+        <line xMin="22.691000" yMin="102.785707" xMax="25.580154" yMax="107.288802">
+          <word xMin="22.691000" yMin="102.785707" xMax="25.580154" yMax="107.288802">3</word>
+        </line>
+        <line xMin="33.154000" yMin="101.939917" xMax="119.880643" yMax="109.144887">
+          <word xMin="33.154000" yMin="101.939917" xMax="56.462557" yMax="109.144887">Simple</word>
+          <word xMin="58.502903" yMin="101.939917" xMax="80.026158" yMax="109.144887">Linear</word>
+          <word xMin="82.066504" yMin="101.939917" xMax="119.880643" yMax="109.144887">Regression</word>
+        </line>
+        <line xMin="22.691000" yMin="114.263707" xMax="25.580154" yMax="118.766802">
+          <word xMin="22.691000" yMin="114.263707" xMax="25.580154" yMax="118.766802">4</word>
+        </line>
+        <line xMin="33.154000" yMin="113.396917" xMax="104.932721" yMax="120.601887">
+          <word xMin="33.154000" yMin="113.396917" xMax="47.950491" yMax="120.601887">OLS</word>
+          <word xMin="49.990836" yMin="113.396917" xMax="104.932721" yMax="120.601887">Implementation</word>
+        </line>
+        <line xMin="33.154000" yMin="124.853917" xMax="67.839875" yMax="132.058887">
+          <word xMin="33.154000" yMin="124.853917" xMax="61.176872" yMax="132.058887">Practice</word>
+          <word xMin="63.217217" yMin="124.853917" xMax="67.839875" yMax="132.058887">2</word>
+        </line>
+        <line xMin="14.529000" yMin="136.175425" xMax="70.035964" yMax="143.699199">
+          <word xMin="14.529000" yMin="136.175425" xMax="28.173014" yMax="143.699199">−→</word>
+          <word xMin="33.154327" yMin="136.310917" xMax="63.372961" yMax="143.515887">Midterm</word>
+          <word xMin="65.413306" yMin="136.310917" xMax="70.035964" yMax="143.515887">1</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="234.686000" yMin="67.568917" xMax="336.961185" yMax="143.699199">
+        <line xMin="253.311000" yMin="67.568917" xMax="336.961185" yMax="74.773887">
+          <word xMin="253.311000" yMin="67.568917" xMax="279.564509" yMax="74.773887">Threats</word>
+          <word xMin="281.604855" yMin="67.568917" xMax="288.957272" yMax="74.773887">to</word>
+          <word xMin="290.997618" yMin="67.568917" xMax="336.961185" yMax="74.773887">Identiﬁcation</word>
+        </line>
+        <line xMin="253.311000" yMin="79.025917" xMax="331.027445" yMax="86.230887">
+          <word xMin="253.311000" yMin="79.025917" xMax="297.441444" yMax="86.230887">Instrumental</word>
+          <word xMin="299.481789" yMin="79.025917" xMax="331.027445" yMax="86.230887">Variables</word>
+        </line>
+        <line xMin="253.311000" yMin="90.482917" xMax="288.004845" yMax="97.687887">
+          <word xMin="253.311000" yMin="90.482917" xMax="281.341842" yMax="97.687887">Practice</word>
+          <word xMin="283.382187" yMin="90.482917" xMax="288.004845" yMax="97.687887">4</word>
+        </line>
+        <line xMin="241.404000" yMin="101.939917" xMax="291.196870" yMax="109.144887">
+          <word xMin="241.404000" yMin="102.787707" xMax="247.182308" yMax="107.290802">10</word>
+          <word xMin="253.311000" yMin="101.939917" xMax="272.467135" yMax="109.144887">Panel</word>
+          <word xMin="274.507481" yMin="101.939917" xMax="291.196870" yMax="109.144887">Data</word>
+        </line>
+        <line xMin="241.404000" yMin="113.396917" xMax="329.736289" yMax="120.601887">
+          <word xMin="241.404000" yMin="114.263707" xMax="247.182308" yMax="118.766802">11</word>
+          <word xMin="253.311000" yMin="113.396917" xMax="275.714951" yMax="120.601887">Binary</word>
+          <word xMin="277.755297" yMin="113.396917" xMax="301.900715" yMax="120.601887">Choice</word>
+          <word xMin="303.941060" yMin="113.396917" xMax="329.736289" yMax="120.601887">Models</word>
+        </line>
+        <line xMin="253.311000" yMin="124.853917" xMax="288.004845" yMax="132.058887">
+          <word xMin="253.311000" yMin="124.853917" xMax="281.341842" yMax="132.058887">Practice</word>
+          <word xMin="283.382187" yMin="124.853917" xMax="288.004845" yMax="132.058887">5</word>
+        </line>
+        <line xMin="234.686000" yMin="136.175425" xMax="291.133436" yMax="143.699199">
+          <word xMin="234.686000" yMin="136.175425" xMax="248.330014" yMax="143.699199">−→</word>
+          <word xMin="253.311327" yMin="136.310917" xMax="270.004701" yMax="143.515887">Final</word>
+          <word xMin="272.045047" yMin="136.310917" xMax="291.133436" yMax="143.515887">Exam</word>
+        </line>
+      </block>
+      <block xMin="242.848000" yMin="68.414707" xMax="245.737154" yMax="72.917802">
+        <line xMin="242.848000" yMin="68.414707" xMax="245.737154" yMax="72.917802">
+          <word xMin="242.848000" yMin="68.414707" xMax="245.737154" yMax="72.917802">8</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="22.691000" yMin="68.434707" xMax="25.580154" yMax="72.937802">
+        <line xMin="22.691000" yMin="68.434707" xMax="25.580154" yMax="72.937802">
+          <word xMin="22.691000" yMin="68.434707" xMax="25.580154" yMax="72.937802">1</word>
+        </line>
+      </block>
+      <block xMin="22.691000" yMin="79.891707" xMax="25.580154" yMax="84.394802">
+        <line xMin="22.691000" yMin="79.891707" xMax="25.580154" yMax="84.394802">
+          <word xMin="22.691000" yMin="79.891707" xMax="25.580154" yMax="84.394802">2</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="242.848000" yMin="79.891707" xMax="245.737154" yMax="84.394802">
+        <line xMin="242.848000" yMin="79.891707" xMax="245.737154" yMax="84.394802">
+          <word xMin="242.848000" yMin="79.891707" xMax="245.737154" yMax="84.394802">9</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="100.233000" yMin="153.706066" xMax="133.149513" yMax="160.919007">
+        <line xMin="100.233000" yMin="153.706066" xMax="133.149513" yMax="160.919007">
+          <word xMin="100.233000" yMin="153.706066" xMax="126.590121" yMax="160.919007">BLOCK</word>
+          <word xMin="128.526855" yMin="153.706066" xMax="133.149513" yMax="160.919007">2</word>
+        </line>
+      </block>
+      <block xMin="14.529000" yMin="174.168917" xMax="138.749855" yMax="227.385199">
+        <line xMin="33.154000" yMin="174.168917" xMax="138.749855" yMax="181.373887">
+          <word xMin="33.154000" yMin="174.168917" xMax="75.331769" yMax="181.373887">Multivariate</word>
+          <word xMin="77.372115" yMin="174.168917" xMax="98.895370" yMax="181.373887">Linear</word>
+          <word xMin="100.935715" yMin="174.168917" xMax="138.749855" yMax="181.373887">Regression</word>
+        </line>
+        <line xMin="33.154000" yMin="185.625917" xMax="131.265931" yMax="192.830887">
+          <word xMin="33.154000" yMin="185.625917" xMax="65.911111" yMax="192.830887">Inference</word>
+          <word xMin="67.951457" yMin="185.625917" xMax="80.823168" yMax="192.830887">and</word>
+          <word xMin="82.863514" yMin="185.625917" xMax="131.265931" yMax="192.830887">Interpretation</word>
+        </line>
+        <line xMin="22.691000" yMin="197.949707" xMax="25.580154" yMax="202.452802">
+          <word xMin="22.691000" yMin="197.949707" xMax="25.580154" yMax="202.452802">7</word>
+        </line>
+        <line xMin="33.154000" yMin="197.082917" xMax="93.264494" yMax="204.287887">
+          <word xMin="33.154000" yMin="197.082917" xMax="69.633148" yMax="204.287887">Functional</word>
+          <word xMin="71.673493" yMin="197.082917" xMax="93.264494" yMax="204.287887">Forms</word>
+        </line>
+        <line xMin="33.154000" yMin="208.539917" xMax="67.839875" yMax="215.744887">
+          <word xMin="33.154000" yMin="208.539917" xMax="61.176872" yMax="215.744887">Practice</word>
+          <word xMin="63.217217" yMin="208.539917" xMax="67.839875" yMax="215.744887">3</word>
+        </line>
+        <line xMin="14.529000" yMin="219.861425" xMax="70.035964" yMax="227.385199">
+          <word xMin="14.529000" yMin="219.861425" xMax="28.173014" yMax="227.385199">−→</word>
+          <word xMin="33.154327" yMin="219.996917" xMax="63.372961" yMax="227.201887">Midterm</word>
+          <word xMin="65.413306" yMin="219.996917" xMax="70.035964" yMax="227.201887">2</word>
+        </line>
+      </block>
+      <block xMin="22.691000" yMin="175.014707" xMax="25.580154" yMax="179.517802">
+        <line xMin="22.691000" yMin="175.014707" xMax="25.580154" yMax="179.517802">
+          <word xMin="22.691000" yMin="175.014707" xMax="25.580154" yMax="179.517802">5</word>
+        </line>
+      </block>
+      <block xMin="22.691000" yMin="186.471707" xMax="25.580154" yMax="190.974802">
+        <line xMin="22.691000" yMin="186.471707" xMax="25.580154" yMax="190.974802">
+          <word xMin="22.691000" yMin="186.471707" xMax="25.580154" yMax="190.974802">6</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="13.550000" yMin="247.681707" xMax="40.503814" yMax="252.184802">
+        <line xMin="13.550000" yMin="247.681707" xMax="40.503814" yMax="252.184802">
+          <word xMin="13.550000" yMin="247.681707" xMax="40.503814" yMax="252.184802">Introduction</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="59.138858" yMin="247.681707" xMax="165.711280" yMax="252.184802">
+        <line xMin="59.138858" yMin="247.681707" xMax="165.711280" yMax="252.184802">
+          <word xMin="59.138858" yMin="247.681707" xMax="74.959466" yMax="252.184802">Review</word>
+          <word xMin="76.234679" yMin="247.681707" xMax="80.750228" yMax="252.184802">of</word>
+          <word xMin="82.025440" yMin="247.681707" xMax="105.479892" yMax="252.184802">Probability</word>
+          <word xMin="106.755104" yMin="247.681707" xMax="122.266873" yMax="252.184802">Theory</word>
+          <word xMin="123.542085" yMin="247.681707" xMax="125.392638" yMax="252.184802">-</word>
+          <word xMin="126.667851" yMin="247.681707" xMax="144.720082" yMax="252.184802">Random</word>
+          <word xMin="145.995295" yMin="247.681707" xMax="165.711280" yMax="252.184802">Variables</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="184.346324" yMin="247.681707" xMax="214.547946" yMax="252.184802">
+        <line xMin="184.346324" yMin="247.681707" xMax="214.547946" yMax="252.184802">
+          <word xMin="184.346324" yMin="247.681707" xMax="193.556747" yMax="252.184802">Two</word>
+          <word xMin="194.831960" yMin="247.681707" xMax="214.547946" yMax="252.184802">Variables</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="233.187970" yMin="247.681707" xMax="272.283703" yMax="252.184802">
+        <line xMin="233.187970" yMin="247.681707" xMax="272.283703" yMax="252.184802">
+          <word xMin="233.187970" yMin="247.681707" xMax="251.235220" yMax="252.184802">Random</word>
+          <word xMin="252.510433" yMin="247.681707" xMax="272.283703" yMax="252.184802">Sampling</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="290.918747" yMin="247.681707" xMax="314.022016" yMax="252.184802">
+        <line xMin="290.918747" yMin="247.681707" xMax="314.022016" yMax="252.184802">
+          <word xMin="290.918747" yMin="247.681707" xMax="314.022016" yMax="252.184802">Estimation</word>
+        </line>
+      </block>
+    </flow>
+    <flow>
+      <block xMin="435.027756" yMin="247.681707" xMax="448.497191" yMax="252.184802">
+        <line xMin="435.027756" yMin="247.681707" xMax="448.497191" yMax="252.184802">
+          <word xMin="435.027756" yMin="247.681707" xMax="437.916910" yMax="252.184802">6</word>
+          <word xMin="439.192122" yMin="247.681707" xMax="441.443670" yMax="252.184802">/</word>
+          <word xMin="442.718883" yMin="247.681707" xMax="448.497191" yMax="252.184802">25</word>
+        </line>
+      </block>
+    </flow>
+  </page>
+</doc>
+</body>
+</html>
