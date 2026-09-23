@@ -150,8 +150,27 @@
     \node[above] at (6,0.18) {\(f(0)=f\)};
   \end{tikzpicture}
   \end{center}
-  The endpoints are one full turn apart. Their common candidate
-  depends on the initial angle; it is not always \(\nu\).
+\end{frame}
+
+\begin{frame}{Why the initial endpoints agree}
+  At initialization, \(\theta_{\min}=\theta_{\max}-2\pi\).
+  Periodicity gives
+  \[
+    \begin{aligned}
+      f(\theta_{\min})
+        &=f\cos(\theta_{\max}-2\pi)
+          +\nu\sin(\theta_{\max}-2\pi)\\
+        &=f\cos\theta_{\max}+\nu\sin\theta_{\max}
+         =f(\theta_{\max}).
+    \end{aligned}
+  \]
+  This equality holds for every \(f\), \(\nu\), and initial angle.
+  It says that the endpoints are the \emph{same point} on the ellipse;
+  it does not say that the point is \(\nu\) or \(f\).
+  \vspace{0.6em}
+
+  Separately, \(f(0)=f\). Keeping \(0\) in the bracket preserves
+  a known acceptable angle while the sampler searches.
 \end{frame}
 
 \begin{frame}{The drawn angle sets both endpoints}
@@ -176,27 +195,6 @@
   The endpoints agree because they are \(2\pi\) apart.
   Their shared value depends on the drawn angle.
   The current state \(f\) is at angle \(0\) in both brackets.
-\end{frame}
-
-\begin{frame}{Why the initial endpoints agree}
-  At initialization, \(\theta_{\min}=\theta_{\max}-2\pi\).
-  Periodicity gives
-  \[
-    \begin{aligned}
-      f(\theta_{\min})
-        &=f\cos(\theta_{\max}-2\pi)
-          +\nu\sin(\theta_{\max}-2\pi)\\
-        &=f\cos\theta_{\max}+\nu\sin\theta_{\max}
-         =f(\theta_{\max}).
-    \end{aligned}
-  \]
-  This equality holds for every \(f\), \(\nu\), and initial angle.
-  It says that the endpoints are the \emph{same point} on the ellipse;
-  it does not say that the point is \(\nu\) or \(f\).
-  \vspace{0.6em}
-
-  Separately, \(f(0)=f\). Keeping \(0\) in the bracket preserves
-  a known acceptable angle while the sampler searches.
 \end{frame}
 
 \begin{frame}{Why shrinking leaves acceptable angles}
