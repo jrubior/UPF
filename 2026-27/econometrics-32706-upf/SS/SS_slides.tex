@@ -1,6 +1,7 @@
 \documentclass[aspectratio=169,11pt]{beamer}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{tikz}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -28,9 +29,7 @@
 \begin{frame}{The problem}
   We want draws from a density known only up to a normalizing constant:
   \[
-    \pi(x)=\frac{q(x)}{Z},
-    \qquad
-    Z=\int_{\mathbb R}q(t)\,dt.
+    \pi(x)=\frac{q(x)}{Z},\quad Z=\int_{\mathbb R}q(t)\,dt.
   \]
   We can evaluate \(q(x)\), but calculating \(Z\) or sampling
   directly from \(\pi\) may be difficult.
@@ -70,10 +69,7 @@
     |A|=\int_{\mathbb R}\int_0^{q(x)}dh\,dx
        =\int_{\mathbb R}q(x)\,dx=Z.
   \]
-  \alert{Thus, the area of \(A\) is \(Z\).}
-  \vspace{0.25em}
-
-  Define a uniform density on \(A\):
+  Since \(|A|=Z\), the uniform density on \(A\) is
   \[
     p(x,h)=\frac{1}{|A|}\mathbf 1\{(x,h)\in A\}
           =\frac{1}{Z}\mathbf 1\{0<h<q(x)\}.
@@ -83,136 +79,85 @@
     p_X(x)=\int_0^{q(x)}\frac{1}{Z}\,dh
           =\frac{q(x)}{Z}=\pi(x).
   \]
-  \alert{Conclusion:} sample \((X,H)\) from this joint density
+  \alert{Conclusion 1:} sample \((X,H)\) from this joint density
   and keep only \(X\); then \(X\sim\pi\).
+  \vspace{0.25em}
+
+  \alert{Conclusion 2:} alternate draws from \(H\mid X\) and
+  \(X\mid H\) to preserve this joint density.
 \end{frame}
 
 \begin{frame}{Conditional 1: the height given the position}
   From slide 4,
   \[
-    p(x,h)=\frac{1}{Z}\mathbf 1\{0<h<q(x)\},
-    \qquad p_X(x)=\frac{q(x)}{Z}.
+    p(x,h)=\frac{1}{Z}\mathbf 1\{0<h<q(x)\},\quad
+    p_X(x)=\frac{q(x)}{Z}.
   \]
   For a fixed \(x\) with \(q(x)>0\), divide the joint density
   by the marginal density of \(X\):
   \[
-    \begin{aligned}
-      p(h\mid x)
-      &=\frac{p(x,h)}{p_X(x)}\\
-      &=\frac{1}{q(x)}\mathbf 1\{0<h<q(x)\}.
-    \end{aligned}
+    p(h\mid x)=\frac{p(x,h)}{p_X(x)}
+      =\frac{1}{q(x)}\mathbf 1\{0<h<q(x)\}.
   \]
-  This is constant on the vertical interval \((0,q(x))\), so
+  So:
   \[
-    H\mid X=x\sim U(0,q(x)).
+    H\mid X=x\sim \operatorname{Unif}(0,q(x)).
   \]
-\end{frame}
-
-\begin{frame}{Why the height marginal contains \(|S_h|\)}
-  Fix a height \(h>0\). The horizontal slice is
-  \(S_h=\{x:q(x)>h\}\); let \(|S_h|\) be its total length.
-  \vspace{0.4em}
-
-  At this height, the joint density is \(1/Z\) for every
-  \(x\in S_h\), and zero for every \(x\notin S_h\):
-  \[
-    p(x,h)=\frac{1}{Z}\mathbf 1\{x\in S_h\}.
-  \]
-  To find the marginal density of \(H\), add the joint density
-  over all possible positions:
-  \[
-    \begin{aligned}
-      p_H(h)
-      &=\int_{\mathbb R}p(x,h)\,dx
-       =\int_{S_h}\frac{1}{Z}\,dx\\
-      &=\frac{1}{Z}\,|S_h|.
-    \end{aligned}
-  \]
-  \alert{Intuition:} the longer the horizontal slice at \(h\),
-  the more area of \(A\) lies near that height.
 \end{frame}
 
 \begin{frame}{Conditional 2: the position given the height}
-  By definition \(S_h=\{z:q(z)>h\}\). For a fixed \(h>0\),
+  By definition, for a fixed height \(h>0\),
   \[
     x\in S_h\quad\Longleftrightarrow\quad q(x)>h
-      \quad\Longleftrightarrow\quad 0<h<q(x).
+      \quad\Longleftrightarrow\quad 0<h<q(x)
+      \quad\Longleftrightarrow\quad (x,h)\in A.
   \]
-  The two indicators therefore agree. The joint density on slide 4
-  can be written, for \(h>0\), as
+  Therefore the joint density can also be written as
   \[
-    p(x,h)=\frac{1}{Z}\mathbf 1\{0<h<q(x)\}
-          =\frac{1}{Z}\mathbf 1\{x\in S_h\}.
+    p(x,h)=\frac{1}{Z}\mathbf 1\{x\in S_h\}.
   \]
-  We also showed \(p_H(h)=|S_h|/Z\) when \(|S_h|>0\).
-  Divide the joint density by this height marginal:
+  For heights with \(|S_h|>0\), the height marginal is
+  \(p_H(h)=|S_h|/Z\). Dividing gives
   \[
-    \begin{aligned}
-      p(x\mid h)
-      &=\frac{p(x,h)}{p_H(h)}\\
-      &=\frac{1}{|S_h|}\mathbf 1\{x\in S_h\}.
-    \end{aligned}
+    p(x\mid h)=\frac{p(x,h)}{p_H(h)}
+      =\frac{1}{|S_h|}\mathbf 1\{x\in S_h\}.
   \]
-  Thus every position in \(S_h\) has the same conditional density,
-  and positions outside it have density zero:
+  So:
   \[
-    X\mid H=h\sim U(S_h).
+    X\mid H=h\sim \operatorname{Unif}(S_h).
   \]
 \end{frame}
 
 \begin{frame}{How to use it}
-  The joint law has two conditional distributions:
+  The two conditional laws are
   \[
-    h\mid x\sim U(0,q(x)),
-    \qquad
-    x\mid h\sim U(S_h).
+    H\mid X=x\sim \operatorname{Unif}(0,q(x))\quad\text{and}\quad
+    X\mid H=h\sim \operatorname{Unif}(S_h).
   \]
-  \begin{center}
-    \begin{tikzpicture}[x=0.96cm,y=1.98cm,
-                        every node/.style={font=\scriptsize}]
-      \draw[->] (-2.5,0)--(2.55,0) node[right] {\(x\)};
-      \draw[->] (-2.4,0)--(-2.4,1.11) node[above] {\(q(x)\)};
-      \draw[courseblue,thick]
-        plot[domain=-2.2:2.2,samples=80] (\x,{exp(-\x*\x/2)});
-      \draw[courseorange,dashed] (-1.26,0.45)--(1.26,0.45)
-        node[right] {\(h\)};
-      \draw[courseorange,very thick] (-1.26,0)--(1.26,0);
-      \fill[courseblue] (0.7,0) circle (2pt)
-        node[below] {current \(x\)};
-      \fill[courseorange] (-0.65,0) circle (2pt)
-        node[below] {new \(x'\)};
-      \node[above] at (0,0.48) {\(S_h\)};
-    \end{tikzpicture}
-  \end{center}
-  The slice \(S_h\) contains every position whose density exceeds
-  the chosen height.
-  \vspace{0.25em}
-
-  \alert{Alternate draws} from \(H\mid X\) and
-  \(X\mid H\). This constructs a Markov chain whose stationary
-  joint law is uniform on \(A\).
+  Alternate draws from these two conditionals. The resulting Markov
+  chain has stationary joint density
+  \[
+    p(x,h)=\frac{1}{Z}\mathbf 1\{(x,h)\in A\}.
+  \]
 \end{frame}
 
 \begin{frame}{The ideal slice-sampling update}
-  Starting from the current position \(x\):
+  Starting from the current state value \(x\):
   \begin{enumerate}
     \setlength{\itemsep}{0.65em}
-    \item Draw \(u\sim U(0,1)\), then set \(h=u\,q(x)\).
-    \item Find the horizontal slice \(S_h=\{z:q(z)>h\}\).
-    \item Draw \(x'\) uniformly from \(S_h\).
-    \item Use \(x'\) as the next state and repeat.
+    \item Draw \(U\sim \operatorname{Unif}(0,1)\) with realization \(u\),
+          then set \(h=uq(x)\).
+    \item Form the horizontal slice \(S_h=\{z:q(z)>h\}\).
+    \item Draw \(X'\mid H=h\sim \operatorname{Unif}(S_h)\).
+    \item Use the realized value \(x'\) as the next state and repeat.
   \end{enumerate}
-  \vspace{0.6em}
-
-  Since \(h<q(x)\), the current position always lies in the slice.
-  A new height is drawn on every update, so the set of possible
-  moves changes with the current state.
 \end{frame}
 
 \begin{frame}{A simple numerical example}
   Let \(q(x)=e^{-x^2/2}\), the standard normal kernel, and
-  suppose the current position is \(x=1\).
-  If the random draw is \(u=\tfrac12\), then
+  suppose the current value is \(x=1\).
+  For a realization \(u=\tfrac12\) of \(U\sim \operatorname{Unif}(0,1)\),
+  the height is
   \[
     h=u\,q(1)=\tfrac12 e^{-1/2}.
   \]
@@ -222,8 +167,8 @@
     \quad\Longleftrightarrow\quad
     |z|<\sqrt{1+2\log 2}\approx 1.54.
   \]
-  Thus \(S_h\approx(-1.54,1.54)\), and the ideal update draws
-  \(x'\) uniformly from this interval.
+  Thus \(S_h\approx(-1.54,1.54)\), and \(X'\mid H=h\sim \operatorname{Unif}(S_h)\)
+  has a realized value \(x'\) in this interval.
   \vspace{0.45em}
 
   The example illustrates one possible height; the next update
@@ -231,23 +176,15 @@
 \end{frame}
 
 \begin{frame}{Why the update targets \(\pi\)}
-  Both steps sample from conditionals of the \emph{same} joint law:
-  \[
-    x\ \xrightarrow{\ h\mid x\ }\ (x,h)\
-      \xrightarrow{\ x'\mid h\ }\ (x',h).
-  \]
-  If \(x\sim\pi\), the first draw gives \((x,h)\sim p(x,h)\).
-  The second conditional draw leaves that joint law unchanged.
-  Discarding \(h\) therefore gives \(x'\sim\pi\).
+  Start with \(X\sim\pi\). Given its current value \(x\), draw
+  \(H\mid X=x\); then \((X,H)\) has joint density \(p(x,h)\).
+  Next draw \(X'\mid H=h\). This leaves the joint law unchanged,
+  so discarding \(H\) gives \(X'\sim\pi\).
   \vspace{0.75em}
 
   \alert{This is a Gibbs-sampling argument.} It proves that \(\pi\)
   is stationary for the update; successive states need not be
   independent.
-  \vspace{0.4em}
-
-  Another intuition: high-density points occur on many possible
-  slices, so they receive more probability in the long run.
 \end{frame}
 
 \begin{frame}{When the slice is hard to sample from}
@@ -286,6 +223,167 @@
   \emph{Slice sampling}, \emph{Annals of Statistics}
   31(3), 705--767,
   \href{https://doi.org/10.1214/aos/1056562461}{doi:10.1214/aos/1056562461}.}
+\end{frame}
+
+
+\begin{frame}{ESS uses the same slice idea}
+  Let \(\phi_K(f)=\mathcal N(f;0,K)\). The target is
+  \[
+    \pi(f)\ \propto\ \phi_K(f)L(f).
+  \]
+  Introduce a height \emph{under the likelihood}:
+  \[
+    p(f,h)\ \propto\
+      \phi_K(f)\,\mathbf 1\{0<h<L(f)\}.
+  \]
+  Ordinary slice sampling recovers its target by integrating out height:
+  \[
+    p_X(x)=\int_0^{q(x)}\frac{1}{Z}\,dh
+      =\frac{q(x)}{Z}=\pi(x).
+  \]
+  ESS uses the same step, with the prior factor inside the integral:
+  \[
+    p_F(f)\propto\int_0^{L(f)}\phi_K(f)\,dh
+      =\phi_K(f)L(f)\propto\pi(f).
+  \]
+
+  The two conditional distributions follow by dividing this joint
+  density by its marginals.
+\end{frame}
+
+\begin{frame}{The two conditional updates for ESS}
+  Let \(Z_* = \int \phi_K(z)L(z)\,dz\), the normalizing constant.
+  The joint density is
+  \[
+    p(f,h)=\frac{1}{Z_*}\phi_K(f)\mathbf 1\{0<h<L(f)\}.
+  \]
+  The marginal density of \(F\) is \(p_F(f)=\phi_K(f)L(f)/Z_*\), so
+  \[
+    p(h\mid f)=\frac{p(f,h)}{p_F(f)}
+      =\frac{1}{L(f)}\mathbf 1\{0<h<L(f)\},\quad
+    H\mid F=f\sim \operatorname{Unif}(0,L(f)).
+  \]
+  At a fixed height, define
+  \[
+    C_h=\int \phi_K(z)\mathbf 1\{L(z)>h\}\,dz.
+  \]
+  Integrating over this slice gives \(p_H(h)=C_h/Z_*\).
+  Dividing by this marginal gives
+  \[
+    p(f\mid h)=\frac{\phi_K(f)\mathbf 1\{L(f)>h\}}{C_h}
+      =\pi_h(f),\quad F\mid H=h\sim\pi_h.
+  \]
+\end{frame}
+
+\begin{frame}{ESS searches that slice along an ellipse}
+  From the current value \(f\), draw \(V\sim\mathcal N(0,K)\)
+  and \(U\sim \operatorname{Unif}(0,1)\).
+  Let \(v\) and \(u\) be their realized values, set \(h=uL(f)\),
+  and consider
+  \[
+    f(\theta)=f\cos\theta+v\sin\theta,\quad
+    S_h^\theta=\{\theta:L(f(\theta))>h\}.
+  \]
+  A rotation of the \emph{pair} is
+  \[
+    (f_\theta,v_\theta)
+      =(f\cos\theta+v\sin\theta,\,
+        -f\sin\theta+v\cos\theta).
+  \]
+  ESS accepts only angles in \(S_h^\theta\). It shrinks a
+  randomly placed angular bracket after rejected candidates;
+  the next two slides show why this gives a valid update for
+  \(p(f\mid h)\).
+  \vspace{0.35em}
+
+  Since \(f(0)=f\) and \(h<L(f)\), angle \(0\) is always eligible.
+  The bracket keeps it inside while searching.
+\end{frame}
+
+\begin{frame}{The conditional distribution at fixed \(h\)}
+  Let \(\phi_K\) be the \(\mathcal N(0,K)\) density and define
+  \[
+    C_h=\int \phi_K(z)\mathbf 1\{L(z)>h\}\,dz.
+  \]
+  Add an independent Gaussian draw \(V\) to the conditional target:
+  \[
+    \rho_h(f,v)
+      =\frac{1}{C_h}\,
+       \phi_K(f)\phi_K(v)\mathbf 1\{L(f)>h\}.
+  \]
+  Its marginal density for \(F\) is exactly the distribution we need:
+  \[
+    \int \rho_h(f,v)\,dv
+      =\frac{\phi_K(f)\mathbf 1\{L(f)>h\}}{C_h}
+      =p(f\mid h).
+  \]
+  Also, \(\rho_h(v\mid f)=\phi_K(v)\). Thus drawing
+  \(V\sim\mathcal N(0,K)\) is an exact conditional draw for this
+  augmented target.
+\end{frame}
+
+\begin{frame}{Why the ESS angle search preserves it}
+  Rotating \((f,v)\) by \(\theta\) to \((f',v')\) has unit
+  Jacobian and preserves the Gaussian product:
+  \[
+    \phi_K(f')\phi_K(v')=\phi_K(f)\phi_K(v).
+  \]
+  ESS accepts only \(L(f')>h\); both endpoints of an accepted
+  move therefore have the same density under \(\rho_h\).
+  \vspace{0.3em}
+
+  The reverse rotation uses \(-\theta\). The randomly placed
+  initial bracket and the shrinkage rule give matching
+  probabilities to the forward and reverse angle paths
+  (Murray, Adams and MacKay, 2010, Section 2.3).
+  Hence the move satisfies detailed balance for \(\rho_h\).
+  \vspace{0.35em}
+
+  \alert{Consequently,}
+  \[
+    F\mid H=h\sim\pi_h
+      \quad\Longrightarrow\quad
+    F'_{\rm ESS}\mid H=h\sim\pi_h.
+  \]
+  This is a valid conditional \emph{Markov update}, not an
+  independent draw from \(\pi_h\).
+\end{frame}
+
+\begin{frame}{Ordinary slice sampling versus ESS}
+  \begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.55}
+    \begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.7cm}
+                    @{\hspace{0.3cm}}>{\raggedright\arraybackslash}p{4.25cm}
+                    @{\hspace{0.3cm}}>{\raggedright\arraybackslash}p{4.25cm}@{}}
+      \toprule
+      & Ordinary slice sampling & Elliptical slice sampling\\
+      \midrule
+      Target
+        & \(\pi(x)\propto q(x)\)
+        & \(\pi(f)\propto\phi_K(f)L(f)\)\\
+      Height
+        & \(H\mid X=x\sim \operatorname{Unif}(0,q(x))\)
+        & \(H\mid F=f\sim \operatorname{Unif}(0,L(f))\)\\
+      Given \(h\)
+        & Uniform on \(\{x:q(x)>h\}\)
+        & Gaussian prior restricted to \(\{f:L(f)>h\}\)\\
+      Update
+        & Ideal: uniform conditional draw
+        & Reversible Markov update on the restricted prior\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \vspace{0.35em}
+
+  \alert{Shared principle:} augment with a height, then update
+  while preserving the conditional law on that slice.
+  \vspace{0.35em}
+
+  {\tiny ESS source: Murray, Adams and MacKay (2010),
+  \emph{Elliptical slice sampling}, AISTATS, PMLR 9, 541--548,
+  \href{https://proceedings.mlr.press/v9/murray10a.html}
+       {proceedings.mlr.press/v9/murray10a.html}.}
 \end{frame}
 
 \end{document}

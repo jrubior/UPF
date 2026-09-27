@@ -27,6 +27,9 @@ function [f_new, nEval] = elliptical_slice_step(f, cholK, loglike)
     theta_max = theta;
 
     while true
+
+        theta = theta_min + rand * (theta_max - theta_min);
+
         proposal = f * cos(theta) + nu * sin(theta);
         loglike_proposal = loglike(proposal);
         nEval = nEval + 1;
@@ -45,6 +48,6 @@ function [f_new, nEval] = elliptical_slice_step(f, cholK, loglike)
         else
             theta_max = theta;
         end
-        theta = theta_min + rand * (theta_max - theta_min);
+
     end
 end

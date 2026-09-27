@@ -21,7 +21,7 @@ C_exact = K - (K * h') * (h * K) / denom;
 
 % Draw a Markov chain. Discard the initial part of the chain.
 nBurn = 1000;
-nKeep = 6000;
+nKeep = 1000;
 samples = zeros(2, nKeep);
 f = zeros(2, 1);
 totalEval = 0;
