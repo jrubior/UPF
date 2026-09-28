@@ -1,0 +1,77 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Pooled data and first differences}\end{center}
+\textbf{Slide route:} Lecture10v2.tex: Starting with Pooled Data through Limits of First-Differences. Stop before Fixed Effects Models.
+\heading{Session 13 | Same units or new samples?}
+\textbf{Outcomes:} Distinguish pooled cross-sections from panels, interpret time interactions, and show how first differences remove fixed unit characteristics.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Retrieve interaction interpretation.\\
+10--30 & Cross-section, pooled cross-section, fertility/gender examples.\\
+30--45 & Time interactions and changing associations.\\
+45--55 & Pause and identify the sampling unit.\\
+55--75 & Panel structure and traffic-fatality examples.\\
+75--90 & First differences for two and more periods.\\
+90--100 & Limits and exit exercise.\\\bottomrule
+\end{tabularx}
+\heading{Side example | Pooled observations}
+\cue{Use with slides}{Lecture10v2 slides 5--18: Cross-Section, Pooled Cross-Section, Fertility over time, Gender Gap, and Testing Differences in Pooled regressions. Use the two-by-two interaction example while moving through slides 16--18.}
+In a synthetic pooled wage model,
+\[
+wage=10+2D_{\rm later}+3D_{\rm group}
+-1(D_{\rm later}D_{\rm group})+u,
+\]
+the group gap is 3 initially and 2 later. The interaction is the change in the gap, $-1$. With new people sampled at each date, this is not the average change in the same individuals' wages.
+\cue{Ask}{Does a two-by-two interaction automatically identify a causal difference-in-differences effect? No. That reading requires a design and additional assumptions such as a suitable parallel-trends counterfactual. Here the example is an interpretation exercise.}
+\cue{Panel definition}{A panel repeatedly observes the same units. Time labels on independent cross-sections do not turn them into a panel. Have students name the unit, time index, and outcome before interpreting any coefficient.}
+
+\newpage
+\heading{Worked example | Removing a fixed effect}
+\cue{Use with slides}{Lecture10v2 slides 20--34: panel data through Limits of First-Differences. Use the three-unit table when the deck reaches Traffic Fatalities first differences, especially slides 31--34.}
+Suppose
+\[
+Y_{it}=\alpha_i+\beta X_{it}+\lambda_t+u_{it}.
+\]
+With two periods,
+\[
+\Delta Y_i=\beta\Delta X_i+\Delta\lambda+\Delta u_i.
+\]
+The unit effect $\alpha_i$ cancels. A common time shock remains and can be captured by an intercept in the two-period differenced regression.
+\begin{center}\begin{tabular}{lrrrr}\toprule
+Unit & $X_1$ & $X_2$ & $Y_1$ & $Y_2$\\\midrule
+A & 1 & 2 & 10 & 13\\
+B & 2 & 4 & 20 & 25\\
+C & 3 & 6 & 30 & 37\\\bottomrule
+\end{tabular}\end{center}
+Differences are $(\Delta X,\Delta Y)=(1,3),(2,5),(3,7)$. The fitted differenced relationship is
+\[
+\Delta\widehat Y=1+2\Delta X.
+\]
+\cue{Ask}{What would happen if we forced this line through the origin? The slope would be $(3+10+21)/(1+4+9)=34/14\simeq2.429$. Omitting the common change contaminates this synthetic comparison.}
+\cue{Identification comment}{Removing fixed attributes does not remove time-varying confounders. If a district changes tax policy in response to an unobserved changing risk, first differences need not identify the causal effect.}
+\cue{More than two periods}{Successive differences share errors: $\Delta u_t=u_t-u_{t-1}$ and $\Delta u_{t-1}=u_{t-1}-u_{t-2}$. Even independent level errors induce dependence between neighboring differenced errors.}
+\cue{Exit answers}{Time-invariant regressors disappear under differencing. A common time shock does not disappear unless it is unchanged. Repeated independent samples cannot generally be differenced person by person.}
+\cue{If short / preparation}{Show selected years of the traffic-fatality figures rather than each in detail. Preserve the three-unit example. Next time extend removal of fixed attributes to all periods using within transformations.}
+\textbf{Source:} Lecture10v2.tex, pooled-data and first-difference sections; synthetic numerical table.
+
+\end{document}

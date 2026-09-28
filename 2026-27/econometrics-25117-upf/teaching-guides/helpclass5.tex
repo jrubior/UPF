@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Regression inference and robust standard errors}\end{center}
+\textbf{Slide route:} Lecture4v2.tex: estimation and hypothesis testing, Stata application, heteroskedasticity, Gauss--Markov. Chapter 5.
+\heading{Session 5 | Read a regression responsibly}
+\textbf{Outcomes:} Read an estimate and SE, test a slope, construct an interval, explain robust SEs, and state what Gauss--Markov does and does not guarantee.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Retrieve OLS versus causality.\\
+10--30 & Hypothesis Testing and a regression output table.\\
+30--45 & Stata Application: estimate, SE, test, interpretation.\\
+45--55 & Residual plots and pause.\\
+55--75 & Homoskedasticity versus heteroskedasticity; robust SEs.\\
+75--90 & Gauss--Markov, limits, and Midterm 1 synthesis.\\
+90--100 & Exit check and explain proposed exam coverage.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | One coefficient, two SEs}
+\cue{Use with slides}{Lecture4v2 slides 7--11 and 17--22. Use the coefficient test during Hypothesis Testing/Stata Application, then return to the same estimate when the deck reaches heteroskedasticity and robust standard errors.}
+Synthetic regression: test score on class size, $\hat\beta_1=-2.3$. Suppose conventional $SE=.7$ and heteroskedasticity-robust $SE=1.2$.
+\[
+t_{\rm conventional}=-3.286,\qquad t_{\rm robust}=-1.917.
+\]
+Large-sample 95\% intervals are
+\[
+-2.3\pm1.96(.7)=[-3.672,-.928],
+\]
+\[
+-2.3\pm1.96(1.2)=[-4.652,.052].
+\]
+The estimated association is identical. The uncertainty assessment changes; at the 5\% two-sided level the robust calculation fails to reject zero.
+\cue{Important qualification}{Robust SEs are not always larger. This example illustrates a possible difference, not a general inequality. With independent observations, heteroskedasticity-robust inference tolerates unequal conditional error variances; it does not automatically handle serial or cluster dependence.}
+
+\newpage
+\heading{Board intuition and classroom implementation}
+\cue{Use with slides}{Lecture4v2 slides 17--22 for the residual-spread drawing and robust-SE formula; slides 23--25 for the Gauss--Markov interpretation and its limits.}
+Draw two residual plots: constant vertical spread and a widening spread. Both can have conditional mean zero. Heteroskedasticity concerns $\Var(u\mid X)$, not necessarily $\E(u\mid X)$.
+\[
+\widehat{\Var}_{HC0}(\hat\beta_1)=
+\frac{\sum_i(X_i-\bar X)^2\hat u_i^2}
+{\left[\sum_i(X_i-\bar X)^2\right]^2}.
+\]
+Explain the weighting intuition rather than deriving the entire sandwich matrix. Software may use a finite-sample adjustment, such as HC1, instead of HC0.
+\cue{Illustrative Stata commands}{For a prepared dataset with variables named score and classsize:}
+\begin{verbatim}
+reg score classsize, vce(robust)
+test classsize = 0
+\end{verbatim}
+These names are placeholders for a classroom example; check the actual dataset's variable names before the class. If no dataset is available, use the synthetic output on page 1.
+\cue{Gauss--Markov in words}{With the classical linear-model assumptions, including homoskedasticity and appropriate exogeneity, OLS is best among linear unbiased estimators. This is not a theorem saying every regression is causal, or that OLS is best among all estimators.}
+\heading{Prompts and answers}
+\cue{Does robust mean unbiased?}{No. A robust SE can accompany a biased coefficient when regressors are endogenous.}
+\cue{Would more observations cure omitted-variable bias?}{No. They can make an estimate of the wrong target very precise.}
+\cue{What does an interval spanning zero mean?}{The data do not reject a zero slope at that corresponding level; many nonzero slopes also remain compatible.}
+\cue{Midterm 1 preparation}{Proposed coverage: Lecture 1 probability/sampling, Lecture 2 mean inference, Lecture 3 OLS, Lecture 4 regression inference. Students should practice a joint table, a mean test, a hand-computed OLS line, and a robust-SE interpretation.}
+\cue{If short}{Reduce repeated Stata screenshots. Preserve coefficient/SE interpretation and the distinction between heteroskedasticity and endogeneity.}
+\textbf{Source:} Lecture4v2.tex. Numerical regression output is illustrative.
+
+\end{document}

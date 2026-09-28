@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Instrumental variables and 2SLS}\end{center}
+\textbf{Slide route:} Lecture9v2.tex: IV, 2SLS, buttery example, cigarette application, exogeneity and relevance. Chapter 12.
+\heading{Session 12 | Where does identifying variation come from?}
+\textbf{Outcomes:} State relevance and exclusion/exogeneity, calculate a just-identified IV estimate, explain 2SLS, and recognize weak-instrument concerns.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Retrieve simultaneity and OVB.\\
+10--30 & Instrument logic and the ratio estimator.\\
+30--45 & 2SLS and the lecture's buttery example.\\
+45--55 & Pause and student exclusion critiques.\\
+55--75 & General IV model and cigarette application.\\
+75--90 & Relevance, weak instruments, exogeneity checks.\\
+90--100 & Exit ticket and panel-data transition.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | A randomized encouragement}
+\cue{Use with slides}{Lecture9v2 slides 4--7: Instrumental Variables and Two Stages Least Squares. Use the encouragement table after slide 5 to make the Wald ratio concrete, then connect it to the two-stage explanation on slides 6--7.}
+Synthetic group means by encouragement $Z$:
+\begin{center}\begin{tabular}{lrr}\toprule
+ & $Z=0$ & $Z=1$\\\midrule
+Treatment take-up $D$ & .20 & .50\\
+Outcome $Y$ & 60 & 66\\\bottomrule
+\end{tabular}\end{center}
+\[
+\hat\beta_{\rm IV}=
+\frac{\bar Y_{Z=1}-\bar Y_{Z=0}}{\bar D_{Z=1}-\bar D_{Z=0}}
+=\frac6{.30}=20.
+\]
+\cue{Explain the units}{The reduced form is six outcome units per encouragement contrast; the first stage is $.30$ treatment units per encouragement contrast. The ratio gives 20 outcome units per treatment unit.}
+\cue{Assumptions}{Encouragement must shift take-up and must not affect outcomes through another channel; random encouragement supports independence. With heterogeneous treatment effects, a local average effect for compliers additionally needs monotonicity and the other usual treatment-design assumptions. Do not call it everyone's treatment effect automatically.}
+
+\newpage
+\heading{Two stages and the identifying argument}
+\cue{Use with slides}{Lecture9v2 slides 14--20 for the general IV model, single-endogenous-regressor setup, application framing, and IV assumptions. Return to slides 21--26 when discussing exogeneity, relevance, and weak instruments.}
+For one endogenous $X$ and exogenous controls $W$:
+\[
+X_i=\pi_0+\pi_1 Z_i+\pi_W'W_i+v_i,
+\quad
+Y_i=\beta_0+\beta_1\hat X_i+\beta_W'W_i+\text{residual}.
+\]
+All included exogenous controls belong in the instrument set/first stage. Multiple instruments can predict the endogenous regressor jointly.
+\cue{Software caution}{The two stages explain the point estimate. The ordinary second-stage OLS standard errors from manually generated fitted regressors are not valid IV standard errors. Use an IV estimator's covariance calculation.}
+\cue{Illustrative command}{With appropriately prepared variables:}
+\begin{verbatim}
+ivregress 2sls outcome controls (treatment = instrument), vce(robust)
+\end{verbatim}
+The names are placeholders; this is not a command already tested on a supplied dataset.
+\heading{Weak instruments and exclusion}
+If the first-stage difference were $.02$ with the same reduced form of 6, the ratio would be 300. Small denominator variation makes the estimate unstable and conventional approximations unreliable.
+\cue{First-stage diagnostics}{Examine excluded-instrument strength conditional on controls. A rule of thumb is not a universal guarantee; design, estimator, and inference assumptions matter.}
+\cue{Exogeneity}{A strong first stage does not prove exclusion. A transport subsidy that changes both attendance and household disposable income could affect outcomes through multiple channels. Ask students to draw the extra path.}
+\cue{Overidentification}{With extra instruments, tests can detect certain violations under maintained assumptions. Failure to reject does not certify that all instruments are valid. An exactly identified model has no overidentifying restrictions to test.}
+\cue{Exit answers}{Relevance concerns association with the endogenous regressor conditional on controls. Exclusion/exogeneity concern the outcome error and direct channels. Strong does not mean valid; robust does not mean weak-IV-proof.}
+\cue{If short / preparation}{Work the ratio and one empirical story carefully; assign repeated application screenshots. Read the pooled/panel parts of Chapter 10 and the syllabus's Chapter 13 material as relevant.}
+\textbf{Source:} Lecture9v2.tex; encouragement numbers are synthetic.
+
+\end{document}

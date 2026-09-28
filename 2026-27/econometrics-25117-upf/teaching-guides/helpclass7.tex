@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Multiple regression and omitted-variable bias}\end{center}
+\textbf{Slide route:} Lecture5v2.tex: OVB, multiple regression, goodness of fit, multicollinearity, controls and conditional mean independence. Chapter 6.
+\heading{Session 7 | Comparing like with like}
+\textbf{Outcomes:} Predict the sign of omitted-variable bias, interpret a partial coefficient, distinguish perfect from high multicollinearity, and choose a reference category.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Post-midterm conceptual retrieval.\\
+10--30 & OVB slides and education/ability board example.\\
+30--45 & Multiple regression and holding controls fixed.\\
+45--55 & Goodness of fit and pause.\\
+55--75 & Multicollinearity and the dummy-variable trap.\\
+75--90 & Control variables and conditional mean independence.\\
+90--100 & Exit questions and next topic.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | The sign and size of OVB}
+\cue{Use with slides}{Lecture5v2 slides 5--10: Omitted Variable Bias. Put the education/ability calculation on the board before slide 6 if you want them to predict the sign, then reveal the size calculation as the slide logic develops.}
+Let the synthetic population model be
+\[
+\log(wage)=\beta_0+.06\,education+.40\,ability+u,
+\]
+with $\E(u\mid education,ability)=0$. Suppose
+$\Cov(education,ability)/\Var(education)=.10$. Regressing log wage on education alone targets
+\[
+.06+.40(.10)=.10.
+\]
+The omitted ability term makes the simple-regression slope exceed the partial effect by $.04$.
+\cue{Ask before the arithmetic}{Which two conditions create OVB? The omitted variable must affect the outcome conditional on included regressors, and it must be correlated with the included regressor after accounting for the model's other included controls.}
+\cue{Interpretation}{Holding ability fixed, the model implies an approximately 6\% wage change per additional education year, with an exact model-implied multiplicative change of $e^{.06}-1\simeq6.18\%$. Log interpretation will be developed in session 9.}
+
+\newpage
+\heading{Side examples | Controls and collinearity}
+\cue{Use with slides}{Lecture5v2 slides 16--19 for partialling-out intuition, slides 26--32 for multicollinearity and the dummy-variable trap, and slides 33--35 for control variables and conditional mean independence.}
+\cue{Partialling-out intuition}{First remove the part of education predicted by the controls. Also remove the part of the outcome predicted by the controls. Regress the outcome residual on the education residual. The slope is the education coefficient from the full OLS regression using the same observations. This is a teaching intuition, not an additional assumption.}
+\cue{Dummy trap}{For three exhaustive categories A, B, C, an intercept and all three indicators satisfy $1=D_A+D_B+D_C$. Drop one indicator or the intercept. With A as the reference, an intercept of 50 and coefficients 5 on B and $-3$ on C imply fitted means 50, 55, and 47.}
+\cue{High versus perfect collinearity}{Perfect collinearity prevents unique identification of all coefficients. High but imperfect collinearity can inflate SEs; it does not by itself bias OLS under the other assumptions.}
+\cue{Goodness of fit}{Adding a regressor cannot lower in-sample $R^2$ on the same sample. Adjusted $R^2$ can fall. Neither chooses valid causal controls automatically.}
+\heading{Teaching comments}
+Do not say that including every available variable always improves causal inference. A post-treatment mediator can remove part of the effect of interest; a collider can introduce bias. At this level, establish the question and timing of variables before deciding what to control for.
+
+For a treatment effect, conditional mean independence can justify the coefficient on treatment with suitable controls without making every control coefficient a causal effect. Emphasize this distinction in the final control-variable slides.
+\heading{Exit ticket and answers}
+\cue{1}{Omitted $Z$ increases $Y$ and is negatively correlated with $X$. Bias in the simple $X$ coefficient? Negative.}
+\cue{2}{Does a large SE caused by collinearity prove no relationship? No; precision is weak.}
+\cue{3}{If the reference category changes, do fitted category means change? No; the parameterization changes.}
+\cue{If short / next preparation}{Shorten repeated subsidized-meal tables, keeping one comparison of specifications. Read Chapter 7 and prepare to test two coefficients together.}
+\textbf{Source:} Lecture5v2.tex. Numerical examples are synthetic.
+
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Sampling, limits, and estimators}\end{center}
+\textbf{Slide route:} Lecture1v2.tex: Random Sampling through Is your estimator BLUE? Recap the conditional-mean table.
+\heading{Session 2 | From population to sample}
+\textbf{Outcomes:} Distinguish a distribution from a sampling distribution; calculate the SE of a mean; distinguish unbiasedness, consistency, and efficiency.
+\cue{Opening retrieval}{What was the purchase probability on a sunny day? Answer $.6875$. Why need a sample of ten sunny days not reproduce it? A population feature is fixed; the statistic changes across samples.}
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Conditional-mean retrieval and population versus sample.\\
+10--25 & Random sampling and the i.i.d. working model.\\
+25--40 & Derive the mean and variance of the sample average.\\
+40--55 & LLN and coin-toss illustration; short pause.\\
+55--70 & CLT, standardization, Bernoulli example.\\
+70--90 & Estimator versus estimate; compare unbiased estimators.\\
+90--100 & Least-squares mean, exit questions, next topic.\\\bottomrule
+\end{tabularx}
+\cue{Board sequence}{Use uppercase $Y_i$ before observing the sample and lowercase $y_i$ for a realization. Draw a population distribution and, separately, a narrower distribution of sample averages. Label their axes differently.}
+\cue{Say explicitly}{Taking more observations does not make people less different. It makes our average more precise.}
+\cue{Sampling qualification}{Sampling without replacement from a finite population does not give exact independence. The i.i.d. model is appropriate for independent draws or an approximation for a small sampling fraction. Consecutive days may be serially dependent.}
+\cue{If time is short}{Keep the variance derivation, LLN/CLT distinction, and estimator comparison. Defer the weighted-average proof, not the underlying meaning of BLUE.}
+
+\newpage
+\heading{Worked examples | Precision and limits}
+\cue{Use with slides}{Lecture1v2 slides 18--23: Random Sampling, Sample Distribution Mean and Dispersion, the two asymptotic-properties slides, and the coin-toss examples. Work the standard-error calculation during slide 19 and the Bernoulli normal approximation during slides 20--23.}
+For independent observations with mean $\mu$ and variance $\sigma^2$:
+\[
+\E(\bar Y)=\frac1n\sum_i\E(Y_i)=\mu,\qquad
+\Var(\bar Y)=\frac1{n^2}\sum_i\Var(Y_i)=\frac{\sigma^2}{n}.
+\]
+\cue{Ask first}{To halve the standard error, how much data do we need? Four times as much, because $\operatorname{SD}(\bar Y)=\sigma/\sqrt n$.}
+For independent purchase indicators with $p=.6$, variance is $.24$. With $n=100$, the SD of the sample proportion is $\sqrt{.24/100}\simeq.0490$:
+\[
+P(.50<\bar Y<.70)\simeq P(-2.041<Z<2.041)\simeq .959.
+\]
+This is a normal approximation without a continuity correction, not an exact binomial probability. At $n=400$, the SD halves to $.0245$.
+\heading{The two limit statements}
+\[
+\text{LLN: }P(|\bar Y-\mu|>\varepsilon)\longrightarrow0
+\quad\text{for every }\varepsilon>0.
+\]
+\[
+\text{CLT: }\frac{\sqrt n(\bar Y-\mu)}{\sigma}\xrightarrow{d}N(0,1).
+\]
+The LLN concerns concentration; the CLT concerns the shape and scale of error. The standardized error remains dispersed even while the unstandardized average concentrates.
+\cue{Correct the slide wording}{Convergence does not mean exact equality with probability approaching one. For continuous data, exact equality can have probability zero for every finite $n$. State $\E|Y|<\infty$ for the simple i.i.d. LLN; the usual i.i.d. CLT needs $0<\sigma^2<\infty$.}
+\cue{Mental experiment}{Imagine 100 researchers each averaging 100 observations. A histogram of their averages approximates a sampling distribution; a histogram of one researcher's raw observations does not.}
+
+\newpage
+\heading{Estimator comparison and teaching checks}
+\cue{Use with slides}{Lecture1v2 slides 24--25: Estimators and Is your estimator BLUE? Use $A=Y_1$ versus $B=\bar Y$ on slide 24, then the fixed-weight BLUE argument and least-squares bridge on slide 25.}
+Compare $A=Y_1$ and $B=\bar Y$ under i.i.d. sampling:
+\[
+\E(A)=\E(B)=\mu,\qquad \Var(A)=\sigma^2,\quad\Var(B)=\sigma^2/n.
+\]
+Both are unbiased. As $n$ increases, $A$ ignores the new observations while $B$ is consistent. Unbiasedness alone is insufficient.
+\cue{Optional BLUE proof}{A fixed-weight linear unbiased estimator $\sum_i a_iY_i$ needs $\sum_i a_i=1$. Cauchy--Schwarz gives $\sum_i a_i^2\geq1/n$, so its variance is at least $\sigma^2/n$. Equal weights attain the bound. This is best \emph{linear unbiased}, not best among all conceivable estimators.}
+\cue{Slide caution}{The CLT does not establish a general Cramer--Rao bound. Such bounds require a specified statistical model and regularity conditions. Use the elementary linear-estimator argument here.}
+\heading{Least-squares bridge}
+\[
+Q(a)=\sum_i(Y_i-a)^2,\qquad
+Q'(a)=-2\sum_i(Y_i-a)=0\ \Rightarrow\ a=\bar Y.
+\]
+Since $Q''(a)=2n>0$, this is the unique minimum. With data $1,2,6$, the estimate is 3 and the squared-error sum is $4+1+9=14$. Choosing 2 gives $1+0+16=17$.
+\cue{Exit 1}{Is the number 3 an estimator? It is the realized estimate; the sample-average rule is the estimator.}
+\cue{Exit 2}{Does the CLT require normal observations? No, under the stated i.i.d. finite-variance conditions. Normal observations make the average exactly normal at any $n$.}
+\cue{Exit 3}{Does doubling $n$ halve SE? No: multiply by $1/\sqrt2$.}
+\cue{Preparation}{Read Stock and Watson Chapter 3. Ask students what would count as evidence against a claim that a population mean is 100.}
+\textbf{Source:} Lecture1v2.tex, sampling and estimation sections. Numerical examples are illustrative.
+
+\end{document}

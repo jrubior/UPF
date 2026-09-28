@@ -1,0 +1,174 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=19mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\definecolor{soft}{RGB}{244,248,250}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\board}[1]{\par\noindent\colorbox{soft}{\parbox{0.96\textwidth}{\textbf{Board / screen:} #1}}\par}
+\setlength{\emergencystretch}{2em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Lecture 1: slide-by-slide teaching script}\\[3pt]
+{\normalsize Introduction and Review of Probability}
+\end{center}
+
+\textbf{Scope.} This guide follows \texttt{Lecture1v2.tex} from the title slide through \textit{Correlation}, then stops before \textit{Random Sampling}. The slide numbers below count the title page as slide 1. Use the slide title as the primary locator if the compiled deck displays a different page number.
+
+\textbf{How to use this guide.} For every slide, first use the ``Say'' line, then do the board or screen action, then ask the short question. Do not read the slide verbatim. The worked examples are deliberately attached to a particular slide so that the calculation has a clear purpose.
+
+\heading{Class route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}
+\toprule
+Minutes & Slides and purpose\\\midrule
+0--5 & 1--2: establish the course question and assessment context.\\
+5--18 & 3--6: move from economic questions to causal questions and the course map.\\
+18--35 & 7--9: random variables, density, and cumulative probability.\\
+35--48 & 10--11: moments and the earnings example.\\
+48--52 & Short pause; ask students to write one unresolved question.\\
+52--78 & 12--13: joint probabilities, conditioning, and iterated expectations.\\
+78--94 & 14--16: independence, covariance, and correlation.\\
+94--100 & Exit check and preview of Random Sampling.\\
+\bottomrule
+\end{tabularx}
+
+\heading{Slide-by-slide script}
+
+\slideheading{Slide 1 | Lecture 1 v2: Introduction and Review of Probability}
+\cue{Say}{Welcome students and give the class its organizing question: how can data help us learn about economic relationships when outcomes are uncertain? Explain that probability is the language used to describe that uncertainty.}
+\cue{Do}{Do not start with notation. Point to the title, state that today's class has two halves, and tell students that the second half will connect directly to regression.}
+\cue{Example}{Give a one-sentence preview: ``If education and earnings move together, what would convince us that education caused the change?'' Do not solve it yet.}
+\cue{Transition}{Move from the broad question to what the course assesses and how the course is organized.}
+
+\slideheading{Slide 2 | About this course}
+\cue{Say}{Briefly explain the assessment weights and set the expectation that participation means trying the calculations, not merely answering correctly.}
+\cue{Do}{Spend at most two minutes here. Point out where lecture material and readings will be available.}
+\cue{Ask}{``Which part of the assessment rewards steady work throughout the term?'' Use the answer to frame problem sets and participation.}
+\cue{Transition}{The course is about applying statistical tools to economic questions, so now introduce the type of question those tools are meant to answer.}
+
+\slideheading{Slide 3 | What's Econometrics about?}
+\cue{Say}{Econometrics combines an economic question, data, and statistical methods. The central output is a quantified relationship, but the meaning of that relationship depends on the question being asked.}
+\cue{Example}{Use education and earnings. Ask: ``Do graduates earn more?'' Then change the wording to: ``What would happen to one person's earnings if that person received one more year of education?'' Emphasize that these are different questions.}
+\board{Write: \textit{association} = what differs across observed people; \quad \textit{causal effect} = change under an intervention.}
+\cue{Ask}{Take two student answers about why education may be related to earnings: ability, family background, motivation, or field of study. Keep the list visible for slide 4.}
+\cue{Transition}{The difference between those two questions is the difference between describing data and identifying a causal effect.}
+
+\slideheading{Slide 4 | Inferring Causal Effects (and more)}
+\cue{Say}{A randomized experiment makes treatment assignment unrelated to pre-existing characteristics, at least in expectation. Observational data do not automatically have that property.}
+\cue{Example}{Use a class-size experiment: randomly assign some classes to 15 students and others to 30, then compare achievement. Ask what the randomization is buying us.}
+\cue{Comment}{Say explicitly that randomization does not guarantee identical groups in one realized sample. It removes systematic selection on average; chance imbalance can remain.}
+\cue{Ask}{``Why can we not randomly assign people to different years of education?'' Accept ethical, practical, and cost concerns, then point out that econometrics needs assumptions and designs for observational data.}
+\cue{Transition}{Before learning those designs, students need a common language for uncertainty and association.}
+
+\slideheading{Slide 5 | A sentence you are going to hear a lot}
+\cue{Say}{Read the sentence as a warning about interpretation: correlation is evidence that two variables move together, not by itself evidence that one causes the other.}
+\cue{Example}{Return to education and earnings. More education may correlate with earnings because education changes earnings, because ability affects both, or because of another common factor.}
+\cue{Ask}{Have students give one example from daily life where two variables are correlated but neither clearly causes the other. Keep one example, such as umbrellas and rain, and move on.}
+\cue{Transition}{The course will revisit this distinction in every block. The outline shows where the first tools fit.}
+
+\slideheading{Slide 6 | Course Outline}
+\cue{Say}{Give the map in three sentences: first probability, statistics, and simple regression; then multivariate regression and inference; finally identification threats, instruments, panel data, and binary choice.}
+\cue{Do}{Point out where the two midterms sit, but do not lecture on the dates. Students need the structure, not a reading of every bullet.}
+\cue{Example}{Tell them today's probability tools will reappear as conditional means, covariance, sampling distributions, and OLS slopes.}
+\cue{Transition}{Start the review with the smallest unit: a random variable and the outcomes it summarizes.}
+
+\slideheading{Slide 7 | Some Revision}
+\cue{Say}{Separate four objects: outcome, sample space, event, and random variable. A random variable is a numerical mapping from uncertain outcomes; it is not itself the outcome.}
+\cue{Worked example}{Use one fair coin toss. Outcomes are $\{H,T\}$. The sample space is $\{H,T\}$. The event ``heads'' is $\{H\}$. Define $Y=1$ for heads and $Y=0$ for tails, so $P(Y=1)=P(Y=0)=.5$.}
+\board{Ask students what changes if heads is coded as 10 and tails as 0. The probabilities of the outcomes do not change, but the numerical mean and variance of the coded variable do.}
+\cue{Ask}{``What must the probabilities of all mutually exclusive values add up to?'' Answer: one. Then distinguish a discrete probability mass function from a continuous density.}
+\cue{Transition}{For a continuous variable, individual points have probability zero, so we use areas and cumulative probabilities.}
+
+\slideheading{Slide 8 | P.d.f. of a continuous random variable}
+\cue{Say}{A density is not a probability at a point. Probability is the area under the density over an interval, and the total area is one.}
+\cue{Worked example}{Use a waiting time $W$ uniformly distributed between 0 and 10 minutes. Draw a rectangle of height $0.1$. Then calculate $P(2<W\leq5)$ as the rectangle area: $(5-2)(0.1)=0.3$.}
+\board{$f_W(w)=0.1$ for $0\leq w\leq10$; shade the interval from 2 to 5. Label the shaded area $0.30$.}
+\cue{Ask}{``Can a density be greater than one?'' Yes. A uniform variable on $[0,.5]$ has density 2; its area is still one.}
+\cue{Transition}{The density gives interval areas. The next slide turns those areas into a cumulative function that is easier to evaluate.}
+
+\slideheading{Slide 9 | C.d.f. of a continuous random variable}
+\cue{Say}{The c.d.f. at $w$ is $F_W(w)=P(W\leq w)$. It must be nondecreasing, start at zero, and approach one.}
+\cue{Worked example}{Continue the same waiting-time example: $F_W(w)=w/10$ for $0\leq w\leq10$. Calculate $F_W(5)=.5$, then recover the previous interval probability as $F_W(5)-F_W(2)=.5-.2=.3$.}
+\board{Draw the c.d.f. as a straight line from $(0,0)$ to $(10,1)$. Mark $w=2$ and $w=5$ and show the vertical difference in c.d.f. values.}
+\cue{Ask}{``What is $P(W=3)$?'' For a continuous variable it is zero: a single point has no area.}
+\cue{Transition}{Now move from probabilities of values and intervals to numerical summaries of a distribution.}
+
+\slideheading{Slide 10 | Statistical Moments}
+\cue{Say}{The mean locates a distribution, the variance measures squared dispersion, and the standard deviation returns dispersion to the original units. Mention skewness and kurtosis as shape summaries, but keep the calculation focus on mean and variance.}
+\cue{Worked example}{Introduce monthly earnings $Y$, measured in thousands of euros: $Y=1,2,4$ with probabilities $.25,.50,.25$. Ask students to predict the mean before calculating.}
+\board{\begin{gather*}\E(Y)=.25(1)+.50(2)+.25(4)=2.25,\\\E(Y^2)=.25(1^2)+.50(2^2)+.25(4^2)=6.25,\\\Var(Y)=\E(Y^2)-\E(Y)^2=6.25-2.25^2=1.1875.\end{gather*}}
+\cue{Comment}{The mean is 2,250 euros even though nobody in this small distribution earns exactly 2,250 euros. The standard deviation is $\sqrt{1.1875}\simeq1.09$ thousand euros. Variance has squared units.}
+\cue{Transition}{The next slide gives a visual interpretation of the higher moments and a quick check that students understand the words.}
+
+\slideheading{Slide 11 | Examples}
+\cue{Say}{Use the figures to connect signs to shapes: positive skew means a longer right tail, negative skew a longer left tail, and high kurtosis means more mass in the tails than a normal reference.}
+\cue{Worked example}{Give a simple wage story: most workers earn around 2, but a small number earn 10. That creates a long right tail and positive skewness. Ask what a small number of unusually low wages would do instead.}
+\cue{Comment}{Do not claim that zero skewness guarantees symmetry. Also say that kurtosis is sensitive to extreme values and that the exact benchmark depends on the convention used.}
+\cue{Fast check}{If every wage increases by 100 euros, the mean increases by 100 euros but variance and standard deviation do not change. If every wage doubles, the standard deviation doubles and variance becomes four times as large.}
+\cue{Transition}{One variable is no longer enough when we ask whether sunny days and ice-cream purchases occur together. Build their joint distribution.}
+
+\slideheading{Slide 12 | Joint Probability Distribution}
+\cue{Say}{Introduce $X=1$ for a sunny day and $Y=1$ for an ice-cream purchase. The internal cells describe joint events; the margins describe one variable at a time.}
+\cue{Worked example}{Use the slide's table and ask students to calculate $P(Y=1)$ by adding the row: $.05+.55=.60$. Then calculate $P(X=1)$ by adding the column: $.25+.55=.80$.}
+\begin{center}\begin{tabular}{lrrr}\toprule & $X=0$ & $X=1$ & Total\\\midrule $Y=0$ & .15 & .25 & .40\\ $Y=1$ & .05 & .55 & .60\\\midrule Total & .20 & .80 & 1\\\bottomrule\end{tabular}\end{center}
+\cue{Comment}{Say ``joint probability uses the full population of days.'' This prevents the common mistake of treating $.55$ as a conditional probability.}
+\cue{Ask}{``What is $P(X=1,Y=1)$?'' Answer: $.55$, the bottom-right cell.}
+\cue{Transition}{Conditioning changes the reference population. Circle a column and calculate within that column.}
+
+\slideheading{Slide 13 | Conditional and Iterated Expectations}
+\cue{Say}{When we condition on $X=1$, we restrict attention to sunny days. The denominator is therefore $P(X=1)=.80$, not one.}
+\cue{Worked example}{Calculate \[P(Y=1\mid X=1)=\frac{.55}{.80}=.6875,\qquad P(Y=1\mid X=0)=\frac{.05}{.20}=.25.\] For binary $Y$, the conditional mean equals the conditional probability of one, so $\E(Y\mid X=1)=.6875$.}
+\cue{Second example}{Use the law of iterated expectations: \[.8(.6875)+.2(.25)=.60=\E(Y).\] Emphasize the weights: sunny days are four times as common as non-sunny days.}
+\cue{Ask}{``Why is averaging .6875 and .25 with equal weights wrong?'' Because the two conditioning groups do not have equal probabilities.}
+\cue{Transition}{If conditioning did not change the probability of ice cream, the variables would be independent.}
+
+\slideheading{Slide 14 | Independence}
+\cue{Say}{Independence means knowing $X$ gives no information about $Y$: $P(Y=y\mid X=x)=P(Y=y)$ for every relevant pair. It is a statement about the distribution, not a claim that one variable causes the other.}
+\cue{Worked example}{Use two dice as the clean positive example: the value of die 1 does not change the distribution of die 2, so $P(X=x,Y=y)=P(X=x)P(Y=y)$.}
+\cue{Check the class table}{For sunny days and purchases, independence would require $.8(.6)=.48$ in the bottom-right cell. The table gives $.55$, so independence fails.}
+\cue{Ask}{``Does failure of independence prove that sunshine causes purchases?'' No. It only says the variables are statistically related; other explanations remain possible.}
+\cue{Transition}{Covariance gives a numerical summary of how the two variables move together.}
+
+\slideheading{Slide 15 | Covariance}
+\cue{Say}{Covariance multiplies each variable's deviation from its mean and averages those products. Same-sign deviations contribute positively; opposite-sign deviations contribute negatively.}
+\cue{Worked example}{For the binary table, use $XY=1$ only in the bottom-right cell, so $\E(XY)=.55$. Then \[\Cov(X,Y)=\E(XY)-\E(X)\E(Y)=.55-(.8)(.6)=.07.\] This is positive, matching the table's pattern.}
+\cue{Comment}{Mention the useful direction only: independence implies zero covariance when moments exist. The converse is false. Do not let the class get stuck interpreting the units of $.07$.}
+\cue{Optional side example}{If time allows, let $X\in\{-1,0,1\}$ with equal probabilities and $Y=X^2$. Then $Y$ is completely determined by $X$, but $\Cov(X,Y)=0$ because $\E(X^3)=0$.}
+\cue{Transition}{Because covariance changes with measurement units, normalize it by the two standard deviations.}
+
+\slideheading{Slide 16 | Correlation}
+\cue{Say}{Correlation is standardized covariance and always lies between -1 and 1. It describes the direction and strength of linear association, not a causal effect and not a percentage change.}
+\cue{Worked example}{Continue the same table. Since $\Var(X)=.8(.2)=.16$ and $\Var(Y)=.6(.4)=.24$, \[\rho_{XY}=\frac{.07}{\sqrt{.16}\sqrt{.24}}\simeq .3572.\] Interpret this as a moderate positive association in this illustrative population.}
+\cue{Ask}{``Does $.3572$ mean that sunshine increases purchases by 35.72\%?'' No. It is a unit-free linear association measure.}
+\cue{Close the route}{Point back to the opening sentence: the table describes a relationship, but causal interpretation requires a design or additional assumptions. Tell students that the next section begins with random samples and asks how population quantities can be learned from data.}
+
+\heading{End-of-class check}
+\begin{enumerate}
+\item Explain the difference between $P(Y=1,X=1)=.55$ and $P(Y=1\mid X=1)=.6875$.
+\item Why is $\E(Y\mid X=1)$ a probability when $Y$ is binary?
+\item Does zero covariance imply independence? Give the $Y=X^2$ counterexample if asked.
+\item Does random assignment guarantee exact balance in one sample? No; it balances in expectation.
+\end{enumerate}
+
+\textbf{Preparation for the next class:} ask students to compute $P(X=1\mid Y=1)=.55/.60=11/12$ and explain why reversing the conditioning changes the denominator. Preview that Random Sampling will distinguish a population mean from a sample mean.
+
+\textbf{Sources:} \texttt{Lecture1v2.tex} and \texttt{Syllabus\_2026\_2027.tex}. Waiting-time, earnings, dice, and $Y=X^2$ calculations are instructor-created illustrations. Timing assumes a 100-minute session.
+
+\end{document}

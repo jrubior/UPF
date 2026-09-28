@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Integration and cumulative review}\end{center}
+\textbf{Slide route:} Instructor-added twelfth topic, combining Lectures 1--11. No Lecture12 deck was present. Includes Lecture11 model-selection extension.
+\heading{Session 16 | Choose, calculate, defend}
+\textbf{Outcomes:} Choose an estimator for a stated question, defend assumptions, interpret uncertainty, and distinguish prediction from causal evaluation.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Students state a question, outcome, unit, and estimand.\\
+10--25 & Finish binary-model comparison and AIC/BIC extension.\\
+25--45 & Integrated tutoring case: OLS and IV.\\
+45--55 & Pause.\\
+55--75 & Panel alternative and binary-outcome interpretation.\\
+75--90 & Cumulative diagnostic in pairs.\\
+90--100 & Discuss answers and prioritize independent review.\\\bottomrule
+\end{tabularx}
+\heading{Integrated case | Tutoring and achievement}
+\cue{Use with slides}{Use this as a no-deck review case. If you want slide anchors, start from Lecture5v2 slides 5--10 for selection/OVB, Lecture9v2 slides 4--7 for the IV offer, and Lecture10v2 slides 38--49 for the panel alternative.}
+Students choose tutoring; motivation affects both participation and achievement. A positive OLS tutoring coefficient is therefore not automatically causal.
+\cue{Controls}{Conditioning on observed baseline achievement can help address observed differences, but does not guarantee that remaining motivation differences disappear. Avoid controlling mechanically for a post-tutoring mediator if the total effect is the target.}
+\cue{Instrument}{A randomized offer increases take-up from $.25$ to $.55$ and average scores from 65 to 68. The Wald estimate is}
+\[
+\hat\beta_{\rm IV}=(68-65)/(.55-.25)=10.
+\]
+This needs relevance, an exclusion argument, and independence; a complier-effect interpretation with heterogeneous effects additionally needs monotonicity. If the offer includes study materials that directly affect scores, exclusion is doubtful.
+\cue{Panel alternative}{Repeated observations permit removal of fixed student characteristics, but changing motivation or shocks that affect subsequent tutoring can still invalidate the design. State which confounder each method actually addresses.}
+
+\newpage
+\heading{Finish the modeling thread}
+\cue{Use with slides}{Use Lecture11v2 slides 40--42 for AIC/BIC and slides 43--47 for the application comparison. Use the binary-outcome reminder with Lecture11v2 slides 4--16 if students need the probability-model recap.}
+\cue{Binary outcome}{If passing replaces the score outcome, an LPM coefficient $.08$ is eight percentage points. Logit and probit keep fitted probabilities in $[0,1]$, but do not solve selection into tutoring.}
+\cue{AIC/BIC worked extension}{For comparable likelihoods on the same outcome and observations, suppose model A has $\ell=-100$, $k=3$ parameters; model B has $\ell=-96$, $k=5$; $n=200$.}
+\[
+AIC=-2\ell+2k:\quad A=206,\quad B=202.
+\]
+\[
+BIC=-2\ell+k\log n:\quad A\simeq215.90,\quad B\simeq218.49.
+\]
+AIC favors B; BIC favors A. These criteria trade fit against complexity differently. Neither establishes causal identification. Count all estimated parameters consistently and do not compare incompatible likelihood scales as though they were interchangeable.
+\heading{Cumulative diagnostic | With answers}
+\begin{enumerate}
+\item What falls when independent sample size quadruples? The mean's SE halves; individual outcome dispersion need not change.
+\item What does $p=.03$ mean? Under the null/model, a result at least this extreme has probability $.03$, not a 3\% probability that the null is true.
+\item Do robust SEs fix OVB? No.
+\item In $Y=1+2X+3D+4XD+u$, what is the group contrast at $X=2$? $3+4(2)=11$.
+\item What variation identifies a unit-FE slope? Within-unit regressor variation after accounting for included controls and time effects.
+\item Does a first-stage relationship prove exclusion? No.
+\end{enumerate}
+\cue{Closing exercise}{Ask each pair to defend one estimator for the tutoring question and name one plausible failure of its key assumption. Reward an explicit limitation over an unsupported claim that a method is always best.}
+\cue{Final preparation}{The syllabus final is cumulative and worth 60\%; its date is to be announced. Prioritize explanations of assumptions, coefficient units, and uncertainty alongside calculations. This guide does not change final-exam policy or specify an approved exam paper.}
+\textbf{Sources:} Local Lectures 1--11 and syllabus. The integration topic and all case numbers are instructor-created additions.
+
+\end{document}

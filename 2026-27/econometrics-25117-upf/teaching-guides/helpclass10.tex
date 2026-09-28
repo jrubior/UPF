@@ -1,0 +1,46 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Midterm 2 instructor guide}\end{center}
+\textbf{Slide route:} Syllabus date: November 18, 2026. Proposed coverage: Lectures 5--7, with earlier prerequisites.
+\heading{Session 10 | Midterm 2}
+\textbf{Purpose:} Second assessment session; no new content. The syllabus gives November 18. Calendar placement and exam duration require confirmation against the actual timetable.
+\heading{Proposed blueprint}
+\begin{tabularx}{\textwidth}{@{}l r X@{}}\toprule
+Area & Share & Evidence of learning\\\midrule
+Multiple regression & 35\% & OVB sign, partial interpretation, reference categories.\\
+Joint inference & 30\% & Joint null, restrictions, covariance-aware test.\\
+Functional forms & 35\% & Log units, quadratic effect, interaction contrast.\\\bottomrule
+\end{tabularx}
+The blueprint is a planning aid, not an approved exam. Announce final coverage in advance. If the course requires cumulative coverage for this midterm, adjust the blueprint explicitly.
+\cue{100-minute slot assumption}{Ten minutes for instructions, 80 for the paper, ten for collection; replace with official timing if different. Confirm approved resources, room, and accessibility arrangements in advance.}
+\cue{What students should know}{A regression coefficient needs units and a conditioning statement. A joint test needs a joint null. An interaction effect needs a specified value of the interacting variable.}
+\heading{Instructor calibration examples}
+\cue{OVB}{An omitted positive determinant of $Y$ negatively correlated with $X$ creates negative bias in a simple-regression slope under the usual linear setup. Award credit for both links in the argument.}
+\cue{Restrictions}{Testing $\beta_1=\beta_2$ is one restriction, not two. The variance of their estimated difference includes their covariance.}
+\cue{Interactions}{In $Y=5+2X+3D+4XD+u$, the group contrast at $X=2$ is $3+8=11$. The slope difference is 4. These answer different questions.}
+\cue{Logs}{A log-outcome coefficient $.1$ means an approximate 10\% change, with exact exponentiated-index change $100(e^{.1}-1)\simeq10.52\%$.}
+\heading{After the paper}
+Record which errors concern algebra and which concern interpretation. Prepare a short return-to-teaching activity using a strong regression result with a doubtful causal story. This provides the transition to threats to identification.
+\cue{Next session}{Lecture8v2.tex. Ask: even with correct standard errors and a flexible functional form, what can still go wrong?}
+
+\end{document}

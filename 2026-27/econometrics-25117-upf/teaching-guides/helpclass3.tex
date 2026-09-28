@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Inference about means}\end{center}
+\textbf{Slide route:} Lecture2v2.tex: hypothesis testing through California Test Score Data Set. Stock and Watson Chapter 3.
+\heading{Session 3 | Evidence against a claim}
+\textbf{Outcomes:} State a null and alternative, compute a test statistic and confidence interval, distinguish statistical from economic significance, and compare two independent groups.
+\cue{Opening}{A sample mean is 104; a policy report claims the population mean is 100. Is four units a large discrepancy? We need the scale of sampling uncertainty.}
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Recall sampling distributions and SE.\\
+10--30 & Hypothesis Testing, Key Concepts, Computing the P-Value.\\
+30--45 & Sample variance, standard errors, t-statistic; worked test.\\
+45--55 & Type I/II errors and short pause.\\
+55--70 & Confidence intervals and test/interval correspondence.\\
+70--90 & Mean Difference Testing, randomization, California application.\\
+90--100 & Exit exercise and preview of a regression slope.\\\bottomrule
+\end{tabularx}
+\heading{Board example | A mean}
+\cue{Use with slides}{Lecture2v2 slides 5--11: What is Hypothesis Testing? through the t-statistic. Start the numerical mean test on slide 8, compute the standard error on slide 10, and finish the test statistic on slide 11.}
+Illustrative sample: $n=100$, $\bar y=104$, $s=20$. Test $H_0:\mu=100$ against $H_1:\mu\ne100$.
+\[
+SE(\bar Y)=20/\sqrt{100}=2,\quad t=(104-100)/2=2.
+\]
+Using a large-sample normal approximation, the two-sided $p$-value is about $.0455$ and a 95\% interval is
+\[
+104\pm1.96(2)=[100.08,107.92].
+\]
+Reject at 5\% but not at 1\%. If observations are i.i.d. normal and variance is estimated, an exact $t_{99}$ reference gives a slightly larger $p$-value (about $.048$). State which reference distribution is being used.
+\cue{What to say}{A $p$-value is the probability, under the null and assumptions, of a statistic at least as extreme as the observed one. It is not the probability that the null is true.}
+\cue{If short}{Keep the mean example and two-group example. Use one California output table deeply; assign repetitive descriptive tables for review.}
+
+\newpage
+\heading{Side example | Comparing groups}
+\cue{Use with slides}{Lecture2v2 slides 15--19: Confidence Intervals, Mean Difference Testing, and Causal Inference in Randomized Control Trials. Use the two-group calculation on slides 17--18, then discuss the random-assignment caveat on slide 19.}
+Two independently sampled groups have means $70$ and $65$, SDs $10$ and $12$, and sample sizes $50$ each:
+\[
+\widehat\Delta=5,\quad SE(\widehat\Delta)
+=\sqrt{10^2/50+12^2/50}=\sqrt{4.88}\simeq2.209.
+\]
+\[
+t\simeq2.264,\quad 95\%\text{ large-sample CI: }
+5\pm1.96(2.209)=[.67,9.33].
+\]
+Ask students what changes if these are the same individuals measured twice. The independent-groups formula is then inappropriate; the covariance between measurements matters.
+
+\cue{Causal interpretation}{If groups are assigned randomly and the outcome comparison follows that assignment, a mean difference can estimate a treatment effect under the design's assumptions. If students choose their own school, the same arithmetic does not remove selection.}
+\cue{Type I/II prompt}{A Type I error rejects a true null. A Type II error fails to reject a false null. Holding sample size and effect fixed, demanding a smaller significance level generally reduces power.}
+\cue{Confidence-interval language}{The method covers the fixed population parameter in 95\% of repeated samples under its assumptions. Avoid saying that 95\% of observations lie in this interval.}
+\cue{Economic significance}{An enormous sample can make a tiny effect statistically significant. Ask whether the interval excludes effects small enough to be irrelevant to the decision.}
+\heading{Exit exercise and answers}
+If $n=400$ with the same SD and the same observed gap of four units, $SE=1$ and $t=4$. The standard error halves, not quarters.
+
+If a 95\% interval includes zero, fail to reject a two-sided zero-effect null at the corresponding 5\% level. This is not proof of zero effect.
+
+\cue{Next preparation}{Read Chapter 4. Bring a scatterplot of test scores against class size to the next class and ask how to summarize its slope.}
+\textbf{Source:} Lecture2v2.tex. The numerical data above are synthetic teaching examples.
+
+\end{document}

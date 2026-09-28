@@ -1,0 +1,81 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Functional forms and interactions}\end{center}
+\textbf{Slide route:} Lecture7v2.tex: polynomials, logarithms, and interactions through wrapping up. Chapter 8.
+\heading{Session 9 | A slope need not be constant}
+\textbf{Outcomes:} Interpret quadratic terms, distinguish log specifications, and calculate a conditional effect in an interaction model.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Retrieve coefficient units and joint tests.\\
+10--30 & Nonlinear functions and polynomials.\\
+30--50 & Linear-log, log-linear, log-log examples.\\
+50--55 & Pause.\\
+55--80 & Dummy/continuous and continuous/continuous interactions.\\
+80--90 & Integrate interpretation with tests.\\
+90--100 & Exit exercise and Midterm 2 preparation.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | Quadratic experience}
+\cue{Use with slides}{Lecture7v2 slides 8--13: Nonlinear Functions and Polynomials in $X$. Use the derivative and turning-point calculation on slides 9--13; pause before moving to logs.}
+For the synthetic fitted relationship
+\[
+\widehat{wage}=10+2x-.05x^2,
+\qquad \frac{\partial\widehat{wage}}{\partial x}=2-.1x,
+\]
+the marginal effect is 1 at $x=10$ and 0 at $x=20$. The turning point is 20. The exact fitted change from 10 to 11 is
+\[
+2-.05(11^2-10^2)=.95,
+\]
+not exactly the derivative at 10. Only discuss the turning point substantively if it lies within a relevant supported range.
+\cue{Board comment}{The model is nonlinear in $x$ but linear in the coefficients. OLS can estimate it after including both $x$ and $x^2$.}
+\heading{Log interpretation crib}
+\begin{tabularx}{\textwidth}{@{}lX@{}}\toprule
+Model & Interpretation of $\beta$\\\midrule
+$Y=\alpha+\beta\log X+u$ & 1\% higher $X$: approximately $.01\beta$ units higher $Y$.\\
+$\log Y=\alpha+\beta X+u$ & One unit higher $X$: approximately $100\beta$\% higher $Y$.\\
+$\log Y=\alpha+\beta\log X+u$ & $\beta$ is the elasticity of the modeled log relationship.\\\bottomrule
+\end{tabularx}
+
+\newpage
+\heading{Worked examples | Logs and heterogeneous effects}
+\cue{Use with slides}{Lecture7v2 slides 14--21 for the log examples and slides 22--39 for interactions. Use the log-outcome calculation on slides 18--21, then use the program-by-experience example on slides 26--38.}
+If a log-outcome model has coefficient $.08$, a one-unit increase changes the fitted log index by $.08$. The corresponding multiplicative change is
+\[
+100(e^{.08}-1)\simeq8.33\%,
+\]
+versus the 8\% approximation. Exponentiating a fitted conditional log mean does not automatically give the conditional arithmetic mean of $Y$; retransformation requires attention to the error distribution.
+
+For a level-log model with coefficient 20, a 10\% increase in $X$ implies $20\log(1.10)\simeq1.906$ outcome units, compared with the approximation 2.
+\heading{Interaction board example}
+Let $D$ be a program indicator and $x$ be experience:
+\[
+\widehat Y=10+2x+3D+1.5(xD).
+\]
+For $D=0$, the line is $10+2x$; for $D=1$, it is $13+3.5x$. The program-group contrast at experience $x$ is $3+1.5x$, so it equals 9 at $x=4$.
+\cue{Ask}{Is 3 the program effect for everyone? No, it is the contrast at $x=0$. Is 1.5 the entire program effect? No, it is the difference in slopes. A causal reading still needs identification assumptions.}
+\cue{Test at $x=4$}{Test $\beta_D+4\beta_{xD}=0$, using the covariance of the two estimates. Testing only the main dummy coefficient does not answer this question.}
+\cue{Continuous interaction}{For $Y=\beta_0+\beta_1X+\beta_2Z+\beta_3XZ+u$, the $X$ derivative is $\beta_1+\beta_3Z$. State the value of $Z$ whenever reporting it.}
+\cue{Exit answers}{A log-log slope of $-.7$ implies roughly a $.7$\% decrease for a 1\% increase in $X$. A quadratic model can be estimated by OLS. An interaction coefficient is not a universal total effect.}
+\cue{If short}{Use one example of each functional form and one interaction in depth; assign repetitive interaction plots for self-study. Proposed Midterm 2 coverage is Lectures 5--7, using prerequisites from Lectures 1--4.}
+\textbf{Source:} Lecture7v2.tex; synthetic numerical illustrations.
+
+\end{document}

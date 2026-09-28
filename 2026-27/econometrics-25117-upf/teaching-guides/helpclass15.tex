@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Binary outcomes, logit, probit, and likelihood}\end{center}
+\textbf{Slide route:} Lecture11v2.tex: LPM, nonlinear models, effects, MLE and model selection. Chapter 11. Core route plus assigned extensions.
+\heading{Session 15 | Model a probability}
+\textbf{Outcomes:} Interpret an LPM coefficient, calculate a logit probability and marginal effect, explain likelihood, and distinguish odds from probabilities.
+\heading{100-minute core route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Why a binary outcome has a conditional probability as its mean.\\
+10--25 & LPM and its properties.\\
+25--45 & Logit/probit links and predicted probabilities.\\
+45--55 & Pause and coefficient interpretation.\\
+55--75 & Marginal effects, discrete changes, odds.\\
+75--90 & Bernoulli likelihood and estimation intuition.\\
+90--100 & One application table and exit ticket.\\\bottomrule
+\end{tabularx}
+This is a dense deck. Assign repeated coefficient screenshots, the extended MLE algebra, and detailed model-selection slides for reading. Revisit AIC/BIC and model comparison in session 16. Do not try to narrate every slide.
+\heading{Worked example | LPM versus logit}
+\cue{Use with slides}{Lecture11v2 slides 4--16: Binary Choice Models, Linear Probability Model, Properties of the LPM, Nonlinear Models, and Logit Model. Use the LPM range problem on slides 6--11 and the logit probability calculation on slides 12--16.}
+For a synthetic LPM $\hat p=.2+.1X$, raising $X$ by one gives a ten-percentage-point change. At $X=9$, it predicts 1.1, illustrating the range problem. Binary errors have conditional variance $p(X)[1-p(X)]$, so heteroskedasticity is natural.
+\[
+p(X)=\Lambda(-2+.5X)=\frac{1}{1+\exp(2-.5X)}.
+\]
+At $X=4$, $p=.5$. At $X=5$, $p=\Lambda(.5)\simeq.6225$. The one-unit discrete change is $.1225$, or 12.25 percentage points.
+\[
+\frac{\partial p}{\partial X}=.5p(1-p);
+\quad \text{at }X=4,\quad .5(.5)(.5)=.125.
+\]
+The derivative and finite change are close, not identical.
+
+\newpage
+\heading{Interpretation, probit, and likelihood}
+\cue{Use with slides}{Lecture11v2 slides 17--30 for probit/logit coefficient interpretation, marginal effects, and odds; slides 31--39 for MLE and the Bernoulli likelihood.}
+For the logit example, a one-unit $X$ increase multiplies the odds by $e^{.5}\simeq1.649$. This is not a 64.9-percentage-point rise in probability.
+\cue{Probit}{If $p(X)=\Phi(\beta_0+\beta_1X)$, its derivative is $\phi(\beta_0+\beta_1X)\beta_1$. Both logit and probit coefficients move an index; compare predicted probabilities or marginal effects rather than raw coefficient magnitudes across links.}
+\cue{Binary regressor}{For a dummy $D$, report a discrete probability change between $D=0$ and $D=1$ at specified other covariates, or average those individual changes. A derivative is not the natural one-unit effect for a binary regressor.}
+\heading{Board example | Bernoulli likelihood}
+For independent observations $y=(1,0,1)$ and a common success probability $p$:
+\[
+L(p)=p^2(1-p),\qquad \ell(p)=2\log p+\log(1-p).
+\]
+\[
+\ell'(p)=2/p-1/(1-p)=0\quad\Rightarrow\quad\hat p=2/3.
+\]
+For regression, replace the common $p$ with $p_i=F(X_i'\beta)$:
+\[
+\ell(\beta)=\sum_i\{y_i\log p_i+(1-y_i)\log(1-p_i)\}.
+\]
+Software maximizes this expression numerically. The objective rewards high probability for observed outcomes; it does not minimize squared residuals.
+\cue{Practical caution}{Complete separation can prevent finite logistic MLE coefficients. Tiny standard errors or convergence messages should be read, not ignored.}
+\cue{Exit answers}{An LPM coefficient $.03$ means three percentage points per unit. A logit coefficient $.03$ is not generally three percentage points. Average marginal effects average observation-specific effects; effects at mean covariates are a different calculation.}
+\cue{Preparation}{For session 16, bring a one-paragraph causal question and propose an estimator with its key assumption. Read the remaining model-selection slides; do not treat classification accuracy as evidence of causality.}
+\textbf{Source:} Lecture11v2.tex. Numerical examples are synthetic; extended MLE/model selection are assigned preparation for review.
+
+\end{document}

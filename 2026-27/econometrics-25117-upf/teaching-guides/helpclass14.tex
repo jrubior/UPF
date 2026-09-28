@@ -1,0 +1,82 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Fixed effects and clustered inference}\end{center}
+\textbf{Slide route:} Lecture10v2.tex: Fixed Effects Models through Final Remarks on Clustered SEs. Chapter 10.
+\heading{Session 14 | Learn from changes within units}
+\textbf{Outcomes:} Compute a within transformation, interpret unit and time effects, state strict exogeneity, and explain clustering.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Retrieve what first differences remove.\\
+10--30 & Fixed-effects regression and within transformation.\\
+30--45 & Work the two-unit example.\\
+45--55 & Pause and contrast within/between variation.\\
+55--75 & Unit and time fixed effects; assumptions.\\
+75--90 & Serial correlation and clustered SEs.\\
+90--100 & Exit diagnosis and binary-outcome preview.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | Demeaning}
+\cue{Use with slides}{Lecture10v2 slides 38--49: Fixed Effects Regressions through the fixed-effects assumptions. Use the two-unit demeaning table with slides 38--43, then contrast it with unit/time effects on slides 44--49.}
+Use synthetic observations for two units over three periods:
+\[
+X_A=(1,2,3),\quad Y_A=(12,14,16),\qquad
+X_B=(2,3,4),\quad Y_B=(24,26,28).
+\]
+The unit means are $(\bar X_A,\bar Y_A)=(2,14)$ and $(\bar X_B,\bar Y_B)=(3,26)$. After subtracting unit means, both units have
+\[
+\widetilde X=(-1,0,1),\qquad \widetilde Y=(-2,0,2).
+\]
+Thus the within slope is
+\[
+\hat\beta_{\rm FE}=\frac{\sum_{it}\widetilde X_{it}\widetilde Y_{it}}
+{\sum_{it}\widetilde X_{it}^2}=\frac8{4}=2.
+\]
+\cue{Contrast}{The line through the two unit means has slope $(26-14)/(3-2)=12$. Between-unit differences and within-unit changes can tell very different stories. The large unit-level intercept difference explains this constructed contrast.}
+
+\newpage
+\heading{Assumptions and inference}
+\cue{Use with slides}{Lecture10v2 slides 45--54: accounting for unit effects, time effects, two-way fixed effects, strict exogeneity, serial correlation, clustered SEs, and final clustered-SE remarks. Use the school-clustering example during slides 50--54.}
+Start with
+\[
+Y_{it}=\alpha_i+\lambda_t+\beta X_{it}+u_{it}.
+\]
+Unit effects remove fixed differences; time effects absorb common time shocks. In a balanced panel, the two-way transformed variable is
+\[
+\ddot Y_{it}=Y_{it}-\bar Y_i-\bar Y_t+\bar Y
+\]
+and similarly for $X$. Use appropriate regression/projection machinery for an unbalanced panel rather than assuming this shortcut applies unchanged.
+\cue{Strict exogeneity}{A familiar sufficient condition is
+$\E(u_{it}\mid X_{i1},\ldots,X_{iT},\alpha_i)=0$, with common time effects accounted for. Unobserved shocks that change later treatment choices can violate it. Fixed effects do not remove arbitrary reverse causality.}
+\cue{What cannot be identified}{A regressor constant within a unit is collinear with unit effects. A regressor identical across units within each period is absorbed by time effects. Ask which variation remains before interpreting a slope.}
+\heading{Clustering side example}
+There are 50 schools with 20 pupil observations each. Errors within a school may share a school-level shock. Treating 1,000 pupils as 1,000 independent pieces of information can overstate precision.
+\cue{Say carefully}{Cluster-robust inference permits within-cluster dependence under its assumptions while relying on adequate independent cluster information. Fifty is not a universal adequacy threshold; few or unbalanced clusters can require special treatment.}
+\cue{Illustrative command}{For a genuine panel with identifiers id and time:}
+\begin{verbatim}
+xtset id time
+xtreg y x i.time, fe vce(cluster id)
+\end{verbatim}
+\cue{Exit answers}{Fixed effects change the source of identifying variation. Clustered SEs address inference under dependence; they do not fix endogenous regressors. Adding time dummies does not absorb unit-specific changing confounders.}
+\cue{If short / preparation}{Reduce repeated diagrams while retaining the within calculation and clustering intuition. Read Chapter 11 and ask students why OLS might predict a probability above one.}
+\textbf{Source:} Lecture10v2.tex, fixed-effects and clustered-SE sections; synthetic examples.
+
+\end{document}

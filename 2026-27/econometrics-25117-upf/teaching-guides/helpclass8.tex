@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Joint tests and interpretation}\end{center}
+\textbf{Slide route:} Lecture6v2.tex: single coefficients, joint hypotheses, F tests, linear restrictions and confidence sets. Chapter 7.
+\heading{Session 8 | A claim about several coefficients}
+\textbf{Outcomes:} Distinguish separate from joint tests, calculate a classical F statistic, test a linear combination, and interpret restrictions in context.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Partial-coefficient retrieval.\\
+10--25 & Individual versus joint hypotheses.\\
+25--45 & F-statistic and restricted/unrestricted example.\\
+45--55 & Robust versus classical tests and pause.\\
+55--75 & Single restrictions on multiple coefficients.\\
+75--90 & Confidence sets and model specification.\\
+90--100 & Exit ticket and functional-form preview.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | Two exclusions}
+\cue{Use with slides}{Lecture6v2 slides 7--16: Tests of Joint Hypotheses through the example on $strs$ and $frpmfracs$. Use the SSR calculation when slide 11 introduces the F-statistic, then compare it with the deck's example on slide 16.}
+Test $H_0:\beta_2=\beta_3=0$. A restricted regression has residual sum of squares 120; the unrestricted regression has 100. Let $n=100$, unrestricted slope count $k=3$, and restriction count $q=2$.
+\[
+F=\frac{(SSR_R-SSR_U)/q}{SSR_U/(n-k-1)}
+=\frac{(120-100)/2}{100/96}=9.6.
+\]
+Under homoskedastic normal errors, compare with $F_{2,96}$; its 5\% critical value is about 3.09, so reject.
+\cue{What to say}{The joint claim that both coefficients are zero is inconsistent with the data under these assumptions. This does not establish that each individual coefficient is nonzero.}
+\cue{Robust caveat}{The residual-sum-of-squares formula is the homoskedastic-only test. Under heteroskedasticity, use the estimated robust covariance matrix in a Wald test; do not relabel this formula robust.}
+
+\newpage
+\heading{Worked example | Equality is one restriction}
+\cue{Use with slides}{Lecture6v2 slides 22--24: Testing Single Restrictions, Rearranging, and Direct Testing. Use this equality example before the Stata command so students see why the covariance term matters.}
+Suppose $\hat\beta_1=.5$, $\hat\beta_2=.2$, their estimated variances are $.04$ and $.01$, and covariance is $.01$. To test $H_0:\beta_1=\beta_2$:
+\[
+\widehat{\beta_1-\beta_2}=.3,\qquad
+SE(\hat\beta_1-\hat\beta_2)=\sqrt{.04+.01-2(.01)}=\sqrt{.03}.
+\]
+\[
+t=.3/\sqrt{.03}\simeq1.732,\quad
+95\%\text{ large-sample CI: } .3\pm1.96\sqrt{.03}
+=[-.0395,.6395].
+\]
+Fail to reject equality at 5\%. Each coefficient's separate significance relative to zero cannot answer whether the two coefficients differ.
+\cue{Pair prompt}{Why can we not subtract the two standard errors? Because the variance of a difference includes both variances and their covariance.}
+\cue{Multiple-testing side example}{If two tests were independent and each used 5\%, the probability of at least one false rejection under the joint null would be $1-.95^2=.0975$. Regression coefficient tests need not be independent, but this shows why separate tests do not implement a joint 5\% test.}
+\cue{Software illustration}{With an appropriately fitted Stata model:}
+\begin{verbatim}
+test x2 x3
+test x1 = x2
+\end{verbatim}
+Use the model's robust covariance estimate when robust inference is required. Confirm variable names before demonstrating.
+\cue{Confidence sets}{A joint confidence ellipse incorporates coefficient covariance. It is not obtained by declaring the Cartesian product of individual 95\% intervals a joint 95\% region.}
+\cue{Exit answers}{For one restriction, a consistently constructed Wald F equals the corresponding $t^2$. Equality of two coefficients is one restriction. An insignificant individual test does not preclude joint significance.}
+\cue{If short / preparation}{Leave repeated output screenshots for reading. Preserve both worked examples. Read Chapter 8 and ask students to sketch a relationship whose slope changes with $X$.}
+\textbf{Source:} Lecture6v2.tex; synthetic numerical examples.
+
+\end{document}

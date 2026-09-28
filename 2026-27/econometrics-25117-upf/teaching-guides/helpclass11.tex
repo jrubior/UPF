@@ -1,0 +1,65 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Threats to identification}\end{center}
+\textbf{Slide route:} Lecture8v2.tex: external/internal validity, measurement error, missing data, selection, simultaneity, SEs and prediction. Chapter 9.
+\heading{Session 11 | Diagnose before choosing a remedy}
+\textbf{Outcomes:} Separate internal from external validity; explain classical attenuation, selection, and simultaneity; match threats to plausible responses.
+\heading{100-minute route}
+\begin{tabularx}{\textwidth}{@{}rX@{}}\toprule
+0--10 & Post-midterm retrieval: interpretation versus identification.\\
+10--25 & External and internal validity; discuss slide examples.\\
+25--45 & OVB, wrong functional form, measurement error.\\
+45--55 & Pause and attenuation calculation.\\
+55--75 & Missing data, selection, simultaneity.\\
+75--90 & Inconsistent SEs, validity checklist, prediction.\\
+90--100 & Exit diagnosis and bridge to IV.\\\bottomrule
+\end{tabularx}
+\heading{Worked example | Measurement error}
+\cue{Use with slides}{Lecture8v2 slides 12--15: Errors-in-variables and Classical Measurement Error. Work the attenuation calculation on slide 14 or 15, after students have seen why the measured regressor contains noise.}
+Suppose the true relationship is $Y=\beta_0+2X^*+u$, but we observe $X=X^*+v$. Under classical regressor measurement error, $v$ is mean zero and uncorrelated with $X^*$ and $u$. If $\Var(X^*)=9$ and $\Var(v)=3$:
+\[
+\operatorname{plim}\hat\beta_{\rm OLS}
+=2\frac{9}{9+3}=1.5.
+\]
+\cue{Ask}{Does a larger sample restore the coefficient to 2? No. It concentrates the estimator around the attenuated target. Better measurement or a valid instrument addresses a different problem from increasing precision.}
+\cue{Qualification}{Attenuation toward zero is a result for this simple classical setup; do not generalize its direction to arbitrary measurement error or every coefficient in multiple regression. Classical noise in the outcome alone need not bias slopes, though it raises uncertainty.}
+
+\newpage
+\heading{Cases for discussion | Threat, mechanism, response}
+\cue{Selection}{Wages are observed only among employed people. If employment depends on unobserved wage determinants, the observed sample need not represent the wage-offer relationship for everyone. More complete data or a justified selection design is needed; merely adding a robust SE is insufficient.}
+\cue{Simultaneity}{Price and quantity are jointly determined by demand and supply. Their observed covariance need not trace a demand curve. A supply shifter excluded from demand is a possible instrument, provided its exclusion and relevance can be defended.}
+\cue{External validity}{An internally valid tutoring experiment at one university need not identify the same effect for all schools. Ask what differs: students, implementation, context, or treatment intensity.}
+\cue{Dependence}{Repeated outcomes for one district can be correlated. Heteroskedasticity-robust SEs alone are insufficient; a dependence-aware variance estimator may be needed.}
+\heading{Pair activity | Classify three claims}
+\begin{enumerate}
+\item A treatment improves outcomes in one city, so it must do so everywhere.
+\item Self-reported education contains substantial recall error.
+\item A high-$R^2$ demand regression uses equilibrium prices.
+\end{enumerate}
+\textbf{Answers:} External validity; potential errors-in-variables; simultaneity despite fit. For each, ask what extra data or design evidence would make the claim more credible.
+\cue{Missing data caution}{Dropping incomplete rows is not automatically harmless. Whether complete-case analysis is valid depends on why data are missing and the estimand. Avoid treating all missingness as one problem with one remedy.}
+\cue{Prediction distinction}{An endogenous variable can be predictive in a stable environment, yet policy interventions can change its relationship to the outcome. Evaluate predictions out of sample; evaluate causal claims through design and assumptions.}
+\cue{If short / preparation}{Use one external-validity illustration and three internal threats in depth. Read Chapter 12 and come prepared to propose an instrument and criticize its exclusion restriction.}
+\textbf{Source:} Lecture8v2.tex; numerical and discussion examples are illustrative.
+
+\end{document}

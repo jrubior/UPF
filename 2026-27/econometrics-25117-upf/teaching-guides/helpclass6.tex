@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\begin{center}{\Large\bfseries Midterm 1 instructor guide}\end{center}
+\textbf{Slide route:} Syllabus date: October 26, 2026. Proposed coverage: Lectures 1--4, sessions 1--5.
+\heading{Session 6 | Midterm 1}
+\textbf{Purpose:} Assessment session, with no new examinable material. Date from the syllabus: October 26. Position in the 16-session sequence is provisional until the meeting calendar is checked.
+\cue{Before the day}{Confirm room, duration, permitted materials, accessibility arrangements, and the final paper through the course's usual procedures. This guide is a proposed assessment blueprint, not an approved exam or a change to policy.}
+\heading{Suggested assessment balance}
+\begin{tabularx}{\textwidth}{@{}l r X@{}}\toprule
+Area & Share & What it should reveal\\\midrule
+Probability & 20\% & Joint versus conditional probabilities; iterated expectations.\\
+Sampling & 20\% & Mean, variance, LLN versus CLT.\\
+Inference & 25\% & Null, statistic, decision, interpretation.\\
+Regression & 35\% & OLS arithmetic, exogeneity, robust SEs.\\\bottomrule
+\end{tabularx}
+\cue{100-minute slot assumption}{Allow 10 minutes for settling and instructions, 80 minutes of assessment, and 10 minutes for collection. Replace this allocation if the official exam duration differs.}
+\cue{Instructions to emphasize}{Define notation, show calculations, state the null, identify the reference distribution, and distinguish a statistical conclusion from a causal claim. Clarify permitted resources from the actual exam instructions.}
+\cue{Marking principle}{Separate arithmetic from interpretation. Give appropriate partial credit for a correct method after a carried-forward numerical error. Use the same standard across scripts.}
+\heading{Pre-exam oral check | With answers}
+A continuous variable has zero probability at a point: intervals can still have positive probability. A mean's SE falls at rate $1/\sqrt n$ under i.i.d. finite-variance sampling. OLS residual orthogonality does not establish exogeneity. Robust SEs do not repair an endogenous regressor.
+\cue{After collection}{Record unclear wording or timing problems without changing grading ad hoc. Prepare a short diagnostic for the next session; avoid announcing a universal weakness before inspecting the scripts.}
+\textbf{Next session:} Multiple regression and omitted-variable bias. Begin with a five-minute distinction between fit, uncertainty, and causal interpretation.
+
+\end{document}

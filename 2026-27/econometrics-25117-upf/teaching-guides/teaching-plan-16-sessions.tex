@@ -1,0 +1,92 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,enumitem,xcolor,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{0,114,178}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{nosep,leftmargin=*}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Econometrics 25117 | Instructor guide}
+\fancyhead[R]{\small 2026--2027}
+\fancyfoot[L]{\small Private teaching notes}
+\fancyfoot[R]{\thepage}
+\newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\setlength{\emergencystretch}{1em}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\begin{document}
+\heading{Teaching plan | 16 sessions}
+\textbf{Econometrics 25117, UPF, 2026--2027}\\
+Prepared September 27, 2026. First class: Monday, September 28.
+
+\heading{Planning decisions}
+Your requested total is \textbf{16 meetings: 14 teaching sessions and 2 midterms}. The local folder and syllabus list 11 numbered lecture topics, not 12. This plan adds a clearly labeled twelfth topic, integration and cumulative review, instead of inventing a missing lecture deck.
+
+Lecture 1 is split over two meetings so tomorrow's class can establish the foundations carefully. Lecture 10 is split into pooled data/first differences and fixed effects/inference. The other nine existing decks each receive one meeting, and integration receives one: $2+2+9+1=14$ teaching meetings.
+
+\textbf{Calendar limitation:} The syllabus gives 18 theory sessions, Midterm 1 on October 26, and Midterm 2 on November 18. This new plan follows your 16-session instruction but does not modify the syllabus. The remaining meeting dates and session duration were not supplied. Session numbers are therefore a proposed sequence, not a verified daily calendar. Only September 28 and the two syllabus midterm dates are labeled. Reconcile how many actual meetings fall before each midterm before announcing the schedule.
+
+\textbf{Timing assumption:} Each teaching guide uses 100 minutes including a short pause. In a shorter slot, use the stated priorities and move optional work to preparation; do not assume that every slide can receive equal time.
+
+\textbf{File convention:} helpclass1.tex/pdf through helpclass16.tex/pdf refer to \emph{meeting numbers}, not original lecture numbers. Thus helpclass6 and helpclass10 are exam-day instructor guides; helpclass13 and helpclass14 both use Lecture10v2.tex.
+
+\heading{Tomorrow's stopping point}
+Teach Lecture1v2 from the course introduction through \textbf{Correlation}. Stop before \textbf{Random Sampling}. Use the worked sunny-day table, density/CDF example, and earnings moments in helpclass1.pdf. Session 2 resumes at Random Sampling and finishes the deck.
+
+\heading{Assessment alignment}
+Keep the existing weights: participation 5\%, Midterm 1 15\%, Midterm 2 20\%, cumulative final 60\%. Proposed first-midterm scope: Lectures 1--4. Proposed second-midterm scope: Lectures 5--7 with earlier prerequisites. These scopes follow the three-block outline in Lecture1v2 and remain planning recommendations until confirmed.
+\newpage
+\heading{Daily allocation | Sessions 1--10}
+\small
+\begin{tabularx}{\textwidth}{@{}p{9mm}p{23mm}p{28mm}X@{}}\toprule
+No. & Date & Source & Teach and stop point\\\midrule
+1 & Sep 28 & Lecture 1A & Introduction, random variables, density/CDF, moments, joint/conditional probabilities, iterated expectations, independence, covariance, correlation. Stop before Random Sampling.\\[5pt]
+2 & To confirm & Lecture 1B & Random Sampling through Is your estimator BLUE? Mean/SE, LLN, CLT, estimator properties and least-squares mean.\\[5pt]
+3 & To confirm & Lecture 2 & Tests and CIs for means, two-group comparisons, randomized experiments, California illustration.\\[5pt]
+4 & To confirm & Lecture 3 & Simple OLS calculation, interpretation, fit, assumptions and sampling properties.\\[5pt]
+5 & To confirm & Lecture 4 & Regression inference, software interpretation, heteroskedasticity, robust SEs, Gauss--Markov, review.\\[5pt]
+6 & Oct 26* & Midterm 1 & Assessment; proposed coverage Lectures 1--4. No new content.\\[5pt]
+7 & To confirm & Lecture 5 & OVB, multiple regression, fit, collinearity, reference groups and controls.\\[5pt]
+8 & To confirm & Lecture 6 & Joint tests, classical and robust distinction, linear restrictions, confidence sets.\\[5pt]
+9 & To confirm & Lecture 7 & Polynomials, all three log forms, dummy and continuous interactions, Midterm 2 synthesis.\\[5pt]
+10 & Nov 18* & Midterm 2 & Assessment; proposed coverage Lectures 5--7, using earlier prerequisites.\\\bottomrule
+\end{tabularx}
+\normalsize
+\textbf{*Midterm dates are from the local syllabus.} Their positions at sessions 6 and 10 are provisional. If the real calendar provides a different number of teaching meetings before those dates, revise the allocation rather than moving an announced exam silently.
+
+\heading{Preparation between meetings}
+Before session 2, redo conditional probabilities and read probability/sampling material (Chapters 1--2). Before session 3, read Chapter 3; before sessions 4 and 5, Chapters 4 and 5. Before sessions 7--9, read Chapters 6--8 respectively. Readings follow the syllabus's Stock and Watson fourth Global Edition chapter mapping.
+
+Use the guides' exit tickets as retrieval at the next meeting. The worked examples in the guides have solutions for instructor use; do not distribute those pages as an unseen assessment.
+\newpage
+\heading{Daily allocation | Sessions 11--16}
+\small
+\begin{tabularx}{\textwidth}{@{}p{9mm}p{23mm}p{28mm}X@{}}\toprule
+No. & Date & Source & Teach and stop point\\\midrule
+11 & To confirm & Lecture 8 & Internal/external validity, measurement error, missingness, selection, simultaneity, dependence and prediction.\\[5pt]
+12 & To confirm & Lecture 9 & IV assumptions, ratio estimator, 2SLS, empirical examples, weak instruments and exogeneity.\\[5pt]
+13 & To confirm & Lecture 10A & Starting with Pooled Data through Limits of First-Differences. Stop before Fixed Effects Models.\\[5pt]
+14 & To confirm & Lecture 10B & Fixed Effects Models through Final Remarks on Clustered SEs. Within variation, time effects, assumptions, dependence.\\[5pt]
+15 & To confirm & Lecture 11 & LPM, logit/probit probabilities, marginal effects, odds and Bernoulli likelihood; one application.\\[5pt]
+16 & To confirm & Added topic 12 & Finish model-selection extension, integrated OLS/IV/panel/binary case, cumulative diagnostic and review.\\\bottomrule
+\end{tabularx}
+\normalsize
+\heading{Pacing and coverage safeguards}
+\cue{Lecture 3}{Work the OLS calculation and exogeneity carefully. Assign detailed asymptotic variance algebra as review if necessary.}
+\cue{Lecture 7}{Use one quadratic, one example of each log form, and one interaction in depth. Repeated interaction figures become self-study; the conceptual categories remain covered.}
+\cue{Lecture 10}{Keep the two-meeting split. First differences prepare the within transformation, and clustered inference needs a discussion of the sampling unit.}
+\cue{Lecture 11}{A full slide-by-slide treatment will not fit one meeting. Assign extended MLE algebra and repeated output tables. Session 16 explicitly completes model-selection discussion.}
+\cue{If students struggle}{Use exit-ticket evidence to replace repeated slide illustrations with another worked calculation. Do not use midterm time as overflow. If actual periods are substantially shorter, revise the plan's depth before promising full coverage.}
+\heading{Reading and guide index}
+Before sessions 11 and 12: Chapters 9 and 12. Before sessions 13--14: Chapter 10 and the relevant Chapter 13 material specified in the syllabus. Before session 15: Chapter 11. Before session 16: review all blocks and the remaining Lecture 11 model-selection slides.
+
+The matching instructor file for every row is helpclass\emph{N}.pdf, with an editable standalone helpclass\emph{N}.tex beside it. Every teaching guide states source boundaries, a timed route, worked examples, and checks with answers. All invented datasets are marked illustrative.
+
+\textbf{Sources:} Syllabus\_2026\_2027.tex and Lecture1v2.tex through Lecture11v2.tex in the local course folder. No official timetable beyond the supplied syllabus dates was available.
+
+\end{document}
