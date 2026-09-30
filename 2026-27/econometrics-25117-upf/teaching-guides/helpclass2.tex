@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -35,6 +37,16 @@
 70--90 & Estimator versus estimate; compare unbiased estimators.\\
 90--100 & Least-squares mean, exit questions, next topic.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{18}{Random Sampling}{Say that each draw is a random variable before it is observed. Ask students to name the unit of observation in a wage sample.}
+\slideguide{19}{Sample Distribution Mean and Dispersion}{Write $\bar Y=n^{-1}\sum_iY_i$, then derive its mean and variance. Example: with $\sigma=20$ and $n=100$, $SE(\bar Y)=2$.}
+\slideguide{20}{Asymptotic properties (1/2)}{Separate the LLN from the CLT: the LLN shrinks the unstandardized error, while the CLT describes its standardized shape. Ask which statement is about consistency.}
+\slideguide{21}{Example -- tossing a coin}{Use 10 fair tosses as a visual example. Ask whether the sample share must equal $.5$; it need not, but it becomes more stable as $n$ grows.}
+\slideguide{22}{Asymptotic properties (2/2)}{Return to the formulas and stress that the CLT needs finite, nonzero variance in the usual i.i.d. version. Do not describe convergence as exact equality.}
+\slideguide{23}{Example -- tossing a coin, $n=100$}{Compute the approximate standard deviation of a sample proportion: $\sqrt{.25/100}=.05$. Ask students to interpret a share of $.57$ in standard-error units.}
+\slideguide{24}{Estimators}{Distinguish an estimator, a rule, from an estimate, its realized number. Compare $Y_1$ with $\bar Y$: both are unbiased, but only the average uses all observations consistently.}
+\slideguide{25}{Is your estimator BLUE?}{Explain that BLUE means best linear unbiased estimator under the stated assumptions. Use $Q(a)=\sum_i(Y_i-a)^2$ with data $1,2,6$; the minimizer is $a=3$.}
+
 \cue{Board sequence}{Use uppercase $Y_i$ before observing the sample and lowercase $y_i$ for a realization. Draw a population distribution and, separately, a narrower distribution of sample averages. Label their axes differently.}
 \cue{Say explicitly}{Taking more observations does not make people less different. It makes our average more precise.}
 \cue{Sampling qualification}{Sampling without replacement from a finite population does not give exact independence. The i.i.d. model is appropriate for independent draws or an approximation for a small sampling fraction. Consecutive days may be serially dependent.}

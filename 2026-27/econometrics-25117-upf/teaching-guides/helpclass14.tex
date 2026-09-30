@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,31 @@
 75--90 & Serial correlation and clustered SEs.\\
 90--100 & Exit diagnosis and binary-outcome preview.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with the question: what variation remains after removing a unit's fixed characteristics?}
+\slideguide{2}{Roadmap}{Preview within transformation, unit and time effects, strict exogeneity, serial correlation, and clustering.}
+\slideguide{3}{Last lesson}{Retrieve the first-difference equation and ask what it removes.}
+\slideguide{4}{Fixed effects regressions}{Define the unit effect $\alpha_i$ and explain why it can be correlated with $X_{it}$.}
+\slideguide{5}{Fixed effects regressions}{Calculate the unit means in the two-unit example: $(2,14)$ and $(3,26)$.}
+\slideguide{6}{Fixed effects regressions}{Demean $X$ and $Y$ within each unit and show the common within slope.}
+\slideguide{7}{Fixed effects regressions}{Explain that the within estimator uses changes relative to a unit's own average, not between-unit levels.}
+\slideguide{8}{Fixed effects regressions}{Ask what happens to a regressor constant within a unit. It is absorbed and cannot be estimated separately.}
+\slideguide{9}{Fixed effects regressions}{Contrast the within slope 2 with the between-unit slope 12 in the synthetic example.}
+\slideguide{10}{Fixed effects regressions}{Use a diagram to show why a large unit intercept difference can drive the between comparison.}
+\slideguide{11}{Fixed effects regressions}{Introduce time effects $\lambda_t$ as common shocks shared across units.}
+\slideguide{12}{Fixed effects regressions}{Explain two-way fixed effects as unit effects plus time effects, with identification coming from remaining variation.}
+\slideguide{13}{Fixed effects regressions}{Ask whether fixed effects remove time-varying omitted variables. No.}
+\slideguide{14}{Raw panel data}{Label the unit and time axes before interpreting the cloud.}
+\slideguide{15}{Accounting for unit effects}{Show how subtracting unit means removes $\alpha_i$.}
+\slideguide{16}{Accounting for time effects}{Show how time dummies absorb a common period shock.}
+\slideguide{17}{Both unit and time effects}{Explain that the two-way model can be overparameterized unless a reference convention is used.}
+\slideguide{18}{Both unit and time effects}{Ask which variables are absorbed by unit effects and which by time effects.}
+\slideguide{19}{Fixed-effects assumptions}{State strict exogeneity as a condition on errors across all periods, not only contemporaneously.}
+\slideguide{20}{Serial correlation}{Explain why differencing or repeated observations can make errors dependent over time.}
+\slideguide{21}{Clustered standard errors}{Use schools as clusters. Ask what observations may share an unobserved shock.}
+\slideguide{22}{Clustered standard errors}{Say that clustered SEs address inference under within-cluster dependence, not endogenous regressors.}
+\slideguide{23}{Final remarks}{Close with a checklist: source of variation, fixed effects, time effects, dependence, and number of independent clusters.}
+
 \heading{Worked example | Demeaning}
 \cue{Use with slides}{Lecture10v2 slides 38--49: Fixed Effects Regressions through the fixed-effects assumptions. Use the two-unit demeaning table with slides 38--43, then contrast it with unit/time effects on slides 44--49.}
 Use synthetic observations for two units over three periods:

@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Step #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -32,6 +34,17 @@ Joint inference & 30\% & Joint null, restrictions, covariance-aware test.\\
 Functional forms & 35\% & Log units, quadratic effect, interaction contrast.\\\bottomrule
 \end{tabularx}
 The blueprint is a planning aid, not an approved exam. Announce final coverage in advance. If the course requires cumulative coverage for this midterm, adjust the blueprint explicitly.
+\heading{Step-by-step exam-day script}
+\slideguide{1}{Arrival and instructions}{Confirm the official paper, permitted materials, timing, and accessibility arrangements before students begin.}
+\slideguide{2}{OVB question}{Require both links in the sign argument: the omitted variable affects the outcome and is correlated with the included regressor.}
+\slideguide{3}{Multiple regression}{Ask for a coefficient interpretation with the conditioning phrase ``holding other included regressors fixed.''}
+\slideguide{4}{Joint test}{Make students write the joint null and count restrictions before using an F or Wald statistic.}
+\slideguide{5}{Equality restriction}{Test $\beta_1=\beta_2$ as one restriction and include the covariance in the standard error.}
+\slideguide{6}{Functional form}{Give a quadratic or log coefficient and require units, comparison change, and exact-versus-approximate language.}
+\slideguide{7}{Interaction}{Ask for the group contrast at a stated $X$ value, not just the main dummy coefficient.}
+\slideguide{8}{Interpretation check}{Include one tempting but false causal conclusion and award credit for identifying the missing assumption.}
+\slideguide{9}{Review and submission}{Give a final warning, collect all pages, and note ambiguous wording for a post-exam diagnostic.}
+
 \cue{100-minute slot assumption}{Ten minutes for instructions, 80 for the paper, ten for collection; replace with official timing if different. Confirm approved resources, room, and accessibility arrangements in advance.}
 \cue{What students should know}{A regression coefficient needs units and a conditioning statement. A joint test needs a joint null. An interaction effect needs a specified value of the interacting variable.}
 \heading{Instructor calibration examples}

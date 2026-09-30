@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Step #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,18 @@
 75--90 & Cumulative diagnostic in pairs.\\
 90--100 & Discuss answers and prioritize independent review.\\\bottomrule
 \end{tabularx}
+\heading{Step-by-step review script}
+\slideguide{1}{State the question}{Have each pair write the outcome, unit, treatment or regressor, estimand, and target population before choosing an estimator.}
+\slideguide{2}{Choose the baseline model}{Ask whether the outcome is continuous or binary and whether the target is prediction, association, or a causal effect.}
+\slideguide{3}{Diagnose selection}{Use the tutoring case to draw motivation as a common cause of tutoring and achievement. Ask what OLS needs for a causal reading.}
+\slideguide{4}{Calculate OLS}{Compute a simple difference or regression coefficient, then label the assumption that would make it causal.}
+\slideguide{5}{Evaluate controls}{Separate observed baseline controls from post-treatment mediators and unobserved confounders.}
+\slideguide{6}{Evaluate IV}{Calculate $(68-65)/(.55-.25)=10$ and then critique relevance, exclusion, independence, and monotonicity if heterogeneous effects are discussed.}
+\slideguide{7}{Evaluate panel data}{Ask what repeated observations remove and what time-varying confounding remains.}
+\slideguide{8}{Binary outcome extension}{Translate an LPM coefficient of $.08$ into eight percentage points and contrast it with logit or probit marginal effects.}
+\slideguide{9}{Model selection}{Compute AIC and BIC for the two candidate models and ask what sample comparability is required.}
+\slideguide{10}{Cumulative diagnostic}{Give each pair one claim to defend and one assumption to challenge. Require a numerical answer plus a limitation.}
+
 \heading{Integrated case | Tutoring and achievement}
 \cue{Use with slides}{Use this as a no-deck review case. If you want slide anchors, start from Lecture5v2 slides 5--10 for selection/OVB, Lecture9v2 slides 4--7 for the IV offer, and Lecture10v2 slides 38--49 for the panel alternative.}
 Students choose tutoring; motivation affects both participation and achievement. A positive OLS tutoring coefficient is therefore not automatically causal.

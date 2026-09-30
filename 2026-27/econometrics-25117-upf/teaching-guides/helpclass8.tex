@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,39 @@
 75--90 & Confidence sets and model specification.\\
 90--100 & Exit ticket and functional-form preview.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Introduce the class as learning how to test a claim about several coefficients at once.}
+\slideguide{2}{Roadmap}{Preview individual tests, joint hypotheses, the F statistic, restrictions, and confidence sets.}
+\slideguide{3}{Last lesson}{Retrieve the meaning of a partial coefficient and ask why one coefficient test may not answer a policy question.}
+\slideguide{4}{Last lesson}{Use the dummy-variable example to remind students that a group comparison may involve more than one coefficient.}
+\slideguide{5}{Single coefficients}{Distinguish $H_0:\beta_j=0$ from a joint claim about several $\beta$s.}
+\slideguide{6}{Joint hypotheses}{Write $H_0:\beta_2=\beta_3=0$ before calculating. Ask what the restricted model removes.}
+\slideguide{7}{Joint hypotheses}{Explain why separate 5 percent tests do not implement one joint 5 percent test.}
+\slideguide{8}{Joint hypotheses}{Use the restricted and unrestricted residual sums of squares as the two objects in the F calculation.}
+\slideguide{9}{F statistic}{Write $F=((SSR_R-SSR_U)/q)/(SSR_U/(n-k-1))$ and label numerator and denominator.}
+\slideguide{10}{F statistic}{With 120 and 100, $q=2$, $n=100$, $k=3$, compute $F=9.6$.}
+\slideguide{11}{F distribution}{Explain that the reference distribution depends on the restrictions and denominator degrees of freedom.}
+\slideguide{12}{F distribution}{Ask what a large F means: the restrictions worsen fit relative to residual noise, under the maintained assumptions.}
+\slideguide{13}{Single coefficients}{Return to a t test and explain that it addresses one restriction.}
+\slideguide{14}{Homoskedastic-only F}{State that the residual-sum-of-squares formula is not automatically robust.}
+\slideguide{15}{Homoskedastic-only F}{Use the displayed regression output to identify $q$, $k$, and the relevant SSRs.}
+\slideguide{16}{Example with class-size variables}{Work the deck's joint test and ask students to state the conclusion without overclaiming each coefficient.}
+\slideguide{17}{Example continued}{Compare the joint conclusion with individual p-values. They need not tell the same story.}
+\slideguide{18}{Why the F statistic?}{Explain that one statistic aggregates how far the restrictions move the fit.}
+\slideguide{19}{Summary}{Have students say when a joint test is more natural than a list of individual tests.}
+\slideguide{20}{Single restrictions}{Introduce $H_0:\beta_1=\beta_2$ as one restriction, $\beta_1-\beta_2=0$.}
+\slideguide{21}{Single restrictions}{Use $\Var(\hat\beta_1-\hat\beta_2)$ and emphasize the covariance term.}
+\slideguide{22}{Rearranging}{Show that rewriting a restriction changes notation, not the hypothesis.}
+\slideguide{23}{Direct testing}{Use a software command only after the hand calculation is clear.}
+\slideguide{24}{Confidence sets}{Explain that a joint confidence region must account for coefficient covariance.}
+\slideguide{25}{Confidence sets}{Contrast a confidence ellipse with the Cartesian product of two individual intervals.}
+\slideguide{26}{Confidence sets}{Ask which parameter combinations are ruled out by the region.}
+\slideguide{27}{Confidence sets}{Use the interaction preview: a conditional effect is a linear combination that may need its own interval.}
+\slideguide{28}{Specification}{Ask which variables belong in a model based on the question and design, not only on significance.}
+\slideguide{29}{Specification}{Warn that dropping controls because they are individually insignificant can reintroduce OVB.}
+\slideguide{30}{Summary}{Review joint null, restriction count, covariance, and reference distribution.}
+\slideguide{31}{Material}{Assign one robust Wald exercise and one equality restriction before the functional-form class.}
+
 \heading{Worked example | Two exclusions}
 \cue{Use with slides}{Lecture6v2 slides 7--16: Tests of Joint Hypotheses through the example on $strs$ and $frpmfracs$. Use the SSR calculation when slide 11 introduces the F-statistic, then compare it with the deck's example on slide 16.}
 Test $H_0:\beta_2=\beta_3=0$. A restricted regression has residual sum of squares 120; the unrestricted regression has 100. Let $n=100$, unrestricted slope count $k=3$, and restriction count $q=2$.

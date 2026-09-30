@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -35,6 +37,59 @@
 90--100 & One application table and exit ticket.\\\bottomrule
 \end{tabularx}
 This is a dense deck. Assign repeated coefficient screenshots, the extended MLE algebra, and detailed model-selection slides for reading. Revisit AIC/BIC and model comparison in session 16. Do not try to narrate every slide.
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with the practical question: how do we model an outcome that is only zero or one?}
+\slideguide{2}{Roadmap}{Preview LPM, nonlinear links, marginal effects, likelihood, and model selection.}
+\slideguide{3}{Last lesson}{Retrieve a fixed-effects or clustering assumption and explain why binary outcomes require a new conditional-mean model.}
+\slideguide{4}{Binary choice models}{State $\E(Y\mid X)=P(Y=1\mid X)$ when $Y$ is binary. This is the bridge to probability models.}
+\slideguide{5}{Binary choice models}{Ask students to identify the unit, binary outcome, and regressors in the application.}
+\slideguide{6}{Linear probability model}{Write $p(X)=\beta_0+\beta_1X$. Interpret $\beta_1$ as a probability-point change per unit of $X$.}
+\slideguide{7}{Linear probability model}{Use the synthetic $\hat p=.2+.1X$ and calculate the prediction at $X=9$.}
+\slideguide{8}{LPM properties}{Explain why fitted probabilities can leave $[0,1]$ and why binary errors are heteroskedastic.}
+\slideguide{9}{LPM properties}{Ask whether robust SEs fix the range problem. No; they only address a variance calculation.}
+\slideguide{10}{LPM}{Discuss interpretation and the role of the conditional mean. Keep the percentage-point units explicit.}
+\slideguide{11}{LPM}{Compare a predicted probability with an observed zero or one; prediction is a mean, not an individual certainty.}
+\slideguide{12}{Nonlinear models}{Motivate a link function that maps every index to a probability in $[0,1]$.}
+\slideguide{13}{Nonlinear models}{Draw the S-shaped curve and ask where the marginal effect is largest.}
+\slideguide{14}{Probit model}{Define $p(X)=\Phi(X'\beta)$ and distinguish the latent index from the probability.}
+\slideguide{15}{Probit model}{Calculate a probability from a simple index if the slide gives one; focus on the mapping, not table lookup mechanics.}
+\slideguide{16}{Logit model}{Write $\Lambda(z)=1/(1+e^{-z})$ and calculate $\Lambda(.5)\simeq.6225$.}
+\slideguide{17}{Probit interpretation}{Explain that a probit coefficient shifts the latent index; it is not directly a percentage-point effect.}
+\slideguide{18}{Probit interpretation}{Use the derivative $\phi(X'\beta)\beta_1$ to show why effects vary with $X$.}
+\slideguide{19}{Probit interpretation}{Ask students to state the value of the other covariates whenever they report a marginal effect.}
+\slideguide{20}{Probit interpretation}{Contrast a derivative for a continuous regressor with a discrete change for a dummy.}
+\slideguide{21}{Logit interpretation}{State that raw logit and probit coefficients are on different index scales; compare probabilities or marginal effects.}
+\slideguide{22}{Logit interpretation}{Use the same index idea to explain the sign of a coefficient without overinterpreting its magnitude.}
+\slideguide{23}{Marginal effects}{Calculate the derivative of the logit probability, $\Lambda(z)[1-\Lambda(z)]\beta_1$.}
+\slideguide{24}{Marginal effects}{Show why the marginal effect is largest around probability .5 and smaller near zero or one.}
+\slideguide{25}{Marginal effects}{For a binary regressor, calculate $p(D=1)-p(D=0)$ rather than a derivative.}
+\slideguide{26}{Marginal effects}{Distinguish an effect at the mean covariates from the average of individual effects.}
+\slideguide{27}{Marginal effects}{Ask students to interpret a positive marginal effect in percentage points, not percent unless the outcome is logged.}
+\slideguide{28}{Marginal effects, logit}{Use $X=4$ and $X=5$ in the synthetic model: .5 and .6225, a 12.25-point change.}
+\slideguide{29}{Marginal effects, logit}{Connect the numerical change to the curve and ask why the same coefficient can imply different probability changes.}
+\slideguide{30}{Probit or logit?}{Say that substantive conclusions often agree; compare fitted probabilities, marginal effects, and diagnostics.}
+\slideguide{31}{Fitted probabilities}{Check that nonlinear fitted values lie in $[0,1]$.}
+\slideguide{32}{Log-odds ratio}{Define odds $p/(1-p)$ and log odds. Do not call log odds a probability.}
+\slideguide{33}{Log-odds units}{Use a small coefficient to show that an odds ratio is $e^{\beta}$, not $\beta$ percentage points.}
+\slideguide{34}{Maximum likelihood}{Explain that the estimator chooses parameters making the observed outcomes likely under the model.}
+\slideguide{35}{Estimation and inference}{Separate the objective function from the standard errors used for inference.}
+\slideguide{36}{Estimation and inference}{Ask what a large-sample z statistic is testing in a logit or probit model.}
+\slideguide{37}{Bernoulli example}{Write the likelihood contribution $p_i^{y_i}(1-p_i)^{1-y_i}$ for one observation.}
+\slideguide{38}{Bernoulli example}{Multiply contributions across independent observations and use logs to turn products into sums.}
+\slideguide{39}{Bernoulli example}{Calculate a tiny two-observation likelihood to make the product concrete.}
+\slideguide{40}{Maximum likelihood}{Explain why the score is set to zero at an interior maximum and why numerical optimization is common.}
+\slideguide{41}{Maximum likelihood}{Mention separation: no finite logistic coefficient may exist when groups are perfectly classified.}
+\slideguide{42}{Model selection criteria}{Define AIC and BIC as fit measures penalized for parameters; compare only compatible samples and likelihoods.}
+\slideguide{43}{Model selection criteria}{Use the class-16 extension with $\ell_A=-100,k_A=3$ and $\ell_B=-96,k_B=5,n=200$.}
+\slideguide{44}{Model selection criteria}{Calculate $AIC=2k-2\ell$ and $BIC=\log(n)k-2\ell$ for both models.}
+\slideguide{45}{Application}{Name the labor-force participation outcome and the key covariates before reading the table.}
+\slideguide{46}{Application: LPM}{Interpret the coefficient in probability points and note the range limitation.}
+\slideguide{47}{Application: Probit}{Interpret the sign and use marginal effects for probability units.}
+\slideguide{48}{Application: Logit}{Use odds ratios or marginal effects, not raw coefficients as percentage points.}
+\slideguide{49}{Application comparison}{Ask whether model choice changes the causal assumptions. It does not solve selection or omitted variables.}
+\slideguide{50}{Summary}{Have students distinguish probability, odds, marginal effect, and likelihood in four short answers.}
+\slideguide{51}{Closing}{Set up the cumulative review: choose a model for a question and defend the assumptions before calculating.}
+
 \heading{Worked example | LPM versus logit}
 \cue{Use with slides}{Lecture11v2 slides 4--16: Binary Choice Models, Linear Probability Model, Properties of the LPM, Nonlinear Models, and Logit Model. Use the LPM range problem on slides 6--11 and the logit probability calculation on slides 12--16.}
 For a synthetic LPM $\hat p=.2+.1X$, raising $X$ by one gives a ten-percentage-point change. At $X=9$, it predicts 1.1, illustrating the range problem. Binary errors have conditional variance $p(X)[1-p(X)]$, so heteroskedasticity is natural.

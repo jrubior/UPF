@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,45 @@
 75--90 & Control variables and conditional mean independence.\\
 90--100 & Exit questions and next topic.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open by asking what changes when a regression compares units that differ in several ways.}
+\slideguide{2}{Roadmap}{Preview OVB, multiple regression, fit, multicollinearity, and controls. Keep the phrase ``holding fixed'' visible.}
+\slideguide{3}{Last lesson}{Retrieve the simple-regression slope and ask what makes its causal interpretation fail.}
+\slideguide{4}{Last lesson}{Use the class-size example to distinguish a partial relationship from an unconditional comparison.}
+\slideguide{5}{OVB}{Introduce an omitted ability variable. Ask students to predict the sign before seeing the formula.}
+\slideguide{6}{OVB}{Write the two links required for bias: ability affects wages and ability is correlated with education.}
+\slideguide{7}{OVB}{Work $\text{simple slope}=.06+.40(.10)=.10$. Circle the bias component $.04$.}
+\slideguide{8}{OVB}{Explain that the sign rule depends on both links. If either link is zero, this simple omitted-variable bias disappears.}
+\slideguide{9}{OVB}{Ask whether adding a control automatically creates a causal estimate. No; the control can be measured poorly or be endogenous.}
+\slideguide{10}{OVB}{Use a diagram with education, ability, and wage. Have students point to the backdoor path.}
+\slideguide{11}{Identifying causal effects}{Return to the intervention question: what would happen to one person under a different education level?}
+\slideguide{12}{Identifying causal effects}{Contrast observed comparisons with comparisons holding relevant determinants fixed.}
+\slideguide{13}{Another way to see this}{Use residualization language: remove the part of education explained by controls, then compare the remaining education variation.}
+\slideguide{14}{Another way to see this}{Warn that partialling out is an algebraic equivalence, not a guarantee that the controls are valid.}
+\slideguide{15}{What to do about OVB}{Ask students to propose randomization, a credible instrument, or a defensible control strategy.}
+\slideguide{16}{Multiple regression model}{Write $Y=\beta_0+\beta_1X_1+\beta_2X_2+u$ and say exactly what $\beta_1$ holds fixed.}
+\slideguide{17}{Multiple regression model}{Use a two-regressor prediction example and identify which coefficient changes when the second regressor is added.}
+\slideguide{18}{Example for $k=2$}{Calculate one fitted value from the displayed coefficients. Ask students to keep the intercept and both regressors.}
+\slideguide{19}{Example for $k=2$}{Interpret a coefficient as a one-unit change in one regressor at fixed values of the others.}
+\slideguide{20}{OLS estimator in multiple regression}{Connect the normal equations to orthogonality with every included regressor.}
+\slideguide{21}{OLS estimator in multiple regression}{Ask whether residual orthogonality proves exogeneity. No; it is imposed by the minimization.}
+\slideguide{22}{Subsidized meals example}{Read the outcome, treatment, controls, and sample before interpreting the coefficient.}
+\slideguide{23}{Subsidized meals example}{Compare a short and long specification. Ask which coefficient changes and what that suggests about confounding.}
+\slideguide{24}{Goodness of fit}{Show that adding regressors cannot lower in-sample $R^2$ on the same observations.}
+\slideguide{25}{Goodness of fit}{Warn that a higher $R^2$ is not evidence of a better causal model.}
+\slideguide{26}{Goodness of fit}{Use adjusted $R^2$ only as a fit summary, not as a substitute for theory or design.}
+\slideguide{27}{OLS assumptions for causal inference}{List random sampling, variation, conditional mean zero, and finite moments. Ask which assumption is causal.}
+\slideguide{28}{Multicollinearity}{Distinguish perfect collinearity, which prevents separate estimation, from high collinearity, which inflates uncertainty.}
+\slideguide{29}{Perfect multicollinearity}{Use $X_3=X_1+X_2$ as a quick algebraic example. Ask which coefficient is not separately identified.}
+\slideguide{30}{High multicollinearity}{Explain that large standard errors do not imply bias. Precision and identification are different.}
+\slideguide{31}{Dummy-variable trap}{For categories A, B, and C with an intercept, drop one indicator. Ask students to name the reference group.}
+\slideguide{32}{Omitted category}{Use the fitted means 50, 55, and 47 from this guide. Change the reference category and show that fitted means stay the same.}
+\slideguide{33}{Control variables}{Ask whether a proposed control is pre-treatment, a confounder, a mediator, or a collider.}
+\slideguide{34}{Conditional mean independence}{Interpret $\E(u\mid X_1,X_2)=0$ as no systematic remaining error after conditioning on both regressors.}
+\slideguide{35}{Causal assumptions}{Return to the wage example and name the assumption that ability is now adequately handled.}
+\slideguide{36}{Summary}{Have students explain OVB, partial coefficients, and multicollinearity in one sentence each.}
+\slideguide{37}{Material}{Assign one specification-comparison exercise and ask students to prepare a joint null for the next class.}
+
 \heading{Worked example | The sign and size of OVB}
 \cue{Use with slides}{Lecture5v2 slides 5--10: Omitted Variable Bias. Put the education/ability calculation on the board before slide 6 if you want them to predict the sign, then reveal the size calculation as the slide logic develops.}
 Let the synthetic population model be

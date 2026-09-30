@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,43 @@
 75--90 & First differences for two and more periods.\\
 90--100 & Limits and exit exercise.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open by asking whether observations from two dates are the same people. That determines the data structure.}
+\slideguide{2}{Roadmap}{Preview cross-sections, pooled data, interactions over time, panels, and first differences.}
+\slideguide{3}{Last lesson}{Retrieve the IV distinction between a new source of variation and a new estimator.}
+\slideguide{4}{Starting with pooled data}{Name the unit, time index, outcome, and sample before interpreting any pooled regression.}
+\slideguide{5}{Cross-section}{Explain that one cross-section observes many units at one time.}
+\slideguide{6}{Pooled cross-section}{Contrast repeated independent samples with repeated observations of the same people.}
+\slideguide{7}{Pooled cross-section}{Use a time dummy to absorb a common average shift, but warn that it does not create a panel.}
+\slideguide{8}{Pooled cross-section}{Ask whether the composition of the sample can change over time and why that matters.}
+\slideguide{9}{Fertility over time}{Identify the outcome, cohort or time variable, and the reference category.}
+\slideguide{10}{Fertility over time}{Interpret a time indicator as a conditional difference, not automatically an individual change.}
+\slideguide{11}{Fertility over time}{Ask what omitted cohort characteristics could move with time.}
+\slideguide{12}{Fertility over time}{Use the interaction to let a relationship differ across periods.}
+\slideguide{13}{Fertility over time}{Calculate one fitted value from the displayed specification and identify the baseline group.}
+\slideguide{14}{Fertility over time}{Distinguish a time trend from a causal treatment effect.}
+\slideguide{15}{Gender gap}{Write the group contrast at the reference date and explain its units.}
+\slideguide{16}{Gender gap}{Use the interaction to calculate how the gap changes later.}
+\slideguide{17}{Gender gap}{Ask whether the later gap difference is causal without a parallel-trends argument.}
+\slideguide{18}{Testing differences}{Frame the changing-gap question as a joint or linear restriction when appropriate.}
+\slideguide{19}{Transition to panel data}{Explain why following the same units changes what can be removed.}
+\slideguide{20}{Panel data}{Define a panel using unit and time indices. Have students label both in the traffic-fatality example.}
+\slideguide{21}{Panel data}{Contrast between-unit variation with within-unit changes.}
+\slideguide{22}{Why panel data?}{Explain that fixed characteristics can be differenced out, while time-varying confounders remain.}
+\slideguide{23}{Traffic fatalities, 1982}{Read one state's outcome and beer tax, then identify the comparison being made.}
+\slideguide{24}{Traffic fatalities, 1983}{Ask students to compute the change for one state.}
+\slideguide{25}{Traffic fatalities, 1984}{Continue the table and distinguish levels from changes.}
+\slideguide{26}{Traffic fatalities, 1985}{Ask whether a common time shock would disappear from first differences.}
+\slideguide{27}{Traffic fatalities, 1986}{Keep state labels fixed; this is a panel, not a new cross-section.}
+\slideguide{28}{Traffic fatalities, 1987}{Use one state as a numerical check on the differencing arithmetic.}
+\slideguide{29}{Traffic fatalities, 1988}{Ask what information is lost when unit means are removed.}
+\slideguide{30}{First differences}{Write $\Delta Y_{it}=\beta\Delta X_{it}+\Delta u_{it}$ and show the fixed effect cancels.}
+\slideguide{31}{First differences}{Use the three-unit example from this guide to calculate the slope through the origin with a common change.}
+\slideguide{32}{First differences when $T>2$}{Explain that successive differences share level errors and can be serially correlated.}
+\slideguide{33}{Limits of first differences}{List time-varying confounding, measurement error amplification, and the need for repeated observations.}
+\slideguide{34}{Limits of first differences}{Ask whether independent repeated cross-sections can be differenced person by person. No.}
+\slideguide{35}{Transition}{Close by previewing within transformations and fixed effects for the next class.}
+
 \heading{Side example | Pooled observations}
 \cue{Use with slides}{Lecture10v2 slides 5--18: Cross-Section, Pooled Cross-Section, Fertility over time, Gender Gap, and Testing Differences in Pooled regressions. Use the two-by-two interaction example while moving through slides 16--18.}
 In a synthetic pooled wage model,

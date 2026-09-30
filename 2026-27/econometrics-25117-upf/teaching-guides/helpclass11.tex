@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,31 @@
 75--90 & Inconsistent SEs, validity checklist, prediction.\\
 90--100 & Exit diagnosis and bridge to IV.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open by asking why correct OLS arithmetic and standard errors may still leave a causal claim unsupported.}
+\slideguide{2}{Roadmap}{Preview external validity, internal threats, measurement, missing data, selection, simultaneity, inference, and prediction.}
+\slideguide{3}{Last lesson}{Retrieve the interaction effect at a stated value of the interacting variable.}
+\slideguide{4}{Last lesson}{Ask which assumptions concern identification and which concern inference.}
+\slideguide{5}{Classic pitfalls}{Tell students that a threat is a mechanism that changes the estimand or invalidates its interpretation.}
+\slideguide{6}{External validity}{Distinguish transportability to other people, places, and times from internal validity in the study sample.}
+\slideguide{7}{Meta-analysis}{Use the study examples to ask what population the evidence is meant to describe.}
+\slideguide{8}{Meta-analysis}{Ask whether a larger collection of studies automatically removes publication or selection problems.}
+\slideguide{9}{Internal validity}{Define internal validity as credibility of the causal comparison for the studied population.}
+\slideguide{10}{OVB revision}{Draw the omitted-variable path and ask whether adding controls solves a problem only when the controls are appropriate and measured.}
+\slideguide{11}{OVB revision}{Connect the threat to the sign formula from Class 7.}
+\slideguide{12}{Errors-in-variables}{Write $X=X^*+v$ and distinguish noise in a regressor from noise in the outcome.}
+\slideguide{13}{Errors-in-variables}{Ask whether attenuation is a finite-sample imprecision problem. No, it changes the probability limit in the classical setup.}
+\slideguide{14}{Classical measurement error}{Calculate $2\times9/(9+3)=1.5$ and explain the reliability ratio.}
+\slideguide{15}{Classical measurement error}{Qualify the toward-zero result: it requires the simple classical assumptions and does not generalize to every multiple-regression setting.}
+\slideguide{16}{Missing data}{Ask what determines whether dropping incomplete observations changes the target or creates selection.}
+\slideguide{17}{Missing data}{Distinguish missing completely at random, missing related to observed variables, and missing related to unobserved outcomes conceptually.}
+\slideguide{18}{Sample selection}{Use wages observed only among employed people. Ask whether the observed slope describes wage offers for everyone.}
+\slideguide{19}{Sample selection}{Explain why robust SEs do not repair selection into the sample.}
+\slideguide{20}{Simultaneity}{Use price and quantity: both respond to supply and demand shocks, so covariance need not identify either curve.}
+\slideguide{21}{Inconsistent standard errors}{Distinguish unequal variance, dependence, and endogeneity. Each requires a different response.}
+\slideguide{22}{Validity checklist}{Have students name the estimand, source of variation, threat, and assumption before choosing a remedy.}
+\slideguide{23}{Prediction}{End with the distinction between predictive stability and causal validity. Ask whether an endogenous predictor can still forecast well.}
+
 \heading{Worked example | Measurement error}
 \cue{Use with slides}{Lecture8v2 slides 12--15: Errors-in-variables and Classical Measurement Error. Work the attenuation calculation on slide 14 or 15, after students have seen why the measured regressor contains noise.}
 Suppose the true relationship is $Y=\beta_0+2X^*+u$, but we observe $X=X^*+v$. Under classical regressor measurement error, $v$ is mean zero and uncorrelated with $X^*$ and $u$. If $\Var(X^*)=9$ and $\Var(v)=3$:

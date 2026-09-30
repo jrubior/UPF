@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,36 @@
 75--90 & Gauss--Markov, limits, and Midterm 1 synthesis.\\
 90--100 & Exit check and explain proposed exam coverage.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Frame the class as learning to read regression output without confusing precision with causality.}
+\slideguide{2}{Roadmap}{Tell students the route: coefficient, test, application, heteroskedasticity, robust inference, and Gauss--Markov.}
+\slideguide{3}{Last lesson}{Retrieve the OLS slope and conditional mean zero. Ask which assumption is about interpretation rather than arithmetic.}
+\slideguide{4}{Last lesson}{Use the three-point regression from the previous class to identify a fitted value and a residual.}
+\slideguide{5}{Estimation of the regression line}{Remind students that the estimate is a random variable before sampling and a number after observing data.}
+\slideguide{6}{Estimation of the regression line}{Ask what a standard error measures: sampling uncertainty under a specified variance calculation.}
+\slideguide{7}{Hypothesis testing}{Write $H_0:\beta_1=0$ and $H_1:\beta_1\neq0$. Keep the coefficient's units in the sentence.}
+\slideguide{8}{Hypothesis testing}{Compute $t=(\hat\beta_1-0)/SE(\hat\beta_1)$ from a displayed estimate. Ask students to identify the numerator.}
+\slideguide{9}{Stata application}{Read one output row left to right: coefficient, standard error, test statistic, and p-value. Do not read every row.}
+\slideguide{10}{Stata application}{Use $\hat\beta_1=-2.3$ and $SE=.7$ to calculate $t=-3.286$. Ask for the 95 percent interval.}
+\slideguide{11}{Stata application}{Interpret the interval and p-value together. A significant slope is not automatically a causal effect.}
+\slideguide{12}{Stata application}{Ask what sample, outcome, and regressor the command uses. Reproducibility starts with knowing the data behind the table.}
+\slideguide{13}{Stata application}{Contrast statistical and economic significance using the size of the class-size coefficient.}
+\slideguide{14}{Stata application}{Show that changing the confidence level changes the critical value, not the point estimate.}
+\slideguide{15}{Stata application}{Use the output to formulate one complete result sentence with sign, units, uncertainty, and design caveat.}
+\slideguide{16}{Stata application}{Ask students to diagnose whether a difference between two estimates is sampling noise or a change in specification.}
+\slideguide{17}{Homoskedasticity versus heteroskedasticity}{Draw constant-width and fan-shaped residual clouds. Define the issue as a variance condition, not a mean condition.}
+\slideguide{18}{Homoskedasticity versus heteroskedasticity}{Explain that OLS can still estimate the conditional mean slope while conventional SEs fail under heteroskedasticity.}
+\slideguide{19}{Graphical illustration}{Have students predict where the residual variance is largest. Link the picture to why robust SEs can matter.}
+\slideguide{20}{Graphical illustration}{Ask whether robust SEs change fitted coefficients. No: they change the uncertainty calculation.}
+\slideguide{21}{Robust standard errors}{Return to the synthetic example: conventional $SE=.7$, robust $SE=1.2$. Recompute the interval.}
+\slideguide{22}{Robust standard errors}{Stress that robust does not mean immune to serial correlation, clustering, selection, or endogeneity.}
+\slideguide{23}{In practice}{Tell students to report which covariance estimator was used and why it matches the sampling structure.}
+\slideguide{24}{In practice}{Ask them to identify the observational unit and the possible dependence clusters before choosing standard errors.}
+\slideguide{25}{Theoretical foundations}{State the conditions behind unbiasedness and precision without presenting them as automatic facts.}
+\slideguide{26}{Gauss--Markov}{Explain BLUE as best linear unbiased, under homoskedasticity and the other maintained assumptions.}
+\slideguide{27}{Gauss--Markov limits}{Say clearly what the theorem does not provide: causal identification, protection from omitted variables, or best performance among all nonlinear estimators.}
+\slideguide{28}{Back to the original question}{Return to the class-size example and ask what would still be needed for a causal claim.}
+
 \heading{Worked example | One coefficient, two SEs}
 \cue{Use with slides}{Lecture4v2 slides 7--11 and 17--22. Use the coefficient test during Hypothesis Testing/Stata Application, then return to the same estimate when the deck reaches heteroskedasticity and robust standard errors.}
 Synthetic regression: test score on class size, $\hat\beta_1=-2.3$. Suppose conventional $SE=.7$ and heteroskedasticity-robust $SE=1.2$.

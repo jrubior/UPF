@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -35,6 +37,36 @@
 70--90 & Causal assumptions; unbiasedness and sampling variation.\\
 90--100 & Exit ticket; hand off inference to Lecture 4.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with the question: what does the slope of a line summarize, and when could it be causal?}
+\slideguide{2}{Roadmap}{Preview the sequence: population model, OLS calculation, interpretation, fit, and causal assumptions.}
+\slideguide{3}{Last lesson}{Retrieve the difference between a population parameter and a sample statistic. Ask where the sampling variation enters.}
+\slideguide{4}{Last lesson}{Use the conditional-mean table to remind students that conditioning can change the average outcome.}
+\slideguide{5}{The regression line}{Draw a scatterplot and a line. Ask what feature of the cloud the slope is trying to summarize.}
+\slideguide{6}{The regression line}{Explain that the fitted line predicts the conditional mean only under the population linear regression interpretation.}
+\slideguide{7}{Population linear regression model}{Write $Y_i=\beta_0+\beta_1X_i+u_i$ and label the systematic part and the error.}
+\slideguide{8}{OLS estimator}{Introduce the sum of squared residuals. Example: compare candidate intercepts for data $1,2,6$.}
+\slideguide{9}{OLS estimator}{Differentiate the objective to obtain the first-order conditions. Circle $\sum\hat u_i=0$ and $\sum X_i\hat u_i=0$.}
+\slideguide{10}{Back to the model}{Distinguish the unobserved population error $u_i$ from the computed residual $\hat u_i$.}
+\slideguide{11}{Interpretation}{Interpret the slope in units. For test score on class size, a slope of $-2.3$ means 2.3 fewer points per additional student, as an association.}
+\slideguide{12}{Goodness of fit}{Define fitted values and residuals. Ask whether a small residual proves a causal relationship.}
+\slideguide{13}{$R^2$}{Calculate $R^2=1-SSR/TSS$ using the three-point example. Explain that in-sample fit is not identification.}
+\slideguide{14}{SER}{Compute $SER=\sqrt{SSR/(n-2)}$ for a simple regression with an intercept. Explain its units.}
+\slideguide{15}{Goodness of fit again}{Use the same data to show that high $R^2$ can coexist with a noncausal relation.}
+\slideguide{16}{Conditions for causality}{List the causal question, a credible source of variation, and the assumptions linking the variation to the effect.}
+\slideguide{17}{Conditions for causality}{Ask students to name one omitted determinant of test scores correlated with class size. Keep the answer on the board.}
+\slideguide{18}{Conditional mean zero}{Interpret $\E(u_i\mid X_i)=0$ as no systematic omitted determinants left in the error at any $X$.}
+\slideguide{19}{Conditional mean zero}{Use a simple violation: wealth affects both class size and test resources. Ask which direction of bias is plausible.}
+\slideguide{20}{i.i.d. draws}{Explain what independent and identically distributed mean separately. Give a warning about repeated observations from the same school.}
+\slideguide{21}{No large outliers}{Show why a single extreme $X$ can dominate the denominator in the slope formula. Ask whether dropping it is automatically legitimate.}
+\slideguide{22}{OLS sample properties}{Separate finite-sample unbiasedness from consistency and large-sample normality.}
+\slideguide{23}{Expected slope}{Use $\hat\beta_1-\beta_1=\sum(X_i-\bar X)u_i/\sum(X_i-\bar X)^2$ to point to the source of bias.}
+\slideguide{24}{Variance of slope}{Explain that more spread in $X$ improves precision, while more noise in $u$ reduces it.}
+\slideguide{25}{Variance calculation}{Keep the algebra secondary. Ask students to identify the numerator and denominator intuitively.}
+\slideguide{26}{Variance calculation}{Use a units check: changing $X$ from students to tens of students changes the numerical slope and its standard error consistently.}
+\slideguide{27}{Large-sample distribution}{Connect the CLT idea to a regression coefficient: standardized estimation error becomes approximately normal under assumptions.}
+\slideguide{28}{Material}{Point students to the chapter and assign the three-point OLS calculation as the first practice problem.}
+
 \heading{Board example | Compute, do not memorize}
 \cue{Use with slides}{Lecture3v2 slides 4--9: The regression line, Population Linear Regression Model, and OLS Estimator. Begin the three-point calculation when slide 7 introduces OLS; use slides 8--9 for the first-order conditions and residual identities.}
 Use synthetic observations $(x,y)=(1,2),(2,3),(3,5)$.

@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,35 @@
 75--90 & Relevance, weak instruments, exogeneity checks.\\
 90--100 & Exit ticket and panel-data transition.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with the question: where can credible identifying variation come from when treatment is endogenous?}
+\slideguide{2}{Roadmap}{Preview IV logic, 2SLS, the buttery example, the cigarette application, relevance, and exogeneity.}
+\slideguide{3}{Last lesson}{Retrieve simultaneity and ask why a strong association can still be a biased causal estimate.}
+\slideguide{4}{Instrumental variables}{Define an instrument as a source of treatment variation that is relevant and excluded from the outcome equation.}
+\slideguide{5}{Instrumental variables}{Use the randomized encouragement table: reduced form $=66-60=6$, first stage $=.50-.20=.30$.}
+\slideguide{6}{Instrumental variables}{Calculate the Wald ratio $6/.30=20$ and explain its units.}
+\slideguide{7}{Two stages least squares}{Describe first-stage prediction and second-stage outcome regression without pretending the manually generated second-stage SE is valid.}
+\slideguide{8}{2SLS}{Ask what variation remains in the fitted treatment: variation induced by the instrument and controls.}
+\slideguide{9}{Buttery example}{Identify the instrument, treatment, outcome, and proposed exclusion restriction before reading the numbers.}
+\slideguide{10}{Buttery example}{Work the reduced-form and first-stage contrasts on the board.}
+\slideguide{11}{Buttery example}{Ask students whether the instrument can affect the outcome through taste, income, or another direct channel.}
+\slideguide{12}{Buttery example}{Connect the ratio calculation to a treatment effect for the variation moved by the instrument.}
+\slideguide{13}{Buttery example}{State that heterogeneous effects require care: IV need not equal everyone's effect.}
+\slideguide{14}{2SLS model}{Write $Y=\beta_0+\beta_1D+X'\gamma+u$ and identify the endogenous regressor.}
+\slideguide{15}{2SLS model}{Write the first stage $D=\pi_0+\pi_1Z+X'\pi+v$ and explain relevance as $\pi_1\neq0$ in context.}
+\slideguide{16}{Application setup}{Before using the cigarette example, name the economic question and the source of exogenous price variation.}
+\slideguide{17}{Application}{Interpret the IV coefficient in the units of quantity and price, not as a generic correlation.}
+\slideguide{18}{Application}{Ask whether the proposed instrument shifts demand directly. This is an exclusion question.}
+\slideguide{19}{Application}{Compare OLS and IV as answers to different identifying assumptions, not as a contest where one must always be larger.}
+\slideguide{20}{General IV model}{List the maintained assumptions: random sampling, relevance, exclusion/exogeneity, and sufficient variation.}
+\slideguide{21}{IV exogeneity}{Draw the forbidden direct path from $Z$ to $Y$ and ask students to explain why it invalidates IV.}
+\slideguide{22}{IV exogeneity}{Emphasize that a strong first stage cannot prove exclusion.}
+\slideguide{23}{IV relevance}{Explain weak instruments as weak predictive power for the endogenous regressor after controls.}
+\slideguide{24}{IV relevance}{Ask why weak instruments make estimates noisy and can distort usual large-sample inference.}
+\slideguide{25}{IV relevance}{Interpret first-stage diagnostics as context-dependent evidence, not a magic cutoff.}
+\slideguide{26}{Summary}{Have students defend or reject an instrument using separate relevance and exclusion arguments.}
+\slideguide{27}{Material}{Assign one ratio calculation and one exclusion critique before moving to pooled and panel data.}
+
 \heading{Worked example | A randomized encouragement}
 \cue{Use with slides}{Lecture9v2 slides 4--7: Instrumental Variables and Two Stages Least Squares. Use the encouragement table after slide 5 to make the Wald ratio concrete, then connect it to the two-stage explanation on slides 6--7.}
 Synthetic group means by encouragement $Z$:

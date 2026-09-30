@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -35,6 +37,37 @@
 70--90 & Mean Difference Testing, randomization, California application.\\
 90--100 & Exit exercise and preview of a regression slope.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with the question: how do we decide whether a population claim is compatible with sample evidence?}
+\slideguide{2}{Roadmap}{Tell students that today moves from a null hypothesis to a test, an interval, and finally a comparison of groups.}
+\slideguide{3}{Last lesson: probability}{Retrieve one fact: $\E(Y\mid X=1)$ is a conditional mean, not the unconditional mean. Use the sunny-day example for a 30-second calculation.}
+\slideguide{4}{Last lesson: sampling}{Ask why $\Var(\bar Y)=\sigma^2/n$ matters for inference. Students should answer: it determines the scale of sampling noise.}
+\slideguide{5}{What is hypothesis testing?}{State $H_0$ and $H_1$ before looking at data. Example: test $H_0:\mu=100$ against $H_1:\mu\neq100$.}
+\slideguide{6}{What is hypothesis testing?}{Emphasize that the null is a reference model, not automatically the truth. Ask what a two-sided alternative allows.}
+\slideguide{7}{Why use hypothesis testing?}{Connect the procedure to a decision under uncertainty. Example: a drug trial where a sample improvement may be sampling variation.}
+\slideguide{8}{Key concepts}{Define test statistic, reference distribution, and p-value in that order. Ask which object is random under the null: the statistic, not the fixed parameter.}
+\slideguide{9}{Test statistic setup}{Put the observed mean and hypothesized mean on a number line. The distance must be scaled by its standard error.}
+\slideguide{10}{Computing the p-value}{Use the two-sided rule: count probability in both tails at least as far from zero as the observed statistic. Warn against reporting $P(H_0\mid\text{data})$.}
+\slideguide{11}{Sample variance}{Calculate $s^2=(n-1)^{-1}\sum_i(y_i-\bar y)^2$ and explain why the denominator is $n-1$.}
+\slideguide{12}{Standard error}{For $n=100$, $s=20$, calculate $SE=2$ on the board. Ask what happens to $SE$ if $n$ becomes 400.}
+\slideguide{13}{Type I and Type II errors}{Use a pregnancy-test analogy only to label false positive and false negative. Then return to econometrics: Type I rejects a true null; Type II fails to reject a false null.}
+\slideguide{14}{Errors in testing}{Explain the trade-off between a smaller significance level and power. Do not call failure to reject acceptance of the null.}
+\slideguide{15}{Confidence intervals}{Construct the interval as estimate plus and minus critical value times standard error. Ask what repeated-sampling coverage means.}
+\slideguide{16}{What are CIs?}{Use the interval to show that a two-sided 5 percent test and a 95 percent interval answer matching questions under the same reference distribution.}
+\slideguide{17}{Computing CIs}{Work $104\pm1.96(2)=[100.08,107.92]$. Ask whether the interval contains 100 and what that implies for the corresponding test.}
+\slideguide{18}{Mean difference testing}{Define $\widehat\Delta=\bar Y_1-\bar Y_0$ and keep the group labels visible. Example: $70-65=5$.}
+\slideguide{19}{Mean difference testing}{Compute $SE(\widehat\Delta)=\sqrt{s_1^2/n_1+s_0^2/n_0}$. Ask why independent groups permit variances to add.}
+\slideguide{20}{Randomized control trials}{Explain why random assignment makes a difference interpretable as a causal effect under the design. It does not guarantee equal groups in one finite sample.}
+\slideguide{21}{California data: setup}{Name the outcome, treatment or regressor, unit, and sample before interpreting any coefficient.}
+\slideguide{22}{California data: descriptive comparison}{Ask students to compare average test scores by class size category without calling the gap causal.}
+\slideguide{23}{California data: uncertainty}{Identify the estimate, standard error, and confidence interval in the displayed output. Have students point to each rather than reading the table aloud.}
+\slideguide{24}{California data: test}{Choose one null, write it symbolically, and calculate the corresponding statistic. Keep the null visible while interpreting.}
+\slideguide{25}{California data: interpretation}{Separate statistical significance from economic importance. Ask whether the interval rules out effects that would matter for policy.}
+\slideguide{26}{California data: limitations}{List selection, omitted variables, and measurement concerns. Correct arithmetic does not by itself create identification.}
+\slideguide{27}{California data: conclusion}{Have students give a complete sentence with estimate, units, uncertainty, and causal qualification.}
+\slideguide{28}{Review}{Use the synthetic two-group example from this guide as a one-minute retrieval exercise.}
+\slideguide{29}{Material}{Tell students which chapter pages and problem set questions to use for practice; do not spend class time reading the bibliography.}
+
 \heading{Board example | A mean}
 \cue{Use with slides}{Lecture2v2 slides 5--11: What is Hypothesis Testing? through the t-statistic. Start the numerical mean test on slide 8, compute the standard error on slide 10, and finish the test statistic on slide 11.}
 Illustrative sample: $n=100$, $\bar y=104$, $s=20$. Test $H_0:\mu=100$ against $H_1:\mu\ne100$.

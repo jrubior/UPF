@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Step #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -33,6 +35,17 @@ Sampling & 20\% & Mean, variance, LLN versus CLT.\\
 Inference & 25\% & Null, statistic, decision, interpretation.\\
 Regression & 35\% & OLS arithmetic, exogeneity, robust SEs.\\\bottomrule
 \end{tabularx}
+\heading{Step-by-step exam-day script}
+\slideguide{1}{Arrival and instructions}{Welcome students, check materials and accessibility arrangements, and state the time clearly. Do not add content beyond the approved instructions.}
+\slideguide{2}{Probability question}{Use a joint table or conditional-probability question. Require students to identify the reference population before calculating.}
+\slideguide{3}{Moments question}{Ask for a mean and variance, preferably in two equivalent forms. Award the calculation only when units and probabilities are clear.}
+\slideguide{4}{Sampling question}{Test the distinction between LLN and CLT. A good answer says concentration is not the same as normality.}
+\slideguide{5}{Inference question}{Require a null, statistic, reference distribution, decision, and interpretation. Penalize a p-value described as the probability that the null is true.}
+\slideguide{6}{Regression arithmetic}{Use a short OLS line or residual calculation. Check that students distinguish population errors from sample residuals.}
+\slideguide{7}{Causal interpretation}{Include an assumption question about conditional mean zero or random assignment. Arithmetic alone should not earn full credit.}
+\slideguide{8}{Standard errors}{Ask whether robust SEs alter coefficients or repair endogeneity. The answer is no to both.}
+\slideguide{9}{Review and submission}{Give a five-minute warning, then collect all pages and record timing or wording issues for later review.}
+
 \cue{100-minute slot assumption}{Allow 10 minutes for settling and instructions, 80 minutes of assessment, and 10 minutes for collection. Replace this allocation if the official exam duration differs.}
 \cue{Instructions to emphasize}{Define notation, show calculations, state the null, identify the reference distribution, and distinguish a statistical conclusion from a causal claim. Clarify permitted resources from the actual exam instructions.}
 \cue{Marking principle}{Separate arithmetic from interpretation. Give appropriate partial credit for a correct method after a carried-forward numerical error. Use the same standard across scripts.}

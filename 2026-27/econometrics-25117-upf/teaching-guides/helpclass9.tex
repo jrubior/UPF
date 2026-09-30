@@ -14,7 +14,9 @@
 \fancyfoot[L]{\small Private teaching notes}
 \fancyfoot[R]{\thepage}
 \newcommand{\heading}[1]{\section*{\color{accent}#1}}
+\newcommand{\slideheading}[1]{\subsection*{\color{accent}#1}}
 \newcommand{\cue}[2]{\par\noindent\textbf{#1}\quad #2\par}
+\newcommand{\slideguide}[3]{\slideheading{Slide #1 | #2}\cue{Guide}{#3}}
 \setlength{\emergencystretch}{1em}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\operatorname{Var}}
@@ -34,6 +36,50 @@
 80--90 & Integrate interpretation with tests.\\
 90--100 & Exit exercise and Midterm 2 preparation.\\\bottomrule
 \end{tabularx}
+\heading{Slide-by-slide script}
+\slideguide{1}{Title}{Open with a picture of a curved relationship and ask why one constant slope can miss it.}
+\slideguide{2}{Roadmap}{Preview polynomials, logarithms, and interactions. Tell students every interpretation must name the relevant value of $X$ or $Z$.}
+\slideguide{3}{Last lesson}{Retrieve a partial coefficient and a joint restriction. Explain that functional form changes the question the coefficient answers.}
+\slideguide{4}{Last lesson}{Use the OVB sign rule to motivate why a flexible model is not a cure for confounding.}
+\slideguide{5}{Introduction}{Distinguish linear in parameters from linear in the regressor. This class uses OLS with nonlinear transformations.}
+\slideguide{6}{Linear fit on a linear relationship}{Show a constant marginal effect and ask where it appears in the equation.}
+\slideguide{7}{Linear fit on a nonlinear relationship}{Use a curved data-generating relationship to show why residual patterns can reveal misspecification.}
+\slideguide{8}{General nonlinear population function}{Introduce $\E(Y\mid X=x)$ as the object a flexible conditional mean describes.}
+\slideguide{9}{Nonlinear functions of one variable}{Ask students to calculate a derivative before interpreting a coefficient.}
+\slideguide{10}{Polynomials}{Write $10+2x-.05x^2$ and calculate the marginal effect at $x=10$.}
+\slideguide{11}{Polynomials}{Find the turning point $x=20$ and ask whether it lies inside the observed support.}
+\slideguide{12}{Polynomials}{Calculate the exact change from 10 to 11, $.95$, and compare it with the derivative at 10.}
+\slideguide{13}{Polynomials}{Explain that including $x$ and $x^2$ is still linear regression in the coefficients.}
+\slideguide{14}{Log functions}{State which variable is logged before interpreting a coefficient. Never say ``one percent'' without checking the specification.}
+\slideguide{15}{Log functions}{For a linear-log model, a one-unit change in $X$ is associated with approximately $100\beta_1/Y$ percent when $Y$ is in levels; use the deck's exact convention.}
+\slideguide{16}{Log functions}{For a log-linear model, a one-unit change in $X$ changes $Y$ by approximately $100\beta_1$ percent.}
+\slideguide{17}{Log functions}{For a log-log model, interpret $\beta_1$ as an elasticity: a 1 percent change in $X$ is associated with about $\beta_1$ percent in $Y$.}
+\slideguide{18}{Log-outcome example}{Use $.10$ to calculate the exact change $100(e^{.10}-1)\simeq10.52\%$ and compare it with the approximation.}
+\slideguide{19}{Log-outcome example}{Ask students to identify the units of the coefficient and the reference change in $X$.}
+\slideguide{20}{Log-outcome example}{Warn that log interpretations are not causal without a credible identifying design.}
+\slideguide{21}{Comparing log specifications}{Have students translate each equation into a sentence before comparing the coefficients.}
+\slideguide{22}{Interactions}{Explain why the effect of one variable can depend on another.}
+\slideguide{23}{Two dummies}{Write the four predicted group means and identify the omitted reference group.}
+\slideguide{24}{Two dummies}{Use the interaction coefficient as a difference-in-differences contrast in the descriptive model.}
+\slideguide{25}{Two dummies}{Ask whether the interaction coefficient is a causal DiD effect; answer only with the required design assumptions.}
+\slideguide{26}{Dummy and continuous variable}{For $Y=\beta_0+\beta_1X+\beta_2D+\beta_3XD$, calculate the group contrast at $X=4$.}
+\slideguide{27}{Dummy and continuous variable}{Use the example $3+4x$ for the program effect and explain why 3 is only the effect at $x=0$.}
+\slideguide{28}{Dummy and continuous variable}{Calculate the slope for each group: $\beta_1$ and $\beta_1+\beta_3$.}
+\slideguide{29}{Dummy and continuous variable}{Test the effect at $x=4$ as a linear restriction, not by testing only $\beta_2$.}
+\slideguide{30}{Dummy and continuous variable}{Ask how centering $X$ changes the interpretation of the main dummy coefficient.}
+\slideguide{31}{Dummy and continuous variable}{Show that centering changes parameterization but not fitted values.}
+\slideguide{32}{Continuous interactions}{Interpret $\partial\E(Y\mid X,Z)/\partial X=\beta_1+\beta_3Z$.}
+\slideguide{33}{Continuous interactions}{Give a numerical example with $Z=2$ and $Z=5$ so students see the slope move.}
+\slideguide{34}{Continuous interactions}{Remind students to report the value of the interacting variable with every marginal effect.}
+\slideguide{35}{Continuous interactions}{Discuss extrapolation: do not interpret effects far outside the observed support.}
+\slideguide{36}{Continuous interactions}{Connect conditional effects to joint hypothesis tests for several coefficients.}
+\slideguide{37}{Wrapping up}{Summarize polynomial, log, and interaction interpretations in a three-row board table.}
+\slideguide{38}{Wrapping up}{Ask which models remain linear in parameters and can be estimated by OLS.}
+\slideguide{39}{Wrapping up}{Use one final translation exercise and insist on units.}
+\slideguide{40}{Wrapping up}{Tie functional form back to fit, prediction, and causal interpretation.}
+\slideguide{41}{Linear versus non-linear models}{Close with the distinction between a nonlinear conditional mean and a nonlinear estimator.}
+\slideguide{42}{Importance of interactions}{Have students state one setting where a treatment effect should plausibly vary across people.}
+
 \heading{Worked example | Quadratic experience}
 \cue{Use with slides}{Lecture7v2 slides 8--13: Nonlinear Functions and Polynomials in $X$. Use the derivative and turning-point calculation on slides 9--13; pause before moving to logs.}
 For the synthetic fitted relationship

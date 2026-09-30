@@ -1,0 +1,15 @@
+.DS_Store
+
+# LaTeX build products; keep only source and final PDF artifacts in the course tree.
+*.aux
+*.bcf
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+tmp/
