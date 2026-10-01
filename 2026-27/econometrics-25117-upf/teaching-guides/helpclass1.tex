@@ -41,10 +41,10 @@ Minutes & Slides and purpose\\\midrule
 0--5 & 1--2: establish the course question and assessment context.\\
 5--18 & 3--6: move from economic questions to causal questions and the course map.\\
 18--35 & 7--9: random variables, density, and cumulative probability.\\
-35--48 & 10--11: moments and the earnings example.\\
-48--52 & Short pause; ask students to write one unresolved question.\\
-52--78 & 12--13: joint probabilities, conditioning, and iterated expectations.\\
-78--94 & 14--16: independence, covariance, and correlation.\\
+35--50 & 10--12: moments, variance calculation, and the earnings example.\\
+50--54 & Short pause; ask students to write one unresolved question.\\
+54--80 & 13--16: joint probabilities, conditioning, and iterated expectations.\\
+80--94 & 17--20: independence, covariance, and correlation.\\
 94--100 & Exit check and preview of Random Sampling.\\
 \bottomrule
 \end{tabularx}
@@ -111,21 +111,28 @@ Minutes & Slides and purpose\\\midrule
 \cue{Transition}{Now move from probabilities of values and intervals to numerical summaries of a distribution.}
 
 \slideheading{Slide 10 | Statistical Moments}
-\cue{Say}{The mean locates a distribution, the variance measures squared dispersion, and the standard deviation returns dispersion to the original units. Show both equivalent variance formulas: $\Var(X)=\E[(X-\E(X))^2]$ and $\Var(X)=\E(X^2)-[\E(X)]^2$. Mention skewness and kurtosis as shape summaries, but keep the calculation focus on mean and variance.}
-\cue{Worked example}{Introduce monthly earnings $Y$, measured in thousands of euros: $Y=1,2,4$ with probabilities $.25,.50,.25$. Ask students to predict the mean before calculating.}
-\board{\begin{gather*}\E(Y)=.25(1)+.50(2)+.25(4)=2.25,\\\E(Y^2)=.25(1^2)+.50(2^2)+.25(4^2)=6.25,\\\Var(Y)=\E(Y^2)-[\E(Y)]^2=6.25-2.25^2=1.1875.\end{gather*}}
-\cue{Same value using the definition}{Now calculate variance directly from deviations around the mean: \[\Var(Y)=.25(1-2.25)^2+.50(2-2.25)^2+.25(4-2.25)^2\] \[=.25(1.5625)+.50(.0625)+.25(3.0625)=.390625+.03125+.765625=1.1875.\] Circle the matching final value and say that the shortcut is simply an algebraically rearranged version of the definition.}
-\cue{Comment}{The mean is 2,250 euros even though nobody in this small distribution earns exactly 2,250 euros. The standard deviation is $\sqrt{1.1875}\simeq1.09$ thousand euros. Variance has squared units.}
-\cue{Transition}{The next slide gives a visual interpretation of the higher moments and a quick check that students understand the words.}
+\cue{Say}{The mean locates a distribution, the variance measures squared dispersion, and the standard deviation returns dispersion to the original units. Show the definition of variance on the slide and tell students the next slide gives the practical shortcut $\Var(X)=\E(X^2)-[\E(X)]^2$.}
+\cue{Do}{Point to each moment and give the interpretation before doing algebra: mean is center, variance is dispersion, skewness is asymmetry, kurtosis is tail mass.}
+\cue{Comment}{Variance has squared units, so standard deviation is often easier to interpret. Keep this slide conceptual; the numerical work starts immediately on Slide 11.}
+\cue{Transition}{Before moving to skewness and kurtosis, pause for one full calculation slide so students see how variance can be computed in practice.}
 
-\slideheading{Slide 11 | Examples}
+\slideheading{Slide 11 | Calculating variance two ways}
+\cue{Say}{This slide is a worked calculation, not a new definition. The point is that the two variance formulas produce the same number.}
+\cue{Do}{Start on the left. Compute the mean first: $\E(Y)=2.25$. Then plug each value into the deviation formula and get $\Var(Y)=1.1875$.}
+\cue{Shortcut}{Move to the right side and compute $\E(Y^2)=6.25$. Then show $\Var(Y)=\E(Y^2)-[\E(Y)]^2=6.25-2.25^2=1.1875$. Circle both final values.}
+\cue{Linear combination preview}{Use the last formula only as a preview. Say: when a variable is a linear combination, the variance is not only the sum of the scaled variances; there is an extra average product term, $\E[(X-\mu_X)(Y-\mu_Y)]$, that captures whether the two parts tend to move together. Do not name this term yet.}
+\cue{Comment}{Leave the linear-combination formula as a preview only. Explain that the first two terms are the scaled variances and the final term captures whether the two components move together. Do not give it a name or work through a separate example yet.}
+\cue{Ask}{``Why do we square $a$ and $b$ in the formula?'' Because multiplying a variable by $a$ multiplies its deviations by $a$, and variance squares deviations.}
+\cue{Transition}{Now return to the shape summaries: skewness and kurtosis describe features beyond location and dispersion.}
+
+\slideheading{Slide 12 | Examples}
 \cue{Say}{Use the figures to connect signs to shapes: positive skew means a longer right tail, negative skew a longer left tail, and high kurtosis means more mass in the tails than a normal reference.}
 \cue{Worked example}{Give a simple wage story: most workers earn around 2, but a small number earn 10. That creates a long right tail and positive skewness. Ask what a small number of unusually low wages would do instead.}
 \cue{Comment}{Do not claim that zero skewness guarantees symmetry. Also say that kurtosis is sensitive to extreme values and that the exact benchmark depends on the convention used.}
 \cue{Fast check}{If every wage increases by 100 euros, the mean increases by 100 euros but variance and standard deviation do not change. If every wage doubles, the standard deviation doubles and variance becomes four times as large.}
 \cue{Transition}{One variable is no longer enough when we ask whether sunny days and ice-cream purchases occur together. Build their joint distribution.}
 
-\slideheading{Slide 12 | Joint Probability Distribution}
+\slideheading{Slide 13 | Joint Probability Distribution}
 \cue{Say}{Introduce $X=1$ for a sunny day and $Y=1$ for an ice-cream purchase. The internal cells describe joint events; the margins describe one variable at a time.}
 \cue{Worked example}{Use the slide's table and ask students to calculate $P(Y=1)$ by adding the row: $.05+.55=.60$. Then calculate $P(X=1)$ by adding the column: $.25+.55=.80$.}
 \begin{center}\begin{tabular}{lrrr}\toprule & $X=0$ & $X=1$ & Total\\\midrule $Y=0$ & .15 & .25 & .40\\ $Y=1$ & .05 & .55 & .60\\\midrule Total & .20 & .80 & 1\\\bottomrule\end{tabular}\end{center}
@@ -141,28 +148,38 @@ Total & .50 & .50 & 1\\\bottomrule
 \end{tabular}
 \end{center}
 \cue{Answers}{Here $P(X=1,Y=1)=.40$, $P(Y=1)=.60$, and $P(X=1)=.50$. Say explicitly that the table describes an association between workshop attendance and passing; it does not yet prove that the workshop caused the pass.}
-\cue{Transition}{Conditioning changes the reference population. Circle a column and calculate within that column.}
+\cue{Transition}{The next slide uses this exact table to calculate marginals, joint probabilities, and conditionals slowly.}
 
-\slideheading{Slide 13 | Conditional and Iterated Expectations}
+\slideheading{Slide 14 | Working with the joint distribution}
+\cue{Say}{Use this slide to slow down. The same table can answer three different kinds of probability questions: marginal, joint, and conditional.}
+\cue{Marginals}{Point to the totals. Calculate $P(Y=1)=.05+.55=.60$ and $P(X=1)=.25+.55=.80$. Say: these use whole rows or columns.}
+\cue{Joint}{Point to the bottom-right internal cell: $P(X=1,Y=1)=.55$. Say: this is not conditional yet; the denominator is the whole population of days.}
+\cue{Conditionals}{Now change the denominator. For $P(Y=1\mid X=1)$, use the $X=1$ column as the reference group: $.55/.80=.6875$. For $P(X=1\mid Y=1)$, use the $Y=1$ row: $.55/.60\simeq.9167$.}
+\cue{Ask}{``Why do both conditional probabilities use the same numerator but different denominators?'' Because they condition on different reference groups.}
+\cue{Transition}{Conditional probabilities become conditional expectations when the variable has numerical values. That is the bridge to the next slide.}
+
+\slideheading{Slide 15 | Conditional and Iterated Expectations}
 \cue{Say}{When we condition on $X=1$, we restrict attention to sunny days. The denominator is therefore $P(X=1)=.80$, not one.}
 \cue{Worked example}{Calculate \[P(Y=1\mid X=1)=\frac{.55}{.80}=.6875,\qquad P(Y=1\mid X=0)=\frac{.05}{.20}=.25.\] For binary $Y$, the conditional mean equals the conditional probability of one, so $\E(Y\mid X=1)=.6875$.}
-\cue{Law of iterated expectations, step 1}{Write the two conditional means before applying the law. Because $Y$ is binary, each conditional mean is the probability of $Y=1$ in that group: \[\E(Y\mid X=1)=1(.6875)+0(.3125)=.6875,\] \[\E(Y\mid X=0)=1(.25)+0(.75)=.25.\]}
-\cue{Law of iterated expectations, step 2}{Weight each conditional mean by the probability of its conditioning group: \[\begin{aligned}\E[\E(Y\mid X)]
-&=\E(Y\mid X=1)P(X=1)+\E(Y\mid X=0)P(X=0)\\
-&=.6875(.8)+.25(.2)\\
-&=.55+.05=.60.
-\end{aligned}\]}
-\cue{Verification}{Calculate the same population mean from the marginal distribution: $\E(Y)=1P(Y=1)+0P(Y=0)=1(.60)+0(.40)=.60$. Circle the two final $.60$ values and say: average within groups, then average across groups using group probabilities. Emphasize that the weights are not equal because sunny days are four times as common as non-sunny days.}
+\cue{Lead-in}{Do not do the full law of iterated expectations calculation here anymore; it now has its own slide. Use this slide to define the objects and identify which probabilities from Slide 14 will be used.}
 \cue{Additional example}{Use a numeric outcome to show why conditional expectation is not limited to probabilities. Suppose hourly wage is $20$ with probability $.70$ and $12$ with probability $.30$ among degree holders. Then $\E(W\mid D=1)=.70(20)+.30(12)=17.60$. If the corresponding non-degree probabilities are $.20$ and $.80$, then $\E(W\mid D=0)=.20(20)+.80(12)=13.60$.}
 \cue{Reverse conditioning}{Return to the sunny-day table and calculate $P(X=1\mid Y=1)=.55/.60=11/12\simeq.9167$. Contrast it with $P(Y=1\mid X=1)=.55/.80=.6875$: the numerator is the same, but the reference population and denominator change.}
 \cue{Ask}{``Why is averaging .6875 and .25 with equal weights wrong?'' Because the two conditioning groups do not have equal probabilities.}
+\cue{Transition}{Now calculate the law explicitly: first average inside each $X$ group, then average those group averages.}
+
+\slideheading{Slide 16 | Calculating the law of iterated expectations}
+\cue{Say}{Because $Y$ is binary, the conditional expectation equals the probability that $Y=1$ inside the conditioning group.}
+\cue{Step 1}{Write the two conditional means: \[\E(Y\mid X=1)=.55/.80=.6875,\qquad \E(Y\mid X=0)=.05/.20=.25.\]}
+\cue{Step 2}{Apply the law using the correct group weights: \[\E[\E(Y\mid X)]=.6875(.80)+.25(.20)=.55+.05=.60.\]}
+\cue{Verification}{Calculate the same value from the marginal distribution: $\E(Y)=1P(Y=1)+0P(Y=0)=.60$. Circle the two final $.60$ values and say: average within groups, then average across groups using group probabilities.}
+\cue{Warning}{Tell students not to average $.6875$ and $.25$ with equal weights. Sunny days are four times as common as non-sunny days, so the weights are $.80$ and $.20$.}
 \cue{Transition}{If conditioning did not change the probability of ice cream, the variables would be independent.}
 
-\slideheading{Slide 14 | Independence}
+\slideheading{Slide 17 | Independence}
 \cue{Say}{Independence means knowing $X$ gives no information about $Y$: $P(Y=y\mid X=x)=P(Y=y)$ for every relevant pair. It is a statement about the distribution, not a claim that one variable causes the other. An equivalent factorization is $P(X=x,Y=y)=P(X=x)P(Y=y)$.}
 \cue{Worked example}{Use two dice as the clean positive example: the value of die 1 does not change the distribution of die 2, so $P(X=x,Y=y)=P(X=x)P(Y=y)$.}
 \cue{Dice calculation}{Let $X=1$ mean the first die shows a six and $Y=1$ mean the second die is even. Then $P(X=1)=1/6$, $P(Y=1)=1/2$, and $P(X=1,Y=1)=1/12=(1/6)(1/2)$. Also $P(Y=1\mid X=1)=1/2$. Use this to make the factorization tangible.}
-\cue{Simple expectation calculation}{Because $X$ and $Y$ are indicator variables, their expectations are just the probabilities of being one: \[\E(X)=1(1/6)+0(5/6)=1/6,\qquad \E(Y)=1(1/2)+0(1/2)=1/2.\] The product $XY$ equals one only when both events occur, so \[\E(XY)=1(1/12)+0(11/12)=1/12.\] Under independence, \[\E(X)\E(Y)=(1/6)(1/2)=1/12=\E(XY).\] Circle the two matching $1/12$ values: this is the simple meaning of $\E(XY)=\E(X)\E(Y)$.}
+\cue{Simple expectation calculation}{Tell students that the next slide gives the full joint table for this dice example and shows $\E(XY)=\E(X)\E(Y)$ numerically.}
 \cue{Mathematical proof, discrete case}{For discrete $X$ and $Y$, show exactly where independence is used: \[\begin{aligned}\E(XY)
 &=\sum_x\sum_y xy\,P(X=x,Y=y)\\
 &=\sum_x\sum_y xy\,P(X=x)P(Y=y)\qquad\text{(independence)}\\
@@ -172,18 +189,26 @@ Total & .50 & .50 & 1\\\bottomrule
 \cue{Dependent example}{Draw two cards without replacement. Let $X=1$ mean the first card is an ace and $Y=1$ mean the second card is an ace. Before seeing the first card, $P(Y=1)=4/52=1/13$; after observing $X=1$, $P(Y=1\mid X=1)=3/51=1/17$. Because these differ, the draws are not independent.}
 \cue{Check the class table}{For sunny days and purchases, independence would require $.8(.6)=.48$ in the bottom-right cell. The table gives $.55$, so independence fails.}
 \cue{Ask}{``Does failure of independence prove that sunshine causes purchases?'' No. It only says the variables are statistically related; other explanations remain possible.}
-\cue{Transition}{Covariance gives a numerical summary of how the two variables move together.}
+\cue{Transition}{Use the next slide to make independence visible in a joint table before introducing covariance.}
 
-\slideheading{Slide 15 | Covariance}
+\slideheading{Slide 18 | An independent joint distribution}
+\cue{Say}{This table looks like the previous joint table, but now every internal cell equals the product of its row and column margins. That is independence.}
+\cue{Joint check}{Use the bottom-right cell: \[P(X=1,Y=1)=1/12=(1/6)(1/2)=P(X=1)P(Y=1).\] Then say the same check works for the other three cells.}
+\cue{Conditional check}{Show that conditioning does not change the probability: \[P(Y=1\mid X=1)=\frac{1/12}{1/6}=1/2=P(Y=1).\]}
+\cue{Expectation check}{Because $X$ and $Y$ are indicators, $\E(X)=1/6$ and $\E(Y)=1/2$. Also $XY=1$ only in the bottom-right cell, so $\E(XY)=1/12$. Hence \[\E(XY)=1/12=(1/6)(1/2)=\E(X)\E(Y).\]}
+\cue{Proof reminder}{Connect to the proof from Slide 17: independence lets the joint probability factor, and that is why the expectation of the product factors.}
+\cue{Transition}{When independence fails, the difference between $\E(XY)$ and $\E(X)\E(Y)$ becomes useful. Now give that difference its name.}
+
+\slideheading{Slide 19 | Covariance}
 \cue{Say}{Covariance multiplies each variable's deviation from its mean and averages those products. Same-sign deviations contribute positively; opposite-sign deviations contribute negatively. Show the equivalent shortcut formula: \[\Cov(X,Y)=\E[(X-\E X)(Y-\E Y)]=\E(XY)-\E(X)\E(Y).\]}
 \cue{Worked example}{For the binary table, use $XY=1$ only in the bottom-right cell, so $\E(XY)=.55$. Then \[\Cov(X,Y)=\E(XY)-\E(X)\E(Y)=.55-(.8)(.6)=.07.\] This is positive, matching the table's pattern.}
 \cue{Difference from correlation}{Covariance is measured in the product of the units of $X$ and $Y$, and its magnitude has no fixed upper bound. It changes when a variable is rescaled: if $Y$ is recorded in tens, $\Cov(X,10Y)=10\Cov(X,Y)=.70$. Adding a constant does not change it, so $\Cov(X,Y+c)=\Cov(X,Y)$. The sign is useful, but the raw size is harder to compare across measurements.}
-\cue{Independence implication}{Now connect Slides 14 and 15 in one line: \[X\perp Y\ \Rightarrow\ \E(XY)=\E(X)\E(Y)\ \Rightarrow\ \Cov(X,Y)=\E(XY)-\E(X)\E(Y)=0.\] Say that independence implies zero covariance, provided the expectations exist.}
+\cue{Independence implication}{Now connect Slides 17 and 18 in one line: \[X\perp Y\ \Rightarrow\ \E(XY)=\E(X)\E(Y)\ \Rightarrow\ \Cov(X,Y)=\E(XY)-\E(X)\E(Y)=0.\] Say that independence implies zero covariance, provided the expectations exist.}
 \cue{Comment}{The converse is false: zero covariance does not generally imply independence. Do not let the class get stuck interpreting the units of $.07$.}
 \cue{Optional side example}{If time allows, let $X\in\{-1,0,1\}$ with equal probabilities and $Y=X^2$. Then $Y$ is completely determined by $X$, but $\Cov(X,Y)=0$ because $\E(X^3)=0$.}
 \cue{Transition}{Because covariance changes with measurement units, normalize it by the two standard deviations.}
 
-\slideheading{Slide 16 | Correlation}
+\slideheading{Slide 20 | Correlation}
 \cue{Say}{Correlation is standardized covariance and always lies between -1 and 1. It describes the direction and strength of linear association, not a causal effect and not a percentage change.}
 \cue{Worked example}{Continue the same table. Since $\Var(X)=.8(.2)=.16$ and $\Var(Y)=.6(.4)=.24$, \[\rho_{XY}=\frac{.07}{\sqrt{.16}\sqrt{.24}}\simeq .3572.\] Interpret this as a moderate positive association in this illustrative population.}
 \cue{Compare}{Correlation removes the scale and units by dividing by both standard deviations. It is unit-free, bounded between $-1$ and $1$, and unchanged by positive rescaling or adding constants: $\rho_{X,10Y}=\rho_{XY}=.3572$. Thus covariance keeps the original measurement scale, while correlation makes linear association easier to compare across variables.}

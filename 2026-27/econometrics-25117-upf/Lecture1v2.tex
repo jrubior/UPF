@@ -310,6 +310,40 @@
             \end{enumerate}
 \end{frame}
 
+\begin{frame}{Calculating variance two ways}
+\small
+Let $Y$ be monthly earnings, measured in thousands of euros:
+\begin{center}
+\begin{tabular}{c|ccc}
+$y$ & 1 & 2 & 4 \\ \hline
+$Pr(Y=y)$ & .25 & .50 & .25
+\end{tabular}
+\end{center}
+\vspace{.15cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Definition}
+\begin{align*}
+\mathbb{E}(Y)&=.25(1)+.50(2)+.25(4)=2.25\\
+var(Y)&=.25(1-2.25)^2+.50(2-2.25)^2\\
+&\quad+.25(4-2.25)^2=1.1875
+\end{align*}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Shortcut}
+\begin{align*}
+\mathbb{E}(Y^2)&=.25(1^2)+.50(2^2)+.25(4^2)=6.25\\
+var(Y)&=\mathbb{E}(Y^2)-[\mathbb{E}(Y)]^2\\
+&=6.25-2.25^2=1.1875
+\end{align*}
+\end{column}
+\end{columns}
+\vspace{.1cm}
+\[
+var(aX+bY)=a^2var(X)+b^2var(Y)+2ab\,\mathbb{E}[(X-\mu_X)(Y-\mu_Y)].
+\]
+\end{frame}
+
 
 \begin{frame}{Examples}
  \begin{columns}
@@ -378,6 +412,36 @@ Conditional Probability distribution:
 \end{columns}
 \end{frame}
 
+\begin{frame}{Working with the joint distribution}
+\small
+\begin{columns}[T]
+\begin{column}{0.43\textwidth}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Pr    & X=0 & X=1 & Total \\ \hline
+Y=0   & .15 & .25 & .4    \\ \hline
+Y=1   & .05 & .55 & .6    \\ \hline
+Total & .2  & .8  & 1     \\ \hline
+\end{tabular}
+\end{center}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{align*}
+Pr(Y=1)&=.05+.55=.60\\
+Pr(X=1)&=.25+.55=.80\\
+Pr(X=1,Y=1)&=.55\\
+Pr(Y=1\mid X=1)&=\frac{Pr(Y=1,X=1)}{Pr(X=1)}
+                 =\frac{.55}{.80}=.6875\\
+Pr(X=1\mid Y=1)&=\frac{Pr(X=1,Y=1)}{Pr(Y=1)}
+                 =\frac{.55}{.60}\simeq .9167
+\end{align*}
+\end{column}
+\end{columns}
+\vspace{.15cm}
+Same cell, different denominator: conditioning changes the reference group.
+\end{frame}
+
 
 \begin{frame}{Conditional and Iterated Expectations}
  \begin{columns}
@@ -420,19 +484,75 @@ Law of Iterated Expectations:
 \end{columns}
 \end{frame}
 
+\begin{frame}{Calculating the law of iterated expectations}
+\small
+Because $Y$ is binary, $\mathbb{E}(Y\mid X=x)=Pr(Y=1\mid X=x)$.
+\vspace{.2cm}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{align*}
+\mathbb{E}(Y\mid X=1)&=\frac{.55}{.80}=.6875\\
+\mathbb{E}(Y\mid X=0)&=\frac{.05}{.20}=.25
+\end{align*}
+\end{column}
+\begin{column}{0.52\textwidth}
+\begin{align*}
+\mathbb{E}[\mathbb{E}(Y\mid X)]
+&=\mathbb{E}(Y\mid X=1)Pr(X=1)\\
+&\quad+\mathbb{E}(Y\mid X=0)Pr(X=0)\\
+&=.6875(.80)+.25(.20)\\
+&=.55+.05=.60.
+\end{align*}
+\end{column}
+\end{columns}
+\vspace{.2cm}
+This matches the marginal mean:
+\[
+\mathbb{E}(Y)=1Pr(Y=1)+0Pr(Y=0)=.60.
+\]
+\end{frame}
+
 
 \begin{frame}{Independence}
     \begin{itemize}
         \item Two random variables $X$ and $Y$ are independent when the occurrence of one variable does not influence the value or affect the occurrence of the other.\vspace{.3cm}
     \end{itemize}
-    \begin{eqnarray*}
-        & Pr(Y=y\mid X=x)&= Pr(Y=y)\\
-        \Leftrightarrow & Pr(Y=y, X=x)&= Pr(Y=y)Pr(X=x)
-    \end{eqnarray*}
+    \begin{equation*}
+        Pr(Y=y\mid X=x)=Pr(Y=y)
+        \quad\Longleftrightarrow\quad
+        Pr(Y=y,X=x)=Pr(Y=y)Pr(X=x)
+    \end{equation*}
     \begin{itemize}
         \item  The joint probability distribution of $X$ and $Y$ can be expressed as the product of their individual probability distributions\vspace{.3cm}
         \item For example, think of the outcome of throwing two dice, $X$ and $Y$. 
     \end{itemize}
+\end{frame}
+
+\begin{frame}{An independent joint distribution}
+\small
+Let $X=1$ mean die 1 shows a six, and let $Y=1$ mean die 2 is even.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Pr    & X=0 & X=1 & Total \\ \hline
+Y=0   & $\frac{5}{12}$ & $\frac{1}{12}$ & $\frac{1}{2}$ \\ \hline
+Y=1   & $\frac{5}{12}$ & $\frac{1}{12}$ & $\frac{1}{2}$ \\ \hline
+Total & $\frac{5}{6}$  & $\frac{1}{6}$  & 1 \\ \hline
+\end{tabular}
+\end{center}
+\vspace{.15cm}
+\begin{align*}
+Pr(X=1,Y=1)&=\frac{1}{12}
+           =\frac{1}{6}\frac{1}{2}=Pr(X=1)Pr(Y=1),\\
+Pr(Y=1\mid X=1)&=\frac{Pr(X=1,Y=1)}{Pr(X=1)}
+               =\frac{1/12}{1/6}=\frac{1}{2}=Pr(Y=1),\\
+\end{align*}
+Since independence makes the joint distribution factorize,
+\[
+\mathbb{E}(XY)=\mathbb{E}(X)\mathbb{E}(Y)
+\quad\text{and here}\quad
+\mathbb{E}(XY)=\frac{1}{12}=\mathbb{E}(X)\mathbb{E}(Y).
+\]
 \end{frame}
 
 \begin{frame}{Covariance}
@@ -491,7 +611,14 @@ Law of Iterated Expectations:
         \item The variance of the sampling distribution of $\overline{Y}$ is:
     \end{itemize}
     \begin{eqnarray*}
-        \sigma^2_{\overline{Y}} = var(\frac{1}{n}\sum^n_{i=1} y_i) =\frac{1}{n^2}\sum^n_{i=1} var(y_i) + \underbrace{\frac{1}{n^2}\sum^n_{i=1} \sum^n_{j=1;j\neq i} cov(y_i, y_j)}_{=0 ~~\text(because~i.i.d)} =\frac{1}{n}\sigma^2_Y 
+        \begin{aligned}
+        \sigma^2_{\overline{Y}}
+        &=var\left(\frac{1}{n}\sum^n_{i=1} y_i\right)
+        =\frac{1}{n^2}\sum^n_{i=1} var(y_i)
+        +\underbrace{\frac{1}{n^2}\sum^n_{i=1}\sum^n_{j=1;j\neq i}cov(y_i,y_j)}_{=0\ \text{(because i.i.d.)}}\\
+        &=\frac{1}{n^2}\times n\sigma_Y^2+0
+        =\frac{1}{n}\sigma_Y^2.
+        \end{aligned}
     \end{eqnarray*}
 
     \begin{itemize}
