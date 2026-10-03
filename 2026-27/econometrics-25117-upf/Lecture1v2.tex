@@ -267,7 +267,7 @@
         \end{itemize} \vspace{.2cm}
         \item The mutually exclusive potential results of a random process are called the outcomes \vspace{.2cm}
         \item The set of all possible outcomes is called the sample space. A subset of the sample space is called an event. \vspace{.2cm}
-        \item The probability distribution of a random variable, $X$, is the list of all possible values, $x$, of the variable and the probability that each value will occur, $Pr(X=x)$. These probabilities sum to 1.
+        \item The probability distribution of a random variable, $X$, is the list of all possible values, $x$, of the variable and the probability that each value will occur, $\Pr(X=x)$. These probabilities sum to 1.
         \begin{itemize}
             \item NB: We talk about probability density function for continuous random variables (p.d.f.)
         \end{itemize} \vspace{.2cm}
@@ -293,11 +293,11 @@
         \begin{enumerate}
             \item The mean (or expected value) indicates the long-run average of a random variable $Y$:
             \begin{equation*}
-                \mathbb{E}(Y)\equiv\mu_Y = \sum^k_{i=1} y_iPr(Y=y_i)
+                \mathbb{E}(Y)\equiv\mu_Y = \sum^k_{i=1} y_i\Pr(Y=y_i)
             \end{equation*}
             \item The standard deviation (resp., variance) informs about the (resp., squared) dispersion of $Y$:
             \begin{equation*}
-                \sigma^2_Y \equiv var(Y) = \mathbb{E}[(Y-\mu_Y)^2]= \sum^k_{i=1}(y_i-\mu_Y)^2Pr(Y=y_i)
+                \sigma^2_Y \equiv \operatorname{Var}(Y) = \mathbb{E}[(Y-\mu_Y)^2]= \sum^k_{i=1}(y_i-\mu_Y)^2\Pr(Y=y_i)
             \end{equation*}
             \item The skewness informs about the asymmetry of $Y$:
             \begin{equation*}
@@ -316,7 +316,7 @@ Let $Y$ be monthly earnings, measured in thousands of euros:
 \begin{center}
 \begin{tabular}{c|ccc}
 $y$ & 1 & 2 & 4 \\ \hline
-$Pr(Y=y)$ & .25 & .50 & .25
+$\Pr(Y=y)$ & .25 & .50 & .25
 \end{tabular}
 \end{center}
 \vspace{.15cm}
@@ -325,7 +325,7 @@ $Pr(Y=y)$ & .25 & .50 & .25
 \textbf{Definition}
 \begin{align*}
 \mathbb{E}(Y)&=.25(1)+.50(2)+.25(4)=2.25\\
-var(Y)&=.25(1-2.25)^2+.50(2-2.25)^2\\
+\operatorname{Var}(Y)&=.25(1-2.25)^2+.50(2-2.25)^2\\
 &\quad+.25(4-2.25)^2=1.1875
 \end{align*}
 \end{column}
@@ -333,14 +333,14 @@ var(Y)&=.25(1-2.25)^2+.50(2-2.25)^2\\
 \textbf{Shortcut}
 \begin{align*}
 \mathbb{E}(Y^2)&=.25(1^2)+.50(2^2)+.25(4^2)=6.25\\
-var(Y)&=\mathbb{E}(Y^2)-[\mathbb{E}(Y)]^2\\
+\operatorname{Var}(Y)&=\mathbb{E}(Y^2)-[\mathbb{E}(Y)]^2\\
 &=6.25-2.25^2=1.1875
 \end{align*}
 \end{column}
 \end{columns}
 \vspace{.1cm}
 \[
-var(aX+bY)=a^2var(X)+b^2var(Y)+2ab\,\mathbb{E}[(X-\mu_X)(Y-\mu_Y)].
+\operatorname{Var}(aX+bY)=a^2\operatorname{Var}(X)+b^2\operatorname{Var}(Y)+2ab\,\mathbb{E}[(X-\mu_X)(Y-\mu_Y)].
 \]
 \end{frame}
 
@@ -353,7 +353,7 @@ var(aX+bY)=a^2var(X)+b^2var(Y)+2ab\,\mathbb{E}[(X-\mu_X)(Y-\mu_Y)].
     \item $\gamma_Y > 0 $ : skewed to the right
     \item $\gamma_Y < 0 $ : skewed to the left
      \vspace{.5cm}
-    \item $\kappa_Y > 3 $ : fat tails ("leptokurtotis")
+    \item $\kappa_Y > 3 $ : fat tails ("leptokurtosis")
     \end{itemize}
 \end{column}
 \begin{column}{0.6\textwidth}
@@ -369,22 +369,22 @@ var(aX+bY)=a^2var(X)+b^2var(Y)+2ab\,\mathbb{E}[(X-\mu_X)(Y-\mu_Y)].
 
 \section{Two Variables}
 
-\begin{frame}{Joint Probability Distribution $Pr(X=x, Y=y)$}
+\begin{frame}{Joint Probability Distribution $\Pr(X=x, Y=y)$}
  \begin{columns}
 \begin{column}{0.45\textwidth}
 Two dummy variables:
     \begin{itemize}
-    \item $X = \{0;1\}$ --- Sunny Day (N/Y)
-    \item $Y = \{0;1\}$ --- Ice Cream (N/Y)
+    \item $X \in \{0,1\}$ --- Sunny Day (N/Y)
+    \item $Y \in \{0,1\}$ --- Ice Cream (N/Y)
     \end{itemize}
 \vspace{.5cm}
 Marginal Probability distribution:
 \begin{equation*}
-    Pr(Y=y) = \sum_i Pr(X=x_i, Y=y)
+    \Pr(Y=y) = \sum_i \Pr(X=x_i, Y=y)
 \end{equation*}
 Conditional Probability distribution:
 \begin{equation*}
-    Pr(Y=y \mid X=x) = \frac{Pr(Y=y, X=x)}{Pr(X=x)}
+    \Pr(Y=y \mid X=x) = \frac{\Pr(X=x, Y=y)}{\Pr(X=x)}
 \end{equation*}
 
 \end{column}
@@ -395,7 +395,7 @@ Conditional Probability distribution:
         \resizebox{.8\columnwidth}{!}{%
         \begin{tabular}{|c|c|c|c|}
         \hline
-        Pr    & X=0 & X=1 & Total \\ \hline
+        $\Pr$    & X=0 & X=1 & Total \\ \hline
         Y=0   & .15 & .25 & .4    \\ \hline
         Y=1   & .05 & .55 & .6    \\ \hline
         Total & .2  & .8  & 1     \\ \hline
@@ -404,8 +404,8 @@ Conditional Probability distribution:
         \end{table}
 \vspace{1cm}
 \begin{eqnarray*}
-\Rightarrow Pr(Y=y, X=x) &= Pr(Y=y \mid X=x)Pr(X=x)\\
-                             &= Pr(X=x \mid Y=y)Pr(Y=y)
+\Rightarrow \Pr(X=x, Y=y) &= \Pr(Y=y \mid X=x)\Pr(X=x)\\
+                             &= \Pr(X=x \mid Y=y)\Pr(Y=y)
 \end{eqnarray*}
 \end{figure}
 \end{column}
@@ -419,7 +419,7 @@ Conditional Probability distribution:
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Pr    & X=0 & X=1 & Total \\ \hline
+$\Pr$    & X=0 & X=1 & Total \\ \hline
 Y=0   & .15 & .25 & .4    \\ \hline
 Y=1   & .05 & .55 & .6    \\ \hline
 Total & .2  & .8  & 1     \\ \hline
@@ -428,12 +428,12 @@ Total & .2  & .8  & 1     \\ \hline
 \end{column}
 \begin{column}{0.55\textwidth}
 \begin{align*}
-Pr(Y=1)&=.05+.55=.60\\
-Pr(X=1)&=.25+.55=.80\\
-Pr(X=1,Y=1)&=.55\\
-Pr(Y=1\mid X=1)&=\frac{Pr(Y=1,X=1)}{Pr(X=1)}
+\Pr(Y=1)&=.05+.55=.60\\
+\Pr(X=1)&=.25+.55=.80\\
+\Pr(X=1,Y=1)&=.55\\
+\Pr(Y=1\mid X=1)&=\frac{\Pr(X=1,Y=1)}{\Pr(X=1)}
                  =\frac{.55}{.80}=.6875\\
-Pr(X=1\mid Y=1)&=\frac{Pr(X=1,Y=1)}{Pr(Y=1)}
+\Pr(X=1\mid Y=1)&=\frac{\Pr(X=1,Y=1)}{\Pr(Y=1)}
                  =\frac{.55}{.60}\simeq .9167
 \end{align*}
 \end{column}
@@ -448,19 +448,19 @@ Same cell, different denominator: conditioning changes the reference group.
 \begin{column}{0.45\textwidth}
 Two dummy variables:
     \begin{itemize}
-    \item $X = \{0;1\}$ --- Sunny Day (N/Y)
-    \item $Y = \{0;1\}$ --- Ice Cream (N/Y)
+    \item $X \in \{0,1\}$ --- Sunny Day (N/Y)
+    \item $Y \in \{0,1\}$ --- Ice Cream (N/Y)
     \end{itemize}
 \vspace{.5cm}
 Conditional Expectation:
 \begin{equation*}
-    \mathbb{E}(Y\mid X=x)= \sum^k_{i=1} y_i  Pr(Y=y_i \mid X=x)
+    \mathbb{E}(Y\mid X=x)= \sum^k_{i=1} y_i  \Pr(Y=y_i \mid X=x)
 \end{equation*}
 Law of Iterated Expectations:
 \begin{equation*}
     \begin{aligned}
     \mathbb{E}(Y)&=\mathbb{E}[\mathbb{E}(Y\mid X)]\\
-    &\equiv \sum_i \mathbb{E}(Y\mid X=x_i) Pr(X=x_i)
+    &\equiv \sum_i \mathbb{E}(Y\mid X=x_i) \Pr(X=x_i)
     \end{aligned}
 \end{equation*}
 
@@ -471,7 +471,7 @@ Law of Iterated Expectations:
         \resizebox{.8\columnwidth}{!}{%
         \begin{tabular}{|c|c|c|c|}
         \hline
-        Pr    & X=0 & X=1 & Total \\ \hline
+        $\Pr$    & X=0 & X=1 & Total \\ \hline
         Y=0   & .15 & .25 & .4    \\ \hline
         Y=1   & .05 & .55 & .6    \\ \hline
         Total & .2  & .8  & 1     \\ \hline
@@ -486,7 +486,7 @@ Law of Iterated Expectations:
 
 \begin{frame}{Calculating the law of iterated expectations}
 \small
-Because $Y$ is binary, $\mathbb{E}(Y\mid X=x)=Pr(Y=1\mid X=x)$.
+Because $Y$ is binary, $\mathbb{E}(Y\mid X=x)=\Pr(Y=1\mid X=x)$.
 \vspace{.2cm}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
@@ -498,8 +498,8 @@ Because $Y$ is binary, $\mathbb{E}(Y\mid X=x)=Pr(Y=1\mid X=x)$.
 \begin{column}{0.52\textwidth}
 \begin{align*}
 \mathbb{E}[\mathbb{E}(Y\mid X)]
-&=\mathbb{E}(Y\mid X=1)Pr(X=1)\\
-&\quad+\mathbb{E}(Y\mid X=0)Pr(X=0)\\
+&=\mathbb{E}(Y\mid X=1)\Pr(X=1)\\
+&\quad+\mathbb{E}(Y\mid X=0)\Pr(X=0)\\
 &=.6875(.80)+.25(.20)\\
 &=.55+.05=.60.
 \end{align*}
@@ -508,7 +508,7 @@ Because $Y$ is binary, $\mathbb{E}(Y\mid X=x)=Pr(Y=1\mid X=x)$.
 \vspace{.2cm}
 This matches the marginal mean:
 \[
-\mathbb{E}(Y)=1Pr(Y=1)+0Pr(Y=0)=.60.
+\mathbb{E}(Y)=1\Pr(Y=1)+0\Pr(Y=0)=.60.
 \]
 \end{frame}
 
@@ -518,9 +518,9 @@ This matches the marginal mean:
         \item Two random variables $X$ and $Y$ are independent when the occurrence of one variable does not influence the value or affect the occurrence of the other.\vspace{.3cm}
     \end{itemize}
     \begin{equation*}
-        Pr(Y=y\mid X=x)=Pr(Y=y)
+        \Pr(Y=y\mid X=x)=\Pr(Y=y)
         \quad\Longleftrightarrow\quad
-        Pr(Y=y,X=x)=Pr(Y=y)Pr(X=x)
+        \Pr(X=x,Y=y)=\Pr(Y=y)\Pr(X=x)
     \end{equation*}
     \begin{itemize}
         \item  The joint probability distribution of $X$ and $Y$ can be expressed as the product of their individual probability distributions\vspace{.3cm}
@@ -534,7 +534,7 @@ Let $X=1$ mean die 1 shows a six, and let $Y=1$ mean die 2 is even.
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Pr    & X=0 & X=1 & Total \\ \hline
+$\Pr$    & X=0 & X=1 & Total \\ \hline
 Y=0   & $\frac{5}{12}$ & $\frac{1}{12}$ & $\frac{1}{2}$ \\ \hline
 Y=1   & $\frac{5}{12}$ & $\frac{1}{12}$ & $\frac{1}{2}$ \\ \hline
 Total & $\frac{5}{6}$  & $\frac{1}{6}$  & 1 \\ \hline
@@ -542,10 +542,10 @@ Total & $\frac{5}{6}$  & $\frac{1}{6}$  & 1 \\ \hline
 \end{center}
 \vspace{.15cm}
 \begin{align*}
-Pr(X=1,Y=1)&=\frac{1}{12}
-           =\frac{1}{6}\frac{1}{2}=Pr(X=1)Pr(Y=1),\\
-Pr(Y=1\mid X=1)&=\frac{Pr(X=1,Y=1)}{Pr(X=1)}
-               =\frac{1/12}{1/6}=\frac{1}{2}=Pr(Y=1),\\
+\Pr(X=1,Y=1)&=\frac{1}{12}
+           =\frac{1}{6}\frac{1}{2}=\Pr(X=1)\Pr(Y=1),\\
+\Pr(Y=1\mid X=1)&=\frac{\Pr(X=1,Y=1)}{\Pr(X=1)}
+               =\frac{1/12}{1/6}=\frac{1}{2}=\Pr(Y=1),\\
 \end{align*}
 Since independence makes the joint distribution factorize,
 \[
@@ -557,11 +557,11 @@ Since independence makes the joint distribution factorize,
 
 \begin{frame}{Covariance}
     \begin{itemize}
-        \item The covariance between $X$ and $Y$, $\sigma_{XY}$ or $cov(X,Y)$, is the average product of how two variables differ from their means. It measures how $X$ and $Y$ move together. 
+        \item The covariance between $X$ and $Y$, $\sigma_{XY}$ or $\operatorname{Cov}(X,Y)$, is the average product of how two variables differ from their means. It measures how $X$ and $Y$ move together.
     \end{itemize}
 \begin{eqnarray*}
     &\sigma_{XY} &= \mathbb{E}[(X-\mathbb{E}(X))(Y-\mathbb{E}(Y))]\\
-    &  &=\sum^k_{i=1}\sum^l_{j=1} (x_i-\mu_X)(y_j-\mu_Y)Pr(X=x_i; Y=y_j)
+    &  &=\sum^k_{i=1}\sum^l_{j=1} (x_i-\mu_X)(y_j-\mu_Y)\Pr(X=x_i, Y=y_j)
 \end{eqnarray*} 
  \begin{itemize}
      \item A positive covariance suggests that when one variable is above its mean, the other tends to be above its mean too. When $X$ and $Y$ are independent, $\sigma_{XY}=0$.\vspace{.2cm}
@@ -575,7 +575,7 @@ Since independence makes the joint distribution factorize,
 \begin{column}{0.45\textwidth}
     \begin{itemize}
     \item To clarify the relationship, covariance is normalized by the variables' standard deviations.
-    \item This normalized coefficient is the correlation, $\rho_{XY}=\frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}\in [-1; 1]$.
+    \item This normalized coefficient is the correlation, $\rho_{XY}=\frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}\in [-1,1]$.
     \end{itemize}
 \end{column}
 \begin{column}{0.6\textwidth}
@@ -606,16 +606,16 @@ Since independence makes the joint distribution factorize,
 \begin{frame}{Sample Distribution Mean and Dispersion}
     \begin{itemize}
         \item Because the sample is drawn at random, the sample average (and other statistics), $\overline{Y}=\frac{1}{n}\sum^n_{i=1} y_i$, is also random.\vspace{.2cm}
-        \item Because $\overline{Y}$ is random, it has a probability distribution. The distribution of $\overline{Y}$ is called the sampling distribution of $\overline{Y}$, i.e, it is the probability distribution associated with possible values of $\overline{Y}$ that could be computed for different random samples of size $n$.\vspace{.2cm}
+        \item Because $\overline{Y}$ is random, it has a probability distribution. The distribution of $\overline{Y}$ is called the sampling distribution of $\overline{Y}$, i.e., it is the probability distribution associated with possible values of $\overline{Y}$ that could be computed for different random samples of size $n$.\vspace{.2cm}
         \item The expected value of the sampling distribution of $\overline{Y}$ is the population mean: $\mathbb{E}(\overline{Y})=\mu_Y$\vspace{.2cm}
         \item The variance of the sampling distribution of $\overline{Y}$ is:
     \end{itemize}
     \begin{eqnarray*}
         \begin{aligned}
         \sigma^2_{\overline{Y}}
-        &=var\left(\frac{1}{n}\sum^n_{i=1} y_i\right)
-        =\frac{1}{n^2}\sum^n_{i=1} var(y_i)
-        +\underbrace{\frac{1}{n^2}\sum^n_{i=1}\sum^n_{j=1;j\neq i}cov(y_i,y_j)}_{=0\ \text{(because i.i.d.)}}\\
+        &=\operatorname{Var}\left(\frac{1}{n}\sum^n_{i=1} y_i\right)
+        =\frac{1}{n^2}\sum^n_{i=1} \operatorname{Var}(y_i)
+        +\underbrace{\frac{1}{n^2}\sum^n_{i=1}\sum_{\substack{j=1\\j\neq i}}^n\operatorname{Cov}(y_i,y_j)}_{=0\ \text{(because i.i.d.)}}\\
         &=\frac{1}{n^2}\times n\sigma_Y^2+0
         =\frac{1}{n}\sigma_Y^2.
         \end{aligned}
@@ -696,7 +696,7 @@ Since independence makes the joint distribution factorize,
     \begin{enumerate}
         \item $\hat{\mu}_y$ is \textit{unbiased} if $\mathbb{E}(\hat{\mu}_y) = \mu_Y$
         \item $\hat{\mu}_y$ is \textit{consistent} if $\hat{\mu}_y \xrightarrow{\mathit{p}}\mu_Y$
-        \item $\hat{\mu}_y$ is \textit{more efficient}  than $\tilde{\mu}_y$ if $\operatorname{var}(\hat{\mu}_y) \leq \operatorname{var}(\tilde{\mu}_y)$
+        \item $\hat{\mu}_y$ is \textit{more efficient}  than $\tilde{\mu}_y$ if $\operatorname{Var}(\hat{\mu}_y) \leq \operatorname{Var}(\tilde{\mu}_y)$
     \end{enumerate}
 \end{itemize}
 \end{frame}
@@ -708,8 +708,8 @@ Since independence makes the joint distribution factorize,
         \item \textit{Unbiased} : $\mathbb{E}(\overline{Y}) = \mu_Y$
         \item \textit{Consistent} : $\overline{Y}\xrightarrow{\mathit{p}}\mu_Y$
         \item \textit{(Most) Efficient}: \begin{eqnarray*}
-        & var(\hat{\mu}_y)\geq \mathbb{I}_{\mu_Y}^{-1} = \frac{\sigma_Y^2}{n} &\text{\small (Cramer-Rao Inequality + Central Limit Theorem)}\\
-        & \Leftrightarrow var(\hat{\mu}_y)\geq var(\overline{Y})
+        & \operatorname{Var}(\hat{\mu}_y)\geq \mathbb{I}_{\mu_Y}^{-1} = \frac{\sigma_Y^2}{n} &\text{\small (Cramer-Rao Inequality + Central Limit Theorem)}\\
+        & \Leftrightarrow \operatorname{Var}(\hat{\mu}_y)\geq \operatorname{Var}(\overline{Y})
         \end{eqnarray*}
     \end{enumerate}
     \item $\overline{Y}$ is the \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator of  $\mu_Y$
