@@ -174,12 +174,13 @@
 \begin{frame}{What we learned in the last lesson}
 \begin{itemize}
     \item Simple random sampling produces $n$ random observations that are i.i.d.
-    \item The sample average, $\overline{Y}$ is a random variable with a sampling distribution. If observations are i.i.d. then,
+    \item The sample average, $\overline{Y}$, is a random variable and an estimator of $\mu_Y$ before the sample is observed. If observations are i.i.d. then,
     \begin{enumerate}
         \item $\overline{Y}$ has mean $\mu_Y$ and variance $\sigma^2_{\overline{Y}} = \frac{\sigma^2_Y}{n} $;
         \item the LLN says that $\overline{Y}$ converges in probability to  $\mu_Y$
         \item the CLT says that $(\overline{Y}-\mu_Y)/\sigma^2_{\overline{Y}} \sim \mathcal{N}(0;1)$ when $n$ is large
     \end{enumerate}
+      \item After observing the sample, the realized value $\overline{y}$ is the estimate produced by the estimator $\overline{Y}$.
       \item The sample average, $\overline{Y}$ is a BLUE estimator of the population mean. If observations are i.i.d. then,
     \begin{enumerate}
         \item $\overline{Y}$ is unbiased;
@@ -255,24 +256,42 @@
 \end{frame}
 
 
-\begin{frame}{Computing the P-Value}
+\begin{frame}{P-Value for a One-Sample Mean Test}
  \begin{columns}
 \begin{column}{0.45\textwidth}
+    \small
     \begin{itemize}
-    \item Mathematically, one can write the p-value
+    \item We test a population mean against a hypothesized value:
+    \begin{equation*}
+        H_0:\mu_Y=\mu_Y^0
+        \qquad\text{vs.}\qquad
+        H_1:\mu_Y\neq\mu_Y^0
+    \end{equation*}
+    \item This is a two-sided one-sample test.
+    \item The p-value is the probability, assuming $H_0$ is true, of obtaining a sample mean at least as far from $\mu_Y^0$ as the observed value $\overline{y}$:
     \begin{eqnarray*}
-        Pr_{H_0}[\mid \overline{Y}-\mu_Y^0 \mid > \mid \overline{Y}^{act}-\mu_Y^0 \mid]
+        Pr_{H_0}[\mid \overline{Y}-\mu_Y^0 \mid > \mid \overline{y}-\mu_Y^0 \mid]
     \end{eqnarray*}
-    \item Computing the p-value, therefore, requires to know the sampling distribution of $\overline{Y}$
-    \item When $n\rightarrow\infty$, we know that $\frac{\overline{Y}-\mu_Y}{\sigma_{\overline{Y}}} \sim \mathcal{N}(0, 1)$, i.e., under the null hypothesis, $\frac{\overline{Y}-\mu_Y^0}{\sigma_{\overline{Y}}} \sim \mathcal{N}(0, 1)$
-    \item But we do not always know $\sigma_{Y}$ to compute $\sigma_{\overline{Y}}$...
+    \item Computing the p-value therefore requires the sampling distribution of the random variable $\overline{Y}$.
+    \item For large $n$, the standardized mean is approximately normal under $H_0$:
+    \[
+        \frac{\overline{Y}-\mu_Y^0}{\sigma_{\overline{Y}}}
+        \approx \mathcal{N}(0,1).
+    \]
     \end{itemize}
 \end{column}
 \begin{column}{0.6\textwidth}
 \begin{figure}
   \centering
          \vspace{-1mm}
-        \includegraphics[scale=.3]{images/pvalue.png}
+        \begin{tikzpicture}
+          \node (pvalue) {\includegraphics[scale=.3]{images/pvalue.png}};
+          % The source graphic predates the estimator/estimate notation used here.
+          \fill[white] (-4.0cm,-2.8cm) rectangle (-0.7cm,-1.6cm);
+          \fill[white] (0.7cm,-2.8cm) rectangle (4.0cm,-1.6cm);
+          \node at (-2.3cm,-2.15cm) {$\displaystyle \left|\frac{\overline{y}-\mu_Y^0}{\sigma_{\overline{Y}}}\right|$};
+          \node at (2.3cm,-2.15cm) {$\displaystyle \left|\frac{\overline{y}-\mu_Y^0}{\sigma_{\overline{Y}}}\right|$};
+        \end{tikzpicture}
 \end{figure}
 \end{column}
 \end{columns}
@@ -295,19 +314,62 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Standard Error to compute the p-value}
+\begin{frame}{Step 1: The Standard Deviation of the Sample Mean}
 \begin{itemize}
-    \item Because the variance of the sampling distribution, $\sigma_{\overline{Y}}^2 = \frac{\sigma_Y^2}{n}$, and sample variance is a consistent estimator of the population variance, $s_Y^2 \xrightarrow{\mathit{p}}\sigma^2_Y$, then $\frac{s_Y^2}{n} \xrightarrow{\mathit{p}}\frac{\sigma_Y^2}{n}=\sigma_{\overline{Y}}^2$
-    \item In other words, the standard error, $SE(\overline{Y})=\hat{\sigma}_{\overline{Y}}=\frac{s_Y}{\sqrt{n}}$ is an estimator of the standard deviation of the sampling distribution of $\overline{Y}$
-    \item Then, when $ \sigma_{\overline{Y}}$ is unknown because $\sigma_Y$ is unknown, one can still compute the p-value (under the assumption that $Y_1\dots Y_n$ are i.i.d.):
-    \begin{equation*}
-        \text{p-value} = 2\Phi\biggl(-\bigg| \frac{\overline{Y}^{act}-\mu_Y^0}{SE(\overline{Y})}\bigg|\biggl)
-    \end{equation*}
-    where the Standard Normal Cumulative Distribution Function, denoted as $\Phi(z)$, is a mathematical function that gives the probability that a standard normal random variable is less than or equal to a specific value $z$.
+    \item For i.i.d. observations, the sample mean $\overline{Y}$ has variance
+    \[
+        \sigma_{\overline{Y}}^2=\frac{\sigma_Y^2}{n}.
+    \]
+    \item Taking the square root gives its theoretical standard deviation:
+    \[
+        \sigma_{\overline{Y}}=\frac{\sigma_Y}{\sqrt{n}}.
+    \]
+    \item This is smaller when $n$ is larger: averaging more observations makes the sample mean more precise.
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Step 2: Estimating the Standard Error}
+\begin{itemize}
+    \item In practice, the population standard deviation $\sigma_Y$ is usually unknown.
+    \item We estimate it with the sample standard deviation $s_Y$:
+    \[
+        s_Y^2 \xrightarrow{\mathit{p}}\sigma_Y^2.
+    \]
+    \item Replacing $\sigma_Y$ by $s_Y$ gives the estimated standard deviation of $\overline{Y}$:
+    \[
+        SE(\overline{Y})
+        =\widehat{\sigma}_{\overline{Y}}
+        =\frac{s_Y}{\sqrt{n}}.
+    \]
+    \item The standard error measures the sampling uncertainty of the estimator $\overline{Y}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 3: Using the Standard Error in the P-Value}
+\begin{itemize}
+\item \textbf{When $\sigma_Y$ is unknown, use the estimated standard error in the two-sided mean test. Remember: the p-value is a probability.}
     \begin{equation*}
-        \Phi(z) = \int_{-\infty}^{z} \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \, dx
+        \text{p-value} = 2\Phi\biggl(-\bigg| \frac{\overline{y}-\mu_Y^0}{SE(\overline{Y})}\bigg|\biggl)
     \end{equation*}
+    \item The numerator is the observed distance from the null value, $\overline{y}-\mu_Y^0$.
+    \item Dividing by the standard error converts this distance into standard-error units.
+    \item The factor $2$ accounts for both tails because the alternative is two-sided.
+    \item This uses the assumption that $Y_1,\dots,Y_n$ are i.i.d. and that the standardized mean is approximately normal.
+\end{itemize}
+\begin{block}{The function $\Phi$}
+    $\Phi(z)$ is the probability that a standard normal random variable is less than or equal to $z$.
+\end{block}
+\end{frame}
+
+\begin{frame}{The Standard Normal Cumulative Distribution Function}
+\begin{itemize}
+    \item The standard normal cumulative distribution function is
+    \[
+        \Phi(z)=\int_{-\infty}^{z}
+        \frac{1}{\sqrt{2\pi}}e^{-x^2/2}\,dx.
+    \]
+    \item It gives the area under the standard normal curve to the left of $z$.
+    \item The p-value uses this area to add the probabilities in both tails.
 \end{itemize}
 \end{frame}
 
@@ -316,15 +378,21 @@
 \begin{itemize}
     \item The standardized sample average is called t-statistics, t-ratio, or Student's t-statistic.
     \begin{equation*}
-        \text{t} = \frac{\overline{Y}-\mu_Y^0}{SE(\overline{Y})}
+        \text{t} = \frac{\overline{y}-\mu_Y^0}{SE(\overline{Y})}
     \end{equation*}
     \item Because $s_Y^2 \xrightarrow{\mathit{p}}\sigma^2_Y$ as $n\rightarrow\infty$, then  $t\sim\mathcal{N}(0,1)$ as $n\rightarrow\infty$
-    \item In general, we say we reject $H_0$ (or that $\overline{Y}$ is significantly different from $\mu_Y^0$) if the $\text{p-value}<.05$ (or when $\alpha=.01$)
+    \item We choose a significance level $\alpha$ before looking at the result. We reject $H_0$ (or say that the observed estimate $\overline{y}$ is significantly different from $\mu_Y^0$) when
+    \[
+        \textbf{p-value}\leq\alpha.
+    \]
+    For example, at the 5\% level, $\alpha=0.05$ and we reject when the p-value is at most $0.05$.
     \item To summarize, testing $H^0$ against $H^1$ involves:
     \begin{enumerate}
         \item Compute the standard error of $\overline{Y}$, $SE(\overline{Y})$
         \item Compute the corresponding t-statistic
-        \item Compute the p-value. Reject $H^0$ at the 5\% significance level if the p-value is less than 0.05 (or alternatively, if $\mid t^{act} \mid > 1.96$)
+        \item Compute the p-value.
+        \item Under $H^0$, $t^{obs}\approx\mathcal{N}(0,1)$, so for a two-sided test at the 5\% significance level, $\text{p-value}\leq 0.05$ is equivalent to $\mid t^{obs}\mid\geq 1.96$.
+        \item At the 10\% significance level, $\text{p-value}\leq 0.10$ is equivalent to $\mid t^{obs}\mid\geq 1.645$.
     \end{enumerate}
     \item But what are the consequences of making errors in hypothesis testing?
 \end{itemize}
@@ -337,7 +405,10 @@
         \begin{itemize}
             \item Occurs when we reject a null hypothesis that is actually true.
             \item Denoted as $\alpha$ (alpha), the chosen significance level.
-            \item Probability of Type I Error: $\alpha$.
+            \item Probability of Type I Error:
+            \[
+                \alpha=P(\text{reject }H_0\mid H_0\text{ true}).
+            \]
             \item Example: Incorrectly concluding a drug is effective when it's not.
             \item Consequence: Often considered more serious due to potential harm.
         \end{itemize}
@@ -347,12 +418,21 @@
         \begin{itemize}
             \item Occurs when we fail to reject a null hypothesis that is actually false.
             \item Denoted as $\beta$ (beta).
-            \item Probability of Type II Error: Influenced by factors like sample size, effect size, and $\alpha$.
+            \item Probability of Type II Error:
+            \[
+                \beta=P(\text{do not reject }H_0\mid H_1\text{ true}).
+            \]
             \item Example: Failing to detect a real positive effect of a drug.
             \item Consequence: May result in missed opportunities for important discoveries or interventions.
         \end{itemize}
     \end{exampleblock}
 
+    \begin{block}{Power}
+        The power of a test is the probability of detecting a true effect:
+        \[
+            \text{Power}=1-\beta.
+        \]
+    \end{block}
     In hypothesis testing, the choice of $\alpha$ and sample size affects the balance between Type I and Type II errors.
 \end{frame}
 
@@ -397,14 +477,14 @@
 \begin{frame}{Computing CIs}
 %A 95\% two-sided confidence interval for $\mu_Y$ is an interval constructed so that it contains the true value of $\mu_Y$ in 95\% of all possible random samples. When the sample size n is large, 90\%, 95\%, and 99\% confidence intervals for $\mu_Y$ are:
 \begin{itemize}
-    \item 90\% confidence interval for $\mu_Y$  =$\overline{Y}\pm 1.64 \times SE(\overline{Y})$
-    \item 95\% confidence interval for $\mu_Y$  =$\overline{Y}\pm 1.96 \times SE(\overline{Y})$
-    \item 99\% confidence interval for $\mu_Y$  =$\overline{Y}\pm 2.58 \times SE(\overline{Y})$
+    \item 90\% confidence interval for $\mu_Y$  =$\overline{y}\pm 1.64 \times SE(\overline{Y})$
+    \item 95\% confidence interval for $\mu_Y$  =$\overline{y}\pm 1.96 \times SE(\overline{Y})$
+    \item 99\% confidence interval for $\mu_Y$  =$\overline{y}\pm 2.58 \times SE(\overline{Y})$
 \end{itemize}
 
 \begin{block}{Example}
 \begin{itemize}
-    \item You collect a random sample of $n=50$ individuals at UPF and measure their heights. The sample mean height, $\overline{Y}$, is 170 cm, and the sample standard deviation, $s_Y$, is 8 cm.
+    \item You collect a random sample of $n=50$ individuals at UPF and measure their heights. The observed sample mean height, $\overline{y}$, is 170 cm, and the sample standard deviation, $s_Y$, is 8 cm.
     \item The standard error, $SE(\overline{Y}),$ is $\frac{8}{\sqrt{50}}$
     \item The 95\% confidence interval is given by
     \begin{equation*}
@@ -426,7 +506,7 @@
         \begin{equation*}
         H^0: \mu_Y^a = \mu_Y^b \textbf{~~~vs~~~} H^1: \mu_Y^a \neq \mu_Y^b
     \end{equation*}
-    \item You have computed $\overline{Y}^a$ and $\overline{Y}^b$. From there, derive the sample variance $var(\overline{Y}^a-\overline{Y}^b)$ and deduce the $SE(\mu_Y^a - \mu_Y^b)$
+    \item You have observed $\overline{y}^a$ and $\overline{y}^b$. Their sampling variance is based on the random variables $\overline{Y}^a$ and $\overline{Y}^b$.
     \begin{eqnarray*}
        &var((\overline{Y}^a - \overline{Y}^b) - d_0) &=   var(\overline{Y}^a) +  var(\overline{Y}^b) - 2cov(\overline{Y}^a ,\overline{Y}^b)\\
        \Rightarrow &SE(\overline{Y}^a - \overline{Y}^b - d_0) &=\sqrt{\frac{var(\overline{Y}^a)}{n}+\frac{var(\overline{Y}^b)}{n}} 
@@ -440,12 +520,12 @@
 \begin{itemize}
     \item Once we have $SE((\mu_Y^a - \mu_Y^b)  - d_0)$, we can easily compute the corresponding t-statistic
     \begin{equation*}
-        t = \frac{(\overline{Y}^a - \overline{Y}^b) - d_0}{SE((\overline{Y}^a - \overline{Y}^b)  - d_0)}
+        t = \frac{(\overline{y}^a - \overline{y}^b) - d_0}{SE((\overline{Y}^a - \overline{Y}^b)  - d_0)}
     \end{equation*}
     \item[$\rightarrow$] We can reject that $\mu_Y^a - \mu_Y^b = d_0$ at the 5\%-level when $\mid t \mid > 1.96$ \vspace{.5cm}
     \item Similarly, we can construct the confidence interval for $\mu_Y^a - \mu_Y^b=d_0$
     \begin{equation*}
-        CI_{\mu_Y^a - \mu_Y^b=d_0} = (\overline{Y}^a -\overline{Y}^b)+1.96\times SE((\overline{Y}^a - \overline{Y}^b)  - d_0)
+        CI_{\mu_Y^a - \mu_Y^b=d_0} = (\overline{y}^a -\overline{y}^b)+1.96\times SE((\overline{Y}^a - \overline{Y}^b)  - d_0)
     \end{equation*}
     \item[$\rightarrow$] We can reject that $\mu_Y^a - \mu_Y^b = d_0$ at the 5\%-level when $d_0\notin CI_{\mu_Y^a - \mu_Y^b=d_0}$\vspace{.5cm}
     \item Comparing mean differences is very useful, e.g., when one wants to verify that control and treatment groups are comparable in means before receiving treatment (i.e., balance tests).
@@ -585,8 +665,8 @@ Estimation:
 Hypothesis testing:
     \begin{itemize}
     \item Test the “null” hypothesis that the mean test scores in the two types of groups are the same, against the “alternative” hypothesis that they differ 
-    \item $H^0: \overline{Y}^{X^L} - \overline{Y}^{X^H} = 0 $
-    \item $H^1: \overline{Y}^{X^L} - \overline{Y}^{X^H} \neq 0 $
+    \item $H_0: \mu_Y^{X^L} - \mu_Y^{X^H} = 0 $
+    \item $H_1: \mu_Y^{X^L} - \mu_Y^{X^H} \neq 0 $
     \end{itemize}
 \end{column}
 \begin{column}{0.7\textwidth}
@@ -607,13 +687,13 @@ We compute the descriptives for each group
 \begin{table}[]
 \begin{tabular}{c|c|c|c|}
 \cline{2-4}
-                            & $\overline{Y}$ & $s^2$ & $n$ \\ \hline
+                            & $\overline{y}$ & $s^2$ & $n$ \\ \hline
 \multicolumn{1}{|c|}{$X^L$} & 787.46         & 52.62 & 250 \\ \hline
 \multicolumn{1}{|c|}{$X^H$} & 720.24         & 47.44 & 250 \\ \hline
 \end{tabular}
 \end{table}
 \begin{itemize}
-    \item $\overline{Y}^{X^L} - \overline{Y}^{X^H} = 67.214 $
+    \item $\overline{y}^{X^L} - \overline{y}^{X^H} = 67.214 $
     \item $SE(\overline{Y}^{X^H} - \overline{Y}^{X^L}) =\sqrt{\frac{47.44^2}{250}+\frac{52.62^2}{250}} \approx 4.48 $
     \item $ t =67.214/4.48 \approx 15 > 1.96$
 \end{itemize}
@@ -635,7 +715,7 @@ We compute the descriptives for each group
 \begin{column}{0.35\textwidth}
 Alternatively, we can also compute the 95\% CI for the difference
 \begin{eqnarray*}
-    & \overline{Y}^{X^L} &- \overline{Y}^{X^H} \\
+    & \overline{y}^{X^L} &- \overline{y}^{X^H} \\
     & &\pm 1.96 \times SE(\overline{Y}^{X^H} - \overline{Y}^{X^L})\\
     & &= 67.214 \pm 1.96 \times 4.48\\
     & &= [ 58.41 ; 76.018]\\
