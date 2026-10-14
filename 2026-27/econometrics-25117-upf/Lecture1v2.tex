@@ -686,12 +686,21 @@ Since independence makes the joint distribution factorize,
 \section{Estimation}
 \begin{frame}{Estimators}
 \begin{itemize}
-    \item Imagine you do not know $\mu_Y$ and want to \textit{estimate} it. The sample average $\overline{Y}$ is a natural way to estimate $\mu_Y$, but not the only one
+    \item Imagine that $\mu_Y$ is unknown and we want to estimate it. The sample average is a natural choice:
+    \[
+        \overline{Y}=\frac{Y_1+\cdots+Y_n}{n}.
+    \]
     \begin{itemize}
-        \item NB: $Y_1$, $Y_3$, $Y_2/5$... All can be estimators of $\mu_Y$
+        \item This formula is an \textit{estimator}: a rule applied to sample data.
     \end{itemize}
-    \item An estimator is a \textit{function} of sample data drawn randomly from the population. It is random because of the randomness of the random sampling process.
-    \item An estimate is the \textit{numerical value} of an estimator taken from a given sample. It is a non-random number.
+    \item Before observing the sample, the $Y_i$'s are random, so $\overline{Y}$ is random: different samples can give different values.
+    \item After observing one sample, the estimator gives an \textit{estimate}. For example,
+    \[
+        (Y_1,Y_2,Y_3)=(1.70,1.80,1.75)\quad\Longrightarrow\quad \overline{y}=1.75.
+    \]
+    \begin{itemize}
+        \item The estimator is the rule; the estimate is the resulting number.
+    \end{itemize}
     \item How to determine if an estimator is better than another? Let $\hat{\mu}_y$ and $\tilde{\mu}_y$ be two estimators of $\mu_Y$.
     \begin{enumerate}
         \item $\hat{\mu}_y$ is \textit{unbiased} if $\mathbb{E}(\hat{\mu}_y) = \mu_Y$
@@ -701,28 +710,59 @@ Since independence makes the joint distribution factorize,
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Is your estimator BLUE?}
+\begin{frame}{Why is the sample mean efficient?}
 \begin{itemize}
-    \item $\overline{Y}$ is an estimator of  $\mu_Y$ which is:
-    \begin{enumerate}
-        \item \textit{Unbiased} : $\mathbb{E}(\overline{Y}) = \mu_Y$
-        \item \textit{Consistent} : $\overline{Y}\xrightarrow{\mathit{p}}\mu_Y$
-        \item \textit{(Most) Efficient}: \begin{eqnarray*}
-        & \operatorname{Var}(\hat{\mu}_y)\geq \mathbb{I}_{\mu_Y}^{-1} = \frac{\sigma_Y^2}{n} &\text{\small (Cramer-Rao Inequality + Central Limit Theorem)}\\
-        & \Leftrightarrow \operatorname{Var}(\hat{\mu}_y)\geq \operatorname{Var}(\overline{Y})
-        \end{eqnarray*}
-    \end{enumerate}
-    \item $\overline{Y}$ is the \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator of  $\mu_Y$
+    \item \textit{Efficiency} means precision: among unbiased estimators, prefer the one with the smallest variance.
+    \item \textbf{Step 1: Cramér--Rao gives a lower bound.} For any unbiased estimator $\hat{\mu}_Y$,
+    \[
+        \operatorname{Var}(\hat{\mu}_Y)\geq \frac{1}{\mathcal{I}_n(\mu_Y)}.
+    \]
+    \item For $n$ independent observations from a normal population with variance $\sigma_Y^2$,
+    \[
+        \mathcal{I}_n(\mu_Y)=\frac{n}{\sigma_Y^2}
+        \quad\Longrightarrow\quad
+        \operatorname{Var}(\hat{\mu}_Y)\geq \frac{\sigma_Y^2}{n}.
+    \]
+    \item \textbf{Step 2: the sample mean reaches the bound:}
+    \[
+        \mathbb{E}(\overline{Y})=\mu_Y,\qquad
+        \operatorname{Var}(\overline{Y})=\frac{\sigma_Y^2}{n}.
+    \]
+    \item \textbf{Conclusion:} no unbiased estimator can have a smaller variance. Therefore $\overline{Y}$ is efficient.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{BLUE and least squares}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+    \textbf{1. BLUE: comparing estimators}
     \begin{itemize}
-        \item i.e., it is the most efficient estimator of all estimators which are a linear function of $Y_1\dots Y_n$.
+        \item $\overline{Y}$ is the \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator of $\mu_Y$.
+        \item \textbf{Linear:} a weighted sum of $Y_1,\ldots,Y_n$.
+        \item \textbf{Unbiased:} its expected value is $\mu_Y$.
+        \item \textbf{Best:} smallest variance among such estimators.
     \end{itemize}
-    \item What estimator $\hat{\mu}_y$ minimizes the sum of the squared distance between $Y_i$ observations?
-        \begin{eqnarray*}
-            \frac{\partial}{\partial\hat{\mu}_y} \sum_{i=1}^n (Y_i- \hat{\mu}_y)^2 &=0\\
-           \Leftrightarrow -2\sum_{i=1}^n (Y_i- \hat{\mu}_y)&=0\\
-           \Leftrightarrow \overline{Y}&=\hat{\mu}_y & \text{($\overline{Y}$ is the least square estimator of $\mu_Y$)}\\
-        \end{eqnarray*}
+\end{column}
+\begin{column}{0.48\textwidth}
+    \textbf{2. Least squares: minimizing errors}
+    \begin{itemize}
+        \item Choose $\hat{\mu}_Y$ to minimize the sum of squared deviations:
+        \[
+            \sum_{i=1}^n (Y_i-\hat{\mu}_Y)^2.
+        \]
+        \item First-order condition:
+        \[
+        -2\sum_{i=1}^n(Y_i-\hat{\mu}_Y)=0
+        \quad\Longrightarrow\quad
+        \hat{\mu}_Y=\overline{Y}.
+        \]
     \end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.15cm}
+\begin{center}
+    \textit{Under the standard i.i.d. assumptions, both approaches give the sample mean.}
+\end{center}
 \end{frame}
 
 
