@@ -594,18 +594,18 @@ Since independence makes the joint distribution factorize,
 
 \begin{frame}{Random Sampling}
     \begin{itemize}
-        \item In simple random sampling, $n$ objects ($y_1, y_2, ..., y_n$) are randomly drawn from a population (e.g., days, individuals, firms, etc.) such that each object has an equal and independent chance of being included in the sample\vspace{.2cm}
+        \item In simple random sampling, $n$ objects ($\textcolor{red}{Y_1, Y_2, ..., Y_n}$) are randomly drawn from a population (e.g., days, individuals, firms, etc.) such that each object has an equal and independent chance of being included in the sample\vspace{.2cm}
         \item It aims to form a representative sample to draw valid conclusions about the population's characteristics based on observed sample data.\vspace{.2cm}
-        \item Because $y_1, y_2, ..., y_n$ are randomly drawn from the same population, the marginal distribution of $y_i$ is the same for each $i$:  $y_1, y_2, ..., y_n$ are identically distributed\vspace{.2cm}
-        \item Because $y_1, y_2, ..., y_n$ are randomly drawn, knowing the value of $y_i$ does not provide information about $y_{j\neq i}$:  $y_1, y_2, ..., y_n$ are independently distributed\vspace{.2cm}
-        \item When $y_1, y_2, ..., y_n$ are randomly drawn from the same distribution, they are independently and identically distributed (i.i.d.). Then, the expected value of every draw is the population mean and the variance of every draw is the population variance.
+        \item Because $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are randomly drawn from the same population, the marginal distribution of $\textcolor{red}{Y_i}$ is the same for each $i$:  $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are identically distributed\vspace{.2cm}
+        \item Because $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are randomly drawn, knowing the value of $\textcolor{red}{Y_i}$ does not provide information about $\textcolor{red}{Y_{j\neq i}}$:  $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are independently distributed\vspace{.2cm}
+        \item When $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are randomly drawn from the same distribution, they are independently and identically distributed (i.i.d.). Then, the expected value of every draw is the population mean and the variance of every draw is the population variance.
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Sample Distribution Mean and Dispersion}
     \begin{itemize}
-        \item Because the sample is drawn at random, the sample average (and other statistics), $\overline{Y}=\frac{1}{n}\sum^n_{i=1} y_i$, is also random.\vspace{.2cm}
+        \item Because the sample is drawn at random, the sample average (and other statistics), $\overline{Y}=\frac{1}{n}\sum^n_{i=1} \textcolor{red}{Y_i}$, is also random.\vspace{.2cm}
         \item Because $\overline{Y}$ is random, it has a probability distribution. The distribution of $\overline{Y}$ is called the sampling distribution of $\overline{Y}$, i.e., it is the probability distribution associated with possible values of $\overline{Y}$ that could be computed for different random samples of size $n$.\vspace{.2cm}
         \item The expected value of the sampling distribution of $\overline{Y}$ is the population mean: $\mathbb{E}(\overline{Y})=\mu_Y$\vspace{.2cm}
         \item The variance of the sampling distribution of $\overline{Y}$ is:
@@ -613,9 +613,9 @@ Since independence makes the joint distribution factorize,
     \begin{eqnarray*}
         \begin{aligned}
         \sigma^2_{\overline{Y}}
-        &=\operatorname{Var}\left(\frac{1}{n}\sum^n_{i=1} y_i\right)
-        =\frac{1}{n^2}\sum^n_{i=1} \operatorname{Var}(y_i)
-        +\underbrace{\frac{1}{n^2}\sum^n_{i=1}\sum_{\substack{j=1\\j\neq i}}^n\operatorname{Cov}(y_i,y_j)}_{=0\ \text{(because i.i.d.)}}\\
+        &=\operatorname{Var}\left(\frac{1}{n}\sum^n_{i=1} \textcolor{red}{Y_i}\right)
+        =\frac{1}{n^2}\sum^n_{i=1} \operatorname{Var}(\textcolor{red}{Y_i})
+        +\underbrace{\frac{1}{n^2}\sum^n_{i=1}\sum_{\substack{j=1\\j\neq i}}^n\operatorname{Cov}(\textcolor{red}{Y_i},\textcolor{red}{Y_j})}_{=0\ \text{(because i.i.d.)}}\\
         &=\frac{1}{n^2}\times n\sigma_Y^2+0
         =\frac{1}{n}\sigma_Y^2.
         \end{aligned}
@@ -631,7 +631,7 @@ Since independence makes the joint distribution factorize,
 
 \begin{frame}{Asymptotic properties ($n\rightarrow\infty$) of the sampling distribution (1/2)}
     \begin{itemize}
-        \item If $y_1, y_2, ..., y_n$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline{Y}$ will approximate $\mathbb{E}(Y)$ as $n$ grows 
+        \item If $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline{Y}$ will approximate $\mathbb{E}(Y)$ as $n$ grows
         \begin{itemize}
             \item In our previous example, the expected value for a sunny day is .8. If we were to randomly draw days from the entire history, the average number of sunny days converges to .8 as we draw more days from history.
             \item  If you flip it a lot of times, the average number of heads you get gets closer to 50\%, which is what we expect from a fair coin.
@@ -642,9 +642,9 @@ Since independence makes the joint distribution factorize,
         \end{itemize}
     \end{itemize}
     \begin{exampleblock}{(Weak) Law of Large Numbers}
-        If $y_i$ are independent and identically distributed and $\mid \mathbb{E}(Y)\mid<\infty$, then as $n\rightarrow\infty$,
+        If $\textcolor{red}{Y_i}$ are independent and identically distributed and $\mid \mathbb{E}(Y)\mid<\infty$, then as $n\rightarrow\infty$,
         \begin{equation*}
-            \overline{Y}=\frac{1}{n}\sum^n_{i=1} y_i\xrightarrow{\mathit{p}}\mathbb{E}(Y)\equiv\mu_Y
+            \overline{Y}=\frac{1}{n}\sum^n_{i=1} \textcolor{red}{Y_i}\xrightarrow{\mathit{p}}\mathbb{E}(Y)\equiv\mu_Y
         \end{equation*}
     \end{exampleblock}
 \end{frame}
@@ -660,7 +660,7 @@ Since independence makes the joint distribution factorize,
 \begin{frame}{Asymptotic properties ($n\rightarrow\infty$) of the sampling distribution (2/2)}
     \begin{itemize}
         \item Random sample averages behave in a predictable pattern.
-        \item If $y_1, y_2, ..., y_n$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline{Y}$ is approximately distributed as $\mathcal{N}(\mu_Y, \sigma^2_Y/n)$ as $n$ grows
+        \item If $\textcolor{red}{Y_1, Y_2, ..., Y_n}$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline{Y}$ is approximately distributed as $\mathcal{N}(\mu_Y, \sigma^2_Y/n)$ as $n$ grows
         \begin{itemize}
             \item When you randomly gather a large group of people from UPF and calculate their average height, repeating this with many groups, the resulting sample averages distribution will form a bell-shaped curve, regardless of the actual height distribution at UPF.
         \end{itemize}
@@ -668,7 +668,7 @@ Since independence makes the joint distribution factorize,
         \item Very powerful because it allows us to make better predictions and draw conclusions about populations based on smaller samples
     \end{itemize}
     \begin{exampleblock}{Central Limit Theorem}
-        If $y_i$ are independent and identically distributed and $0<\sigma^2_Y<\infty$, then as $n\rightarrow\infty$,
+        If $\textcolor{red}{Y_i}$ are independent and identically distributed and $0<\sigma^2_Y<\infty$, then as $n\rightarrow\infty$,
         \begin{equation*}
             \frac{\overline{Y}-\mu_Y}{\sigma_Y/\sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1)
         \end{equation*}
@@ -696,16 +696,16 @@ Since independence makes the joint distribution factorize,
     \item Before observing the sample, the $Y_i$'s are random, so $\overline{Y}$ is random: different samples can give different values.
     \item After observing one sample, the estimator gives an \textit{estimate}. For example,
     \[
-        (Y_1,Y_2,Y_3)=(1.70,1.80,1.75)\quad\Longrightarrow\quad \overline{y}=1.75.
+        \textcolor{red}{(y_1,y_2,y_3)}=(1.70,1.80,1.75)\quad\Longrightarrow\quad \overline{y}=1.75.
     \]
     \begin{itemize}
         \item The estimator is the rule; the estimate is the resulting number.
     \end{itemize}
-    \item How to determine if an estimator is better than another? Let $\hat{\mu}_y$ and $\tilde{\mu}_y$ be two estimators of $\mu_Y$.
+    \item How to determine if an estimator is better than another? Let $\textcolor{red}{\hat{\mu}_Y}$ and $\textcolor{red}{\tilde{\mu}_Y}$ be two estimators of $\mu_Y$.
     \begin{enumerate}
-        \item $\hat{\mu}_y$ is \textit{unbiased} if $\mathbb{E}(\hat{\mu}_y) = \mu_Y$
-        \item $\hat{\mu}_y$ is \textit{consistent} if $\hat{\mu}_y \xrightarrow{\mathit{p}}\mu_Y$
-        \item $\hat{\mu}_y$ is \textit{more efficient}  than $\tilde{\mu}_y$ if $\operatorname{Var}(\hat{\mu}_y) \leq \operatorname{Var}(\tilde{\mu}_y)$
+        \item $\textcolor{red}{\hat{\mu}_Y}$ is \textit{unbiased} if $\mathbb{E}(\textcolor{red}{\hat{\mu}_Y}) = \mu_Y$
+        \item $\textcolor{red}{\hat{\mu}_Y}$ is \textit{consistent} if $\textcolor{red}{\hat{\mu}_Y} \xrightarrow{\mathit{p}}\mu_Y$
+        \item $\textcolor{red}{\hat{\mu}_Y}$ is \textit{more efficient}  than $\textcolor{red}{\tilde{\mu}_Y}$ if $\operatorname{Var}(\textcolor{red}{\hat{\mu}_Y}) \leq \operatorname{Var}(\textcolor{red}{\tilde{\mu}_Y})$
     \end{enumerate}
 \end{itemize}
 \end{frame}
