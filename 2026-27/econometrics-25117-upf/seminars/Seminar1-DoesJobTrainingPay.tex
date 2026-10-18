@@ -186,7 +186,7 @@ Total & & & 1
 Each problem states its own population and assumptions. Work through the questions before drawing a policy conclusion. Worked solutions follow each problem.
 \end{exampleblock}
 \end{frame}
-\note{Suggested modules: Problems 1--3 cover one-variable probability; 4--8 cover two variables; 9--13 cover sampling; 14--17 cover estimation. Problems refer back to a previous table only when explicitly stated. No background in regression is required.}
+\note{Suggested modules: Problems 1--3 cover one-variable probability; 4--8 cover two variables; 9--11 cover sampling; 12--14 cover estimation. Problems refer back to a previous table only when explicitly stated. No background in regression is required.}
 
 \section{Earnings}
 
@@ -486,7 +486,7 @@ Because $H$ is binary, $\E(H\mid D=d)=\Pr(H=1\mid D=d)$. Therefore
 \fi
 
 \begin{frame}{Problem 5: What would independence look like?}
-Before training begins, an independent lottery assigns $A=1$ with probability .40. Pre-programme employment $H$ has probability $\Pr(H=1)=.60$. Lottery assignment is independent of $H$.
+Before training begins, an independent lottery assigns $A=1$ with probability .40. Use the marginal distribution of $H$ from Problem 4. Lottery assignment is independent of $H$.
 \begin{enumerate}
 \setlength{\itemsep}{8pt}
 \item Use independence to construct the full joint probability table of $(A,H)$, including marginal totals.
@@ -545,13 +545,30 @@ Return to the observational population in Problem 4:
 
 \ifshowsolutions
 % SOLUTION 6 START
+\begin{frame}{Solution 6: Means, variances, and product moment}
+\small
+\answerpart{1}For any binary variable $B\in\{0,1\}$ with $p_B=\Pr(B=1)$,
+\[
+\E(B)=\sum_{b=0}^1 b\Pr(B=b)=p_B,\qquad
+\Var(B)=\E(B^2)-[\E(B)]^2=p_B-p_B^2=p_B(1-p_B),
+\]
+using $B^2=B$. From the joint distribution in Problem 4,
+\begin{align*}
+\E(D)&=0(.60)+1(.40)=.40,
+&\E(H)&=0(.40)+1(.60)=.60,\\
+\Var(D)&=.40(1-.40)=.24,
+&\Var(H)&=.60(1-.60)=.24.
+\end{align*}
+The product expectation is
+\begin{align*}
+\E(DH)&=\sum_{d=0}^1\sum_{h=0}^1 dh\Pr(D=d,H=h)\\
+&=0(.30)+0(.10)+0(.30)+1(.30)=.30.
+\end{align*}
+Only the $(D,H)=(1,1)$ cell contributes, so $\E(DH)=\Pr(D=1,H=1)$.
+\end{frame}
+
 \begin{frame}{Solution 6: Covariance from the lecture definition}
 \small
-\answerpart{1}Since $D$ and $H$ are binary,
-\[
-\E(D)=.40,\qquad \E(H)=.60,\qquad
-\Var(D)=.40(.60)=.24=\Var(H),\qquad \E(DH)=.30.
-\]
 \answerpart{2}\textit{Lecture 1, ``Covariance''} defines covariance using deviations from the means. Let $\mu_D=\E(D)$ and $\mu_H=\E(H)$. Expanding that definition gives
 \begin{align*}
 \Cov(D,H)
@@ -657,10 +674,9 @@ The university pays 100 euros for participating in training and 200 euros for be
 \setlength{\itemsep}{7pt}
 \item Compute $\E(S)$, $\Var(S)$, and its standard deviation. Include the covariance term.
 \item How much would the variance be understated if covariance were incorrectly set to zero?
-\item List the possible support payments and their probabilities. Verify the variance using $\E(S^2)-[\E(S)]^2$.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 8. E(S)=100(.4)+200(.6)=160 euros. Var(S)=100 squared(.24)+200 squared(.24)+2(100)(200)(.06)=2400+9600+2400=14400 euros squared. SD=120 euros. Ignoring covariance gives 12000 and understates the variance by 2400 euros squared. The support amounts 0,100,200,300 have probabilities .30,.10,.30,.30. E(S squared)=.1(10000)+.3(40000)+.3(90000)=40000; subtract 160 squared=25600 to obtain 14400. Dependence affects the risk of a sum.}
+\note{Solution to Problem 8. E(S)=100(.4)+200(.6)=160 euros. Var(S)=100 squared(.24)+200 squared(.24)+2(100)(200)(.06)=2400+9600+2400=14400 euros squared. SD=120 euros. Ignoring covariance gives 12000 and understates the variance by 2400 euros squared. Dependence affects the risk of a sum.}
 
 \ifshowsolutions
 % SOLUTION 8 START
@@ -677,67 +693,13 @@ For $S=100D+200H$, expected support is
 \operatorname{SD}(S)&=\sqrt{14{,}400}=120\text{ euros}.
 \end{align*}
 \answerpart{2}Omitting covariance gives $12{,}000$ euros$^2$, understating variance by $2{,}400$ euros$^2$.
-\answerpart{3}
-\begin{center}
-\begin{tabular}{c|rrrr}
-$s$ (euros) & 0 & 100 & 200 & 300 \\ \hline
-$\Pr(S=s)$ & .30 & .10 & .30 & .30
-\end{tabular}
-\end{center}
-\[
-\E(S^2)=.10(100^2)+.30(200^2)+.30(300^2)=40{,}000,
-\qquad\Var(S)=40{,}000-160^2=14{,}400.
-\]
 \end{frame}
 % SOLUTION 8 END
 \fi
 
 \section{Sampling}
 
-\begin{frame}{Problem 9: Which earnings survey can we trust?}
-The target is the mean hourly wage among employed students at UPF. Consider four plans:
-\begin{enumerate}
-\setlength{\itemsep}{5pt}
-\item[A.] Sample student records independently with replacement from the complete target-population list.
-\item[B.] Post a voluntary wage survey in a job-training group chat.
-\item[C.] Randomly select five employers and interview all UPF students working for them.
-\item[D.] Randomly select 100 distinct students from the complete target-population list, without replacement.
-\end{enumerate}
-\vspace{.15cm}
-\begin{enumerate}
-\item Which plan directly gives independent, identically distributed draws? Discuss selection and dependence in the other plans.
-\item What could nonresponse do to an otherwise sound design? Does increasing the number of voluntary replies remove selection bias?
-\end{enumerate}
-\end{frame}
-\note{Solution to Problem 9. A gives iid draws from the empirical target population under the stated with-replacement design, assuming all selected records yield responses and wages are measured consistently. B can overrepresent training participants or students motivated to report wages; more replies do not automatically remove selection. In C, students at a common employer can share wage-setting and work conditions; observations need not be independent, and selection probabilities require care. D is a simple random sample without replacement: the draws are identically distributed but are dependent in a finite population. An iid approximation can be reasonable when the sampling fraction is small. Nonresponse related to wages can distort any design. Subsequent iid problems explicitly impose that model.}
-
-\ifshowsolutions
-% SOLUTION 9 START
-\begin{frame}{Solution 9: Choosing the survey design}
-\small
-\answerpart{1}
-\begin{tabular}{@{}p{.08\textwidth}p{.87\textwidth}@{}}
-\toprule
-Plan & Implication for the earnings survey \\
-\midrule
-A & With complete responses and consistent wage measurement, independent selection with replacement gives i.i.d. draws from the target list's wage distribution. \\[5pt]
-B & Volunteers in the training chat can differ systematically from all employed UPF students. The respondent distribution need not equal the target distribution. \\[5pt]
-C & This is a cluster sample: students at the same employer may share wage shocks. Independence can fail; individual inclusion probabilities also require care. \\[5pt]
-D & Sampling distinct students without replacement gives equal marginal distributions, but the draws are dependent in a finite population. An i.i.d. approximation can be reasonable for a small sampling fraction. \\
-\bottomrule
-\end{tabular}
-\vspace{.2cm}
-\answerpart{2}
-\begin{itemize}
-\setlength{\itemsep}{5pt}
-\item Wage-related nonresponse can change the respondent distribution under any plan.
-\item More voluntary replies increase the amount of data; they do not automatically remove selection bias.
-\end{itemize}
-\end{frame}
-% SOLUTION 9 END
-\fi
-
-\begin{frame}{Problem 10: What can two employment responses tell us?}
+\begin{frame}{Problem 9: What can two employment responses tell us?}
 Employment indicators $H_1$ and $H_2$ are independent draws from a population with $\Pr(H_i=1)=.60$. Define
 \[
 \overline H=\frac{H_1+H_2}{2}.
@@ -748,14 +710,13 @@ Employment indicators $H_1$ and $H_2$ are independent draws from a population wi
 \item Construct the exact sampling distribution of $\overline H$.
 \item Calculate $\E(\overline H)$ and $\Var(\overline H)$ directly from that distribution.
 \item Check your answers using $\E(\overline H)=\mu_H$ and $\Var(\overline H)=\sigma_H^2/n$.
-\item How does the sampling distribution of an average differ from the distribution of one student's employment status?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 10. Ordered samples (0,0),(0,1),(1,0),(1,1) have probabilities .16,.24,.24,.36. Sample means 0,.5,1 have probabilities .16,.48,.36. E(Hbar)=.5(.48)+1(.36)=.6. E(Hbar squared)=.25(.48)+.36=.48, and variance=.48-.36=.12. Population variance=.6(.4)=.24, so .24/2=.12. The population distribution concerns a single binary outcome; the sampling distribution concerns a statistic across repeated samples of a fixed size.}
+\note{Solution to Problem 9. Ordered samples (0,0),(0,1),(1,0),(1,1) have probabilities .16,.24,.24,.36. Sample means 0,.5,1 have probabilities .16,.48,.36. E(Hbar)=.5(.48)+1(.36)=.6. E(Hbar squared)=.25(.48)+.36=.48, and variance=.48-.36=.12. Population variance=.6(.4)=.24, so .24/2=.12.}
 
 \ifshowsolutions
-% SOLUTION 10 START
-\begin{frame}{Solution 10: The exact sampling distribution}
+% SOLUTION 9 START
+\begin{frame}{Solution 9: The exact sampling distribution}
 \small
 \answerpart{1}Independence gives the probability of each ordered pair as a product:
 \begin{columns}[T]
@@ -797,13 +758,12 @@ $1$ & $.36$ \\
 \end{aligned}
 \]
 \answerpart{4}The i.i.d. formula confirms $\E(\overline H)=.60=\mu_H$ and $\Var(\overline H)=.12=\sigma_H^2/2=.60(.40)/2$.
-\par\answerpart{5}One student's $H$ takes values $0,1$; the statistic $\overline H$ takes values $0,.5,1$ across repeated samples of size two.
 \end{frame}
-% SOLUTION 10 END
+% SOLUTION 9 END
 \fi
 
-\begin{frame}{Problem 11: How precise is a survey's average wage?}
-For this problem and Problems 12--13, model hourly wages $Y_1,\ldots,Y_n$ as i.i.d. draws with population mean $\mu_Y=15$ euros and standard deviation $\sigma_Y=6$ euros.
+\begin{frame}{Problem 10: How precise is a survey's average wage?}
+For this problem and Problem 11, model hourly wages $Y_1,\ldots,Y_n$ as i.i.d. draws with population mean $\mu_Y=15$ euros and standard deviation $\sigma_Y=6$ euros.
 \begin{enumerate}
 \setlength{\itemsep}{8pt}
 \item Derive $\E(\overline Y)$ and $\Var(\overline Y)$. Identify where independence is used.
@@ -813,11 +773,11 @@ For this problem and Problems 12--13, model hourly wages $Y_1,\ldots,Y_n$ as i.i
 \item If students' wages are positively correlated, what missing terms would make the i.i.d. variance formula too small?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 11. E(Ybar)=mu=15. Var(Ybar)=n inverse squared times [sum of individual variances plus sum over all distinct i,j of Cov(Yi,Yj)]. Under independence the covariance terms vanish, yielding 36/n. At n=25 variance=1.44 euros squared and SD=1.20 euros; at n=100 variance=.36 and SD=.60. Quadrupling n halves the SD. Solve 6/sqrt(n)<=.50 to obtain n>=144. Positive cross-observation covariances raise the variance; they cannot be omitted merely because each observation has the same marginal distribution.}
+\note{Solution to Problem 10. E(Ybar)=mu=15. Var(Ybar)=n inverse squared times [sum of individual variances plus sum over all distinct i,j of Cov(Yi,Yj)]. Under independence the covariance terms vanish, yielding 36/n. At n=25 variance=1.44 euros squared and SD=1.20 euros; at n=100 variance=.36 and SD=.60. Quadrupling n halves the SD. Solve 6/sqrt(n)<=.50 to obtain n>=144. Positive cross-observation covariances raise the variance; they cannot be omitted merely because each observation has the same marginal distribution.}
 
 \ifshowsolutions
-% SOLUTION 11 START
-\begin{frame}{Solution 11: Sample size and earnings precision}
+% SOLUTION 10 START
+\begin{frame}{Solution 10: Sample size and earnings precision}
 \small
 \answerpart{1}
 \[
@@ -848,53 +808,14 @@ $100$ & $36/100=.36$ & $.60$ \\
 \item \answerpart{5}Positive covariances add $n^{-2}\sum_{i\ne j}\Cov(Y_i,Y_j)$ to the variance. Omitting them understates uncertainty.
 \end{itemize}
 \end{frame}
-% SOLUTION 11 END
+% SOLUTION 10 END
 \fi
 
-\begin{frame}{Problem 12: Will a larger survey find the true mean?}
-Continue with the i.i.d. wage population: $\mu_Y=15$ euros and $\sigma_Y^2=36$ euros squared.
-\begin{enumerate}
-\setlength{\itemsep}{9pt}
-\item State the law of large numbers for $\overline Y_n$ using convergence in probability.
-\item For a fixed tolerance $\varepsilon=.50$ euros, complete the claim
-\[
-\Pr\bigl(|\overline Y_n-15|<.50\bigr)\ \longrightarrow\ \underline{\hspace{1cm}}.
-\]
-\item If the wage population has a continuous distribution, is $\Pr(\overline Y_n=15)$ positive at a finite $n$? Explain.
-\item Does the law guarantee that every additional response makes the realized sample mean closer to 15?
-\item Why does a large voluntary sample with selection bias require a separate argument?
-\end{enumerate}
-\end{frame}
-\note{Solution to Problem 12. Since the draws are i.i.d. with finite mean, $\overline Y_n\xrightarrow{p}15$. For every fixed $\varepsilon>0$, $\Pr(|\overline Y_n-15|<\varepsilon)\to1$. The blank is 1. For independent draws from a continuous population, the sample mean is continuous, so its probability of equaling precisely 15 is zero at each finite $n$. Convergence does not require exact equality or monotonic improvement along a realized sequence. A selected sample may converge to the selected population mean instead of the target mean. This problem deliberately uses the correct neighborhood definition of convergence.}
 
-\ifshowsolutions
-% SOLUTION 12 START
-\begin{frame}{Solution 12: What the law of large numbers says}
-\small
-\answerpart{1}
-For i.i.d. wages with finite mean, the law of large numbers gives
-\[
-\overline Y_n\xrightarrow{p}15
-\quad\Longleftrightarrow\quad
-\Pr\bigl(|\overline Y_n-15|<\varepsilon\bigr)\longrightarrow1
-\quad\text{for every fixed }\varepsilon>0.
-\]
-\answerpart{2}The blank for the tolerance $.50$ euros is therefore \textbf{1}.
-\begin{itemize}
-\setlength{\itemsep}{10pt}
-\item \answerpart{3}With independent draws from a continuous wage distribution, $\overline Y_n$ is continuous, so $\Pr(\overline Y_n=15)=0$ at every finite $n$.
-\item \answerpart{4}The convergence statement concerns probabilities of \emph{neighborhoods} of 15. It does not require exact equality or a realized average that improves after every response.
-\item \answerpart{5}A selected sample can obey an LLN for its own population. For example, if volunteer wages are i.i.d. with mean $\mu_{\mathrm{vol}}\ne15$, then
-\[
-\overline Y_{n,\mathrm{vol}}\xrightarrow{p}\mu_{\mathrm{vol}},
-\]
-so a large sample alone does not establish convergence to the target mean.
-\end{itemize}
-\end{frame}
-% SOLUTION 12 END
-\fi
 
-\begin{frame}{Problem 13: Is an unusually high survey mean surprising?}
+
+
+\begin{frame}{Problem 11: Is an unusually high survey mean surprising?}
 Hourly wages are i.i.d., with $\mu_Y=15$ euros and $\sigma_Y=6$ euros. The population distribution is right skewed with finite variance. A survey samples $n=100$ students. Assume the CLT approximation is adequate at this sample size.
 \begin{enumerate}
 \setlength{\itemsep}{8pt}
@@ -906,22 +827,26 @@ Hourly wages are i.i.d., with $\mu_Y=15$ euros and $\sigma_Y=6$ euros. The popul
 \vspace{.1cm}
 Use $\Phi(2)=.9772$ and $\Phi(-2)=.0228$, where $\Phi$ is the standard normal c.d.f.
 \end{frame}
-\note{Solution to Problem 13. Ybar is approximately normal with mean 15 and variance 36/100=.36; the SD is .6. At 16.2 the standardized value is (16.2-15)/.6=2. Thus P(Ybar>16.2) is approximately 1-.9772=.0228. The lower endpoint gives -2, so the central interval probability is approximately .9772-.0228=.9544. For the right-skewed population this is a CLT approximation, not an exact finite-sample distribution. Finite variance establishes the asymptotic CLT but supplies no universal guarantee at n=100; strong skewness or rare outliers may slow convergence. A normal population gives an exact normal sample mean for every n. At n=4 reliability must be assessed rather than assumed. The CLT describes the standardized distribution; the LLN describes concentration around the mean.}
+\note{Solution to Problem 11. Ybar is approximately normal with mean 15 and variance 36/100=.36; the SD is .6. At 16.2 the standardized value is (16.2-15)/.6=2. Thus P(Ybar>16.2) is approximately 1-.9772=.0228. The lower endpoint gives -2, so the central interval probability is approximately .9772-.0228=.9544. For the right-skewed population this is a CLT approximation, not an exact finite-sample distribution. Finite variance establishes the asymptotic CLT but supplies no universal guarantee at n=100; strong skewness or rare outliers may slow convergence. A normal population gives an exact normal sample mean for every n. At n=4 reliability must be assessed rather than assumed. The CLT describes the standardized distribution; the LLN describes concentration around the mean.}
 
 \ifshowsolutions
-% SOLUTION 13 START
-\begin{frame}{Solution 13: A high average under the CLT}
+% SOLUTION 11 START
+\begin{frame}{Solution 11: A high average under the CLT}
 \small
 \answerpart{1}
 At $n=100$, the assumed CLT approximation gives
 \[
 \overline Y\ \overset{a}{\sim}\ \mathcal N\left(15,\frac{36}{100}\right)
-=\mathcal N(15,.36),
-\qquad
+=\mathcal N(15,.36).
+\]
+\[
+\operatorname{SD}(\overline Y)=\sqrt{\Var(\overline Y)}=\sqrt{.36}=.60\text{ euros}.
+\]
+\[
 Z=\frac{\overline Y-15}{.60}\ \overset{a}{\sim}\ \mathcal N(0,1).
 \]
-The second normal parameter is the \textbf{variance}; the SD is $.60$ euros.
-\answerpart{2}
+The second normal parameter is the variance; its square root is the standard deviation.
+\par\answerpart{2}
 \[
 \Pr(\overline Y>16.20)
 \approx\Pr\left(Z>\frac{16.20-15}{.60}\right)
@@ -937,12 +862,12 @@ The second normal parameter is the \textbf{variance}; the SD is $.60$ euros.
 \item \answerpart{4}For the right-skewed population these are approximate probabilities; if wages themselves are normal, the sample mean is \emph{exactly} normal at every $n$. Finite variance does not guarantee an accurate approximation at $n=4$; skewness and rare outliers affect finite-sample accuracy.
 \end{itemize}
 \end{frame}
-% SOLUTION 13 END
+% SOLUTION 11 END
 \fi
 
 \section{Estimation}
 
-\begin{frame}{Problem 14: Which wage estimator should we use?}
+\begin{frame}{Problem 12: Which wage estimator should we use?}
 Let $Y_1,\ldots,Y_n$ be i.i.d. with unknown mean $\mu_Y$ and variance $36$. Consider
 \[
 A_n=\overline Y_n,\qquad B_n=Y_1,\qquad
@@ -956,11 +881,11 @@ C_n=\overline Y_n+1,\qquad T_n=\frac{n-1}{n}\overline Y_n.
 \item For the observed wages $(9,12,15,18,21)$, compute the four estimates with $n=5$. Distinguish each estimator from its realized estimate.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 14. A has expectation mu, bias 0, variance 36/n, and is consistent. B has expectation mu, bias 0, variance 36, and is not consistent for a nondegenerate population: adding observations does not change Y1. C has expectation mu+1, bias 1, variance 36/n, and converges to mu+1, so it is inconsistent. T has expectation (1-1/n)mu, bias -mu/n, variance (1-1/n) squared times 36/n, and is consistent; it is not unbiased for all mu. At n=100, A has variance .36 versus B's 36 and is more efficient among these unbiased rules. T has slightly smaller variance than A but is biased in general; variance alone is not an accuracy ranking across biased and unbiased estimators. With the five wages, ybar=15 and estimates A=15, B=9, C=16, T=12. The estimator is the formula before observing data; the estimate is the resulting number.}
+\note{Solution to Problem 12. A has expectation mu, bias 0, variance 36/n, and is consistent. B has expectation mu, bias 0, variance 36, and is not consistent for a nondegenerate population: adding observations does not change Y1. C has expectation mu+1, bias 1, variance 36/n, and converges to mu+1, so it is inconsistent. T has expectation (1-1/n)mu, bias -mu/n, variance (1-1/n) squared times 36/n, and is consistent; it is not unbiased for all mu. At n=100, A has variance .36 versus B's 36 and is more efficient among these unbiased rules. T has slightly smaller variance than A but is biased in general; variance alone is not an accuracy ranking across biased and unbiased estimators. With the five wages, ybar=15 and estimates A=15, B=9, C=16, T=12. The estimator is the formula before observing data; the estimate is the resulting number.}
 
 \ifshowsolutions
-% SOLUTION 14 START
-\begin{frame}{Solution 14: Bias and consistency of four rules}
+% SOLUTION 12 START
+\begin{frame}{Solution 12: Bias and consistency of four rules}
 \small
 \answerpart{1}
 Let $a_n=(n-1)/n$. Linearity of expectation and $\Var(cX)=c^2\Var(X)$ give:
@@ -988,7 +913,7 @@ Thus \textbf{$A_n$ and $B_n$ are unbiased for every $\mu_Y$}.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Solution 14: Precision and realized estimates (continued)}
+\begin{frame}{Solution 12: Precision and realized estimates (continued)}
 \small
 \answerpart{3}\textbf{At $n=100$: compare the unbiased rules.}
 \[
@@ -1016,10 +941,10 @@ A smaller variance alone does not establish that a biased estimator is more accu
 \]
 An \emph{estimator} is the sample-based rule, random before observation; an \emph{estimate} is the numerical value produced by the observed sample.
 \end{frame}
-% SOLUTION 14 END
+% SOLUTION 12 END
 \fi
 
-\begin{frame}{Problem 15: How precise can an unbiased wage estimate be?}
+\begin{frame}{Problem 13: How precise can an unbiased wage estimate be?}
 Now suppose $Y_1,\ldots,Y_{100}$ are i.i.d. normal with unknown mean $\mu_Y$ and \emph{known} variance $\sigma_Y^2=36$. You may use
 \[
 \mathcal I_n(\mu_Y)=\frac{n}{\sigma_Y^2},\qquad
@@ -1034,11 +959,11 @@ Now suppose $Y_1,\ldots,Y_{100}$ are i.i.d. normal with unknown mean $\mu_Y$ and
 \item The shrinkage rule $T_{100}=.99\overline Y$ has variance below that of $\overline Y$. Why is this compatible with the bound?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 15. Information=100/36=25/9. Its reciprocal is .36 euros squared. The sample mean is unbiased and has variance 36/100=.36, so it attains the bound and is efficient among unbiased estimators under this regular normal model. An unbiased estimator with variance .30 would violate the bound. The shrinkage rule has expectation .99mu and bias -.01mu, so it is not unbiased for every parameter value. Its variance is .99 squared(.36)=.352836. The bound invoked here applies to estimators unbiased throughout the parameter space. The normal-model result is stronger than the linear-unbiased result in the next problem and uses stronger distributional assumptions.}
+\note{Solution to Problem 13. Information=100/36=25/9. Its reciprocal is .36 euros squared. The sample mean is unbiased and has variance 36/100=.36, so it attains the bound and is efficient among unbiased estimators under this regular normal model. An unbiased estimator with variance .30 would violate the bound. The shrinkage rule has expectation .99mu and bias -.01mu, so it is not unbiased for every parameter value. Its variance is .99 squared(.36)=.352836. The bound invoked here applies to estimators unbiased throughout the parameter space. The normal-model result is stronger than the linear-unbiased result in the next problem and uses stronger distributional assumptions.}
 
 \ifshowsolutions
-% SOLUTION 15 START
-\begin{frame}{Solution 15: The normal-model precision bound}
+% SOLUTION 13 START
+\begin{frame}{Solution 13: The normal-model precision bound}
 \small
 \answerpart{1}
 For $n=100$ independent normal wages with known variance 36,
@@ -1066,10 +991,10 @@ The sample mean attains the bound: it is \textbf{efficient among unbiased estima
 \]
 Its smaller variance is compatible with the bound because it is not unbiased for every $\mu_Y$.
 \end{frame}
-% SOLUTION 15 END
+% SOLUTION 13 END
 \fi
 
-\begin{frame}{Problem 16: Why give every wage the same weight?}
+\begin{frame}{Problem 14: Why give every wage the same weight?}
 Four i.i.d. wages have mean $\mu_Y$ and variance $36$. Normality is \emph{not} assumed. Compare
 \[
 M=\frac{Y_1+Y_2+Y_3+Y_4}{4},\qquad
@@ -1087,11 +1012,11 @@ to find the minimum possible variance and the weights attaining it.
 \item Explain each word in ``Best Linear Unbiased Estimator'' for the sample mean.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 16. Both fixed-weight sums have weights adding to 1 and expectation mu. Var(M)=36/4=9 euros squared. Var(L)=36[(1/2) squared+3(1/6) squared]=36(1/3)=12 euros squared. In general expectation is mu times sum(wi); unbiasedness for every mu requires sum(wi)=1. Independence and common variance give Var(muhat)=36 sum(wi squared). The displayed nonnegative sum implies sum(wi squared)>=1/n, with equality iff every wi=1/n. Thus the minimum variance in this class is 36/n, achieved by the sample mean. Best means smallest variance within the linear unbiased class; linear means a fixed weighted sum of the observations; unbiased means expected value equals the target. This result does not require normality and makes no unrestricted claim about all nonlinear estimators.}
+\note{Solution to Problem 14. Both fixed-weight sums have weights adding to 1 and expectation mu. Var(M)=36/4=9 euros squared. Var(L)=36[(1/2) squared+3(1/6) squared]=36(1/3)=12 euros squared. In general expectation is mu times sum(wi); unbiasedness for every mu requires sum(wi)=1. Independence and common variance give Var(muhat)=36 sum(wi squared). The displayed nonnegative sum implies sum(wi squared)>=1/n, with equality iff every wi=1/n. Thus the minimum variance in this class is 36/n, achieved by the sample mean. Best means smallest variance within the linear unbiased class; linear means a fixed weighted sum of the observations; unbiased means expected value equals the target. This result does not require normality and makes no unrestricted claim about all nonlinear estimators.}
 
 \ifshowsolutions
-% SOLUTION 16 START
-\begin{frame}{Solution 16: Comparing two wage averages}
+% SOLUTION 14 START
+\begin{frame}{Solution 14: Comparing two wage averages}
 \small
 \answerpart{1}
 Both rules are fixed weighted sums, and both sets of weights sum to one:
@@ -1119,7 +1044,7 @@ Thus $M$ is more efficient than $L$ among these two unbiased estimators.
 Unbiasedness for \emph{every} $\mu_Y$ requires $\sum_{i=1}^n w_i=1$.
 \end{frame}
 
-\begin{frame}{Solution 16: Why equal weights are BLUE (continued)}
+\begin{frame}{Solution 14: Why equal weights are BLUE (continued)}
 \small
 \answerpart{3}Impose the unbiasedness restriction $\sum_{i=1}^n w_i=1$. Then
 \[
@@ -1141,68 +1066,7 @@ with equality precisely when $w_i=1/n$ for every $i$. The attaining estimator is
 \end{itemize}
 Normality is unnecessary; i.i.d. sampling supplies the common mean, variance, and zero covariances used here.
 \end{frame}
-% SOLUTION 16 END
-\fi
-
-\begin{frame}{Problem 17: Which wage best fits all observations?}
-Five observed hourly wages, in euros, are
-\[
-(y_1,y_2,y_3,y_4,y_5)=(9,12,15,18,21).
-\]
-Choose one number $m$ to minimize the sum of squared deviations,
-\[
-Q(m)=\sum_{i=1}^{5}(y_i-m)^2.
-\]
-\begin{enumerate}
-\setlength{\itemsep}{7pt}
-\item Differentiate $Q(m)$, solve the first-order condition, and verify that it is a minimum.
-\item Compute $Q(12)$ and $Q(15)$. What is the minimizing estimate?
-\item Derive $Q(m)=Q(\overline y)+5(m-\overline y)^2$. What does this identity show about uniqueness?
-\item State the least-squares estimator before observing the data. Which additional sampling conditions justify calling it unbiased and BLUE for the population mean?
-\end{enumerate}
-\end{frame}
-\note{Solution to Problem 17. Q'(m)=-2 sum(yi-m)=10m-150, hence m=15=ybar; Q''(m)=10>0. Q(12)=9+0+9+36+81=135, and Q(15)=36+9+0+9+36=90. Expanding yi-m=(yi-ybar)+(ybar-m) makes the cross term vanish because sum(yi-ybar)=0. Thus Q(m)=90+5(m-15) squared, whose unique minimizer is 15. Before observing data the estimator is Ybar. Common finite means give unbiasedness. Independent draws with a common finite positive variance suffice for the fixed-weight linear BLUE comparison; iid sampling is the course's sufficient assumption. Least-squares minimization is an algebraic fact about the data and requires no distributional assumption; unbiasedness and efficiency are statements about repeated sampling.}
-
-\ifshowsolutions
-% SOLUTION 17 START
-\begin{frame}{Solution 17: Least squares chooses the sample mean}
-\small
-\answerpart{1}
-The observed wages satisfy $\sum y_i=75$ and $\overline y=15$. Hence
-\[
-Q'(m)=-2\sum_{i=1}^5(y_i-m)=10m-150=0
-\quad\Longrightarrow\quad m=15,
-\qquad Q''(m)=10>0.
-\]
-\answerpart{2}Direct comparison gives
-\[
-Q(12)=9+0+9+36+81=135,
-\qquad Q(15)=36+9+0+9+36=90.
-\]
-\begin{exampleblock}{The minimizing wage}
-The least-squares estimate is 15 euros per hour. The positive second derivative verifies that this stationary point is a minimum.
-\end{exampleblock}
-\end{frame}
-
-\begin{frame}{Solution 17: Uniqueness and sampling properties (continued)}
-\small
-\answerpart{3}
-Since $\sum_{i=1}^5(y_i-\overline y)=0$, expanding the square yields
-\[
-\begin{aligned}
-Q(m)&=\sum_{i=1}^5\bigl[(y_i-\overline y)+(\overline y-m)\bigr]^2\\
-&=Q(\overline y)+2(\overline y-m)\underbrace{\sum_{i=1}^5(y_i-\overline y)}_{0}
-  +5(\overline y-m)^2\\
-&=90+5(m-15)^2.
-\end{aligned}
-\]
-This is uniquely minimized at $m=15$.
-
-\vspace{.1cm}
-\answerpart{4}Before observing data, the least-squares estimator is $\widehat\mu=\overline Y$.
-The minimization is algebraic. Common finite means make $\overline Y$ unbiased; independent observations with a common finite positive variance also make it BLUE. The course's i.i.d. assumptions suffice for both properties.
-\end{frame}
-% SOLUTION 17 END
+% SOLUTION 14 END
 \fi
 
 \end{document}
