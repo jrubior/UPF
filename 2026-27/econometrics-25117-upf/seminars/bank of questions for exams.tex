@@ -1,0 +1,238 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex} 
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill 
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em} 
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm} 
+
+
+\title[]{\textcolor{blue}{Bank of Questions for Exams}}
+\subtitle{Questions and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. Hidden \note entries retain instructor
+% guidance. All data are hypothetical; no external assets are needed.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+% Source: Seminar 2, original Problem 1. Moved here for future exams.
+\section{Sample dispersion}
+
+\begin{frame}{Problem 1: How dispersed are five test scores?}
+Five students obtain the following scores, measured in points:
+\[
+60, 60, 70, 80, 80.
+\]
+Treat the scores as i.i.d. observations from a population with finite variance.
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item Find the sample mean and each student's deviation from it. Check the sum of the deviations.
+\item Calculate the sample variance using the divisor $n-1$, and then the sample standard deviation. State their units.
+\item What variance would the divisor $n$ give? Explain why $n-1$ is used when estimating the population variance, and identify the remaining degrees of freedom.
+\end{enumerate}
+\end{frame}
+\note{All scores are hypothetical teaching data. Solution to Problem 1. The sample mean is 70; the deviations are -10,-10,0,10,10 and sum to zero. The sum of squared deviations is 400. The sample variance is 400/(5-1)=100 points squared and the sample standard deviation is sqrt(100)=10 points. Dividing by n instead gives 80 points squared. Estimating the mean imposes one linear constraint on the deviations, leaving n-1=4 degrees of freedom. Under the stated i.i.d. finite-variance assumptions, the expected sum of squared deviations is (n-1) times the population variance. Bessel's correction makes the sample variance unbiased; it does not generally make the sample standard deviation unbiased.}
+
+\ifshowsolutions
+% SOLUTION 1 START
+\begin{frame}{Solution 1: Mean, deviations, and sample dispersion}
+\small
+\answerpart{1}The sample mean is
+\[
+\overline y=\frac1n\sum_{i=1}^n y_i
+=\frac{60+60+70+80+80}{5}=\boxed{70\text{ points}}.
+\]
+\begin{center}
+\begin{tabular}{c|rrrrr|r}
+Student $i$ & 1 & 2 & 3 & 4 & 5 & Sum \\ \hline
+$y_i-\overline y$ & $-10$ & $-10$ & 0 & 10 & 10 & 0 \\
+$(y_i-\overline y)^2$ & 100 & 100 & 0 & 100 & 100 & 400
+\end{tabular}
+\end{center}
+\answerpart{2}Using the sum of squared deviations,
+\[
+s_Y^2=\frac{\sum_{i=1}^n(y_i-\overline y)^2}{n-1}
+=\frac{400}{5-1}=\boxed{100\text{ points}^2}.
+\]
+The standard deviation is the square root of the variance:
+\[
+s_Y=\sqrt{s_Y^2}=\sqrt{100}=\boxed{10\text{ points}}.
+\]
+\end{frame}
+
+\begin{frame}{Solution 1: Why the divisor is $n-1$ (continued)}
+\small
+\answerpart{3}Dividing by $n$ would give
+\[
+\widetilde s_Y^2=\frac1n\sum_{i=1}^n(y_i-\overline y)^2
+=\frac{400}{5}=\boxed{80\text{ points}^2},
+\]
+compared with $s_Y^2=100$ points squared using $n-1$.
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item Once the mean is fitted, $\sum_i(y_i-\overline y)=0$. Knowing four of the five deviations determines the fifth: there are $n-1=4$ degrees of freedom.
+\item For i.i.d. observations with finite population variance $\sigma_Y^2$,
+\[
+\E\!\left[\sum_{i=1}^n(Y_i-\overline Y)^2\right]=(n-1)\sigma_Y^2.
+\]
+Consequently, dividing by $n$ has expectation $\frac{n-1}{n}\sigma_Y^2$, whereas dividing by $n-1$ has expectation $\sigma_Y^2$.
+\end{itemize}
+\begin{block}{Bessel's correction}
+The divisor $n-1$ makes the \emph{variance estimator} unbiased. Its square root $s_Y$ is not generally an unbiased estimator of $\sigma_Y$.
+\end{block}
+\end{frame}
+% SOLUTION 1 END
+\fi
+
+\end{document}

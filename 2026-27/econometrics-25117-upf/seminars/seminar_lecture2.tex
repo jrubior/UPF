@@ -158,6 +158,36 @@
 \newcommand{\Corr}{\operatorname{Corr}}
 \newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
 
+% Successive shaded areas for the two-sided normal p-value in Problem 2.
+\newcommand{\normalpvalueplot}[1]{%
+\begin{tikzpicture}[x=1.35cm,y=7.2cm]
+\ifnum#1=1
+    \fill[blue!20] (-4,0)
+        -- plot[domain=-4:2.4,samples=160] (\x,{exp(-\x*\x/2)/sqrt(2*pi)})
+        -- (2.4,0) -- cycle;
+    \node[text=blue] at (-.8,.12) {$0.9918$};
+\else
+    \fill[red!45] (2.4,0)
+        -- plot[domain=2.4:4,samples=80] (\x,{exp(-\x*\x/2)/sqrt(2*pi)})
+        -- (4,0) -- cycle;
+    \draw[->,red,thick] (3.25,.18) node[above,text=red] {$0.0082$} -- (2.8,.006);
+\fi
+\ifnum#1=3
+    \fill[red!45] (-4,0)
+        -- plot[domain=-4:-2.4,samples=80] (\x,{exp(-\x*\x/2)/sqrt(2*pi)})
+        -- (-2.4,0) -- cycle;
+    \draw[->,red,thick] (-3.25,.18) node[above,text=red] {$0.0082$} -- (-2.8,.006);
+    \draw[gray,dashed] (-2.4,0) -- (-2.4,.22);
+    \draw (-2.4,0) -- (-2.4,-.012) node[below] {$-2.4$};
+\fi
+\draw[blue,thick] plot[domain=-4:4,samples=200] (\x,{exp(-\x*\x/2)/sqrt(2*pi)});
+\draw[->] (-4.15,0) -- (4.2,0) node[right] {$z$};
+\draw[gray,dashed] (2.4,0) -- (2.4,.22);
+\draw (2.4,0) -- (2.4,-.012) node[below] {$2.4$};
+\draw (0,0) -- (0,-.012) node[below] {$0$};
+\end{tikzpicture}%
+}
+
 \setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
 
 \begin{document}
@@ -177,77 +207,11 @@
 Work through each problem before viewing its solution. Use the assumptions and normal probabilities supplied in the question.
 \end{exampleblock}
 \end{frame}
-\note{Suggested modules: Problems 1--2 cover dispersion and precision; 3--5 cover tests and their errors; 6--7 cover confidence intervals; 8--9 compare groups; 10--12 apply sample summaries and inference. Every solution part is numbered to match its question.}
+\note{Suggested modules: Problem 1 covers precision; 2--4 cover tests and their errors; 5--6 cover confidence intervals; 7--8 compare groups; 9--11 apply sample summaries and inference. Every solution part is numbered to match its question.}
 
 \section{Precision}
 
-\begin{frame}{Problem 1: How dispersed are five test scores?}
-Five students obtain the following scores, measured in points:
-\[
-60,\quad60,\quad70,\quad80,\quad80.
-\]
-Treat the scores as i.i.d. observations from a population with finite variance.
-\begin{enumerate}
-\setlength{\itemsep}{9pt}
-\item Find the sample mean and each student's deviation from it. Check the sum of the deviations.
-\item Calculate the sample variance using the divisor $n-1$, and then the sample standard deviation. State their units.
-\item What variance would the divisor $n$ give? Explain why $n-1$ is used when estimating the population variance, and identify the remaining degrees of freedom.
-\end{enumerate}
-\end{frame}
-\note{All scores are hypothetical teaching data. Solution to Problem 1. The sample mean is 70; the deviations are -10,-10,0,10,10 and sum to zero. The sum of squared deviations is 400. The sample variance is 400/(5-1)=100 points squared and the sample standard deviation is sqrt(100)=10 points. Dividing by n instead gives 80 points squared. Estimating the mean imposes one linear constraint on the deviations, leaving n-1=4 degrees of freedom. Under the stated i.i.d. finite-variance assumptions, the expected sum of squared deviations is (n-1) times the population variance. Bessel's correction makes the sample variance unbiased; it does not generally make the sample standard deviation unbiased.}
-
-\ifshowsolutions
-% SOLUTION 1 START
-\begin{frame}{Solution 1: Mean, deviations, and sample dispersion}
-\small
-\answerpart{1}The sample mean is
-\[
-\overline y=\frac1n\sum_{i=1}^n y_i
-=\frac{60+60+70+80+80}{5}=\boxed{70\text{ points}}.
-\]
-\begin{center}
-\begin{tabular}{c|rrrrr|r}
-Student $i$ & 1 & 2 & 3 & 4 & 5 & Sum \\ \hline
-$y_i-\overline y$ & $-10$ & $-10$ & 0 & 10 & 10 & 0 \\
-$(y_i-\overline y)^2$ & 100 & 100 & 0 & 100 & 100 & 400
-\end{tabular}
-\end{center}
-\answerpart{2}Using the sum of squared deviations,
-\[
-s_Y^2=\frac{\sum_{i=1}^n(y_i-\overline y)^2}{n-1}
-=\frac{400}{5-1}=\boxed{100\text{ points}^2}.
-\]
-The standard deviation is the square root of the variance:
-\[
-s_Y=\sqrt{s_Y^2}=\sqrt{100}=\boxed{10\text{ points}}.
-\]
-\end{frame}
-
-\begin{frame}{Solution 1: Why the divisor is $n-1$ (continued)}
-\small
-\answerpart{3}Dividing by $n$ would give
-\[
-\widetilde s_Y^2=\frac1n\sum_{i=1}^n(y_i-\overline y)^2
-=\frac{400}{5}=\boxed{80\text{ points}^2},
-\]
-compared with $s_Y^2=100$ points squared using $n-1$.
-\begin{itemize}
-\setlength{\itemsep}{7pt}
-\item Once the mean is fitted, $\sum_i(y_i-\overline y)=0$. Knowing four of the five deviations determines the fifth: there are $n-1=4$ degrees of freedom.
-\item For i.i.d. observations with finite population variance $\sigma_Y^2$,
-\[
-\E\!\left[\sum_{i=1}^n(Y_i-\overline Y)^2\right]=(n-1)\sigma_Y^2.
-\]
-Consequently, dividing by $n$ has expectation $\frac{n-1}{n}\sigma_Y^2$, whereas dividing by $n-1$ has expectation $\sigma_Y^2$.
-\end{itemize}
-\begin{block}{Bessel's correction}
-The divisor $n-1$ makes the \emph{variance estimator} unbiased. Its square root $s_Y$ is not generally an unbiased estimator of $\sigma_Y$.
-\end{block}
-\end{frame}
-% SOLUTION 1 END
-\fi
-
-\begin{frame}{Problem 2: How precise is the average test score?}
+\begin{frame}{Problem 1: How precise is the average test score?}
 Test scores $Y_1,\ldots,Y_n$ are i.i.d. with population standard deviation $\sigma_Y=10$ points. Initially, $n=100$.
 \begin{enumerate}
 \setlength{\itemsep}{10pt}
@@ -256,11 +220,11 @@ Test scores $Y_1,\ldots,Y_n$ are i.i.d. with population standard deviation $\sig
 \item Repeat both calculations for $n=400$. For this comparison, keep the population standard deviation and the supplied sample standard deviation at 10 points. What happens to precision when the sample size quadruples?
 \end{enumerate}
 \end{frame}
-\note{All numerical quantities are hypothetical teaching data. Solution to Problem 2. For i.i.d. observations, Var(Ybar)=sigma squared/n. At n=100, the variance is 100/100=1 point squared and the theoretical SD is sqrt(1)=1 point. When sigma is unknown, SE(Ybar)=sqrt(s squared/n)=s/sqrt(n)=1 point. Individual scores have supplied SD 10 points, whereas the sampling distribution of the mean has SD 1 point. At n=400, the variance is .25 points squared, the theoretical SD is sqrt(.25)=.5 points, and the estimated SE is .5 points when s remains 10. Quadrupling n halves the SD and SE; actual sample standard deviations need not remain fixed across samples.}
+\note{All numerical quantities are hypothetical teaching data. Solution to Problem 1. For i.i.d. observations, Var(Ybar)=sigma squared/n. At n=100, the variance is 100/100=1 point squared and the theoretical SD is sqrt(1)=1 point. When sigma is unknown, SE(Ybar)=sqrt(s squared/n)=s/sqrt(n)=1 point. Individual scores have supplied SD 10 points, whereas the sampling distribution of the mean has SD 1 point. At n=400, the variance is .25 points squared, the theoretical SD is sqrt(.25)=.5 points, and the estimated SE is .5 points when s remains 10. Quadrupling n halves the SD and SE; actual sample standard deviations need not remain fixed across samples.}
 
 \ifshowsolutions
-% SOLUTION 2 START
-\begin{frame}{Solution 2: Individual dispersion and uncertainty in an average}
+% SOLUTION 1 START
+\begin{frame}{Solution 1: Individual dispersion and uncertainty in an average}
 \small
 \answerpart{1}For i.i.d. scores, the variance of the mean and its square root are
 \[
@@ -283,12 +247,12 @@ SE(\overline Y)&=\sqrt{\frac{s_Y^2}{n}}=\sqrt{\frac{100}{400}}=.50\text{ points}
 \end{align*}
 Quadrupling $n$ quarters the variance and halves the SD and estimated SE.
 \end{frame}
-% SOLUTION 2 END
+% SOLUTION 1 END
 \fi
 
 \section{Testing}
 
-\begin{frame}{Problem 3: Is the average score different from 70?}
+\begin{frame}{Problem 2: Is the average score different from 70?}
 An i.i.d. sample of 100 students has mean score $\overline y=72.4$ and sample standard deviation $s_Y=10$ points. Use the large-sample normal approximation.
 \begin{enumerate}
 \setlength{\itemsep}{7pt}
@@ -298,11 +262,11 @@ An i.i.d. sample of 100 students has mean score $\overline y=72.4$ and sample st
 \item Interpret the p-value conditional on the null hypothesis. Does it give the probability that the null hypothesis is true?
 \end{enumerate}
 \end{frame}
-\note{All sample statistics are hypothetical teaching data. Solution to Problem 3. The null is mu=70 and the alternative is mu not equal to 70. SE=s/sqrt(n)=10/10=1 point, and the observed t-statistic is (72.4-70)/1=2.4. Using the large-sample normal approximation, p=2[1-Phi(2.4)]=2(.0082)=.0164. Reject at 10 percent and 5 percent; fail to reject at 1 percent. The respective critical values are 1.645, 1.96, and 2.576. Under the null and the approximation, the probability of obtaining a test statistic at least as extreme in either direction is about 1.64 percent. This is not a posterior probability that the null is true. Do not use an exact Student t distribution for this exercise.}
+\note{All sample statistics are hypothetical teaching data. Solution to Problem 2. The null is mu=70 and the alternative is mu not equal to 70. SE=s/sqrt(n)=10/10=1 point, and the observed t-statistic is (72.4-70)/1=2.4. Using the large-sample normal approximation, p=2[1-Phi(2.4)]=2(.0082)=.0164. Reject at 10 percent and 5 percent; fail to reject at 1 percent. The respective critical values are 1.645, 1.96, and 2.576. Under the null and the approximation, the probability of obtaining a test statistic at least as extreme in either direction is about 1.64 percent. This is not a posterior probability that the null is true. Do not use an exact Student t distribution for this exercise.}
 
 \ifshowsolutions
-% SOLUTION 3 START
-\begin{frame}{Solution 3: Hypotheses, standard error, and the p-value}
+% SOLUTION 2 START
+\begin{frame}{Solution 2: Hypotheses, standard error, and the p-value}
 \small
 \answerpart{1}We test the population mean $\mu_Y$:
 \[
@@ -319,14 +283,50 @@ t^{\mathrm{obs}}=\frac{\overline y-\mu_Y^0}{SE(\overline Y)}
 \]
 Under $H_0$, the large-sample approximation gives $T\approx\mathcal N(0,1)$. Thus
 \begin{align*}
-\text{p-value}&=\Pr_{H_0}(|T|\geq|t^{\mathrm{obs}}|)\\
-&\approx2\bigl[1-\Phi(|t^{\mathrm{obs}}|)\bigr]
+\text{p-value}&\approx2\bigl[1-\Phi(|t^{\mathrm{obs}}|)\bigr]
 =2[1-.9918]=\boxed{.0164}.
 \end{align*}
 Both tails count because $H_1$ allows means above or below 70.
 \end{frame}
 
-\begin{frame}{Solution 3: Decisions and the meaning of .0164 (continued)}
+\begin{frame}{Solution 2: Step 1 --- Read the cumulative probability}
+The standard normal CDF $\Phi(2.4)$ gives the area \textbf{to the left of $2.4$}:
+\[
+    |t^{\mathrm{obs}}|=2.4,\text{ and }\Phi(2.4)=0.9918.
+\]
+\begin{center}
+\normalpvalueplot{1}
+\end{center}
+The blue area is 99.18\% of the total. The whole area under the curve equals 1.
+\end{frame}
+\note{The shaded area is the standard normal cumulative probability at the absolute observed statistic. It is not the two-sided p-value. The probability .9918 is supplied in Problem 2.}
+
+\begin{frame}{Solution 2: Step 2 --- Keep the right tail}
+Subtract the area to the left from 1 to obtain the area \textbf{to the right of $2.4$}:
+\[
+    1-\Phi(|t^{\mathrm{obs}}|)=1-\Phi(2.4)=1-0.9918=0.0082.
+\]
+\begin{center}
+\normalpvalueplot{2}
+\end{center}
+The red area is 0.82\% of the total. This counts only the right tail.
+\end{frame}
+\note{The expression 1 minus Phi removes the area on the left and retains the upper tail. All three figures use the same standard normal curve and axis scale.}
+
+\begin{frame}{Solution 2: Step 3 --- Count both tails}
+The two-sided alternative counts equally extreme values: \textbf{below $-2.4$ or above $2.4$}.
+\[
+    \text{p-value}\approx2\bigl[1-\Phi(|t^{\mathrm{obs}}|)\bigr]
+    =2\times0.0082=\boxed{0.0164}.
+\]
+\begin{center}
+\normalpvalueplot{3}
+\end{center}
+By symmetry, each tail has probability 0.0082. Together they give 1.64\%.
+\end{frame}
+\note{The factor two comes from the two equally large standard normal tails. The calculation uses the normal approximation under the null and the absolute observed statistic.}
+
+\begin{frame}{Solution 2: Decisions and the meaning of .0164 (continued)}
 \small
 \answerpart{3}Reject $H_0$ when the p-value is at most $\alpha$, or equivalently when $|t^{\mathrm{obs}}|$ reaches the two-sided critical value.
 \begin{center}
@@ -344,10 +344,10 @@ Level $\alpha$ & Critical value & Compare $|t^{\mathrm{obs}}|=2.4$ & Decision \\
 The calculation assumes $H_0$ to obtain a probability of data as extreme as the observed result. It does not calculate the probability that $H_0$ is true after observing the data.
 \end{block}
 \end{frame}
-% SOLUTION 3 END
+% SOLUTION 2 END
 \fi
 
-\begin{frame}{Problem 4: Does a larger sample change the evidence?}
+\begin{frame}{Problem 3: Does a larger sample change the evidence?}
 Two independent surveys draw i.i.d. test scores from the same student population:
 \begin{center}
 \begin{tabular}{c|rrr}
@@ -364,11 +364,11 @@ In each survey, test $H_0:\mu_Y=70$ against $H_1:\mu_Y\ne70$ using the large-sam
 \item Give the 5\% decision for each survey. Explain why the evidence differs even though both observed mean scores are 71.5.
 \end{enumerate}
 \end{frame}
-\note{All survey summaries are hypothetical teaching data. Solution to Problem 4. The estimated SE is sqrt(s squared/n)=s/sqrt(n). Survey A has SE 1 and t=(71.5-70)/1=1.5; survey B has SE .5 and t=(71.5-70)/.5=3. The approximate two-sided p-values are 2(1-.9332)=.1336 and 2(1-.99865)=.0027. At 5 percent, fail to reject for A and reject for B. Both estimate a difference of 1.5 points from the null, but B has half the SE, so its standardized difference doubles. Sample sizes alone do not determine p-values when the observed means or SDs differ; this example holds those summaries fixed.}
+\note{All survey summaries are hypothetical teaching data. Solution to Problem 3. The estimated SE is sqrt(s squared/n)=s/sqrt(n). Survey A has SE 1 and t=(71.5-70)/1=1.5; survey B has SE .5 and t=(71.5-70)/.5=3. The approximate two-sided p-values are 2(1-.9332)=.1336 and 2(1-.99865)=.0027. At 5 percent, fail to reject for A and reject for B. Both estimate a difference of 1.5 points from the null, but B has half the SE, so its standardized difference doubles. Sample sizes alone do not determine p-values when the observed means or SDs differ; this example holds those summaries fixed.}
 
 \ifshowsolutions
-% SOLUTION 4 START
-\begin{frame}{Solution 4: The same difference measured with greater precision}
+% SOLUTION 3 START
+\begin{frame}{Solution 3: The same difference measured with greater precision}
 \small
 \answerpart{1}For each survey, first take the square root of the estimated variance:
 \[
@@ -392,10 +392,10 @@ p_B\approx2(1-.99865)=\boxed{.0027}.
 \par\vspace{5pt}
 Both estimate a difference of 1.5 points. With the same supplied sample SD, quadrupling the sample size halves the SE, so the observed $t$-statistic doubles.
 \end{frame}
-% SOLUTION 4 END
+% SOLUTION 3 END
 \fi
 
-\begin{frame}{Problem 5: Which testing mistakes can we make?}
+\begin{frame}{Problem 4: Which testing mistakes can we make?}
 Scores are i.i.d. normal with mean $\mu$ and known standard deviation $\sigma=10$. With $n=100$, test
 \[
 H_0:\mu=70 \qquad\text{against}\qquad H_1:\mu\neq70.
@@ -410,11 +410,11 @@ Reject if $|Z|\geq1.96$, where $Z=(\overline Y-70)/1$.
 \vspace{3pt}
 Use $\Phi(1.96)=.9750$, $\Phi(-1.04)=.1492$, and $\Phi(-4.96)\approx0$.
 \end{frame}
-\note{Solution to Problem 5. All data are invented for teaching. Exact normality with known sigma makes this calculation exact apart from the rounded cutoff and normal probabilities. SE=10/sqrt(100)=sqrt(1)=1 point. Do not reject for 68.04<ybar<71.96. Alpha=2[1-Phi(1.96)]=.05. At true mu=73, beta=Phi((71.96-73)/1)-Phi((68.04-73)/1)=Phi(-1.04)-Phi(-4.96), approximately .1492. Power approximately .8508. Expected false rejections under mu=70 are 1000(.05)=50; expected detections under mu=73 are 1000(.8508)=850.8, approximately 851. These are two separate hypothetical repetition settings. The error probabilities condition on the true mean; they are not posterior probabilities that a hypothesis is true. Counts fluctuate across repetitions.}
+\note{Solution to Problem 4. All data are invented for teaching. Exact normality with known sigma makes this calculation exact apart from the rounded cutoff and normal probabilities. SE=10/sqrt(100)=sqrt(1)=1 point. Do not reject for 68.04<ybar<71.96. Alpha=2[1-Phi(1.96)]=.05. At true mu=73, beta=Phi((71.96-73)/1)-Phi((68.04-73)/1)=Phi(-1.04)-Phi(-4.96), approximately .1492. Power approximately .8508. Expected false rejections under mu=70 are 1000(.05)=50; expected detections under mu=73 are 1000(.8508)=850.8, approximately 851. These are two separate hypothetical repetition settings. The error probabilities condition on the true mean; they are not posterior probabilities that a hypothesis is true. Counts fluctuate across repetitions.}
 
 \ifshowsolutions
-% SOLUTION 5 START
-\begin{frame}{Solution 5: Rejection region and Type I error}
+% SOLUTION 4 START
+\begin{frame}{Solution 4: Rejection region and Type I error}
 \small
 \answerpart{1}The sampling standard deviation of the mean is
 \[
@@ -437,7 +437,7 @@ When $\mu=70$, $Z\sim\mathcal N(0,1)$, so
 A Type I error means rejecting the null when the null is true.
 \end{frame}
 
-\begin{frame}{Solution 5: Type II error and power (continued)}
+\begin{frame}{Solution 4: Type II error and power (continued)}
 \small
 \answerpart{2}When the true mean is 73, $\overline Y\sim\mathcal N(73,1)$, with variance 1. Hence
 \begin{align*}
@@ -459,12 +459,12 @@ A Type I error means rejecting the null when the null is true.
 \]
 These are expectations in two different settings, not guaranteed counts.
 \end{frame}
-% SOLUTION 5 END
+% SOLUTION 4 END
 \fi
 
 \section{Intervals}
 
-\begin{frame}{Problem 6: Which mean scores remain plausible?}
+\begin{frame}{Problem 5: Which mean scores remain plausible?}
 A large i.i.d. sample of $n=100$ students gives $\overline y=72.4$ and sample standard deviation $s_Y=10$ points. Use the normal approximation.
 \begin{enumerate}
 \setlength{\itemsep}{9pt}
@@ -473,11 +473,11 @@ A large i.i.d. sample of $n=100$ students gives $\overline y=72.4$ and sample st
 \item Interpret 95\% coverage. Across 200 independently repeated samples, how many 95\% intervals would you expect to contain the true mean?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 6. All data are invented for teaching. Estimated SE=s/sqrt(n)=10/sqrt(100)=sqrt(100/100)=1. The interval is ybar plus or minus z times estimated SE. 90 percent: [70.755,74.045]; 95 percent: [70.44,74.36]; 99 percent: [69.824,74.976]. At 5 percent reject mu=70 because it lies outside the 95 percent interval; do not reject mu=73 because it is inside. Equivalently t70=2.4 exceeds 1.96 and abs(t73)=.6 is below 1.96. The interval comprises null mean values not rejected by the corresponding two-sided test. The parameter is fixed; the interval changes across samples. In repeated sampling approximately 95 percent of intervals contain the true mean, so expected count in 200 repetitions is 190; no guarantee about a particular batch. Coverage is approximate because estimated SE and normal critical values are used.}
+\note{Solution to Problem 5. All data are invented for teaching. Estimated SE=s/sqrt(n)=10/sqrt(100)=sqrt(100/100)=1. The interval is ybar plus or minus z times estimated SE. 90 percent: [70.755,74.045]; 95 percent: [70.44,74.36]; 99 percent: [69.824,74.976]. At 5 percent reject mu=70 because it lies outside the 95 percent interval; do not reject mu=73 because it is inside. Equivalently t70=2.4 exceeds 1.96 and abs(t73)=.6 is below 1.96. The interval comprises null mean values not rejected by the corresponding two-sided test. The parameter is fixed; the interval changes across samples. In repeated sampling approximately 95 percent of intervals contain the true mean, so expected count in 200 repetitions is 190; no guarantee about a particular batch. Coverage is approximate because estimated SE and normal critical values are used.}
 
 \ifshowsolutions
-% SOLUTION 6 START
-\begin{frame}{Solution 6: Confidence levels and interval width}
+% SOLUTION 5 START
+\begin{frame}{Solution 5: Confidence levels and interval width}
 \small
 \answerpart{1}First compute the estimated standard error:
 \[
@@ -501,7 +501,7 @@ Confidence & Calculation & Interval (points)\\ \hline
 Greater coverage requires a wider interval for the same data.
 \end{frame}
 
-\begin{frame}{Solution 6: Test inversion and repeated coverage (continued)}
+\begin{frame}{Solution 5: Test inversion and repeated coverage (continued)}
 \small
 \answerpart{2}A two-sided 5\% test rejects $\mu_0$ when
 \[
@@ -526,10 +526,10 @@ The mean $\mu$ is fixed; the endpoints vary across samples. Approximately 95\% o
 200(.95)=\boxed{190}.
 \]
 \end{frame}
-% SOLUTION 6 END
+% SOLUTION 5 END
 \fi
 
-\begin{frame}{Problem 7: How many students give the desired precision?}
+\begin{frame}{Problem 6: How many students give the desired precision?}
 Plan an i.i.d. survey of scores using a preliminary standard deviation of $\sigma=10$ points. Use a 95\% normal approximate confidence interval.
 \begin{enumerate}
 \setlength{\itemsep}{10pt}
@@ -538,11 +538,11 @@ Plan an i.i.d. survey of scores using a preliminary standard deviation of $\sigm
 \item If the planning standard deviation is 20 points instead, how large a sample is needed for a half-width of at most 1 point? Explain the role of the planning assumption.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 7. All data are invented for teaching. Planning uses m=1.96 sigma/sqrt(n), giving n at least (1.96 sigma/m) squared. With sigma10,m1:384.16 so385. With m.5:1536.64 so1537. Halving half-width requires four times sample size before rounding. With sigma20,m1 same1536.64 and1537; doubling SD quadruples required n. Sigma is a preliminary planning value. If realized s differs from planned sigma, realized CI width changes, so n385 does not promise a half-width of exactly1.}
+\note{Solution to Problem 6. All data are invented for teaching. Planning uses m=1.96 sigma/sqrt(n), giving n at least (1.96 sigma/m) squared. With sigma10,m1:384.16 so385. With m.5:1536.64 so1537. Halving half-width requires four times sample size before rounding. With sigma20,m1 same1536.64 and1537; doubling SD quadruples required n. Sigma is a preliminary planning value. If realized s differs from planned sigma, realized CI width changes, so n385 does not promise a half-width of exactly1.}
 
 \ifshowsolutions
-% SOLUTION 7 START
-\begin{frame}{Solution 7: Sample size for a target half-width}
+% SOLUTION 6 START
+\begin{frame}{Solution 6: Sample size for a target half-width}
 \small
 \answerpart{1}The planning standard error and interval half-width are
 \[
@@ -570,12 +570,12 @@ Halving the target half-width multiplies required $n$ by four before rounding.
 \answerpart{3}For $\sigma=20$ and $m=1$, $n_{\min}=\lceil(39.2)^2\rceil=\boxed{1537}$.
 Doubling $\sigma$ also multiplies required $n$ by four. Realized precision depends on how well the planning value describes the population.
 \end{frame}
-% SOLUTION 7 END
+% SOLUTION 6 END
 \fi
 
 \section{Groups}
 
-\begin{frame}{Problem 8: Do two groups have the same average score?}
+\begin{frame}{Problem 7: Do two groups have the same average score?}
 Two independent i.i.d. samples give the following summaries. Use the large-sample normal approximation and let $\delta=\mu_A-\mu_B$.
 \begin{center}
 \begin{tabular}{c|rrr}
@@ -593,11 +593,11 @@ $B$ & 144 & 71 & 12
 \end{enumerate}
 Use $\Phi(2.561)\approx.99478$ and $\Phi(.640)\approx.7389$.
 \end{frame}
-\note{Solution to Problem 8. All data are invented for teaching. Delta estimate75-71=4 points. Independence means covariance of sample means is zero. Var(ybarA-ybarB)=sigmaA squared/nA+sigmaB squared/nB, estimated by144/100+144/144=2.44. SE=sqrt(2.44)=1.562049935. Do not divide these terms by sample sizes again. Constant d0 does not change variance. For d0=0,t=4/SE=2.560737599, p approximately.01044; reject5 percent but do not reject1 percent. CI=4 plus or minus1.96SE=[.938382127,7.061617873], rounded[.938,7.062]. For d0=3,t=1/SE=.6401844,p approximately.5222 using supplied normal probability. Do not reject5 percent;3 lies in the95 percentCI. No assignment mechanism is given, so the observed difference is not automatically a causal effect.}
+\note{Solution to Problem 7. All data are invented for teaching. Delta estimate75-71=4 points. Independence means covariance of sample means is zero. Var(ybarA-ybarB)=sigmaA squared/nA+sigmaB squared/nB, estimated by144/100+144/144=2.44. SE=sqrt(2.44)=1.562049935. Do not divide these terms by sample sizes again. Constant d0 does not change variance. For d0=0,t=4/SE=2.560737599, p approximately.01044; reject5 percent but do not reject1 percent. CI=4 plus or minus1.96SE=[.938382127,7.061617873], rounded[.938,7.062]. For d0=3,t=1/SE=.6401844,p approximately.5222 using supplied normal probability. Do not reject5 percent;3 lies in the95 percentCI. No assignment mechanism is given, so the observed difference is not automatically a causal effect.}
 
 \ifshowsolutions
-% SOLUTION 8 START
-\begin{frame}{Solution 8: Difference, standard error, and a zero-null test}
+% SOLUTION 7 START
+\begin{frame}{Solution 7: Difference, standard error, and a zero-null test}
 \small
 \answerpart{1}The estimated difference is $\widehat\delta=\overline y_A-\overline y_B=75-71=\boxed4$ points.
 Independence makes the covariance of the sample means zero:
@@ -624,7 +624,7 @@ p\approx2(1-.99478)=\boxed{.01044}.
 Reject at 5\% because $.01044<.05$; do not reject at 1\% because $.01044>.01$.
 \end{frame}
 
-\begin{frame}{Solution 8: An interval and a nonzero null (continued)}
+\begin{frame}{Solution 7: An interval and a nonzero null (continued)}
 \small
 \answerpart{3}The 95\% normal approximate confidence interval is
 \begin{align*}
@@ -648,10 +648,10 @@ Do not reject $\delta=3$ at 5\%. Consistently, 3 lies inside the 95\% interval.
 Subtracting a constant $d_0$ does not change the variance:
 $\Var(\widehat\delta-d_0)=\Var(\widehat\delta)$. The interval estimates $\delta$ and remains centered at $\widehat\delta=4$.
 \end{frame}
-% SOLUTION 8 END
+% SOLUTION 7 END
 \fi
 
-\begin{frame}{Problem 9: Does randomly assigned tutoring improve scores?}
+\begin{frame}{Problem 8: Does randomly assigned tutoring improve scores?}
 Students are individually randomized into independent tutoring ($T$) and control ($C$) groups, with 100 students in each. Treat observations as i.i.d. within each group. There is full take-up, no spillover, and no differential attrition.
 \begin{center}
 \begin{tabular}{lcc}
@@ -672,11 +672,11 @@ Use large-sample normal inference: $z_{.975}=1.96$, $\Phi(2.828)\approx.99766$, 
 \item Under the stated design, how can we interpret the posttest difference?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 9. These data are hypothetical teaching data. The posttest difference is 74-70=4 points. For independent groups the estimated variance is sT squared/nT+sC squared/nC=100/100+100/100=2; SE=sqrt(2)=1.414 points. For the two-sided null difference zero, t=4/sqrt(2)=2.828 and the large-sample normal p-value is about .00468. Reject at 5 percent. The 95 percent confidence interval is 4 plus or minus 1.96 sqrt(2), approximately [1.228,6.772]. The baseline difference is -.5 and uses the same SE, giving t=-.3536 and p about .7236 using the supplied normal probability. Fail to reject baseline equality; this neither establishes exact equality nor proves randomization. Individual random assignment with full take-up, no spillovers, and no differential attrition permits interpreting the posttest difference as an estimate of the average causal effect for the study population. A baseline balance test cannot replace the design evidence.}
+\note{Solution to Problem 8. These data are hypothetical teaching data. The posttest difference is 74-70=4 points. For independent groups the estimated variance is sT squared/nT+sC squared/nC=100/100+100/100=2; SE=sqrt(2)=1.414 points. For the two-sided null difference zero, t=4/sqrt(2)=2.828 and the large-sample normal p-value is about .00468. Reject at 5 percent. The 95 percent confidence interval is 4 plus or minus 1.96 sqrt(2), approximately [1.228,6.772]. The baseline difference is -.5 and uses the same SE, giving t=-.3536 and p about .7236 using the supplied normal probability. Fail to reject baseline equality; this neither establishes exact equality nor proves randomization. Individual random assignment with full take-up, no spillovers, and no differential attrition permits interpreting the posttest difference as an estimate of the average causal effect for the study population. A baseline balance test cannot replace the design evidence.}
 
 \ifshowsolutions
-% SOLUTION 9 START
-\begin{frame}{Solution 9: Estimating and testing the tutoring effect}
+% SOLUTION 8 START
+\begin{frame}{Solution 8: Estimating and testing the tutoring effect}
 \small
 \answerpart{1}For the observed posttest difference $\widehat\Delta=\overline y_T-\overline y_C$,
 \[
@@ -701,7 +701,7 @@ Since $|t|>1.96$ and $p<.05$, reject $H_0$. The 95\% confidence interval is
 \]
 \end{frame}
 
-\begin{frame}{Solution 9: Baseline balance and a causal interpretation}
+\begin{frame}{Solution 8: Baseline balance and a causal interpretation}
 \small
 \answerpart{3}Let $\Delta_B$ denote the population baseline mean difference. For $H_0:\Delta_B=0$ against $H_1:\Delta_B\ne0$,
 \[
@@ -722,12 +722,12 @@ Fail to reject at 5\%. The sample gives little evidence of a baseline mean diffe
 \vspace{.2cm}
 The design supports this interpretation. The baseline test is a diagnostic, not a proof of the design.
 \end{frame}
-% SOLUTION 9 END
+% SOLUTION 8 END
 \fi
 
 \section{Data}
 
-\begin{frame}{Problem 10: What do the school score summaries describe?}
+\begin{frame}{Problem 9: What do the school score summaries describe?}
 Nine ordered school scores are
 \[
 60,\quad65,\quad70,\quad70,\quad75,\quad80,\quad80,\quad85,\quad90.
@@ -740,11 +740,11 @@ Nine ordered school scores are
 \item A \emph{separate, larger district sample} reports skewness $.37$ and ordinary kurtosis $3.15$ (not excess kurtosis). Interpret these summaries using the normal benchmark.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 10. These scores are hypothetical teaching data. The sum is 675, so the mean is 75. The fifth score, the median, is 75; the minimum is 60 and maximum 90. Excluding the overall median, the lower half is 60,65,70,70, so Q1=(65+70)/2=67.5. The upper half is 80,80,85,90, so Q3=(80+85)/2=82.5. IQR=15. The squared deviations from 75 sum to 750. The sample variance is 750/(9-1)=93.75 points squared and SD=sqrt(93.75)=9.682 points. The skewness and kurtosis are supplied for a different, larger sample and must not be presented as calculated from these nine scores. Positive skewness .37 indicates modest right asymmetry. Ordinary kurtosis 3.15 is slightly above the normal benchmark of 3, indicating a slightly larger standardized fourth moment. These summaries alone do not specify exact tail probabilities or establish a normal distribution.}
+\note{Solution to Problem 9. These scores are hypothetical teaching data. The sum is 675, so the mean is 75. The fifth score, the median, is 75; the minimum is 60 and maximum 90. Excluding the overall median, the lower half is 60,65,70,70, so Q1=(65+70)/2=67.5. The upper half is 80,80,85,90, so Q3=(80+85)/2=82.5. IQR=15. The squared deviations from 75 sum to 750. The sample variance is 750/(9-1)=93.75 points squared and SD=sqrt(93.75)=9.682 points. The skewness and kurtosis are supplied for a different, larger sample and must not be presented as calculated from these nine scores. Positive skewness .37 indicates modest right asymmetry. Ordinary kurtosis 3.15 is slightly above the normal benchmark of 3, indicating a slightly larger standardized fourth moment. These summaries alone do not specify exact tail probabilities or establish a normal distribution.}
 
 \ifshowsolutions
-% SOLUTION 10 START
-\begin{frame}{Solution 10: Location, quartiles, and spread}
+% SOLUTION 9 START
+\begin{frame}{Solution 9: Location, quartiles, and spread}
 \small
 \answerpart{1}The sample mean is
 \[
@@ -768,7 +768,7 @@ Q_1=\frac{65+70}{2}=67.5,
 \]
 \end{frame}
 
-\begin{frame}{Solution 10: Variance and distribution shape (continued)}
+\begin{frame}{Solution 9: Variance and distribution shape (continued)}
 \small
 \answerpart{3}The sample variance uses the divisor $n-1$:
 \[
@@ -788,10 +788,10 @@ Ordinary kurtosis $3.15$ is slightly above the normal benchmark of 3: the standa
 \vspace{.2cm}
 These summaries do not determine exact tail probabilities. They are not the skewness and kurtosis of the nine listed scores.
 \end{frame}
-% SOLUTION 10 END
+% SOLUTION 9 END
 \fi
 
-\begin{frame}{Problem 11: Do study hours and test scores move together?}
+\begin{frame}{Problem 10: Do study hours and test scores move together?}
 Five students provide paired observations of weekly study hours $X$ and test scores $Y$:
 \begin{center}
 \begin{tabular}{c|rrrrr}
@@ -809,11 +809,11 @@ Score $y_i$ & 60 & 70 & 65 & 80 & 75
 \item Convert hours to minutes, $X^*=60X$. Find the covariance with $Y$ and the correlation. Explain the change.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 11. These pairs are hypothetical teaching data. Means are 3 hours and 70 points. Centered hours are -2,-1,0,1,2 and centered scores -10,0,-5,10,5, yielding cross-products 20,0,0,10,10 with sum 40. Sample covariance is 40/(5-1)=10 hour-points. The hours squared deviations sum to 10; scores squared deviations sum to 250. Sample SDs are sqrt(10/4)=sqrt(2.5) and sqrt(250/4)=sqrt(62.5); their product is 12.5. Correlation is 10/12.5=.8, a positive linear association, which does not by itself establish causality. Converting hours to minutes multiplies sample covariance by 60, giving 600 minute-points, and multiplies the X standard deviation by 60. Correlation remains .8 because the positive scale factor cancels.}
+\note{Solution to Problem 10. These pairs are hypothetical teaching data. Means are 3 hours and 70 points. Centered hours are -2,-1,0,1,2 and centered scores -10,0,-5,10,5, yielding cross-products 20,0,0,10,10 with sum 40. Sample covariance is 40/(5-1)=10 hour-points. The hours squared deviations sum to 10; scores squared deviations sum to 250. Sample SDs are sqrt(10/4)=sqrt(2.5) and sqrt(250/4)=sqrt(62.5); their product is 12.5. Correlation is 10/12.5=.8, a positive linear association, which does not by itself establish causality. Converting hours to minutes multiplies sample covariance by 60, giving 600 minute-points, and multiplies the X standard deviation by 60. Correlation remains .8 because the positive scale factor cancels.}
 
 \ifshowsolutions
-% SOLUTION 11 START
-\begin{frame}{Solution 11: Centered observations and sample covariance}
+% SOLUTION 10 START
+\begin{frame}{Solution 10: Centered observations and sample covariance}
 \small
 \answerpart{1}The sample means are
 \[
@@ -838,7 +838,7 @@ s_{XY}=\frac1{n-1}\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)
 Observations with higher study hours tend to have higher scores in this sample.
 \end{frame}
 
-\begin{frame}{Solution 11: Correlation and a change of units (continued)}
+\begin{frame}{Solution 10: Correlation and a change of units (continued)}
 \small
 \answerpart{3}For either variable $V$, $s_V^2=\sum_i(v_i-\overline v)^2/(n-1)$. Thus
 \[
@@ -863,10 +863,10 @@ r_{X^*Y}=\frac{60s_{XY}}{(60s_X)s_Y}=r_{XY}=.8.
 \]
 Covariance depends on units; the common scale factor cancels in correlation.
 \end{frame}
-% SOLUTION 11 END
+% SOLUTION 10 END
 \fi
 
-\begin{frame}{Problem 12: Are scores different across disadvantaged districts?}
+\begin{frame}{Problem 11: Are scores different across disadvantaged districts?}
 Districts are classified by their share of students receiving subsidized meals. The samples are independent, with i.i.d. districts within each group:
 \begin{center}
 \begin{tabular}{lccc}
@@ -887,11 +887,11 @@ Use large-sample normal inference, $z_{.975}=1.96$ and $\Phi(3.291)\approx.9995$
 \item Does this estimate the causal effect of subsidized meals on test scores? Explain.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 12. These are hypothetical illustrative district samples, not the empirical California dataset from the lecture. Both supplied 50s are sample standard deviations. Estimate gap 780-720=60 points. Independent groups give SE=sqrt(sL squared/nL+sH squared/nH)=sqrt(2500/200+2500/200)=sqrt(25)=5 points. Under H0 difference zero the test statistic is 60/5=12. For a two-sided large-sample normal test, p=2[1-Phi(12)]=2Phi(-12), which is positive and below .001 because 12 exceeds 3.291. It is approximately 3.55 times 10 to the power -33, but students need not calculate this. Reject H0 at 5 percent. The confidence interval is 60 plus or minus 1.96(5), [50.2,69.8] points. The samples compare observational groups. Income, family background, school resources and other confounders may differ; this is an association, not an identified causal effect of meals.}
+\note{Solution to Problem 11. These are hypothetical illustrative district samples, not the empirical California dataset from the lecture. Both supplied 50s are sample standard deviations. Estimate gap 780-720=60 points. Independent groups give SE=sqrt(sL squared/nL+sH squared/nH)=sqrt(2500/200+2500/200)=sqrt(25)=5 points. Under H0 difference zero the test statistic is 60/5=12. For a two-sided large-sample normal test, p=2[1-Phi(12)]=2Phi(-12), which is positive and below .001 because 12 exceeds 3.291. It is approximately 3.55 times 10 to the power -33, but students need not calculate this. Reject H0 at 5 percent. The confidence interval is 60 plus or minus 1.96(5), [50.2,69.8] points. The samples compare observational groups. Income, family background, school resources and other confounders may differ; this is an association, not an identified causal effect of meals.}
 
 \ifshowsolutions
-% SOLUTION 12 START
-\begin{frame}{Solution 12: The gap and its statistical significance}
+% SOLUTION 11 START
+\begin{frame}{Solution 11: The gap and its statistical significance}
 \small
 \answerpart{1}The estimated mean difference is
 \[
@@ -916,7 +916,7 @@ p\approx2[1-\Phi(12)]<2[1-\Phi(3.291)]\approx.001.
 Reject $H_0$ at 5\%. The $p$-value is very small; it is not exactly zero.
 \end{frame}
 
-\begin{frame}{Solution 12: A confidence interval and its interpretation}
+\begin{frame}{Solution 11: A confidence interval and its interpretation}
 \small
 \answerpart{3}The large-sample 95\% confidence interval is
 \[
@@ -934,7 +934,7 @@ The entire interval is positive, agreeing with rejection of the zero-difference 
 \vspace{.2cm}
 Districts may differ in income, family background, school resources, and other determinants of scores. Statistical significance does not remove these confounding differences.
 \end{frame}
-% SOLUTION 12 END
+% SOLUTION 11 END
 \fi
 
 \end{document}

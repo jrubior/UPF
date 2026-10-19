@@ -186,7 +186,7 @@ Total & & & 1
 Each problem states its own population and assumptions. Work through the questions before drawing a policy conclusion. Worked solutions follow each problem.
 \end{exampleblock}
 \end{frame}
-\note{Suggested modules: Problems 1--3 cover one-variable probability; 4--8 cover two variables; 9--11 cover sampling; 12--14 cover estimation. Problems refer back to a previous table only when explicitly stated. No background in regression is required.}
+\note{Suggested modules: Problems 1--3 cover one-variable probability; 4--8 cover two variables; 9--11 cover sampling; 12--13 cover estimation. Problems refer back to a previous table only when explicitly stated. No background in regression is required.}
 
 \section{Earnings}
 
@@ -944,57 +944,7 @@ An \emph{estimator} is the sample-based rule, random before observation; an \emp
 % SOLUTION 12 END
 \fi
 
-\begin{frame}{Problem 13: How precise can an unbiased wage estimate be?}
-Now suppose $Y_1,\ldots,Y_{100}$ are i.i.d. normal with unknown mean $\mu_Y$ and \emph{known} variance $\sigma_Y^2=36$. You may use
-\[
-\mathcal I_n(\mu_Y)=\frac{n}{\sigma_Y^2},\qquad
-\Var(\widehat\mu_Y)\geq\frac{1}{\mathcal I_n(\mu_Y)}
-\quad\text{for unbiased estimators.}
-\]
-\begin{enumerate}
-\setlength{\itemsep}{8pt}
-\item Calculate the Fisher information and the Cram\'er--Rao lower bound.
-\item Show that the sample mean reaches this bound. What does this establish about its efficiency in this model?
-\item Can another unbiased estimator have variance .30 under the same assumptions?
-\item The shrinkage rule $T_{100}=.99\overline Y$ has variance below that of $\overline Y$. Why is this compatible with the bound?
-\end{enumerate}
-\end{frame}
-\note{Solution to Problem 13. Information=100/36=25/9. Its reciprocal is .36 euros squared. The sample mean is unbiased and has variance 36/100=.36, so it attains the bound and is efficient among unbiased estimators under this regular normal model. An unbiased estimator with variance .30 would violate the bound. The shrinkage rule has expectation .99mu and bias -.01mu, so it is not unbiased for every parameter value. Its variance is .99 squared(.36)=.352836. The bound invoked here applies to estimators unbiased throughout the parameter space. The normal-model result is stronger than the linear-unbiased result in the next problem and uses stronger distributional assumptions.}
-
-\ifshowsolutions
-% SOLUTION 13 START
-\begin{frame}{Solution 13: The normal-model precision bound}
-\small
-\answerpart{1}
-For $n=100$ independent normal wages with known variance 36,
-\[
-\mathcal I_{100}(\mu_Y)=\frac{100}{36}=\frac{25}{9},
-\qquad
-\frac{1}{\mathcal I_{100}(\mu_Y)}=\frac9{25}=.36.
-\]
-The Cram\'er--Rao bound therefore requires $\Var(\widehat\mu_Y)\geq .36$ for an estimator unbiased throughout this parameter space.
-\answerpart{2}
-\[
-\E(\overline Y)=\mu_Y,
-\qquad
-\Var(\overline Y)=\frac{36}{100}=.36.
-\]
-The sample mean attains the bound: it is \textbf{efficient among unbiased estimators in this normal model}.
-\answerpart{3}An unbiased estimator with variance $.30$ would violate the bound.
-\vspace{.15cm}
-
-\answerpart{4}For $T_{100}=.99\overline Y$,
-\[
-\E(T_{100})=.99\mu_Y,
-\qquad \operatorname{Bias}(T_{100})=-.01\mu_Y,
-\qquad \Var(T_{100})=.352836.
-\]
-Its smaller variance is compatible with the bound because it is not unbiased for every $\mu_Y$.
-\end{frame}
-% SOLUTION 13 END
-\fi
-
-\begin{frame}{Problem 14: Why give every wage the same weight?}
+\begin{frame}{Problem 13: Why give every wage the same weight?}
 Four i.i.d. wages have mean $\mu_Y$ and variance $36$. Normality is \emph{not} assumed. Compare
 \[
 M=\frac{Y_1+Y_2+Y_3+Y_4}{4},\qquad
@@ -1012,11 +962,11 @@ to find the minimum possible variance and the weights attaining it.
 \item Explain each word in ``Best Linear Unbiased Estimator'' for the sample mean.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 14. Both fixed-weight sums have weights adding to 1 and expectation mu. Var(M)=36/4=9 euros squared. Var(L)=36[(1/2) squared+3(1/6) squared]=36(1/3)=12 euros squared. In general expectation is mu times sum(wi); unbiasedness for every mu requires sum(wi)=1. Independence and common variance give Var(muhat)=36 sum(wi squared). The displayed nonnegative sum implies sum(wi squared)>=1/n, with equality iff every wi=1/n. Thus the minimum variance in this class is 36/n, achieved by the sample mean. Best means smallest variance within the linear unbiased class; linear means a fixed weighted sum of the observations; unbiased means expected value equals the target. This result does not require normality and makes no unrestricted claim about all nonlinear estimators.}
+\note{Solution to Problem 13. Both fixed-weight sums have weights adding to 1 and expectation mu. Var(M)=36/4=9 euros squared. Var(L)=36[(1/2) squared+3(1/6) squared]=36(1/3)=12 euros squared. In general expectation is mu times sum(wi); unbiasedness for every mu requires sum(wi)=1. Independence and common variance give Var(muhat)=36 sum(wi squared). The displayed nonnegative sum implies sum(wi squared)>=1/n, with equality iff every wi=1/n. Thus the minimum variance in this class is 36/n, achieved by the sample mean. Best means smallest variance within the linear unbiased class; linear means a fixed weighted sum of the observations; unbiased means expected value equals the target. This result does not require normality and makes no unrestricted claim about all nonlinear estimators.}
 
 \ifshowsolutions
-% SOLUTION 14 START
-\begin{frame}{Solution 14: Comparing two wage averages}
+% SOLUTION 13 START
+\begin{frame}{Solution 13: Comparing two wage averages}
 \small
 \answerpart{1}
 Both rules are fixed weighted sums, and both sets of weights sum to one:
@@ -1044,7 +994,7 @@ Thus $M$ is more efficient than $L$ among these two unbiased estimators.
 Unbiasedness for \emph{every} $\mu_Y$ requires $\sum_{i=1}^n w_i=1$.
 \end{frame}
 
-\begin{frame}{Solution 14: Why equal weights are BLUE (continued)}
+\begin{frame}{Solution 13: Why equal weights are BLUE (continued)}
 \small
 \answerpart{3}Impose the unbiasedness restriction $\sum_{i=1}^n w_i=1$. Then
 \[
@@ -1066,7 +1016,7 @@ with equality precisely when $w_i=1/n$ for every $i$. The attaining estimator is
 \end{itemize}
 Normality is unnecessary; i.i.d. sampling supplies the common mean, variance, and zero covariances used here.
 \end{frame}
-% SOLUTION 14 END
+% SOLUTION 13 END
 \fi
 
 \end{document}
