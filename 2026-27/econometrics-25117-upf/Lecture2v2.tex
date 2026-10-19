@@ -453,7 +453,7 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Heights at UPF: The Sample and Its Mean}
+\begin{frame}{Heights at UPF: The Sample Mean}
 \begin{itemize}
     \item Suppose we collect a random sample of $n=10$ individuals at UPF and measure their heights in centimeters. These are illustrative data.
     \item Let $Y_i$ be individual $i$'s height before sampling, and $y_i$ its observed value.
@@ -469,7 +469,7 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
 \end{tabular}
 \end{center}
 \begin{itemize}
-    \item Add the ten heights and divide by the sample size:
+    \item Calculate the sample mean by adding the ten heights and dividing by the sample size:
     \[
         \overline{y}=\frac{1}{n}\sum_{i=1}^{n}y_i
         =\frac{160+162+165+168+169+171+172+175+178+180}{10}
@@ -477,11 +477,11 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
     \]
 \end{itemize}
 \begin{block}{The parameter and its estimate}
-    The population mean height at UPF, $\mu_Y$, is unknown. Our sample gives the estimate $\overline{y}=170$ cm.
+    The sample mean, $\overline{y}=170$ cm, estimates the unknown population mean height at UPF, $\mu_Y$.
 \end{block}
 \end{frame}
 
-\begin{frame}{Heights at UPF: Standard Deviation and Standard Error}
+\begin{frame}{Heights at UPF: Sample Standard Deviation and SE}
 \begin{itemize}
     \item Compute squared deviations from the sample mean, $\overline{y}=170$:
     \[
@@ -491,22 +491,20 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
         &=100+64+25+4+1+1+4+25+64+100=388\text{ cm}^2.
     \end{aligned}
     \]
-    \item Estimate the population standard deviation using $n-1=9$:
+    \item Calculate the sample standard deviation, $s_Y$, using $n-1=9$:
     \[
-        \widehat{\sigma}_Y=s_Y
-        =\sqrt{\frac{\sum_{i=1}^{10}(y_i-\overline{y})^2}{n-1}}
+        s_Y=\sqrt{\frac{\sum_{i=1}^{10}(y_i-\overline{y})^2}{n-1}}
         =\sqrt{\frac{388}{9}}\approx 6.57\text{ cm}.
     \]
-    \item For i.i.d. observations, $\sigma_{\overline{Y}}=\sigma_Y/\sqrt{n}$. Estimate it with
+    \item Calculate the standard error of the sample mean using $n=10$:
     \[
-        SE(\overline{Y})=\widehat{\sigma}_{\overline{Y}}
-        =\frac{s_Y}{\sqrt{n}}
+        SE(\overline{Y})=\frac{s_Y}{\sqrt{n}}
         =\frac{\sqrt{388/9}}{\sqrt{10}}
         \approx 2.08\text{ cm}.
     \]
 \end{itemize}
 \begin{block}{Interpretation}
-    Individual dispersion: $s_Y=6.57$ cm; sampling uncertainty: $SE(\overline{Y})=2.08$ cm.
+    Sample standard deviation: $s_Y=6.57$ cm; standard error: $SE(\overline{Y})=2.08$ cm.
 \end{block}
 \end{frame}
 
@@ -516,21 +514,21 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
     \[
         H_0:\mu_Y=175\text{ cm},\text{ and }H_1:\mu_Y\neq175\text{ cm}.
     \]
-    \item Because $n=10$ is small, assume heights are i.i.d. normal. Under $H_0$, the test statistic $T$ follows Student's $t$ distribution with $n-1=9$ degrees of freedom.
-    \item Using the unrounded standard error, the observed statistic is
+    \item Use the large-sample normal approximation introduced earlier. With $n=10$, this is a rough approximation.
+    \item Using the sample mean and $SE(\overline{Y})\approx2.0763$ cm, the observed statistic is
     \[
         t^{\mathrm{obs}}=\frac{\overline{y}-175}{SE(\overline{Y})}
-        =\frac{170-175}{\sqrt{388/90}}
+        =\frac{170-175}{2.0763}
         \approx -2.4081.
     \]
-    \item Add the probabilities in both tails of the $t_9$ distribution:
+    \item Use the standard normal CDF to add the probabilities in both tails:
     \[
-        \text{p-value}=P\!\left(|T|\geq |t^{\mathrm{obs}}|\mid H_0\right)
-        =2P\!\left(T\geq 2.4081\mid H_0\right)\approx 0.0394.
+        \text{p-value}\approx 2\Phi\!\left(-|t^{\mathrm{obs}}|\right)
+        =2\Phi(-2.4081)\approx 0.0160.
     \]
 \end{itemize}
 \begin{block}{Decision at the 5\% significance level}
-    Since $0.0394<0.05$, reject $H_0$. The sample provides evidence that the population mean height at UPF differs from 175 cm.
+    Since $0.0160<0.05$, reject $H_0$ using the normal approximation. The sample provides evidence that the population mean height at UPF differs from 175 cm.
 \end{block}
 \end{frame}
 
@@ -555,22 +553,28 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
 
 
 \begin{frame}{Computing CIs}
-%A 95\% two-sided confidence interval for $\mu_Y$ is an interval constructed so that it contains the true value of $\mu_Y$ in 95\% of all possible random samples. When the sample size n is large, 90\%, 95\%, and 99\% confidence intervals for $\mu_Y$ are:
 \begin{itemize}
-    \item 90\% confidence interval for $\mu_Y$  =$\overline{y}\pm 1.64 \times SE(\overline{Y})$
-    \item 95\% confidence interval for $\mu_Y$  =$\overline{y}\pm 1.96 \times SE(\overline{Y})$
-    \item 99\% confidence interval for $\mu_Y$  =$\overline{y}\pm 2.58 \times SE(\overline{Y})$
+    \item The multipliers $c$ are \textbf{standard normal critical values}. For $Z\sim\mathcal{N}(0,1)$, choose $c$ so that $P(-c\leq Z\leq c)=1-\alpha$.
 \end{itemize}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Confidence level $1-\alpha$ & 90\% & 95\% & 99\% \\
+Critical value $c$ (rounded) & 1.64 & 1.96 & 2.58 \\
+Probability in each tail $\alpha/2$ & 5\% & 2.5\% & 0.5\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+Use $\overline{y}\pm c\times SE(\overline{Y})$, adding and subtracting $c$ standard errors.
 
-\begin{block}{Example}
+\begin{block}{Example: Heights at UPF}
 \begin{itemize}
-    \item You collect a random sample of $n=50$ individuals at UPF and measure their heights. The observed sample mean height, $\overline{y}$, is 170 cm, and the sample standard deviation, $s_Y$, is 8 cm.
-    \item The standard error, $SE(\overline{Y}),$ is $\frac{8}{\sqrt{50}}$
-    \item The 95\% confidence interval is given by
+    \item From slides 17--19: $n=10$, sample mean $\overline{y}=170$ cm, sample standard deviation $s_Y\approx6.57$ cm, and $SE(\overline{Y})\approx2.0763$ cm.
+    \item For 95\% confidence, $c=1.96$ leaves 2.5\% in each tail. The interval for $\mu_Y$ is
     \begin{equation*}
-        170 \pm 1.96 \times \frac{8}{\sqrt{50}} \approx [167.78 ; 172.22]
+        170 \pm 1.96 \times 2.0763 \approx [165.93 ; 174.07]\text{ cm}.
     \end{equation*}
-    \item We are 95\% confident that the true average height of adults at UPF falls within the interval [167.78 ; 172.22]
+    \item Excluding 175 cm is equivalent to rejecting $H_0:\mu_Y=175$ cm at 5\% (two-sided).
 \end{itemize}
 \end{block}
 \end{frame}
@@ -587,10 +591,17 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
         H^0: \mu_Y^a = \mu_Y^b \textbf{~~~vs~~~} H^1: \mu_Y^a \neq \mu_Y^b
     \end{equation*}
     \item You have observed $\overline{y}^a$ and $\overline{y}^b$. Their sampling variance is based on the random variables $\overline{Y}^a$ and $\overline{Y}^b$.
-    \begin{eqnarray*}
-       &var((\overline{Y}^a - \overline{Y}^b) - d_0) &=   var(\overline{Y}^a) +  var(\overline{Y}^b) - 2cov(\overline{Y}^a ,\overline{Y}^b)\\
-       \Rightarrow &SE(\overline{Y}^a - \overline{Y}^b - d_0) &=\sqrt{\frac{var(\overline{Y}^a)}{n}+\frac{var(\overline{Y}^b)}{n}} 
-    \end{eqnarray*}
+    \item Assume \textbf{two independent samples} of sizes $n_a$ and $n_b$, with i.i.d. observations within each sample. Thus $\operatorname{Cov}(\overline{Y}^a,\overline{Y}^b)=0$.
+    \[
+        \operatorname{Var}\!\left((\overline{Y}^a-\overline{Y}^b)-d_0\right)
+        =\operatorname{Var}(\overline{Y}^a)+\operatorname{Var}(\overline{Y}^b)
+        =\frac{(\sigma_Y^a)^2}{n_a}+\frac{(\sigma_Y^b)^2}{n_b}.
+    \]
+    \item Estimate the standard error using the sample standard deviations, $s_Y^a$ and $s_Y^b$:
+    \[
+        SE(\overline{Y}^a-\overline{Y}^b-d_0)
+        =\sqrt{\frac{(s_Y^a)^2}{n_a}+\frac{(s_Y^b)^2}{n_b}}.
+    \]
 
 \end{itemize}
 \end{frame}
@@ -598,18 +609,69 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
 
 \begin{frame}{Mean Difference Testing: Comparing Groups 2/2}
 \begin{itemize}
-    \item Once we have $SE((\mu_Y^a - \mu_Y^b)  - d_0)$, we can easily compute the corresponding t-statistic
+    \item Once we have $SE(\overline{Y}^a-\overline{Y}^b)$, we can easily compute the corresponding t-statistic
     \begin{equation*}
-        t = \frac{(\overline{y}^a - \overline{y}^b) - d_0}{SE((\overline{Y}^a - \overline{Y}^b)  - d_0)}
+        t = \frac{(\overline{y}^a - \overline{y}^b) - d_0}{SE(\overline{Y}^a-\overline{Y}^b)}
     \end{equation*}
     \item[$\rightarrow$] We can reject that $\mu_Y^a - \mu_Y^b = d_0$ at the 5\%-level when $\mid t \mid > 1.96$ \vspace{.5cm}
-    \item Similarly, we can construct the confidence interval for $\mu_Y^a - \mu_Y^b=d_0$
+    \item Similarly, we can construct the confidence interval for $\mu_Y^a - \mu_Y^b$
     \begin{equation*}
-        CI_{\mu_Y^a - \mu_Y^b=d_0} = (\overline{y}^a -\overline{y}^b)+1.96\times SE((\overline{Y}^a - \overline{Y}^b)  - d_0)
+        CI_{\mu_Y^a - \mu_Y^b} = (\overline{y}^a -\overline{y}^b)\pm1.96\times SE(\overline{Y}^a-\overline{Y}^b)
     \end{equation*}
-    \item[$\rightarrow$] We can reject that $\mu_Y^a - \mu_Y^b = d_0$ at the 5\%-level when $d_0\notin CI_{\mu_Y^a - \mu_Y^b=d_0}$\vspace{.5cm}
+    \item[$\rightarrow$] We can reject that $\mu_Y^a - \mu_Y^b = d_0$ at the 5\%-level when $d_0\notin CI_{\mu_Y^a - \mu_Y^b}$\vspace{.5cm}
     \item Comparing mean differences is very useful, e.g., when one wants to verify that control and treatment groups are comparable in means before receiving treatment (i.e., balance tests).
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Heights at UPF: Testing a 5 cm Difference}
+\small
+Independent UPF samples ($n_a=n_b=10$), i.i.d. within each. Illustrative heights (cm):
+\begin{center}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{lcccccccccc}
+\toprule
+Sample $a$ & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
+Sample $b$ & 158 & 160 & 161 & 162 & 163 & 165 & 166 & 167 & 168 & 170 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.46\textwidth}
+\textbf{Sample means, sample standard deviations and SEs (cm)}
+\[
+\begin{aligned}
+    \overline{y}^a&=1700/10=170,\\
+    \overline{y}^b&=1640/10=164,\\
+    s_Y^a&=\sqrt{388/9}\approx6.5659,\\
+    s_Y^b&=\sqrt{132/9}\approx3.8297,\\
+    SE(\overline{Y}^a)&=s_Y^a/\sqrt{10}\approx2.0763,\\
+    SE(\overline{Y}^b)&=s_Y^b/\sqrt{10}\approx1.2111.
+\end{aligned}
+\]
+\end{column}
+\begin{column}{0.51\textwidth}
+\textbf{Two-sided test: normal approximation}
+\[
+\begin{aligned}
+    H_0 &: \mu_Y^a-\mu_Y^b=5\text{ cm},\\
+    H_1 &: \mu_Y^a-\mu_Y^b\neq5\text{ cm}.
+\end{aligned}
+\]
+\[
+\begin{aligned}
+    SE(\overline{Y}^a-\overline{Y}^b)
+    &=\sqrt{\frac{6.5659^2}{10}+\frac{3.8297^2}{10}}\\
+    &\approx2.4037\text{ cm},\\
+    t^{\mathrm{obs}}&=\frac{(170-164)-5}{2.4037}\approx0.4160,\\
+    \text{p-value}&\approx2\Phi(-0.4160)\approx0.6774.
+\end{aligned}
+\]
+\end{column}
+\end{columns}
+95\% CI for $\mu_Y^a-\mu_Y^b$: $6\pm1.96\times2.4037\approx[1.29;10.71]$ cm.
+
+\textbf{Decision:} do not reject $H_0$ at 5\%; 5 cm is inside the CI (rough normal approximation).
 \end{frame}
 
 \begin{frame}{Causal Inference in Randomized Control Trials}
@@ -642,6 +704,7 @@ Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
     \item All K-6 and K-8 California school districts ($n=500$) (CPS, 1999)
     \item Test score: sum of math and English/language arts, 5th grade
     \item Subsidized Meals: free or reduced-price meals
+    \item \textbf{Observational data}: districts were not randomly assigned to groups. Differences in mean scores do not imply causality.
     \end{itemize}
 \end{column}
 \begin{column}{0.7\textwidth}
@@ -727,6 +790,7 @@ The scatter plot does not tell us much about each variable, independently. We ca
 Estimation:
     \begin{itemize}
     \item Compare average test scores in districts with low \textit{Share of Subsidized Meals} to those with high \textit{Share of Subsidized Meals}
+    \item These are \textbf{observational data}. A difference in mean scores shows an association; it does not establish a causal effect.
     \end{itemize}
 \end{column}
 \begin{column}{0.7\textwidth}
