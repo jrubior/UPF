@@ -453,6 +453,87 @@
 \end{figure}
 \end{frame}
 
+\begin{frame}{Heights at UPF: The Sample and Its Mean}
+\begin{itemize}
+    \item Suppose we collect a random sample of $n=10$ individuals at UPF and measure their heights in centimeters. These are illustrative data.
+    \item Let $Y_i$ be individual $i$'s height before sampling, and $y_i$ its observed value.
+\end{itemize}
+\begin{center}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{lcccccccccc}
+\toprule
+Individual $i$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\midrule
+Height $y_i$ (cm) & 160 & 162 & 165 & 168 & 169 & 171 & 172 & 175 & 178 & 180 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item Add the ten heights and divide by the sample size:
+    \[
+        \overline{y}=\frac{1}{n}\sum_{i=1}^{n}y_i
+        =\frac{160+162+165+168+169+171+172+175+178+180}{10}
+        =170\text{ cm}.
+    \]
+\end{itemize}
+\begin{block}{The parameter and its estimate}
+    The population mean height at UPF, $\mu_Y$, is unknown. Our sample gives the estimate $\overline{y}=170$ cm.
+\end{block}
+\end{frame}
+
+\begin{frame}{Heights at UPF: Standard Deviation and Standard Error}
+\begin{itemize}
+    \item Compute squared deviations from the sample mean, $\overline{y}=170$:
+    \[
+    \begin{aligned}
+        \sum_{i=1}^{10}(y_i-\overline{y})^2
+        &=(160-170)^2+\cdots+(180-170)^2\\
+        &=100+64+25+4+1+1+4+25+64+100=388\text{ cm}^2.
+    \end{aligned}
+    \]
+    \item Estimate the population standard deviation using $n-1=9$:
+    \[
+        \widehat{\sigma}_Y=s_Y
+        =\sqrt{\frac{\sum_{i=1}^{10}(y_i-\overline{y})^2}{n-1}}
+        =\sqrt{\frac{388}{9}}\approx 6.57\text{ cm}.
+    \]
+    \item For i.i.d. observations, $\sigma_{\overline{Y}}=\sigma_Y/\sqrt{n}$. Estimate it with
+    \[
+        SE(\overline{Y})=\widehat{\sigma}_{\overline{Y}}
+        =\frac{s_Y}{\sqrt{n}}
+        =\frac{\sqrt{388/9}}{\sqrt{10}}
+        \approx 2.08\text{ cm}.
+    \]
+\end{itemize}
+\begin{block}{Interpretation}
+    Individual dispersion: $s_Y=6.57$ cm; sampling uncertainty: $SE(\overline{Y})=2.08$ cm.
+\end{block}
+\end{frame}
+
+\begin{frame}{Heights at UPF: Testing a Population Mean of 175 cm}
+\begin{itemize}
+    \item Choose $\alpha=0.05$ and test the two-sided hypotheses:
+    \[
+        H_0:\mu_Y=175\text{ cm},\text{ and }H_1:\mu_Y\neq175\text{ cm}.
+    \]
+    \item Because $n=10$ is small, assume heights are i.i.d. normal. Under $H_0$, the test statistic $T$ follows Student's $t$ distribution with $n-1=9$ degrees of freedom.
+    \item Using the unrounded standard error, the observed statistic is
+    \[
+        t^{\mathrm{obs}}=\frac{\overline{y}-175}{SE(\overline{Y})}
+        =\frac{170-175}{\sqrt{388/90}}
+        \approx -2.4081.
+    \]
+    \item Add the probabilities in both tails of the $t_9$ distribution:
+    \[
+        \text{p-value}=P\!\left(|T|\geq |t^{\mathrm{obs}}|\mid H_0\right)
+        =2P\!\left(T\geq 2.4081\mid H_0\right)\approx 0.0394.
+    \]
+\end{itemize}
+\begin{block}{Decision at the 5\% significance level}
+    Since $0.0394<0.05$, reject $H_0$. The sample provides evidence that the population mean height at UPF differs from 175 cm.
+\end{block}
+\end{frame}
+
 \begin{frame}
     \frametitle{What are Confidence Intervals (CIs)?}
     
