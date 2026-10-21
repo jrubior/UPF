@@ -444,15 +444,57 @@ $R^2$ ranges from 0 to 1, where higher values indicate a better fit (i.e., the r
 \begin{frame}{The Standard Error of the Regression ($SER$)}
 The SER measures the spread of the distribution of $u$ around the regression line in the units of the dependent variable.
 It is an estimator of the standard deviation of the regression error $u_i$.
+\begin{itemize}
+    \item The first-order condition with respect to the intercept is
+    \[
+        \frac{\partial}{\partial\beta_0}
+        \sum_{i=1}^n\left(Y_i-\beta_0-\beta_1X_i\right)^2
+        =-2\sum_{i=1}^n\left(Y_i-\beta_0-\beta_1X_i\right)=0.
+    \]
+    Evaluating this condition at the OLS estimates gives
+    \[
+        \sum_{i=1}^n \hat{u}_i=0
+        \qquad\Longrightarrow\qquad
+        \overline{\hat{u}}=0.
+    \]
+    Thus, the residuals' mean is zero by construction: this result comes from the FOC for the intercept.
+\end{itemize}
 \begin{equation*}
-    SER = \sqrt{\frac{1}{n-2}\sum_{i=1}^n (\hat{u}_i-\overline{\hat{u}}_i)^2}= \sqrt{\frac{1}{n-2}\sum_{i=1}^n \hat{u}_i^2}=\sqrt{\frac{SSR}{n-2}}
+    SER = \sqrt{\frac{1}{n-2}\sum_{i=1}^n (\hat{u}_i-\overline{\hat{u}})^2}
+    = \sqrt{\frac{1}{n-2}\sum_{i=1}^n \hat{u}_i^2}
+    =\sqrt{\frac{SSR}{n-2}}
 \end{equation*}
 Here, division by $n-2$ is a dof correction (two parameters, $\beta_0$ and $\beta_1$ have been estimated, whereas in $s_Y^2$ only one has been estimated: $\mu_Y$, with $\overline{Y}$)\\\vspace{.5cm}
-The root mean squared error ($RMSE$) is closely related to the $SER$:
-\begin{equation*}
-    RMSE = \sqrt{\frac{SSR}{n}}
-\end{equation*}
-In practice, that does not change anything for large samples. Both are interesting as they provide a consistent estimate of the standard deviation in the unobservables affecting $Y$. 
+\end{frame}
+
+
+\begin{frame}{SER and RMSE: What Is the Difference?}
+\footnotesize
+Both measures summarize the typical size of the OLS residuals.
+\begin{itemize}
+    \item First define the residual sum of squares:
+    \[
+        SSR=\sum_{i=1}^n \hat{u}_i^2.
+    \]
+    \item The $SER$ divides by $n-2$:
+    \[
+        SER=\sqrt{\frac{SSR}{n-2}}.
+    \]
+    The two degrees of freedom are used to estimate $\beta_0$ and $\beta_1$.
+    \item The fitted value is $\widehat{Y}_i=\widehat{\beta}_0+\widehat{\beta}_1X_i$, so the prediction error is
+    \[
+        Y_i-\widehat{Y}_i=\widehat{u}_i.
+    \]
+    Therefore, the $RMSE$ is the root mean squared prediction error:
+    \[
+        RMSE=\sqrt{\frac{SSR}{n}}.
+    \]
+    It is the average size of the errors $Y_i-\widehat{Y}_i$ in the observed sample.
+    \item For a large $n$, $n-2$ and $n$ are almost the same, so $SER$ and $RMSE$ are very similar.
+\end{itemize}
+\begin{block}{Interpretation}
+Both are measured in the units of $Y$. They describe the typical size of the part of $Y$ that the regression does not explain.
+\end{block}
 \end{frame}
 
 
@@ -476,6 +518,31 @@ In practice, that does not change anything for large samples. Both are interesti
 \end{frame}
 
 
+\begin{frame}{Population OLS: FOCs and Results}
+In the population, choose $(\hat{\beta}_0,\hat{\beta}_1)$ to minimize the mean squared prediction error:
+\[
+Q(\hat{\beta}_0,\hat{\beta}_1)=\mathbb{E}\left[(Y-\hat{\beta}_0-\hat{\beta}_1X)^2\right].
+\]
+The population first-order conditions are
+\begin{align*}
+0=\frac{\partial Q}{\partial \hat{\beta}_0}
+  &=-2\mathbb{E}[Y-\hat{\beta}_0-\hat{\beta}_1X],\\
+0=\frac{\partial Q}{\partial \hat{\beta}_1}
+  &=-2\mathbb{E}[X(Y-\hat{\beta}_0-\hat{\beta}_1X)].
+\end{align*}
+The first condition gives
+\[
+    \hat{\beta}_0=\mathbb{E}[Y]-\hat{\beta}_1\mathbb{E}[X].
+\]
+Substituting this into the second condition gives the population OLS coefficients:
+\[
+    \hat{\beta}_1=\frac{\operatorname{Cov}(X,Y)}{\operatorname{Var}(X)},
+    \qquad
+    \hat{\beta}_0=\mathbb{E}[Y]-\hat{\beta}_1\mathbb{E}[X].
+\]
+\end{frame}
+
+
 \begin{frame}{The conditions for causality}
 \begin{exampleblock}{The OLS Assumptions for Causal Inference}
 Let
@@ -495,19 +562,41 @@ where $\beta_1$ is the causal effect of $X$ on $Y$. Then:
 
 
 \begin{frame}{The conditions for causality}
-If these assumptions hold, then
+Why do these conditions help us estimate a causal effect?
 \begin{enumerate}
-    \item In large samples, the OLS estimators are consistent and have sampling distributions that are normal allowing for testing hypotheses and constructing confidence intervals
-    \item They organize the circumstances that pose difficulties for OLS estimation of the causal effects
-\begin{itemize}
-    \item Assumption (1) ensures that $\hat{\beta}_1$ is an unbiased estimator of $\beta_1$
-    \item Assumption (2) holds in cross-sectional contexts but is inappropriate for panel and time series data
-    \item Assumption (3) reminds the importance of checking for large outliers
-\end{itemize}
+    \item \textbf{Causal interpretation:} $\mathbb{E}(u_i\mid X_i)=0$ means that, once $X_i$ is fixed, the remaining determinants of $Y_i$ in $u_i$ are not systematically related to $X_i$. Therefore, the variation in $Y$ associated with $X$ identifies $\beta_1$ rather than a confounding factor.
+    \item \textbf{Reliable estimation:} i.i.d. sampling makes the observations representative of the population and prevents dependence across observations from distorting the OLS calculation.
+    \item \textbf{Reliable inference:} finite moments and no large outliers ensure that no single observation dominates the estimate and allow the usual large-sample results for standard errors, tests, and confidence intervals.
 \end{enumerate}
 \textit{Do you think these assumptions hold in our California Schools Experiment?}
 \end{frame}
 
+
+
+\begin{frame}{Do the assumptions hold in the California Schools Experiment?}
+\begin{enumerate}
+    \item \textbf{Conditional mean zero: likely questionable.} Let $Z_i$ measure students' economic disadvantage and suppose
+    \[
+        Y_i=\beta_0+\beta_1X_i+\gamma Z_i+v_i,
+        \qquad \mathbb{E}(Z_i\mid X_i=1)\neq\mathbb{E}(Z_i\mid X_i=0).
+    \]
+    If we omit $Z_i$, it becomes part of the error:
+    \begin{align*}
+        u_i&=\gamma Z_i+v_i,\\
+        \mathbb{E}(u_i\mid X_i=x)
+        &=\gamma\mathbb{E}(Z_i\mid X_i=x)+\mathbb{E}(v_i\mid X_i=x).
+    \end{align*}
+    If $\mathbb{E}(v_i\mid X_i=x)=0$, then
+    \[
+    \mathbb{E}(u_i\mid X_i=1)-\mathbb{E}(u_i\mid X_i=0)
+    =\gamma\left[\mathbb{E}(Z_i\mid X_i=1)-\mathbb{E}(Z_i\mid X_i=0)\right]\neq 0.
+    \]
+    Thus, the zero conditional-mean assumption fails.
+    \item \textbf{i.i.d. sampling: plausible with care.} If schools are sampled randomly from the same population, the observations can be treated as i.i.d. draws. If schools are clustered by district or selected through a non-random process, this assumption needs more justification.
+    \item \textbf{No influential outliers: must be checked.} A school with an unusually large test score or subsidized-meal rate could strongly affect the fitted line and the estimated effect.
+\end{enumerate}
+The main threat to a causal interpretation is the first assumption: differences between schools may be correlated with both meal subsidies and test scores.
+\end{frame}
 
 
 \begin{frame}{Assumption (1) : $\mathbb{E}(u_i\mid X_i)=0$}
@@ -531,11 +620,6 @@ If these assumptions hold, then
 
 
 \begin{frame}{Assumption (1) : $\mathbb{E}(u_i\mid X_i)=0$}
-Remember that
-\begin{equation*}
-    \hat{\beta}_1= \frac{\frac{1}{n}\sum_{i=1}^n (Y_i-\overline{Y})(X_i - \overline{X})}{\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2} = \frac{s_{XY}}{s^2_x} = \frac{cov(X,Y)}{var(X)}
-\end{equation*}
-
 Then
 \begin{eqnarray*}
     & \hat{\beta}_1 &= \frac{cov(X,[\beta_0 + \beta_1 X + u])}{var(X)}\\
@@ -575,20 +659,6 @@ The main place we will encounter non-i.i.d. sampling is when data are recorded o
 \end{figure}
 \end{column}
 \end{columns}
-\end{frame}
-
-
-\begin{frame}{OLS Sample Properties}
-%Note that
-\begin{eqnarray*}
-&\hat{\beta}_1 &= \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y}) }{\sum_{i=1}^n (X_i - \overline{X})^2}\\
-& &= \frac{\sum_{i=1}^n (X_i - \overline{X})Y_i }{\sum_{i=1}^n (X_i - \overline{X})^2}\\
-& &= \frac{\sum_{i=1}^n (X_i - \overline{X})(\beta_0 + \beta_1 X_i + u_i) }{\sum_{i=1}^n (X_i - \overline{X})^2}\\
-& &= \frac{\beta_0\sum_{i=1}^n (X_i - \overline{X})+\beta_1 \sum_{i=1}^n (X_i - \overline{X}) X_i+\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\\
-& &= \frac{\beta_1 \sum_{i=1}^n (X_i - \overline{X})(X_i - \overline{X})+\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\\
-& &=\beta_1 +\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}
-\end{eqnarray*}
-
 \end{frame}
 
 
