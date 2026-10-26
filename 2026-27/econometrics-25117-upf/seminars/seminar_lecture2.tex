@@ -383,10 +383,11 @@ A & $10/\sqrt{100}=1$ & $(71.5-70)/1=1.5$ \\
 B & $10/\sqrt{400}=.5$ & $(71.5-70)/.5=3$
 \end{tabular}
 \end{center}
-\answerpart{2}Using $\text{p-value}\approx2[1-\Phi(|t^{\mathrm{obs}}|)]$,
+\answerpart{2}For $Z\sim N(0,1)$, $\Phi(1.5)=\Pr(Z\le1.5)=.9332$: \textbf{93.32\% of the area under the standard normal curve lies to the left of 1.5}.
+Thus $1-.9332=.0668$ is the right-tail probability; double it for the two-sided test:
 \[
-p_A\approx2(1-.9332)=\boxed{.1336},\qquad
-p_B\approx2(1-.99865)=\boxed{.0027}.
+p_A\approx2(1-\underbrace{.9332}_{\Phi(1.5)})=\boxed{.1336},\text{ and }
+p_B\approx2(1-\underbrace{.99865}_{\Phi(3)})=\boxed{.0027}.
 \]
 \answerpart{3}At 5\%, A \textbf{fails to reject} ($.1336>.05$); B \textbf{rejects} ($.0027<.05$).
 \par\vspace{5pt}
@@ -470,10 +471,9 @@ A large i.i.d. sample of $n=100$ students gives $\overline y=72.4$ and sample st
 \setlength{\itemsep}{9pt}
 \item Calculate the 90\%, 95\%, and 99\% confidence intervals for $\mu$. Use critical values 1.645, 1.96, and 2.576, respectively.
 \item Use the 95\% interval to test each null against a two-sided alternative at the 5\% level: $H_0:\mu=70$ and $H_0:\mu=73$. Explain the connection between the interval and the tests.
-\item Interpret 95\% coverage. Across 200 independently repeated samples, how many 95\% intervals would you expect to contain the true mean?
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 5. All data are invented for teaching. Estimated SE=s/sqrt(n)=10/sqrt(100)=sqrt(100/100)=1. The interval is ybar plus or minus z times estimated SE. 90 percent: [70.755,74.045]; 95 percent: [70.44,74.36]; 99 percent: [69.824,74.976]. At 5 percent reject mu=70 because it lies outside the 95 percent interval; do not reject mu=73 because it is inside. Equivalently t70=2.4 exceeds 1.96 and abs(t73)=.6 is below 1.96. The interval comprises null mean values not rejected by the corresponding two-sided test. The parameter is fixed; the interval changes across samples. In repeated sampling approximately 95 percent of intervals contain the true mean, so expected count in 200 repetitions is 190; no guarantee about a particular batch. Coverage is approximate because estimated SE and normal critical values are used.}
+\note{Solution to Problem 5. All data are invented for teaching. Estimated SE=s/sqrt(n)=10/sqrt(100)=sqrt(100/100)=1. The interval is ybar plus or minus z times estimated SE. 90 percent: [70.755,74.045]; 95 percent: [70.44,74.36]; 99 percent: [69.824,74.976]. At 5 percent reject mu=70 because it lies outside the 95 percent interval; do not reject mu=73 because it is inside. Equivalently t70=2.4 exceeds 1.96 and abs(t73)=.6 is below 1.96. The interval comprises null mean values not rejected by the corresponding two-sided test.}
 
 \ifshowsolutions
 % SOLUTION 5 START
@@ -501,7 +501,7 @@ Confidence & Calculation & Interval (points)\\ \hline
 Greater coverage requires a wider interval for the same data.
 \end{frame}
 
-\begin{frame}{Solution 5: Test inversion and repeated coverage (continued)}
+\begin{frame}{Solution 5: Test inversion (continued)}
 \small
 \answerpart{2}A two-sided 5\% test rejects $\mu_0$ when
 \[
@@ -515,15 +515,6 @@ Thus the 95\% interval contains the null values that are not rejected:
 \mu_0=70:& t=(72.4-70)/1=2.4, & \boxed{\text{reject }H_0},\\[4pt]
 \mu_0=73:& t=(72.4-73)/1=-.6, & \boxed{\text{do not reject }H_0}.
 \end{array}
-\]
-\answerpart{3}For intervals constructed by this method,
-\[
-\Pr\!\left(\mu\in[\overline Y-1.96SE(\overline Y),\;
-\overline Y+1.96SE(\overline Y)]\right)\approx.95.
-\]
-The mean $\mu$ is fixed; the endpoints vary across samples. Approximately 95\% of intervals cover $\mu$ in repeated sampling. Among 200 repetitions, the expected number covering $\mu$ is
-\[
-200(.95)=\boxed{190}.
 \]
 \end{frame}
 % SOLUTION 5 END
@@ -587,13 +578,11 @@ $B$ & 144 & 71 & 12
 \begin{enumerate}
 \setlength{\itemsep}{5pt}
 \item Estimate $\delta$ and calculate its standard error.
-\item Test $H_0:\delta=0$ against $H_1:\delta\neq0$. Find the test statistic and p-value. Decide at the 5\% and 1\% levels.
+\item Test $H_0:\delta=0$ against $H_1:\delta\neq0$. Find the test statistic and p-value. Decide at the 5\% and 1\% levels. Use $\Phi(2.561)\approx.99478$.
 \item Construct a 95\% confidence interval for $\delta$.
-\item Test $H_0:\delta=3$ against $H_1:\delta\neq3$ at 5\%. Check your decision using the confidence interval.
 \end{enumerate}
-Use $\Phi(2.561)\approx.99478$ and $\Phi(.640)\approx.7389$.
 \end{frame}
-\note{Solution to Problem 7. All data are invented for teaching. Delta estimate75-71=4 points. Independence means covariance of sample means is zero. Var(ybarA-ybarB)=sigmaA squared/nA+sigmaB squared/nB, estimated by144/100+144/144=2.44. SE=sqrt(2.44)=1.562049935. Do not divide these terms by sample sizes again. Constant d0 does not change variance. For d0=0,t=4/SE=2.560737599, p approximately.01044; reject5 percent but do not reject1 percent. CI=4 plus or minus1.96SE=[.938382127,7.061617873], rounded[.938,7.062]. For d0=3,t=1/SE=.6401844,p approximately.5222 using supplied normal probability. Do not reject5 percent;3 lies in the95 percentCI. No assignment mechanism is given, so the observed difference is not automatically a causal effect.}
+\note{Solution to Problem 7. All data are invented for teaching. Delta estimate75-71=4 points. Independence means covariance of sample means is zero. Var(ybarA-ybarB)=sigmaA squared/nA+sigmaB squared/nB, estimated by144/100+144/144=2.44. SE=sqrt(2.44)=1.562049935. Do not divide these terms by sample sizes again. For d0=0,t=4/SE=2.560737599, p approximately.01044; reject5 percent but do not reject1 percent. CI=4 plus or minus1.96SE=[.938382127,7.061617873], rounded[.938,7.062]. No assignment mechanism is given, so the observed difference is not automatically a causal effect.}
 
 \ifshowsolutions
 % SOLUTION 7 START
@@ -624,7 +613,7 @@ p\approx2(1-.99478)=\boxed{.01044}.
 Reject at 5\% because $.01044<.05$; do not reject at 1\% because $.01044>.01$.
 \end{frame}
 
-\begin{frame}{Solution 7: An interval and a nonzero null (continued)}
+\begin{frame}{Solution 7: A confidence interval (continued)}
 \small
 \answerpart{3}The 95\% normal approximate confidence interval is
 \begin{align*}
@@ -634,19 +623,6 @@ CI_{.95}(\delta)
 &=[4-1.96\sqrt{2.44},\;4+1.96\sqrt{2.44}]\\
 &\approx\boxed{[.938,\;7.062]}\text{ points}.
 \end{align*}
-\answerpart{4}Changing the null value to $d_0=3$ changes the numerator:
-\[
-t=\frac{\widehat\delta-3}{SE(\widehat\delta)}
-=\frac{4-3}{\sqrt{2.44}}\approx.640.
-\]
-\[
-p=2[1-\Phi(|t|)]\approx2(1-.7389)=\boxed{.5222}.
-\]
-Do not reject $\delta=3$ at 5\%. Consistently, 3 lies inside the 95\% interval.
-\vspace{7pt}
-
-Subtracting a constant $d_0$ does not change the variance:
-$\Var(\widehat\delta-d_0)=\Var(\widehat\delta)$. The interval estimates $\delta$ and remains centered at $\widehat\delta=4$.
 \end{frame}
 % SOLUTION 7 END
 \fi
@@ -735,42 +711,25 @@ Nine ordered school scores are
 \begin{enumerate}
 \setlength{\itemsep}{8pt}
 \item Find the sample mean, median, minimum, and maximum.
-\item Define each quartile as the median of its half of the ordered data, excluding the overall median. Find $Q_1$, $Q_3$, and the interquartile range.
 \item Compute the sample variance and standard deviation. Show the denominator used in the variance.
-\item A \emph{separate, larger district sample} reports skewness $.37$ and ordinary kurtosis $3.15$ (not excess kurtosis). Interpret these summaries using the normal benchmark.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 9. These scores are hypothetical teaching data. The sum is 675, so the mean is 75. The fifth score, the median, is 75; the minimum is 60 and maximum 90. Excluding the overall median, the lower half is 60,65,70,70, so Q1=(65+70)/2=67.5. The upper half is 80,80,85,90, so Q3=(80+85)/2=82.5. IQR=15. The squared deviations from 75 sum to 750. The sample variance is 750/(9-1)=93.75 points squared and SD=sqrt(93.75)=9.682 points. The skewness and kurtosis are supplied for a different, larger sample and must not be presented as calculated from these nine scores. Positive skewness .37 indicates modest right asymmetry. Ordinary kurtosis 3.15 is slightly above the normal benchmark of 3, indicating a slightly larger standardized fourth moment. These summaries alone do not specify exact tail probabilities or establish a normal distribution.}
+\note{Solution to Problem 9. These scores are hypothetical teaching data. The sum is 675, so the mean is 75. The fifth score, the median, is 75; the minimum is 60 and maximum 90. The squared deviations from 75 sum to 750. The sample variance is 750/(9-1)=93.75 points squared and SD=sqrt(93.75)=9.682 points.}
 
 \ifshowsolutions
 % SOLUTION 9 START
-\begin{frame}{Solution 9: Location, quartiles, and spread}
+\begin{frame}{Solution 9: Mean, median, and range}
 \small
 \answerpart{1}The sample mean is
 \[
 \overline y=\frac1n\sum_{i=1}^n y_i=\frac{675}{9}=75\text{ points}.
 \]
 The median is the fifth ordered score, 75. The minimum is 60 and the maximum is 90.
-\vspace{.25cm}
-
-\answerpart{2}Exclude the overall median before splitting the observations:
-\[
-\underbrace{60,\ 65,\ 70,\ 70}_{\text{lower half}},\qquad
-75,\qquad
-\underbrace{80,\ 80,\ 85,\ 90}_{\text{upper half}}.
-\]
-\[
-Q_1=\frac{65+70}{2}=67.5,
-\qquad Q_3=\frac{80+85}{2}=82.5.
-\]
-\[
-\operatorname{IQR}=Q_3-Q_1=82.5-67.5=\boxed{15\text{ points}}.
-\]
 \end{frame}
 
-\begin{frame}{Solution 9: Variance and distribution shape (continued)}
+\begin{frame}{Solution 9: Variance and standard deviation (continued)}
 \small
-\answerpart{3}The sample variance uses the divisor $n-1$:
+\answerpart{2}The sample variance uses the divisor $n-1$:
 \[
 \begin{aligned}
 \sum_{i=1}^9(y_i-\overline y)^2
@@ -780,13 +739,6 @@ s_y^2&=\frac{\sum_{i=1}^n(y_i-\overline y)^2}{n-1}
 s_y&=\sqrt{s_y^2}=\sqrt{93.75}\approx9.682\text{ points}.
 \end{aligned}
 \]
-\answerpart{4}For the \emph{separate, larger sample}, skewness $.37>0$ indicates modest asymmetry toward the right.
-
-\vspace{.2cm}
-Ordinary kurtosis $3.15$ is slightly above the normal benchmark of 3: the standardized fourth moment is slightly larger.
-
-\vspace{.2cm}
-These summaries do not determine exact tail probabilities. They are not the skewness and kurtosis of the nine listed scores.
 \end{frame}
 % SOLUTION 9 END
 \fi
@@ -884,10 +836,9 @@ Use large-sample normal inference, $z_{.975}=1.96$ and $\Phi(3.291)\approx.9995$
 \item Estimate $\Delta=\mu_L-\mu_H$ and its standard error.
 \item Test $H_0:\Delta=0$ against $H_1:\Delta\ne0$ at 5\%. Bound the two-sided $p$-value using the supplied normal probability.
 \item Construct a 95\% confidence interval for the mean difference.
-\item Does this estimate the causal effect of subsidized meals on test scores? Explain.
 \end{enumerate}
 \end{frame}
-\note{Solution to Problem 11. These are hypothetical illustrative district samples, not the empirical California dataset from the lecture. Both supplied 50s are sample standard deviations. Estimate gap 780-720=60 points. Independent groups give SE=sqrt(sL squared/nL+sH squared/nH)=sqrt(2500/200+2500/200)=sqrt(25)=5 points. Under H0 difference zero the test statistic is 60/5=12. For a two-sided large-sample normal test, p=2[1-Phi(12)]=2Phi(-12), which is positive and below .001 because 12 exceeds 3.291. It is approximately 3.55 times 10 to the power -33, but students need not calculate this. Reject H0 at 5 percent. The confidence interval is 60 plus or minus 1.96(5), [50.2,69.8] points. The samples compare observational groups. Income, family background, school resources and other confounders may differ; this is an association, not an identified causal effect of meals.}
+\note{Solution to Problem 11. These are hypothetical illustrative district samples, not the empirical California dataset from the lecture. Both supplied 50s are sample standard deviations. Estimate gap 780-720=60 points. Independent groups give SE=sqrt(sL squared/nL+sH squared/nH)=sqrt(2500/200+2500/200)=sqrt(25)=5 points. Under H0 difference zero the test statistic is 60/5=12. For a two-sided large-sample normal test, p=2[1-Phi(12)]=2Phi(-12), which is positive and below .001 because 12 exceeds 3.291. It is approximately 3.55 times 10 to the power -33, but students need not calculate this. Reject H0 at 5 percent. The confidence interval is 60 plus or minus 1.96(5), [50.2,69.8] points.}
 
 \ifshowsolutions
 % SOLUTION 11 START
@@ -913,7 +864,7 @@ Since $|t|>3.291$, the two-sided normal $p$-value satisfies
 \[
 p\approx2[1-\Phi(12)]<2[1-\Phi(3.291)]\approx.001.
 \]
-Reject $H_0$ at 5\%. The $p$-value is very small; it is not exactly zero.
+Reject $H_0$ at 5\%.
 \end{frame}
 
 \begin{frame}{Solution 11: A confidence interval and its interpretation}
@@ -927,12 +878,6 @@ Reject $H_0$ at 5\%. The $p$-value is very small; it is not exactly zero.
 \end{aligned}
 \]
 The entire interval is positive, agreeing with rejection of the zero-difference null in the two-sided 5\% test.
-\vspace{.35cm}
-
-\answerpart{4}The low-share districts have higher mean scores in these observational data. The difference does not identify a causal effect of subsidized meals.
-
-\vspace{.2cm}
-Districts may differ in income, family background, school resources, and other determinants of scores. Statistical significance does not remove these confounding differences.
 \end{frame}
 % SOLUTION 11 END
 \fi

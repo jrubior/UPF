@@ -1,0 +1,610 @@
+\documentclass[notes,10pt,aspectratio=169]{beamer}
+\usepackage{pgfpages}
+\setbeameroption{hide notes}
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{amsmath,amssymb,booktabs,array,graphicx,tikz,pgfplots,eurosym}
+\pgfplotsset{compat=1.18}
+\useinnertheme[shadow]{rounded}
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black,bg=orange!30!white}
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+\setbeamercolor{section in head/foot}{fg=blue}
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+\setbeamertemplate{footline}{%
+  \hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+    \insertsectionnavigationhorizontal{0.7\paperwidth}{}{}\hfill
+    \insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}}
+\hypersetup{colorlinks=false,linkbordercolor={white},linkcolor={blue}}
+\newcommand{\xl}[1]{{\small\texttt{\detokenize{#1}}}}
+\newcommand{\datapath}{data/lecture4v3/school_data.csv}
+\pgfplotsset{schoolplot/.style={width=11.9cm,height=5.4cm,
+  axis lines=left,tick label style={font=\small},label style={font=\small},
+  xlabel={Average class size (students)},xmin=15.5,xmax=28.5,
+  xtick={16,18,20,22,24,26,28},grid=major,grid style={gray!15}}}
+\title[]{\textcolor{blue}{Lecture 4 v3:\\Running a Regression in Excel}}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+\date{Academic year 2026--2027}
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Data}
+\begin{frame}{From 100 schools to a regression result}
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item Open and check a dataset with 100 synthetic schools.
+\item Draw a scatterplot and estimate a simple regression in Excel.
+\item Read coefficients, fit measures, standard errors and confidence intervals.
+\item Calculate fitted values and residuals yourself.
+\item Introduce family income, $Z$, to prepare for Lecture 5.
+\end{enumerate}
+\begin{block}{What you need}
+Desktop Excel for Windows or Mac and \xl{school_regression.xlsx}. Use the \xl{Data} tab first; \xl{Worked} contains the formula-based answers.
+\end{block}
+\end{frame}
+
+\begin{frame}{Our question: do schools with smaller classes score higher?}
+\begin{itemize}
+\setlength{\itemsep}{9pt}
+\item One observation is one school, not one pupil: $n=100$ schools.
+\item $Y$: the school's average test score, measured in points.
+\item $X$: average class size, measured in students per class. A school average can be a decimal.
+\item Later, $Z$: average annual family income at the school, measured in \textbf{thousands of euros}.
+\end{itemize}
+\begin{block}{Interpretation}
+These are simulated data designed to resemble an observational school study. A difference in scores or an estimated slope does not, by itself, establish causality.
+\end{block}
+\end{frame}
+
+\begin{frame}{The dataset: one row per school, one column per variable}
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+A: school ID & B: score $y_i$ & C: class size $x_i$ & D: income $z_i$\\
+\midrule
+1 & 610.8186 & 27.8 & 23.39\\
+2 & 643.7577 & 19.7 & 33.48\\
+3 & 658.5047 & 17.6 & 35.09\\
+4 & 663.7172 & 16.3 & 36.68\\
+5 & 642.3621 & 24.6 & 27.42\\
+6 & 660.9807 & 21.0 & 46.49\\
+$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
+100 & \multicolumn{3}{c}{The workbook contains all 100 observations.}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item Row 1 contains labels; rows 2--101 contain the observations.
+\item Start with columns B and C. Keep column D for the end of the lecture.
+\item The numbers are fixed: everyone should obtain the same answers.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The model we will estimate}
+\[
+Y_i=\beta_0+\beta_1X_i+U_i.
+\]
+\begin{itemize}
+\setlength{\itemsep}{8pt}
+\item $\beta_0$: intercept; $\beta_1$: slope; $U_i$: factors not included in $X_i$.
+\item Excel chooses estimates that minimize the sum of squared residuals:
+\[
+\min_{b_0,b_1}\sum_{i=1}^{100}(y_i-b_0-b_1x_i)^2.
+\]
+\item After estimation, $\hat y_i=\hat\beta_0+\hat\beta_1x_i$ and $\hat u_i=y_i-\hat y_i$.
+\item We first describe the association between class size and scores. A causal interpretation requires additional assumptions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 1. Open the file and check its structure}
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item Open \xl{school_regression.xlsx} in desktop Excel. Save a working copy.
+\item Select \xl{Data}. Check the labels in A1:D1 and the last school in row 101.
+\item Click B2: the formula bar should show a number, not text or a random formula.
+\item Keep each school's values on the same row. If sorting, select the entire table.
+\end{enumerate}
+\begin{block}{Excel language and regional settings}
+The slides use English menu and function names, decimal points, and commas between function arguments. A localized Excel installation may use translated names and semicolons. The supplied workbook avoids CSV import issues.
+\end{block}
+\end{frame}
+
+\begin{frame}{Step 2. Check the number of observations and basic statistics}
+In an empty cell, type a formula beginning with \xl{=}, then press Enter.
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Check & Excel formula & Expected value\\
+\midrule
+Number of scores & \xl{=COUNT(Data!B2:B101)} & 100\\
+Number of class sizes & \xl{=COUNT(Data!C2:C101)} & 100\\
+Sample mean of $Y$ & \xl{=AVERAGE(Data!B2:B101)} & 652.9419\\
+Sample mean of $X$ & \xl{=AVERAGE(Data!C2:C101)} & 21.7280\\
+Sample SD of $Y$ & \xl{=STDEV.S(Data!B2:B101)} & 20.8846\\
+Minimum class size & \xl{=MIN(Data!C2:C101)} & 16.1\\
+Maximum class size & \xl{=MAX(Data!C2:C101)} & 27.9\\
+\bottomrule
+\end{tabular}
+\end{center}
+If a count is below 100, check for missing values or numbers stored as text.
+\end{frame}
+
+\section{Excel OLS}
+\begin{frame}{Step 3. Create an XY scatterplot}
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item Select \xl{Data!B1:C101}. Choose \textbf{Insert $\rightarrow$ Scatter (X, Y) $\rightarrow$ markers only}.
+\item Check the axes: class size must be horizontal; score must be vertical.
+\item To set them explicitly: select the chart, then \textbf{Chart Design $\rightarrow$ Select Data}. Edit the series (remove any extra series).
+\end{enumerate}
+\begin{block}{Series settings}
+Series name: \xl{Test score}\\[3pt]
+Series X values: \xl{=Data!$C$2:$C$101}\\[3pt]
+Series Y values: \xl{=Data!$B$2:$B$101}
+\end{block}
+Add axis titles: \textbf{Average class size (students)} and \textbf{Test score (points)}.
+\end{frame}
+
+\begin{frame}{What the scatterplot should look like}
+\centering
+\begin{tikzpicture}
+\begin{axis}[schoolplot,ylabel={Test score (points)},ymin=595,ymax=710]
+\addplot[only marks,mark=*,mark size=1.5pt,blue] table[x=X_class_size,y=Y_score,col sep=comma]{\datapath};
+\end{axis}
+\end{tikzpicture}
+\par\small Each dot is one school. The association is negative, with substantial variation around it.
+\end{frame}
+
+\begin{frame}{Step 4. Add a fitted line to the chart}
+\begin{columns}[T]
+\begin{column}{.43\textwidth}
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item Select a point in the chart.
+\item Right-click and choose \textbf{Add Trendline}.
+\item Select \textbf{Linear}.
+\item Check \textbf{Display Equation on chart} and \textbf{Display R-squared value on chart}.
+\end{enumerate}
+\vspace{6pt}
+Do not force the intercept to zero.
+\end{column}
+\begin{column}{.54\textwidth}
+\begin{block}{Expected equation}
+\[
+\hat y_i=749.0587-4.4236x_i
+\]
+\[
+R^2=0.5977.
+\]
+\end{block}
+The chart may round its labels. Use regression output or worksheet formulas for calculations.
+\vspace{8pt}
+
+A trendline is a quick check. The Regression tool also reports standard errors and confidence intervals.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Step 5. Enable the Analysis ToolPak}
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+\begin{block}{Windows}
+\begin{enumerate}
+\item \textbf{File $\rightarrow$ Options $\rightarrow$ Add-ins}.
+\item At the bottom, choose \textbf{Manage: Excel Add-ins $\rightarrow$ Go}.
+\item Check \textbf{Analysis ToolPak}; click \textbf{OK}.
+\end{enumerate}
+\end{block}
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{block}{Mac}
+\begin{enumerate}
+\item \textbf{Tools $\rightarrow$ Excel Add-ins}.
+\item Check \textbf{Analysis ToolPak}; click \textbf{OK}.
+\item Restart Excel if necessary.
+\end{enumerate}
+\end{block}
+\end{column}
+\end{columns}
+\vspace{9pt}
+Now look for \textbf{Data $\rightarrow$ Data Analysis}. Select \textbf{Regression}.
+\vspace{7pt}
+
+Use desktop Excel: the standard ToolPak Regression command is unavailable in Excel for the web.
+\end{frame}
+
+\begin{frame}{Step 6. Fill in the Regression dialog}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Field or option & What to enter or select\\
+\midrule
+Input Y Range & \xl{Data!$B$1:$B$101}\\
+Input X Range & \xl{Data!$C$1:$C$101}\\
+Labels & Check: our selected ranges include row 1\\
+Constant is Zero & \textbf{Leave unchecked}\\
+Confidence Level & 95\%\\
+New Worksheet Ply & Select; enter \xl{OLS_simple}\\
+Residuals & Check\\
+Residual Plots & Check\\
+\bottomrule
+\end{tabular}
+\end{center}
+Click \textbf{OK}. Excel creates a new sheet containing the regression results.
+\vspace{5pt}
+
+\textbf{Do not include school ID or income in this first X range.}
+\end{frame}
+
+\begin{frame}{Step 7. Read the regression summary}
+\begin{columns}[T]
+\begin{column}{.40\textwidth}
+\begin{tabular}{lr}
+\toprule
+Regression Statistics & Value\\
+\midrule
+Multiple R & 0.7731\\
+R Square & 0.5977\\
+Adjusted R Square & 0.5936\\
+Standard Error & 13.3138\\
+Observations & 100\\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{.56\textwidth}
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item \textbf{R Square}: the fitted line accounts for about 59.77\% of the sample variation in scores.
+\item \textbf{Standard Error}: the SER, measured in score points. It is not the standard error of the slope.
+\item \textbf{Multiple R}: here, $\sqrt{R^2}$. It is nonnegative, even though the slope is negative.
+\item \textbf{Observations}: check that Excel used all 100 schools.
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{8pt}
+The ANOVA block decomposes variation. For this exercise, focus first on the summary and coefficient rows.
+\end{frame}
+
+\begin{frame}{Step 8. Find the coefficients and their uncertainty}
+\begin{center}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+ & Coefficient & Std. Error & t Stat & P-value & Lower 95\% & Upper 95\%\\
+\midrule
+Intercept & 749.0587 & 8.0760 & 92.7514 & $2.75\!\times\!10^{-97}$ & 733.0322 & 765.0853\\
+X\_class\_size & $-4.4236$ & 0.3666 & $-12.0667$ & $4.33\!\times\!10^{-21}$ & $-5.1511$ & $-3.6961$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\setlength{\itemsep}{8pt}
+\item Read the \textbf{X\_class\_size} row for the estimated slope and its standard error.
+\item Excel's \textbf{P-value} tests a coefficient equal to zero against a two-sided alternative.
+\item Scientific notation such as \xl{4.33E-21} means $4.33\times10^{-21}$, not zero.
+\item These are conventional, homoskedastic standard errors. ToolPak does not automatically report heteroskedasticity-robust standard errors.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Translate the estimated line into a sentence}
+\[
+\widehat{\text{score}}=749.0587-4.4236\,\text{class size}.
+\]
+\begin{itemize}
+\setlength{\itemsep}{9pt}
+\item A school with an average class size larger by one student is predicted to score about \textbf{4.42 points lower}.
+\item A difference of five students corresponds to $5(-4.4236)=-22.12$ predicted score points.
+\item The intercept is the predicted score at a class size of zero. That is outside our data range, so it has no useful school interpretation here.
+\item The fitted association does not show what would happen if a school changed its class size. Family background may differ across schools.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 9. Reproduce the coefficients with Excel formulas}
+Create a new sheet named \xl{Calculations}. Enter these labels and formulas:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Cell in column A & Formula in column B & Expected value\\
+\midrule
+A2: Intercept & \xl{=INTERCEPT(Data!B2:B101,Data!C2:C101)} & 749.0587\\
+A3: Slope & \xl{=SLOPE(Data!B2:B101,Data!C2:C101)} & $-4.4236$\\
+A4: n & \xl{=COUNT(Data!B2:B101)} & 100\\
+A5: R squared & \xl{=RSQ(Data!B2:B101,Data!C2:C101)} & 0.5977\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item In each function, enter the $Y$ range first and the $X$ range second.
+\item Show four decimals for readability, but keep the full underlying values.
+\item Unlike ToolPak output, these formulas update if the data change. Rerun ToolPak after changing data.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 10. Calculate fitted values and residuals}
+Return to \xl{Data}. Add three column labels and enter formulas in row 2:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+New column & Formula in the first data row\\
+\midrule
+E1: Y\_fitted & E2: \xl{=Calculations!$B$2+Calculations!$B$3*C2}\\
+F1: Residual & F2: \xl{=B2-E2}\\
+G1: Residual\_squared & G2: \xl{=F2^2}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\setlength{\itemsep}{6pt}
+\item Select E2:G101 and use \textbf{Home $\rightarrow$ Fill $\rightarrow$ Down}.
+\item The \xl{$} signs keep the coefficient cells fixed; \xl{C2} changes to \xl{C3}, and so on.
+\item Check school 1: $\hat y_1\approx626.0816$ and $\hat u_1\approx-15.2630$.
+\end{enumerate}
+\textbf{Meaning:} school 1 scored about 15.26 points below its fitted value.
+\end{frame}
+
+\begin{frame}{Step 11. Inspect the residual plot}
+\centering
+\begin{tikzpicture}
+\begin{axis}[schoolplot,ylabel={Residual (score points)},ymin=-40,ymax=40]
+\addplot[only marks,mark=*,mark size=1.5pt,blue] table[x=X_class_size,y expr=\thisrow{Y_score}-(749.0587322002461-4.423638908332379*\thisrow{X_class_size}),col sep=comma]{\datapath};
+\addplot[red,thick,domain=16:28]{0};
+\end{axis}
+\end{tikzpicture}
+\par\small Use X values C2:C101 and Y values F2:F101 in an XY scatterplot. Look for curvature, unusually large residuals, or changing spread; this plot alone cannot establish causality.
+\end{frame}
+
+\begin{frame}{Step 12. Calculate SSR, RMSE and SER}
+On \xl{Calculations}, continue the table:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Label & Formula & Expected value\\
+\midrule
+A6: SSR & B6: \xl{=SUM(Data!G2:G101)} & 17371.2137\\
+A7: RMSE & B7: \xl{=SQRT(B6/B4)} & 13.1800\\
+A8: SER & B8: \xl{=SQRT(B6/(B4-2))} & 13.3138\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+SSR=\sum_{i=1}^{100}\hat u_i^2,\text{ and }
+RMSE=\sqrt{\frac{SSR}{100}}.
+\]
+\[
+SER=\sqrt{\frac{SSR}{100-2}}.
+\]
+Two estimated coefficients leave $100-2=98$ residual degrees of freedom. Excel's summary \textbf{Standard Error} is SER, not RMSE.
+\end{frame}
+
+\begin{frame}{Step 13. Test whether the slope is zero}
+\[
+H_0:\beta_1=0,\text{ and }H_1:\beta_1\ne0.
+\]
+On \xl{Calculations}, enter:
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+Label & Formula & Value\\
+\midrule
+A9: SE of slope & B9: \xl{=B8/SQRT(DEVSQ(Data!C2:C101))} & 0.3666\\
+A10: t statistic & B10: \xl{=B3/B9} & $-12.0667$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+t_{\mathrm{obs}}=\frac{-4.4236-0}{0.3666}\approx-12.07.
+\]
+\begin{itemize}
+\item Using the normal approximation already covered: $|t_{\mathrm{obs}}|>1.96$, so reject $H_0$ at 5\%.
+\item Excel reports a two-sided p-value of about $4.33\times10^{-21}$ using a $t$ reference distribution with 98 degrees of freedom. The decision is the same.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 14. Build and interpret a confidence interval}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Label & Formula & Value\\
+\midrule
+A11: Normal critical value & B11: \xl{=1.96} & 1.96\\
+A12: Lower endpoint & B12: \xl{=B3-B11*B9} & $-5.1422$\\
+A13: Upper endpoint & B13: \xl{=B3+B11*B9} & $-3.7051$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+\hat\beta_1\pm1.96\,SE(\hat\beta_1)\approx[-5.14,-3.71].
+\]
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item $1.96$ leaves 95\% of a standard normal distribution between $-1.96$ and $1.96$.
+\item Excel's \textbf{Lower 95\%} and \textbf{Upper 95\%} use $1.9845$ from its $t$ reference distribution: $[-5.1511,-3.6961]$.
+\item Both intervals exclude zero. Excluding zero is equivalent to rejecting the corresponding two-sided 5\% test.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Write a short regression report}
+\begin{block}{Example}
+Across 100 synthetic schools, average class size is negatively associated with average test scores. An additional student per class is associated with approximately 4.42 fewer score points (standard error 0.37; $p<0.001$). The fitted line accounts for 59.77\% of the sample variation in scores, and the SER is 13.31 points.
+\end{block}
+\begin{itemize}
+\setlength{\itemsep}{8pt}
+\item Include the sample size, units, coefficient and uncertainty.
+\item Distinguish statistical significance from the size of the association.
+\item State the limitation: schools differ in family background and other factors, so this regression alone does not identify a causal class-size effect.
+\end{itemize}
+\end{frame}
+
+\section{Adding Z}
+\begin{frame}{Now introduce $Z$: family income}
+\begin{itemize}
+\setlength{\itemsep}{8pt}
+\item Column D contains a new explanatory variable for the same 100 schools: \xl{Z_income_kEUR}.
+\item A value of 40 means an average annual family income of \euro{}40,000.
+\item Income may affect learning resources and therefore test scores. It may also be related to class size.
+\item Every income value must remain matched to the same school ID, score and class size.
+\end{itemize}
+\begin{block}{Check it in Excel}
+\xl{=AVERAGE(Data!D2:D101)} gives 36.6975.\\[4pt]
+\xl{=CORREL(Data!C2:C101,Data!D2:D101)} gives $-0.6976$.
+\end{block}
+The dataset already includes $Z$, so the transition to Lecture 5 uses exactly the same observations.
+\end{frame}
+
+\begin{frame}{Schools with smaller classes also have higher family income}
+\centering
+\begin{tikzpicture}
+\begin{axis}[schoolplot,ylabel={Family income (thousand euros/year)},ymin=15,ymax=60]
+\addplot[only marks,mark=*,mark size=1.5pt,blue] table[x=X_class_size,y=Z_income_kEUR,col sep=comma]{\datapath};
+\end{axis}
+\end{tikzpicture}
+\par\small Recreate this graph with C2:C101 on the horizontal axis and D2:D101 on the vertical axis. Sample correlation: $-0.6976$.
+\end{frame}
+
+\begin{frame}{Why could omitting income change the slope?}
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item Income is a determinant of scores in our simulated example.
+\item Income is negatively correlated with class size.
+\item A comparison of large and small classes therefore also compares schools with different family incomes.
+\end{enumerate}
+\begin{block}{Connection to Lecture 5: omitted-variable bias}
+Both conditions matter: $Z$ helps determine $Y$, and $Z$ is correlated with $X$. The simple slope combines the class-size relationship with the income differences associated with class size.
+\end{block}
+With a positive income effect and a negative income--class-size relationship, we expect the simple slope to be more negative than the slope controlling for income.
+\end{frame}
+
+\begin{frame}{Prepare the multiple regression for Lecture 5}
+\[
+Y_i=\alpha_0+\alpha_1X_i+\alpha_2Z_i+\varepsilon_i.
+\]
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item Return to \textbf{Data $\rightarrow$ Data Analysis $\rightarrow$ Regression}.
+\item Keep Input Y Range: \xl{Data!$B$1:$B$101}.
+\item Change Input X Range to \xl{Data!$C$1:$D$101}: two adjacent columns, class size \emph{and} income.
+\item Check \textbf{Labels}, keep the intercept, and use a new output sheet named \xl{OLS_multiple}.
+\end{enumerate}
+\begin{block}{The new question}
+How are class size and scores related \textbf{holding average family income constant}? We use different symbols, $\alpha$, because these coefficients belong to a different model.
+\end{block}
+\end{frame}
+
+\begin{frame}{Preview: what changes when we include income?}
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+ & Simple regression & Multiple regression\\
+\midrule
+Intercept & 749.0587 & 646.2105\\
+Class-size coefficient & $-4.4236$ & $-2.1867$\\
+Income coefficient & Not included & 1.4781\\
+$R^2$ & 0.5977 & 0.7590\\
+SER & 13.3138 & 10.3588\\
+Observations & 100 & 100\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item Holding income constant, one additional student per class is associated with about 2.19 fewer score points.
+\item Holding class size constant, an additional \euro{}1,000 of income is associated with about 1.48 more score points.
+\item Adding a regressor cannot lower in-sample $R^2$. A higher $R^2$ alone does not establish causality.
+\end{itemize}
+\end{frame}
+
+\section{Practice}
+\begin{frame}{Your turn: six checks before leaving Excel}
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item Predict the score for a school with an average class size of 20 using the simple regression.
+\item What happens to the fitted score if class size rises from 20 to 25?
+\item Calculate \xl{=SUM(Data!F2:F101)}. Why is it approximately zero?
+\item Which number is the slope's standard error: 13.3138 or 0.3666?
+\item Why does the normal-approximation confidence interval exclude zero?
+\item Compare the two class-size coefficients. What does adding income change about the comparison?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Answers and a troubleshooting checklist}
+\begin{columns}[T]
+\begin{column}{.50\textwidth}
+\begin{block}{Answers}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\item $749.0587-4.4236(20)\approx660.5860$.
+\item About 22.1182 points lower.
+\item OLS with an intercept makes residuals sum to zero, up to rounding.
+\item 0.3666; 13.3138 is the SER.
+\item The estimate is more than 1.96 standard errors from zero.
+\item We now compare class sizes holding income constant.
+\end{enumerate}
+\end{block}
+\end{column}
+\begin{column}{.46\textwidth}
+\begin{block}{If your output differs}
+\begin{itemize}
+\setlength{\itemsep}{7pt}
+\item Confirm Y is column B and X is column C.
+\item Use rows 1--101 with \textbf{Labels} checked, or 2--101 without it.
+\item Leave \textbf{Constant is Zero} unchecked.
+\item Exclude IDs and missing cells.
+\item Keep full precision; rerun ToolPak after changing data.
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Behind the data: how the 100 schools were created}
+\small
+Independent draws across schools, with fixed seed 251174:
+\begin{align*}
+X_i&\sim\operatorname{Uniform}(16,28),\\
+V_i&\sim\operatorname{Uniform}(-10,10),\text{ and }\varepsilon_i\sim N(0,10^2),\\
+Z_i&=70-1.5X_i+V_i,\\
+U_i&=1.5(Z_i-40)+\varepsilon_i,\\
+Y_i&=700-2X_i+U_i=640-2X_i+1.5Z_i+\varepsilon_i.
+\end{align*}
+\begin{itemize}
+\item $X_i$, $V_i$ and $\varepsilon_i$ are drawn independently. Stored class sizes have one decimal, incomes two, and scores four; see the generation script for the rounding order.
+\item This has the form $Y=b_0+b_1X+U$, with $b_0=700$ and $b_1=-2$; the omitted income component makes $E(U\mid X)\ne0$.
+\item Therefore $-2$ is the class-size effect holding income constant in this simulation, not the slope of the simple conditional mean. Regressing on $X$ alone need not recover it.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Files and Excel help}
+\begin{itemize}
+\setlength{\itemsep}{9pt}
+\item \xl{data/lecture4v3/school_regression.xlsx}: fixed data and a worked formula sheet.
+\item \xl{data/lecture4v3/school_data.csv}: the same 100 observations in a portable format.
+\item \xl{data/lecture4v3/generate_data.py}: reproduces the synthetic observations and independently checks the regression results.
+\item Microsoft Support: \href{https://support.microsoft.com/en-us/excel/load-the-analysis-toolpak-in-excel}{\textcolor{blue}{Load the Analysis ToolPak in Excel}}.
+\item Microsoft Support: \href{https://support.microsoft.com/en-us/excel/use-the-analysis-toolpak-to-perform-complex-data-analysis}{\textcolor{blue}{Use the Analysis ToolPak to perform complex data analysis}}.
+\item Microsoft Support: \href{https://support.microsoft.com/en-us/excel/perform-a-regression-analysis}{\textcolor{blue}{Perform a regression analysis}}.
+\end{itemize}
+\vspace{6pt}
+The figures and benchmark results use the saved dataset. Menu names can vary by Excel version and language.
+\end{frame}
+\end{document}
