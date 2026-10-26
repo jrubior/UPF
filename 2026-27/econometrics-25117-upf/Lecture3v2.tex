@@ -688,9 +688,7 @@ Because this holds for every possible value $x$, we can write the result using t
 
 \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
 \scriptsize
-Step 1: use the law of iterated expectations.\\
-Step 2: conditional on $X$, the weights and denominator are constants.\\
-Step 3: apply $\mathbb{E}(u_i\mid X)=0$ to eliminate the error term.
+Take expectations, condition on $X$, and then use $\mathbb{E}(u_i\mid X)=0$.
 Start from the OLS slope formula and substitute
 $Y_i=\beta_0+\beta_1X_i+u_i$:
 \begin{align*}
@@ -701,8 +699,15 @@ $Y_i=\beta_0+\beta_1X_i+u_i$:
 &=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
         {\sum_i(X_i-\overline X)^2}.
 \end{align*}
-Because $\sum_i(X_i-\overline X)=0$, the intercept term disappears. Also,
-$X_i=\overline X+(X_i-\overline X)$, so
+Because $\sum_i(X_i-\overline X)=0$, the intercept term disappears. For the
+$\beta_1$ term, use $X_i=\overline X+(X_i-\overline X)$:
+\begin{align*}
+\sum_i(X_i-\overline X)X_i
+&=\sum_i(X_i-\overline X)\left[\overline X+(X_i-\overline X)\right]\\
+&=\overline X\sum_i(X_i-\overline X)+\sum_i(X_i-\overline X)^2\\
+&=\sum_i(X_i-\overline X)^2.
+\end{align*}
+Therefore,
 \[
 \hat{\beta}_1=\beta_1+
 \frac{\sum_{i=1}^n(X_i-\overline X)u_i}
