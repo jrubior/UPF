@@ -672,7 +672,25 @@ The main place we will encounter non-i.i.d. sampling is when data are recorded o
 \end{frame}
 
 
+\begin{frame}{A conditional-expectation rule}
+When conditioning on $X$, any function of $X$ is already known:
+\[
+    \mathbb{E}[XY\mid X]=X\,\mathbb{E}[Y\mid X].
+\]
+Fix $X=x$. Then $x$ is a constant inside the conditional expectation:
+\[
+    \mathbb{E}[XY\mid X=x]=\mathbb{E}[xY\mid X=x]
+    =x\,\mathbb{E}[Y\mid X=x].
+\]
+Because this holds for every possible value $x$, we can write the result using the random variable $X$.
+\end{frame}
+
+
 \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
+\small
+Step 1: use the law of iterated expectations.\\
+Step 2: conditional on $X$, the weights and denominator are constants.\\
+Step 3: apply $\mathbb{E}(u_i\mid X)=0$ to eliminate the error term.
 %Note that
 \begin{eqnarray*}
 &\mathbb{E}[\hat{\beta}_1] &=\mathbb{E}[\mathbb{E}[\hat{\beta}_1\mid X]] \\
@@ -685,6 +703,11 @@ The main place we will encounter non-i.i.d. sampling is when data are recorded o
 \end{frame}
 
 \begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
+\footnotesize
+Step 1: write $\hat{\beta}_1-\beta_1$ as a weighted sum of errors.\\
+Step 2: conditional on $X$, the weights are fixed.\\
+Step 3: independence makes the variance of the sum equal to the sum of variances.\\
+Step 4: under homoskedasticity, replace every $var(u_i\mid X)$ by $\sigma_u^2$.
 \begin{eqnarray*}
 & var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
 & &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
