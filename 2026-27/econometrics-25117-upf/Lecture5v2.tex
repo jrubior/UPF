@@ -482,60 +482,6 @@ There are systematic differences in educational attainment across districts with
 \end{frame}
 
 
-\begin{frame}{Identifying Causal Effects}
-\small
-\begin{itemize}
-    \item Here, the treatment is the share of subsidized meals ($X$), and the outcome is the average test score ($Y$). We want the causal average treatment effect: how $Y$ would change if the same type of school received a different value of $X$.
-    \item A causal comparison changes $X$ while keeping other relevant factors fixed: this is a \textbf{ceteris paribus} or ``all else equal'' comparison.
-    \item It is often useful to think of a causal effect as the one measured in an ideal \textbf{randomized controlled experiment (RCT)}.
-    \begin{itemize}
-        %\item \textit{Ideal}: subjects all follow the treatment protocol – perfect compliance, no errors in reporting, etc.
-        \item \textit{Randomized}: assignment makes treatment status unrelated, on average, to pre-existing characteristics.
-        \item \textit{Controlled}: the control group provides the counterfactual outcome without the treatment.
-        \item \textit{Experiment}: researchers assign the treatment, so schools do not choose it because of expected test scores.
-    \end{itemize}
-    \item In an ideal RCT, meal subsidies would be randomly allocated to schools, i.e., irrespective of any pre-existing differences across school districts.
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Identifying Causal Effects}
-
-\scriptsize
-Clearly, this is not the case here: treatment and control groups differ in systematic ways.
-The table compares schools above and below the median share of subsidized meals.
-\begin{itemize}
-    \item $\overline Y$: average test score in the group; $n$: number of schools in the group.
-    \item $\overline Y^1-\overline Y^0$: difference between high- and low-subsidy schools.
-    \item The intervals are education groups. For example, $[0,.1339436]$ is the lowest quarter of the college-education share.
-    \item In that group, means are $710.3194$ ($n=108$) and $745.3444$ ($n=18$), so the difference is $35.025$ points.
-\end{itemize}
-
-\begin{center}
-        \resizebox{.9\linewidth}{!}{%
-            \begin{tabular}{l|cc|cc|c|}
-            \cline{2-6}
-                                                                          & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Above-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Below-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Difference in\\ Test Scores\end{tabular}} \\ \cline{2-6} 
-                                                                          & \multicolumn{1}{c|}{$\overline{Y}$}                            & $n$                            & \multicolumn{1}{c|}{$\overline{Y}$}                            & $n$                            & \multicolumn{1}{c|}{$\overline{Y}^1-\overline{Y}^0$}              \\ \hline
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{\textbf{\textit{All Districts}}}                  & 720.2472                                                       & 250                            & 787.4612                                                       & 250                            & \multicolumn{1}{c|}{67.214}                                       \\ 
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\\hline
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{\textbf{\textit{By Share w/ College Education:}}} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{{[}0; .1339436{]}}                       & 710.3194                                                       & 108                            & 745.3444                                                       & 18                             & \multicolumn{1}{c|}{35.025}                                       \\
-            \multicolumn{1}{|l|}{{[}.1350751; .1996677{]}}                & 724.0533                                                       & 90                             & 758.4917                                                       & 36                             & \multicolumn{1}{c|}{34.43834}                                     \\
-            \multicolumn{1}{|l|}{{[}.1997542; .3260502{]}}                & 731.9475                                                       & 40                             & 774.4559                                                       & 84                             & \multicolumn{1}{c|}{42.50845}                                     \\
-            \multicolumn{1}{|l|}{{[}.3309678 ; .7696404{]}}               & 742.05                                                         & 12                             & 813.2955                                                       & 112                            & \multicolumn{1}{c|}{71.24553}                                     \\ \hline
-            \end{tabular}
-            
-}
-
-\end{center}
-
-\end{frame}
-
 \begin{frame}{Another way to see this}
 \small
 The scatterplot shows one point per school:
