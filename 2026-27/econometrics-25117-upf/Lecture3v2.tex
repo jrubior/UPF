@@ -695,7 +695,9 @@ Start from the OLS slope formula and substitute
 $Y_i=\beta_0+\beta_1X_i+u_i$:
 \begin{align*}
 \hat{\beta}_1
-&=\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2}\\
+&=\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{\sum_i(X_i-\overline X)^2}\\
+&=\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2},
+\qquad \text{because }\sum_i(X_i-\overline X)=0\\
 &=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
         {\sum_i(X_i-\overline X)^2}.
 \end{align*}
