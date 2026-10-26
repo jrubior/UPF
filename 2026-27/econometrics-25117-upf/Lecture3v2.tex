@@ -691,6 +691,12 @@ Because this holds for every possible value $x$, we can write the result using t
 Step 1: use the law of iterated expectations.\\
 Step 2: conditional on $X$, the weights and denominator are constants.\\
 Step 3: apply $\mathbb{E}(u_i\mid X)=0$ to eliminate the error term.
+First write the estimator as the true coefficient plus a sampling error:
+\[
+\hat{\beta}_1=\beta_1+
+\frac{\sum_{i=1}^n(X_i-\overline X)u_i}
+     {\sum_{i=1}^n(X_i-\overline X)^2}.
+\]
 %Note that
 \begin{eqnarray*}
 &\mathbb{E}[\hat{\beta}_1] &=\mathbb{E}[\mathbb{E}[\hat{\beta}_1\mid X]] \\
@@ -708,6 +714,10 @@ Step 1: write $\hat{\beta}_1-\beta_1$ as a weighted sum of errors.\\
 Step 2: conditional on $X$, the weights are fixed.\\
 Step 3: independence makes the variance of the sum equal to the sum of variances.\\
 Step 4: under homoskedasticity, replace every $var(u_i\mid X)$ by $\sigma_u^2$.
+Define
+\[
+TSS_X=\sum_{i=1}^n(X_i-\overline X)^2.
+\]
 \begin{eqnarray*}
 & var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
 & &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
@@ -715,6 +725,7 @@ Step 4: under homoskedasticity, replace every $var(u_i\mid X)$ by $\sigma_u^2$.
 & &= \frac{\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{TSS_X^2}\\
 & &= \frac{\sigma^2_u}{TSS_X}\\
 \end{eqnarray*}
+Under homoskedasticity, the numerator is $\sigma_u^2TSS_X$; dividing by $TSS_X^2$ gives $\sigma_u^2/TSS_X$.
 By the law of total variance (i.e., variance decomposition formula)
 \begin{eqnarray*}
      var(\hat{\beta}_1) = \mathbb{E}(var(\hat{\beta}_1 \mid X))+var(\mathbb{E}(\hat{\beta}_1 \mid X)) =  \mathbb{E}(var(\hat{\beta}_1 \mid X)) =   \frac{\sigma^2_u}{TSS_X}
