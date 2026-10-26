@@ -482,60 +482,6 @@ There are systematic differences in educational attainment across districts with
 \end{frame}
 
 
-\begin{frame}{Identifying Causal Effects}
-\small
-\begin{itemize}
-    \item Here, the treatment is the share of subsidized meals ($X$), and the outcome is the average test score ($Y$). We want the causal average treatment effect: how $Y$ would change if the same type of school received a different value of $X$.
-    \item A causal comparison changes $X$ while keeping other relevant factors fixed: this is a \textbf{ceteris paribus} or ``all else equal'' comparison.
-    \item It is often useful to think of a causal effect as the one measured in an ideal \textbf{randomized controlled experiment (RCT)}.
-    \begin{itemize}
-        %\item \textit{Ideal}: subjects all follow the treatment protocol – perfect compliance, no errors in reporting, etc.
-        \item \textit{Randomized}: assignment makes treatment status unrelated, on average, to pre-existing characteristics.
-        \item \textit{Controlled}: the control group provides the counterfactual outcome without the treatment.
-        \item \textit{Experiment}: researchers assign the treatment, so schools do not choose it because of expected test scores.
-    \end{itemize}
-    \item In an ideal RCT, meal subsidies would be randomly allocated to schools, i.e., irrespective of any pre-existing differences across school districts.
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Identifying Causal Effects}
-
-\scriptsize
-Clearly, this is not the case here: treatment and control groups differ in systematic ways.
-The table compares schools above and below the median share of subsidized meals.
-\begin{itemize}
-    \item $\overline Y$: average test score in the group; $n$: number of schools in the group.
-    \item $\overline Y^1-\overline Y^0$: difference between high- and low-subsidy schools.
-    \item The intervals are education groups. For example, $[0,.1339436]$ is the lowest quarter of the college-education share.
-    \item In that group, means are $710.3194$ ($n=108$) and $745.3444$ ($n=18$), so the difference is $35.025$ points.
-\end{itemize}
-
-\begin{center}
-        \resizebox{.9\linewidth}{!}{%
-            \begin{tabular}{l|cc|cc|c|}
-            \cline{2-6}
-                                                                          & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Above-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Below-median\\ \% Subsidized meals\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Difference in\\ Test Scores\end{tabular}} \\ \cline{2-6} 
-                                                                          & \multicolumn{1}{c|}{$\overline{Y}$}                            & $n$                            & \multicolumn{1}{c|}{$\overline{Y}$}                            & $n$                            & \multicolumn{1}{c|}{$\overline{Y}^1-\overline{Y}^0$}              \\ \hline
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{\textbf{\textit{All Districts}}}                  & 720.2472                                                       & 250                            & 787.4612                                                       & 250                            & \multicolumn{1}{c|}{67.214}                                       \\ 
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\\hline
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{\textbf{\textit{By Share w/ College Education:}}} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{} &                                                                &                                &                                                                &                                & \multicolumn{1}{c|}{}                                             \\
-            \multicolumn{1}{|l|}{{[}0; .1339436{]}}                       & 710.3194                                                       & 108                            & 745.3444                                                       & 18                             & \multicolumn{1}{c|}{35.025}                                       \\
-            \multicolumn{1}{|l|}{{[}.1350751; .1996677{]}}                & 724.0533                                                       & 90                             & 758.4917                                                       & 36                             & \multicolumn{1}{c|}{34.43834}                                     \\
-            \multicolumn{1}{|l|}{{[}.1997542; .3260502{]}}                & 731.9475                                                       & 40                             & 774.4559                                                       & 84                             & \multicolumn{1}{c|}{42.50845}                                     \\
-            \multicolumn{1}{|l|}{{[}.3309678 ; .7696404{]}}               & 742.05                                                         & 12                             & 813.2955                                                       & 112                            & \multicolumn{1}{c|}{71.24553}                                     \\ \hline
-            \end{tabular}
-            
-}
-
-\end{center}
-
-\end{frame}
-
 \begin{frame}{Another way to see this}
 \small
 The scatterplot shows one point per school:
@@ -573,30 +519,6 @@ The colored horizontal lines are group-specific average test scores:
     \item One way to do it is to \textbf{control} for systematic differences between control and treatment group
     \item In our example, we want to know the average treatment effect of subsidizing school meals on test scores, holding the share of college education, average income, English proficiency, etc. constant (i.e., getting closer to all else equal, or ceteris paribus)
     \item Said differently, we want to know the average impact of a change in subsidized meals on test scores within groups where college education, average income, English proficiency, etc. is the same
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{The Multiple Regression Model }
-\begin{equation*}
-    Y_i = \beta_{0} + \beta_1 X_{1i} + \beta_2 X_{2i} + ... + \beta_k X_{ki} + u_i \text{~~~~~~with~~} i=1,\dots, n
-\end{equation*}
-Where
-\begin{itemize}
-    \item $Y_i$ is the $i$th observation of the dependant variable
-    \item $X_{1i}, X_{2i}, ..., X_{ki}$ is the $i$th observation of the $k$th regressor
-    \item $u_i$ is the error term
-\end{itemize}
-\vspace{.5cm}
-The population regression line is therefore given by:
-\begin{equation*}
-     \mathbb{E}(Y_i\mid X_{1i}=x_1, X_{2i}=x_2, ..., X_{ki}=x_k) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_k x_k 
-\end{equation*}
-\begin{itemize}
-    \item $\beta_k$ is the slope of $X_{ki}$
-    \item $\beta_k$ is the expected difference in $Y_i$ associated with a unit change in $X_{ki}$ holding all other regressors constant
-    \item $\beta_0$, the intercept, can be thought of as the coefficient on a regressor $X_{0i}$ that is equal to 1 for all observations. $\beta_0$ is the expected value of $Y_i$ when all $X_{ki}$ are equal to zero.
 \end{itemize}
 
 \end{frame}
