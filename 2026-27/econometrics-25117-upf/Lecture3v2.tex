@@ -687,29 +687,38 @@ Because this holds for every possible value $x$, we can write the result using t
 
 
 \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
-\small
+\scriptsize
 Step 1: use the law of iterated expectations.\\
 Step 2: conditional on $X$, the weights and denominator are constants.\\
 Step 3: apply $\mathbb{E}(u_i\mid X)=0$ to eliminate the error term.
-First write the estimator as the true coefficient plus a sampling error:
+Start from the OLS slope formula and substitute
+$Y_i=\beta_0+\beta_1X_i+u_i$:
+\begin{align*}
+\hat{\beta}_1
+&=\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2}\\
+&=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
+        {\sum_i(X_i-\overline X)^2}.
+\end{align*}
+Because $\sum_i(X_i-\overline X)=0$, the intercept term disappears. Also,
+$X_i=\overline X+(X_i-\overline X)$, so
 \[
 \hat{\beta}_1=\beta_1+
 \frac{\sum_{i=1}^n(X_i-\overline X)u_i}
      {\sum_{i=1}^n(X_i-\overline X)^2}.
 \]
-%Note that
-\begin{eqnarray*}
-&\mathbb{E}[\hat{\beta}_1] &=\mathbb{E}[\mathbb{E}[\hat{\beta}_1\mid X]] \\
-& &=\beta_1  + \mathbb{E}\left[\mathbb{E}\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Big| X\right]\right] \\
-& &=\beta_1  + \mathbb{E}\left[\frac{\mathbb{E}[\sum_{i=1}^n (X_i - \overline{X})u_i\mid X]}{\sum_{i=1}^n (X_i - \overline{X})^2}\right] \\
-& &=\beta_1  + \mathbb{E}\left[\frac{\sum_{i=1}^n (X_i - \overline{X})\mathbb{E}[u_i\mid X]}{\sum_{i=1}^n (X_i - \overline{X})^2}\right] \\
-& &=\beta_1  + \mathbb{E}\left[\frac{\sum_{i=1}^n (X_i - \overline{X})0}{\sum_{i=1}^n (X_i - \overline{X})^2}\right] \\
-& &=\beta_1
-\end{eqnarray*}
+\begin{align*}
+\mathbb{E}[\hat\beta_1]
+&=\mathbb{E}[\mathbb{E}(\hat\beta_1\mid X)]\\
+&=\beta_1+\mathbb{E}\left[
+\frac{\sum_i(X_i-\overline X)\mathbb{E}(u_i\mid X)}
+{\sum_i(X_i-\overline X)^2}\right]\\
+&=\beta_1+\mathbb{E}\left[\frac{\sum_i(X_i-\overline X)\cdot0}
+{\sum_i(X_i-\overline X)^2}\right]=\beta_1.
+\end{align*}
 \end{frame}
 
 \begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
-\footnotesize
+\scriptsize
 Step 1: write $\hat{\beta}_1-\beta_1$ as a weighted sum of errors.\\
 Step 2: conditional on $X$, the weights are fixed.\\
 Step 3: independence makes the variance of the sum equal to the sum of variances.\\
@@ -718,6 +727,7 @@ Define
 \[
 TSS_X=\sum_{i=1}^n(X_i-\overline X)^2.
 \]
+It measures the total variation of the observed $X_i$ values around their sample mean.
 \begin{eqnarray*}
 & var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
 & &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
@@ -726,10 +736,7 @@ TSS_X=\sum_{i=1}^n(X_i-\overline X)^2.
 & &= \frac{\sigma^2_u}{TSS_X}\\
 \end{eqnarray*}
 Under homoskedasticity, the numerator is $\sigma_u^2TSS_X$; dividing by $TSS_X^2$ gives $\sigma_u^2/TSS_X$.
-By the law of total variance (i.e., variance decomposition formula)
-\begin{eqnarray*}
-     var(\hat{\beta}_1) = \mathbb{E}(var(\hat{\beta}_1 \mid X))+var(\mathbb{E}(\hat{\beta}_1 \mid X)) =  \mathbb{E}(var(\hat{\beta}_1 \mid X)) =   \frac{\sigma^2_u}{TSS_X}
-\end{eqnarray*}
+Finally, the law of total variance and $\mathbb{E}(\hat\beta_1\mid X)=\beta_1$ imply $Var(\hat\beta_1)=\mathbb{E}[Var(\hat\beta_1\mid X)]$.
 \end{frame}
 
 % \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_0]=\beta_0$}
