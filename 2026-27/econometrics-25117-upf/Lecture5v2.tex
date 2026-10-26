@@ -524,30 +524,6 @@ The colored horizontal lines are group-specific average test scores:
 \end{frame}
 
 
-\begin{frame}{The Multiple Regression Model }
-\begin{equation*}
-    Y_i = \beta_{0} + \beta_1 X_{1i} + \beta_2 X_{2i} + ... + \beta_k X_{ki} + u_i \text{~~~~~~with~~} i=1,\dots, n
-\end{equation*}
-Where
-\begin{itemize}
-    \item $Y_i$ is the $i$th observation of the dependant variable
-    \item $X_{1i}, X_{2i}, ..., X_{ki}$ is the $i$th observation of the $k$th regressor
-    \item $u_i$ is the error term
-\end{itemize}
-\vspace{.5cm}
-The population regression line is therefore given by:
-\begin{equation*}
-     \mathbb{E}(Y_i\mid X_{1i}=x_1, X_{2i}=x_2, ..., X_{ki}=x_k) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_k x_k 
-\end{equation*}
-\begin{itemize}
-    \item $\beta_k$ is the slope of $X_{ki}$
-    \item $\beta_k$ is the expected difference in $Y_i$ associated with a unit change in $X_{ki}$ holding all other regressors constant
-    \item $\beta_0$, the intercept, can be thought of as the coefficient on a regressor $X_{0i}$ that is equal to 1 for all observations. $\beta_0$ is the expected value of $Y_i$ when all $X_{ki}$ are equal to zero.
-\end{itemize}
-
-\end{frame}
-
-
 \begin{frame}{Example for $k=2$}
 Imagine we compare two schools, $i$ and $j$
 \begin{eqnarray*}
