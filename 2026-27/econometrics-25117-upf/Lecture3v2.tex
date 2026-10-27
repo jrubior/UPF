@@ -734,7 +734,7 @@ Define
 \[
 TSS_X=\sum_{i=1}^n(X_i-\overline X)^2.
 \]
-It measures the total variation of the observed $X_i$ values around their sample mean.
+This is called the \textbf{total sum of squares of $X$} (TSS$_X$): it measures the total variation of the observed $X_i$ values around their sample mean.
 \begin{eqnarray*}
 & var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
 & &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
@@ -742,7 +742,6 @@ It measures the total variation of the observed $X_i$ values around their sample
 & &= \frac{\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{TSS_X^2}\\
 & &= \frac{\sigma^2_u}{TSS_X}\\
 \end{eqnarray*}
-Under homoskedasticity, the numerator is $\sigma_u^2TSS_X$; dividing by $TSS_X^2$ gives $\sigma_u^2/TSS_X$.
 Finally, the law of total variance and $\mathbb{E}(\hat\beta_1\mid X)=\beta_1$ imply $Var(\hat\beta_1)=\mathbb{E}[Var(\hat\beta_1\mid X)]$.
 \end{frame}
 
