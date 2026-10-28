@@ -238,6 +238,8 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
 \end{figure}
 \end{column}
 \end{columns}
+\par\smallskip
+Here $TSS_X=\sum_{i=1}^n(X_i-\overline X)^2$ is the \textbf{total sum of squared deviations of $X$ from its sample mean}.
 \end{frame}
 
 
@@ -280,10 +282,36 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
         \begin{equation*}
             t=\frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
         \end{equation*}
-        where $SE(\hat{\beta}_1)=\sqrt{\frac{SSR}{(n-2) TSS_X}}=\sqrt{\frac{\sum_{i=1}^n \hat{u}_i^2}{(n-2)\sum_{i=1}^n (X_i-\overline{X})^2}}$ when errors are homoskedastic (i.e., $var(u_i\mid X)=\sigma^2_u$~~~$\forall i=1,\dots, n$)
+        where $SE(\hat{\beta}_1)=\sqrt{\frac{SSR}{(n-2) TSS_X}}=\sqrt{\frac{\sum_{i=1}^n \hat{u}_i^2}{(n-2)\sum_{i=1}^n (X_i-\overline{X})^2}}$.
         \item Using the large-sample normal approximation, reject $H_0: \beta_1=\beta_{1,0}$ at 5\% if $|t|>1.96$, or if the two-sided $p$-value is below $0.05$. Excel's finite-sample test uses a $t_{n-2}$ critical value instead.
 
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Hypothesis Testing: The Intercept}
+\small
+\begin{itemize}
+    \item To test the intercept, specify
+    \[
+        H_0:\beta_0=\beta_{0,0},\text{ against }H_1:\beta_0\ne\beta_{0,0}.
+    \]
+    \item The t-statistic is
+    \[
+        t=\frac{\hat\beta_0-\beta_{0,0}}{SE(\hat\beta_0)},
+    \]
+    where
+    \[
+        SE(\hat\beta_0)
+        =SER\sqrt{\frac1n+\frac{\overline X^2}{TSS_X}}
+        =\sqrt{\frac{SSR}{n-2}\left(\frac1n+\frac{\overline X^2}{TSS_X}\right)}.
+    \]
+    \item For $H_0:\beta_0=0$, this simplifies to $t=\hat\beta_0/SE(\hat\beta_0)$:
+    we test whether the population regression line's value at $X=0$ is zero.
+    \item Using the large-sample normal approximation, reject $H_0$ at 5\% if
+    $|t|>1.96$, or if the two-sided $p$-value $2[1-\Phi(|t|)]$ is below $0.05$.
+    Otherwise, do not reject $H_0$.
+    \item Excel's finite-sample test uses a $t_{n-2}$ critical value instead.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Excel: A Dataset of 100 Simulated Schools}
@@ -454,7 +482,7 @@ CI_{\beta_1}&=-154.8951\pm1.9845(15.3792)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Excel: Standard Error, SER, and RMSE}
+\begin{frame}{Excel: SER and RMSE}
 \small
 First compute the fitted value and the residual:
 \[
@@ -504,7 +532,6 @@ R^2=1-\frac{SSR}{TSS_Y}
 \begin{itemize}
 \item The fitted line explains \textbf{50.86\% of the sample variation} in test scores around their mean.
 \item This measures in-sample fit, not the proportion of scores caused by meals.
-\item Adjusted $R^2=1-(1-R^2)\frac{n-1}{n-2}=0.5036$ penalizes the use of a regressor.
 \end{itemize}
 \end{frame}
 
@@ -547,6 +574,7 @@ Open \textbf{Paso\_a\_paso}. Each of the 100 observations has its own row (43--1
 \end{center}
 \small
 Let $S_{XY}=\sum_i(X_i-\overline X)(Y_i-\overline Y)$ be the \textbf{cross-product sum}.
+Also, $TSS_X=\sum_i(X_i-\overline X)^2$ is the \textbf{total sum of squared deviations of $X$ from its sample mean}.
 Then $s_{XY}=S_{XY}/(n-1)$ and $s_X^2=TSS_X/(n-1)$.
 \begin{align*}
 \widehat\beta_1&=\frac{S_{XY}}{TSS_X}=\frac{s_{XY}}{s_X^2}
@@ -599,218 +627,5 @@ t_0=\frac{847.0719}{8.7908}=96.3594.
 \item C24: \texttt{=C13/C22}; C25: \texttt{=C14/C23}.
 \end{itemize}
 \end{frame}
-
-\begin{frame}{By Hand, Step 5: $p$-Values and Confidence Intervals}
-\small
-A \textbf{$p$-value is a probability}: under $H_0$, how likely is a $t$ statistic at least this extreme in either direction?
-\begin{center}
-\includegraphics[width=.90\textwidth,height=2.6cm,keepaspectratio]{images/lecture4_excel_manual_inference.png}
-\end{center}
-\begin{columns}[T]
-\begin{column}{.49\textwidth}
-\textbf{Two-sided $p$-values ($df=98$)}
-\begin{itemize}
-\item Slope, C26:\\\texttt{=T.DIST.2T(ABS(C24),C19)}
-\item Intercept, C27:\\\texttt{=T.DIST.2T(ABS(C25),C19)}
-\end{itemize}
-\end{column}
-\begin{column}{.48\textwidth}
-\textbf{95\% confidence intervals}
-\begin{itemize}
-\item Critical value, C28:\\\texttt{=T.INV.2T(0.05,C19)}
-\item Use $\widehat\beta_j\pm\texttt{C28}\times SE(\widehat\beta_j)$.
-\end{itemize}
-\end{column}
-\end{columns}
-\medskip
-{\footnotesize Yellow cells match ToolPak. Function names and separators may differ with Excel's language settings.}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Homoskedasticity vs. Heteroskedasticity}
-
-\begin{itemize}
-    \item In regression analysis, we often make an important assumption about the variance of the error term, $u$, known as \textbf{homoskedasticity}.
-    \item Homoskedasticity implies that the variance of the error term is constant for all observations.
-    \item However, in most cases, this assumption may not hold, leading to \textbf{heteroskedasticity}, where the variance of $u$ varies across observations.
-\end{itemize}
-\begin{block}{Homoskedasticity vs. Heteroskedasticity}
-For homoskedastic data, we assume:
-\[
-\text{var}(u_i \mid X) = \sigma^2 \quad \text{for all } i
-\]
-
-For heteroskedastic data, the variance of $u_i$ is not constant:
-\[
-\text{var}(u_i \mid X) = \sigma_i^2 \quad \text{for each } i
-\]
-\end{block}
-
-\end{frame}
-
-
-\begin{frame}{Graphical Illustration}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-    \item Understanding \textbf{homoskedasticity} and heteroskedasticity is crucial in regression analysis.
-    \item \textbf{Homoskedasticity} assumes constant error variance, while heteroskedasticity implies varying error variance.
-    \item To account for heteroskedasticity, robust standard errors can be used to obtain valid inferences.
-    \end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.35]{images/homoskedastic.png}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Graphical Illustration}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-    \item Understanding homoskedasticity and \textbf{heteroskedasticity} is crucial in regression analysis.
-    \item Homoskedasticity assumes constant error variance, while \textbf{heteroskedasticity} implies varying error variance.
-    \item To account for \textbf{heteroskedasticity}, robust standard errors can be used to obtain valid inferences.
-    \end{itemize}
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.35]{images/heteroskedastic.png}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{The Variance of the Slope with Heteroskedastic Errors}
-\small
-Write $TSS_X=\sum_i(X_i-\overline X)^2$. Conditional on all the regressors, the weights are fixed:
-\[
-\widehat\beta_1-\beta_1=\frac{\sum_i(X_i-\overline X)u_i}{TSS_X}.
-\]
-If errors are uncorrelated across observations conditional on $X$,
-\begin{align*}
-\operatorname{var}(\widehat\beta_1\mid X)
-&=\frac{1}{TSS_X^2}\operatorname{var}\!\left(\sum_i(X_i-\overline X)u_i\mid X\right)\\
-&=\frac{\sum_i(X_i-\overline X)^2\operatorname{var}(u_i\mid X)}{TSS_X^2}.
-\end{align*}
-Under homoskedasticity, $\operatorname{var}(u_i\mid X)=\sigma_u^2$, so this reduces to
-$\sigma_u^2/TSS_X$. With heteroskedasticity, the observation-specific variances remain inside the sum.
-\end{frame}
-
-\begin{frame}{Estimate a Heteroskedasticity-Robust Standard Error}
-\small
-Use squared residuals to estimate each observation's contribution to the variance:
-\[
-\widehat{\operatorname{var}}_{\mathrm{HC1}}(\widehat\beta_1)
-=\frac{n}{n-2}\,
-\frac{\sum_i(X_i-\overline X)^2\widehat u_i^2}
-     {\left[\sum_i(X_i-\overline X)^2\right]^2}.
-\]
-\begin{itemize}
-\item The numerator allows the size of the error to vary with $X_i$.
-\item The denominator is $TSS_X^2$: square the \emph{sum of squared deviations}.
-\item $n/(n-2)$ is a degrees-of-freedom adjustment (HC1).
-\item Take the square root to obtain the robust standard error. Robust inference is justified by large-sample results under the usual regularity conditions.
-\end{itemize}
-The OLS coefficient estimates do not change; their estimated uncertainty does.
-\end{frame}
-
-\begin{frame}{Excel in Practice: What the ToolPak Does Not Provide}
-\begin{columns}[c]
-\begin{column}{.49\textwidth}
-\small
-\begin{itemize}
-\item The standard errors in our \textbf{Regression} sheet use the homoskedasticity formula.
-\item The ToolPak Regression dialog has \textbf{no option for heteroskedasticity-robust standard errors}.
-\item If error variance changes with $X$, use a separate robust calculation before interpreting $t$ tests and confidence intervals.
-\end{itemize}
-\end{column}
-\begin{column}{.47\textwidth}
-\includegraphics[width=\linewidth]{images/lecture4_excel_residual_plot.png}
-\small
-A residual plot helps diagnose changing spread. An absence of an obvious pattern does not establish constant variance.
-\end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{The Theoretical Foundations of OLS}
-
-Let us consider a linear regression model:
-
-\[
-Y_i = \beta_0 + \beta_1 X_{i}  + u_i
-\]
-
-Subject to the following assumptions:
-
-\begin{enumerate}
-    \item Zero Conditional Mean: The errors $u_i$ have a conditional mean of zero given the values of the independent variables, i.e., $\mathbb{E}(u_i|X_{i}) = 0$ for all $i$.
-
-    \item Random Draws: observations $(Y_i;X_i)$ are randomly drawn from the same population distribution, i.e., they are i.i.d. for all $i$.
-    
-    \item Large outliers are rare: $\mathbb{E}(Y^4)<\infty$ and $\mathbb{E}(X^4)<\infty$
-    
-    \item Homoskedasticity: The errors have constant variance, i.e., $\text{Var}(u_i) = \sigma_u^2$ for all $i$.
-    
-    \item u is normally distributed: $u\sim\mathcal{N}(0;\sigma_u^2)$.
-\end{enumerate}
-
-\begin{exampleblock}{Gauss-Markov Theorem}
-Under assumptions 1-4, the OLS estimators are Best Linear Unbiased Estimators (BLUE).
-\end{exampleblock}
-\end{frame}
-
-\begin{frame}{The Gauss-Markov Theorem}
-\begin{itemize}
-    \item The OLS estimator $\hat{\beta}_1$ is a linear estimator, that is, it can be written as a linear function of $Y_1, ..., Y_n$:
-    \begin{eqnarray*}
-        &\hat{\beta}_1-\beta_1 = \frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n(X_i - \overline{X})^2}\equiv w^{OLS}_iu_i\\
-        \text{where} &w^{OLS}_i=\frac{\sum_{i=1}^n (X_i - \overline{X})}{\sum_{i=1}^n(X_i - \overline{X})^2}
-    \end{eqnarray*}
-    \item The Gauss-Markov theorem states that among all possible choices of $\{w_i\}$ the OLS weights $w^{OLS}_i$ yield the smallest $var(\hat{\beta}_1)$.
-    \item Under assumptions 1-5, the ordinary least squares (OLS) estimators $\hat{\beta}_0$ and $\hat{\beta}_1$  have the minimum variance among all (linear and non-linear) unbiased estimators
-\end{itemize}
-\end{frame}
-
-\begin{frame}{The Gauss-Markov Theorem: Limits}
-The Gauss-Markov Theorem is a crucial justification for using OLS in many regression analyses, but it is very restrictive and, therefore, has serious practical limitations.
-\begin{itemize}
-    \item The result is only for linear estimators –- only a small subset of estimators
-    \item The condition of homoskedasticity often doesn’t hold (homoskedasticity is a special case)
-    \item When estimating the population mean, if there are significant outliers, the median is preferred over the mean because it's less sensitive and has lower variance. Similarly, in regression, OLS estimators can also be sensitive to outliers. In such cases, other estimators like the Least Absolute Deviations (LAD) estimator may be more efficient:
-    \begin{eqnarray*}
-        \min_{\hat{\beta}_0;\hat{\beta}_1}\sum_{i=1}^n \mid Y_i - \beta_0 - \beta_1 X_i \mid 
-    \end{eqnarray*}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Back to the original question}
-Suppose schools receive extra transfers from the central government so the share of subsidized school meals increases by 10\%-pt. What is the effect of this policy intervention (“treatment”) on test scores? 
-\begin{itemize}
-    \item This question requires an estimate of the causal effect on test scores of a change in the share of subsidized meals. Does our regression analysis using the California data set provide a compelling estimate of this causal effect?
-    \item Not really – districts with a low share of subsidized meals tend to be ones with lots of other resources and higher income families, which provide kids with more learning opportunities outside school…this suggests that $corr(u_i; X_i)>0$ (that is, $\mathbb{E}(u_i\mid X_i)\neq 0$).
-    \item It seems that we have omitted some factors, or variables, from our analysis, and this has biased our results…
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[allowframebreaks]{Material}
-\begin{itemize}
-    \item[--] \textbf{Textbooks:}
-    \begin{itemize}
-        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 5
-    \end{itemize}
-\end{itemize}
-\end{frame}
-
 
 \end{document}
