@@ -477,6 +477,54 @@ The intercept first-order condition gives
 The $n-2$ denominator corrects for estimating the intercept and slope.
 \par\medskip
 Under the usual homoskedastic OLS assumptions, $SER^2$ is unbiased for $\sigma_u^2$; $SER$ estimates $\sigma_u$.
+\par\smallskip
+As with the sample standard deviation $s_Y$, we estimate an unknown spread from deviations around a fitted mean; see the comparison next.
+\end{frame}
+
+\begin{frame}{From the Sample Standard Deviation to SER}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.48\textwidth}
+\textbf{Before: unknown $\sigma_Y$}
+\par\smallskip
+Estimate the mean $\mu_Y$ by $\overline Y$: \textbf{one fitted parameter}, hence $n-1$.
+\[
+s_Y^2=\frac{\sum_{i=1}^n(Y_i-\overline Y)^2}{n-1},
+\qquad s_Y=\sqrt{s_Y^2}.
+\]
+$s_Y$ estimates the outcome spread $\sigma_Y$.
+\par\medskip
+For the estimated mean:
+\[
+SD(\overline Y)=\frac{\sigma_Y}{\sqrt n}
+\quad\Longrightarrow\quad
+\widehat{SE}(\overline Y)=\frac{s_Y}{\sqrt n}.
+\]
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Regression: unknown $\sigma_u$}
+\par\smallskip
+Estimate the mean $\beta_0+\beta_1X_i$ by $\hat Y_i$: \textbf{two fitted parameters}, hence $n-2$.
+\[
+\hat u_i=Y_i-\hat Y_i,\qquad
+SER^2=\frac{\sum_{i=1}^n\hat u_i^2}{n-2}.
+\]
+$SER=\sqrt{SER^2}$ estimates the error spread $\sigma_u$.
+\par\medskip
+For the estimated slope:
+\[
+SD(\hat\beta_1\mid X)=\frac{\sigma_u}{\sqrt{TSS_X}}
+\ \Longrightarrow\ 
+\widehat{SE}(\hat\beta_1)=\frac{SER}{\sqrt{TSS_X}}.
+\]
+\end{column}
+\end{columns}
+\par\medskip
+\textbf{Spread versus uncertainty:} $s_Y$ and $SER$ measure the spread of outcomes and errors. Dividing by $\sqrt n$ or $\sqrt{TSS_X}$ gives uncertainty in the estimated mean or slope.
+\par\smallskip
+Assume i.i.d.\ sampling and, for regression, the usual homoskedastic OLS assumptions; $TSS_X=\sum_i(X_i-\overline X)^2$.
 \end{frame}
 
 
@@ -737,22 +785,32 @@ Therefore,
 
 \begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
 \scriptsize
-Step 1: write $\hat{\beta}_1-\beta_1$ as a weighted sum of errors.\\
-Step 2: conditional on $X$, the weights are fixed.\\
-Step 3: independence makes the variance of the sum equal to the sum of variances.\\
-Step 4: under homoskedasticity, replace every $var(u_i\mid X)$ by $\sigma_u^2$.
-Define
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\textbf{Reminder: $SER$ estimates $\sigma_u$, so $SER^2$ estimates $\sigma_u^2$.}
+\par\smallskip
+Write $\hat\beta_1-\beta_1$ as a weighted sum of errors. Conditional on $X$, the weights are fixed; independence makes the variance of the sum equal to the sum of variances. Under homoskedasticity, $var(u_i\mid X)=\sigma_u^2$.
+\par\smallskip
+Define $TSS_X=\sum_{i=1}^n(X_i-\overline X)^2$, the \textbf{total sum of squares of $X$}: total variation of the observed $X_i$ values around their sample mean.
 \[
-TSS_X=\sum_{i=1}^n(X_i-\overline X)^2.
+\begin{aligned}
+var(\hat\beta_1\mid X)
+&=var(\hat\beta_1-\beta_1\mid X)
+=var\left[\frac{\sum_{i=1}^n(X_i-\overline X)u_i}{TSS_X}\Bigg|X\right]\\
+&=\frac{1}{TSS_X^2}var\left[\sum_{i=1}^n(X_i-\overline X)u_i\Bigg|X\right]\\
+&=\frac{\sum_{i=1}^n(X_i-\overline X)^2var(u_i\mid X)}{TSS_X^2}
+=\frac{\sigma_u^2\sum_{i=1}^n(X_i-\overline X)^2}{TSS_X^2}
+=\frac{\sigma_u^2}{TSS_X}.
+\end{aligned}
 \]
-This is called the \textbf{total sum of squares of $X$} (TSS$_X$): it measures the total variation of the observed $X_i$ values around their sample mean.
-\begin{eqnarray*}
-& var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
-& &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
-& &= \frac{1}{TSS_X^2}var\left[\sum_{i=1}^n (X_i - \overline{X})u_i\bigg|X\right]\\
-& &= \frac{\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{TSS_X^2}\\
-& &= \frac{\sigma^2_u}{TSS_X}
-\end{eqnarray*}
+\textbf{Plug in the estimated error variance:}
+\[
+\widehat{\operatorname{Var}}(\hat\beta_1\mid X)
+=\frac{SER^2}{TSS_X}
+=\frac{SSR}{(n-2)TSS_X};
+\qquad
+\widehat{SE}(\hat\beta_1)=\frac{SER}{\sqrt{TSS_X}}.
+\]
 \end{frame}
 
 \begin{frame}{From Conditional to Unconditional Variance}
