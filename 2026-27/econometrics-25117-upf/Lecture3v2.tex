@@ -226,16 +226,16 @@
  \begin{columns}
 \begin{column}{0.35\textwidth}
 \begin{equation*}
-    Y_i¨ = \beta_0 + \beta_1 X_i + u_i
+    Y_i = \beta_0 + \beta_1 X_i + U_i
 \end{equation*}
 \begin{itemize}
     \item There are $n$ observations, $(X_i,Y_i)$, $i=\{1,\dots, n\}$
     \item $Y$ is the dependent variable
     \item $X$ is the independent variable or regressor
-    \item $\mathbb{E}(Y\mid X) = \beta_0 + \beta_1 X$ is the population regression line
+    \item $\mathbb{E}[Y\mid X] = \beta_0 + \beta_1 X$ is the population regression line
     \item $\beta_0$ is called the intercept
     \item $\beta_1$ is the slope
-    \item $u_i$ is the error term
+    \item $U_i$ is the random error; $u_i$ is its realization (as plotted).
 \end{itemize}
 \end{column}
 \begin{column}{0.7\textwidth}
@@ -258,8 +258,8 @@ How can we estimate $\beta_0$ and $\beta_1$ from the data? Recall from Lecture 1
 \\
 By analogy, the OLS estimators of the unknown parameters $\beta_0$ and $\beta_1$,  $\hat{\beta}_0$ and $\hat{\beta}_1$ solves,
 \begin{eqnarray*}
-    &  &\min_{\beta_0, \beta_1} \sum_{i=1}^n u_i^2\\
-    & \Leftrightarrow &\min_{\beta_0, \beta_1} \sum_{i=1}^n (Y_i - \mathbb{E}(Y\mid X))^2\\
+    &  &\min_{\beta_0, \beta_1} \sum_{i=1}^n U_i^2\\
+    & \Leftrightarrow &\min_{\beta_0, \beta_1} \sum_{i=1}^n (Y_i - \mathbb{E}[Y\mid X])^2\\
    & \Leftrightarrow &\min_{\beta_0, \beta_1} \sum_{i=1}^n (Y_i - (\hat{\beta}_0 + \hat{\beta}_1 X_i))^2
 \end{eqnarray*}
 \end{frame}
@@ -328,11 +328,11 @@ The OLS estimator minimizes the average squared difference between the actual va
     \item $\hat{\beta}_0 = \overline{Y}  -\hat{\beta}_1 \overline{X}$
     \item $\hat{\beta}_1= \frac{s_{XY}}{s^2_{X}}$
     \item $\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_i$
-    \item $\hat{u_i} = Y_i - \hat{Y}_i$
+    \item $\hat{U}_i = Y_i - \hat{Y}_i$
 \end{itemize}
 This means that
 \begin{itemize}
-    \item $\Delta\mathbb{E}(Y_i\mid X_i) = \hat{\beta}_1\Delta X_i$
+    \item $\Delta\mathbb{E}[Y_i\mid X_i] = \hat{\beta}_1\Delta X_i$
 \end{itemize}s
 \end{column}
 \begin{column}{0.7\textwidth}
@@ -429,12 +429,12 @@ s_X^2=\frac{82.50}{9}=9.167,\\[-2pt]
 \begin{frame}{$R^2$}
 From the previous slides, we note that
 \begin{equation*}
-    Y_i = \hat{Y}_i + \hat{u}_i
+    Y_i = \hat{Y}_i + \hat{U}_i
 \end{equation*}
 The $R^2$ is the ratio of the sample variance of $\hat{Y}$ to the sample variance of $Y$
 \begin{eqnarray*}
     &R^2 &= \frac{\text{explained sum of squares ($ESS$)}}{\text{total sum of squares ($TSS$)}} = \frac{\sum_{i=1}^n (\hat{Y}_i - \overline{Y})^2}{\sum_{i=1}^n (Y_i - \overline{Y})^2}\\
-    & &= 1-\frac{\text{sum of squared residuals ($SSR$)}}{\text{total sum of squares ($TSS$)}} = 1-\frac{\sum_{i=1}^n \hat{u}_i^2}{\sum_{i=1}^n (Y_i - \overline{Y})^2}
+    & &= 1-\frac{\text{sum of squared residuals ($SSR$)}}{\text{total sum of squares ($TSS$)}} = 1-\frac{\sum_{i=1}^n \hat{U}_i^2}{\sum_{i=1}^n (Y_i - \overline{Y})^2}
 \end{eqnarray*}
 $R^2$ ranges from 0 to 1, where higher values indicate a better fit (i.e., the regressor is good at predicting the outcome)
 \end{frame}
@@ -449,34 +449,33 @@ $R^2$ ranges from 0 to 1, where higher values indicate a better fit (i.e., the r
 \setlength{\belowdisplayshortskip}{2pt}
 \textbf{1. Population errors:}
 \[
-    u_i=Y_i-(\beta_0+\beta_1X_i).
-    \quad\text{If }E[u_i]=0,\quad
-    \sigma_u^2=\operatorname{Var}(u_i)=E[u_i^2],\quad
-    \sigma_u=\sqrt{E[u_i^2]}.
+    U_i=Y_i-(\beta_0+\beta_1X_i).
 \]
-$\sigma_u$ measures the typical spread around the population regression line, in units of $Y$.
+If $\mathbb{E}[U_i]=0$, then
+\[
+    \sigma_U^2=\operatorname{Var}(U_i)=\mathbb{E}[U_i^2],\text{ and }
+    \sigma_U=\sqrt{\mathbb{E}[U_i^2]}.
+\]
+$\sigma_U$ measures the typical spread around the population regression line, in units of $Y$.
 \par\medskip
 \textbf{2. Observable residuals:} The true coefficients are unknown, so replace them by their estimates:
 \[
-    \hat{u}_i=Y_i-(\hat{\beta}_0+\hat{\beta}_1X_i).
+    \hat{U}_i=Y_i-(\hat{\beta}_0+\hat{\beta}_1X_i).
 \]
 The intercept first-order condition gives
 \[
-    \left[\frac{\partial}{\partial\beta_0}
-    \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right]_{\beta=\hat{\beta}}
-    =-2\sum_{i=1}^n\hat{u}_i=0
-    \quad\Longrightarrow\quad\overline{\hat{u}}=0.
+    -2\sum_{i=1}^n\hat{U}_i=0,\text{ hence }\overline{\hat{U}}=0.
 \]
 \par\medskip
 \textbf{3. Estimate the error variance and standard deviation:}
 \[
-    \hat{\sigma}_u^2=\frac{1}{n-2}\sum_{i=1}^n(\hat{u}_i-\overline{\hat{u}})^2
+    \hat{\sigma}_U^2=\frac{1}{n-2}\sum_{i=1}^n(\hat{U}_i-\overline{\hat{U}})^2
     =\frac{SSR}{n-2};
-    \qquad SER=\hat{\sigma}_u=\sqrt{\hat{\sigma}_u^2}.
+    \text{ and }SER=\hat{\sigma}_U=\sqrt{\hat{\sigma}_U^2}.
 \]
 The $n-2$ denominator corrects for estimating the intercept and slope.
 \par\medskip
-Under the usual homoskedastic OLS assumptions, $SER^2$ is unbiased for $\sigma_u^2$; $SER$ estimates $\sigma_u$.
+Under the usual homoskedastic OLS assumptions, $SER^2$ is unbiased for $\sigma_U^2$; $SER$ estimates $\sigma_U$.
 \par\smallskip
 As with the sample standard deviation $s_Y$, we estimate an unknown spread from deviations around a fitted mean; see the comparison next.
 \end{frame}
@@ -489,42 +488,34 @@ As with the sample standard deviation $s_Y$, we estimate an unknown spread from 
 \begin{column}{0.48\textwidth}
 \textbf{Before: unknown $\sigma_Y$}
 \par\smallskip
+We want to estimate the population variance:
+\[
+\sigma_Y^2=\mathbb{E}\big[(Y_i-\mu_Y)^2\big].
+\]
 Estimate the mean $\mu_Y$ by $\overline Y$: \textbf{one fitted parameter}, hence $n-1$.
 \[
 s_Y^2=\frac{\sum_{i=1}^n(Y_i-\overline Y)^2}{n-1},
 \qquad s_Y=\sqrt{s_Y^2}.
 \]
 $s_Y$ estimates the outcome spread $\sigma_Y$.
-\par\medskip
-For the estimated mean:
-\[
-SD(\overline Y)=\frac{\sigma_Y}{\sqrt n}
-\quad\Longrightarrow\quad
-\widehat{SE}(\overline Y)=\frac{s_Y}{\sqrt n}.
-\]
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Regression: unknown $\sigma_u$}
+\textbf{Regression: unknown $\sigma_U$}
 \par\smallskip
+We want to estimate the error variance:
+\[
+\sigma_U^2=\mathbb{E}[U_i^2],\text{ since }\mathbb{E}[U_i]=0.
+\]
 Estimate the mean $\beta_0+\beta_1X_i$ by $\hat Y_i$: \textbf{two fitted parameters}, hence $n-2$.
 \[
-\hat u_i=Y_i-\hat Y_i,\qquad
-SER^2=\frac{\sum_{i=1}^n\hat u_i^2}{n-2}.
+\hat U_i=Y_i-\hat Y_i,\text{ and }
+SER^2=\frac{\sum_{i=1}^n\hat U_i^2}{n-2}.
 \]
-$SER=\sqrt{SER^2}$ estimates the error spread $\sigma_u$.
-\par\medskip
-For the estimated slope:
-\[
-SD(\hat\beta_1\mid X)=\frac{\sigma_u}{\sqrt{TSS_X}}
-\ \Longrightarrow\ 
-\widehat{SE}(\hat\beta_1)=\frac{SER}{\sqrt{TSS_X}}.
-\]
+$SER=\sqrt{SER^2}$ estimates the error spread $\sigma_U$.
 \end{column}
 \end{columns}
 \par\medskip
-\textbf{Spread versus uncertainty:} $s_Y$ and $SER$ measure the spread of outcomes and errors. Dividing by $\sqrt n$ or $\sqrt{TSS_X}$ gives uncertainty in the estimated mean or slope.
-\par\smallskip
-Assume i.i.d.\ sampling and, for regression, the usual homoskedastic OLS assumptions; $TSS_X=\sum_i(X_i-\overline X)^2$.
+\textbf{The comparison:} $s_Y$ estimates the spread of outcomes around $\mu_Y$; $SER$ estimates the spread of regression errors around the regression line.
 \end{frame}
 
 
@@ -534,7 +525,7 @@ Both measures summarize the typical size of the OLS residuals.
 \begin{itemize}
     \item First define the residual sum of squares:
     \[
-        SSR=\sum_{i=1}^n \hat{u}_i^2.
+        SSR=\sum_{i=1}^n \hat{U}_i^2.
     \]
     \item The $SER$ divides by $n-2$:
     \[
@@ -543,7 +534,7 @@ Both measures summarize the typical size of the OLS residuals.
     The two degrees of freedom are used to estimate $\beta_0$ and $\beta_1$.
     \item The fitted value is $\widehat{Y}_i=\widehat{\beta}_0+\widehat{\beta}_1X_i$, so the prediction error is
     \[
-        Y_i-\widehat{Y}_i=\widehat{u}_i.
+        Y_i-\widehat{Y}_i=\widehat{U}_i.
     \]
     Therefore, the $RMSE$ is the root mean squared prediction error:
     \[
@@ -607,11 +598,11 @@ Substituting this into the second condition gives the population OLS coefficient
 \begin{exampleblock}{The OLS Assumptions for Causal Inference}
 Let
     \begin{equation*}
-        Y_i  =  \beta_0 + \beta_1 X_i + u_i \text{~~;~~} i=1,...,n
+        Y_i  =  \beta_0 + \beta_1 X_i + U_i \text{~~;~~} i=1,...,n
     \end{equation*}
 where $\beta_1$ is the causal effect of $X$ on $Y$. Then:
     \begin{enumerate}
-        \item The error term $u_i$ has conditional mean $0$ given $X_i$: $\mathbb{E}(u_i\mid X_i)=0$;
+        \item The error term $U_i$ has conditional mean $0$ given $X_i$: $\mathbb{E}[U_i\mid X_i]=0$;
         \item $(X_i, Y_i)$ $i=1,...,n$, are independent and identically distributed (i.i.d.) draws from their joint distribution; and
         \item Large outliers are unlikely: $X_i$ and $Y_i$ have nonzero finite fourth moments.
     \end{enumerate}
@@ -624,7 +615,7 @@ where $\beta_1$ is the causal effect of $X$ on $Y$. Then:
 \begin{frame}{The conditions for causality}
 Why do these conditions help us estimate a causal effect?
 \begin{enumerate}
-    \item \textbf{Causal interpretation:} $\mathbb{E}(u_i\mid X_i)=0$ means that, once $X_i$ is fixed, the remaining determinants of $Y_i$ in $u_i$ are not systematically related to $X_i$. Therefore, the variation in $Y$ associated with $X$ identifies $\beta_1$ rather than a confounding factor.
+    \item \textbf{Causal interpretation:} $\mathbb{E}[U_i\mid X_i]=0$ means that, once $X_i$ is fixed, the remaining determinants of $Y_i$ in $U_i$ are not systematically related to $X_i$. Therefore, the variation in $Y$ associated with $X$ identifies $\beta_1$ rather than a confounding factor.
     \item \textbf{Reliable estimation:} i.i.d. sampling makes the observations representative of the population and prevents dependence across observations from distorting the OLS calculation.
     \item \textbf{Reliable inference:} finite moments and no large outliers ensure that no single observation dominates the estimate and allow the usual large-sample results for standard errors, tests, and confidence intervals.
 \end{enumerate}
@@ -638,28 +629,28 @@ Why do these conditions help us estimate a causal effect?
 \begin{enumerate}
     \item \textbf{Conditional mean zero: likely questionable.} Let $Z_i$ measure students' economic disadvantage and suppose
     \[
-        Y_i=\beta_0+\beta_1X_i+\gamma Z_i+v_i,
-        \qquad \mathbb{E}(Z_i\mid X_i=1)\neq\mathbb{E}(Z_i\mid X_i=0).
+        Y_i=\beta_0+\beta_1X_i+\gamma Z_i+V_i,
+        \text{ and }\mathbb{E}[Z_i\mid X_i=1]\neq\mathbb{E}[Z_i\mid X_i=0].
     \]
     The regression we estimate omits $Z_i$ and writes
     \[
-        Y_i=\beta_0+\beta_1X_i+u_i.
+        Y_i=\beta_0+\beta_1X_i+U_i.
     \]
     Comparing this equation with the true equation above,
     \[
-        \beta_0+\beta_1X_i+u_i
-        =\beta_0+\beta_1X_i+\gamma Z_i+v_i,
+        \beta_0+\beta_1X_i+U_i
+        =\beta_0+\beta_1X_i+\gamma Z_i+V_i,
     \]
     so, after subtracting $\beta_0+\beta_1X_i$ from both sides,
     \begin{align*}
-        u_i&=\gamma Z_i+v_i,\\
-        \mathbb{E}(u_i\mid X_i=x)
-        &=\gamma\mathbb{E}(Z_i\mid X_i=x)+\mathbb{E}(v_i\mid X_i=x).
+        U_i&=\gamma Z_i+V_i,\\
+        \mathbb{E}[U_i\mid X_i=x]
+        &=\gamma\mathbb{E}[Z_i\mid X_i=x]+\mathbb{E}[V_i\mid X_i=x].
     \end{align*}
-    If $\mathbb{E}(v_i\mid X_i=x)=0$, then
+    If $\mathbb{E}[V_i\mid X_i=x]=0$, then
     \[
-    \mathbb{E}(u_i\mid X_i=1)-\mathbb{E}(u_i\mid X_i=0)
-    =\gamma\left[\mathbb{E}(Z_i\mid X_i=1)-\mathbb{E}(Z_i\mid X_i=0)\right]\neq 0.
+    \mathbb{E}[U_i\mid X_i=1]-\mathbb{E}[U_i\mid X_i=0]
+    =\gamma\left[\mathbb{E}[Z_i\mid X_i=1]-\mathbb{E}[Z_i\mid X_i=0]\right]\neq 0.
     \]
     Thus, the zero conditional-mean assumption fails.
     \item \textbf{i.i.d. sampling: plausible with care.} If schools are sampled randomly from the same population, the observations can be treated as i.i.d. draws. If schools are clustered by district or selected through a non-random process, this assumption needs more justification.
@@ -669,11 +660,11 @@ The main threat to a causal interpretation is the first assumption: differences 
 \end{frame}
 
 
-\begin{frame}{Assumption (1) : $\mathbb{E}(u_i\mid X_i)=0$}
+\begin{frame}{Assumption (1) : $\mathbb{E}[U_i\mid X_i]=0$}
  \begin{columns}
 \begin{column}{0.35\textwidth}
 \begin{itemize}
-\item If \(E(u_i|X_i) \neq 0\), it implies that there is systematic variation in \(Y\) not explained by \(X\).
+\item If \(\mathbb{E}[U_i\mid X_i] \neq 0\), it implies that there is systematic variation in \(Y\) not explained by \(X\).
 \item This unexplained variation can confound our causal interpretations, making it challenging to isolate the true causal effect of \(X\) on \(Y\).
 \end{itemize}
 \end{column}
@@ -681,7 +672,7 @@ The main threat to a causal interpretation is the first assumption: differences 
 \begin{figure}
   \centering
          \vspace{-1mm}
-        \includegraphics[scale=.75]{images/ols_assumption_1.png}
+        \resizebox{!}{0.70\textheight}{\input{images/lecture3_conditional_distributions.tex}}
 \end{figure}
 \end{column}
 \end{columns}
@@ -689,14 +680,14 @@ The main threat to a causal interpretation is the first assumption: differences 
 
 
 
-\begin{frame}{Assumption (1) : $\mathbb{E}(u_i\mid X_i)=0$}
+\begin{frame}{Assumption (1) : $\mathbb{E}[U_i\mid X_i]=0$}
 Then
 \begin{eqnarray*}
-    & \hat{\beta}_1 &= \frac{cov(X,[\beta_0 + \beta_1 X + u])}{var(X)}\\
-    & &= \frac{cov(X,\beta_0)}{var(X)}+\frac{cov(X,\beta_1 X)}{var(X)}+\frac{cov(X,u)}{var(X)}\\
-    & &= \beta_1+\frac{cov(X,u)}{var(X)}
+    & \hat{\beta}_1 &= \frac{cov(X,[\beta_0 + \beta_1 X + U])}{var(X)}\\
+    & &= \frac{cov(X,\beta_0)}{var(X)}+\frac{cov(X,\beta_1 X)}{var(X)}+\frac{cov(X,U)}{var(X)}\\
+    & &= \beta_1+\frac{cov(X,U)}{var(X)}
 \end{eqnarray*}
-If $\mathbb{E}(u_i\mid X_i)\neq 0$, then $cov(X,u) \neq 0$... In the California Schools Experiment, schools subsidizing meals (vs. not) are likely to welcome students from poor (vs. rich) economic and social backgrounds -- biasing estimates downwards!
+If $\mathbb{E}[U_i\mid X_i]\neq 0$, then $cov(X,U) \neq 0$... In the California Schools Experiment, schools subsidizing meals (vs. not) are likely to welcome students from poor (vs. rich) economic and social backgrounds -- biasing estimates downwards!
 \end{frame}
 
 
@@ -746,16 +737,17 @@ Because this holds for every possible value $x$, we can write the result using t
 \end{frame}
 
 
-\begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
+\begin{frame}{OLS Finite Sample Properties}
 \footnotesize
-Take expectations, condition on $X$, and then use $\mathbb{E}(u_i\mid X)=0$.
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
 Start from the OLS slope formula and substitute
-$Y_i=\beta_0+\beta_1X_i+u_i$, using $\sum_i(X_i-\overline X)=0$:
+$Y_i=\beta_0+\beta_1X_i+U_i$, using $\sum_i(X_i-\overline X)=0$:
 \[
 \hat{\beta}_1
 =\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{\sum_i(X_i-\overline X)^2}
 =\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2}
-=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
+=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+U_i)}
         {\sum_i(X_i-\overline X)^2}.
 \]
 Because $\sum_i(X_i-\overline X)=0$, the intercept term disappears. For the
@@ -769,38 +761,43 @@ $\beta_1$ term, use $X_i=\overline X+(X_i-\overline X)$:
 Therefore,
 \[
 \hat{\beta}_1=\beta_1+
-\frac{\sum_{i=1}^n(X_i-\overline X)u_i}
+\frac{\sum_{i=1}^n(X_i-\overline X)U_i}
      {\sum_{i=1}^n(X_i-\overline X)^2}.
 \]
+\textbf{1. Conditional unbiasedness:} hold $X$ fixed and use $\mathbb{E}[U_i\mid X]=0$.
+\[
+\mathbb{E}[\hat\beta_1\mid X]
+=\beta_1+
+\frac{\sum_i(X_i-\overline X)\mathbb{E}[U_i\mid X]}
+{\sum_i(X_i-\overline X)^2}
+=\beta_1+0=\boxed{\beta_1}.
+\]
+\textbf{2. Unconditional unbiasedness:} apply the law of iterated expectations.
 \[
 \mathbb{E}[\hat\beta_1]
-=\mathbb{E}[\mathbb{E}(\hat\beta_1\mid X)]
-=\beta_1+\mathbb{E}\left[
-\frac{\sum_i(X_i-\overline X)\mathbb{E}(u_i\mid X)}
-{\sum_i(X_i-\overline X)^2}\right]
-=\beta_1+\mathbb{E}\left[\frac{\sum_i(X_i-\overline X)\cdot0}
-{\sum_i(X_i-\overline X)^2}\right]=\beta_1.
+=\mathbb{E}\!\left[\mathbb{E}[\hat\beta_1\mid X]\right]
+=\mathbb{E}[\beta_1]=\boxed{\beta_1}.
 \]
 \end{frame}
 
-\begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
+\begin{frame}{OLS Finite Sample Properties}
 \scriptsize
 \setlength{\abovedisplayskip}{3pt}
 \setlength{\belowdisplayskip}{3pt}
-\textbf{Reminder: $SER$ estimates $\sigma_u$, so $SER^2$ estimates $\sigma_u^2$.}
+\textbf{Reminder: $SER$ estimates $\sigma_U$, so $SER^2$ estimates $\sigma_U^2$.}
 \par\smallskip
-Write $\hat\beta_1-\beta_1$ as a weighted sum of errors. Conditional on $X$, the weights are fixed; independence makes the variance of the sum equal to the sum of variances. Under homoskedasticity, $var(u_i\mid X)=\sigma_u^2$.
+Write $\hat\beta_1-\beta_1$ as a weighted sum of errors. Conditional on $X$, the weights are fixed; independence makes the variance of the sum equal to the sum of variances. Under homoskedasticity, $var(U_i\mid X)=\sigma_U^2$.
 \par\smallskip
 Define $TSS_X=\sum_{i=1}^n(X_i-\overline X)^2$, the \textbf{total sum of squares of $X$}: total variation of the observed $X_i$ values around their sample mean.
 \[
 \begin{aligned}
 var(\hat\beta_1\mid X)
 &=var(\hat\beta_1-\beta_1\mid X)
-=var\left[\frac{\sum_{i=1}^n(X_i-\overline X)u_i}{TSS_X}\Bigg|X\right]\\
-&=\frac{1}{TSS_X^2}var\left[\sum_{i=1}^n(X_i-\overline X)u_i\Bigg|X\right]\\
-&=\frac{\sum_{i=1}^n(X_i-\overline X)^2var(u_i\mid X)}{TSS_X^2}
-=\frac{\sigma_u^2\sum_{i=1}^n(X_i-\overline X)^2}{TSS_X^2}
-=\frac{\sigma_u^2}{TSS_X}.
+=var\left[\frac{\sum_{i=1}^n(X_i-\overline X)U_i}{TSS_X}\Bigg|X\right]\\
+&=\frac{1}{TSS_X^2}var\left[\sum_{i=1}^n(X_i-\overline X)U_i\Bigg|X\right]\\
+&=\frac{\sum_{i=1}^n(X_i-\overline X)^2var(U_i\mid X)}{TSS_X^2}
+=\frac{\sigma_U^2\sum_{i=1}^n(X_i-\overline X)^2}{TSS_X^2}
+=\frac{\sigma_U^2}{TSS_X}.
 \end{aligned}
 \]
 \textbf{Plug in the estimated error variance:}
@@ -811,125 +808,112 @@ var(\hat\beta_1\mid X)
 \qquad
 \widehat{SE}(\hat\beta_1)=\frac{SER}{\sqrt{TSS_X}}.
 \]
-\end{frame}
-
-\begin{frame}{From Conditional to Unconditional Variance}
-\footnotesize
-\setlength{\abovedisplayskip}{4pt}
-\setlength{\belowdisplayskip}{4pt}
-Let $\mathbf{X}=(X_1,\ldots,X_n)$ denote the full regressor sample. Conditional variance fixes the observed $X$ values; unconditional variance averages over possible samples. Assume the variances below are finite and $TSS_X>0$.
-\begin{enumerate}
-\setlength{\itemsep}{5pt}
-\item \textbf{Law of total variance:}
+\textbf{Connection to the sample mean:} $TSS_X=(n-1)s_X^2$, so it grows approximately in proportion to $n$ when the spread of $X$ stays similar.
 \[
-\operatorname{Var}(\hat\beta_1)
-=\mathbb{E}[\operatorname{Var}(\hat\beta_1\mid\mathbf{X})]
-+\operatorname{Var}(\mathbb{E}[\hat\beta_1\mid\mathbf{X}]).
+\widehat{SE}(\hat\beta_1)=\frac{SER}{s_X\sqrt{n-1}},
+\text{ compared with }\widehat{SE}(\overline Y)=\frac{s_Y}{\sqrt n}.
 \]
-The first term averages the within-sample conditional spread. The second measures how the conditional mean changes across $X$ samples.
-\item \textbf{Conditional unbiasedness:} $\mathbb{E}[\hat\beta_1\mid\mathbf{X}]=\beta_1$ for every $X$ sample. Since $\beta_1$ is fixed,
-\[
-\operatorname{Var}(\mathbb{E}[\hat\beta_1\mid\mathbf{X}])
-=\operatorname{Var}(\beta_1)=0.
-\]
-\item \textbf{Substitute the conditional variance under homoskedasticity:}
-\[
-\operatorname{Var}(\hat\beta_1)
-=\mathbb{E}\!\left[\frac{\sigma_u^2}{TSS_X}\right]
-=\sigma_u^2\,\mathbb{E}\!\left[\frac{1}{TSS_X}\right].
-\]
-\end{enumerate}
-\smallskip
-{\scriptsize With random $X$, $TSS_X$ changes across samples; for given $\mathbf{X}$, use $\operatorname{Var}(\hat\beta_1\mid\mathbf{X})=\sigma_u^2/TSS_X$.}
+With similar regressor spread and error variance, the slope's standard error also decreases roughly as $1/\sqrt n$: quadrupling $n$ approximately halves it.
 \end{frame}
 
 % \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_0]=\beta_0$}
 % %Note that
 % \begin{eqnarray*}
 % &\mathbb{E}[\hat{\beta}_0] &=\mathbb{E}[\overline{Y}_i-\hat{\beta}_1\overline{X}] \\
-% & &=\mathbb{E}[\beta_0 + \beta_1 \overline{X} + \frac{1}{n}\sum_{i=1}^n u_i -\hat{\beta}_1\overline{X}] \\
-% & &=\beta_0 + \mathbb{E}(\beta_1 -\hat{\beta}_1) \overline{X} + \frac{1}{n}\sum_{i=1}^n \mathbb{E}(u_i)\\
-% & &=\beta_0 + \frac{1}{n}\sum_{i=1}^n \mathbb{E}[\mathbb{E}(u_i\mid X)]\\
+% & &=\mathbb{E}[\beta_0 + \beta_1 \overline{X} + \frac{1}{n}\sum_{i=1}^n U_i -\hat{\beta}_1\overline{X}] \\
+% & &=\beta_0 + \mathbb{E}[\beta_1 -\hat{\beta}_1] \overline{X} + \frac{1}{n}\sum_{i=1}^n \mathbb{E}[U_i]\\
+% & &=\beta_0 + \frac{1}{n}\sum_{i=1}^n \mathbb{E}[\mathbb{E}[U_i\mid X]]\\
 % & &=\beta_0 
 % \end{eqnarray*}
 % \end{frame}
 
 
-\begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
+\begin{frame}{OLS Finite Sample Properties}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
  \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.52\textwidth}
 \begin{itemize}
-    \item Here we made the assumption that $u$ is homoskedastic (i.e., it has the same variance given any value of the explanatory variable): $var(u_i\mid X)=\sigma^2_u~~\forall~~i$
-    \item Note that a natural estimator of $var[\hat{\beta}_1]$, $\frac{\hat{\sigma}_u^2}{TSS_X}$ is $\frac{SSR}{(n-2) TSS_X}$.
-    \item Larger error $u$ variance increases $Var(\hat{\beta}_1)$ since it makes it harder to estimate $\beta_1$ accurately.
+    \item \textbf{Hold the observed $X$ values fixed.} Under homoskedasticity,
+    \[
+    \operatorname{Var}(\hat\beta_1\mid X)=\frac{\sigma_U^2}{TSS_X}.
+    \]
+    \item Estimate the unknown $\sigma_U^2$ by $SER^2=SSR/(n-2)$:
+    \[
+    \widehat{\operatorname{Var}}(\hat\beta_1\mid X)
+    =\frac{SER^2}{TSS_X}
+    =\frac{SSR}{(n-2)TSS_X}.
+    \]
+    \item Larger error variance increases the slope's conditional variance: there is more noise around the regression line.
 \end{itemize}
 \end{column}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.46\textwidth}
 \begin{figure}
   \centering
          \vspace{-1mm}
-        \includegraphics[scale=.4]{images/variance_x.png}
+        \includegraphics[width=\linewidth]{images/variance_x.png}
 \end{figure}
 \end{column}
 \end{columns}
 \begin{itemize}
-    \item More variability in the independent variable ($X$) decreases the variance of $\hat{\beta}_1$ because it helps in estimating the relationship between $Y$ and $X$.
-    \item  Increasing sample size reduces the variance of $\hat{\beta}_1$ as it captures more variation in $X$. 
+    \item Holding error variance fixed, more variation in the observed $X$ values increases $TSS_X$ and reduces $\operatorname{Var}(\hat\beta_1\mid X)$.
+    \item With similar regressor spread and error variance, a larger sample increases $TSS_X$ and reduces the slope's conditional variance.
     \item Ideally, we would choose $X$ to be as spread out as possible -- this is sometimes possible with experimental data, but in practice, we often work with random samples
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{The Intercept: Derivation and Unbiasedness}
+\begin{frame}{OLS Finite Sample Properties}
 \footnotesize
 \setlength{\abovedisplayskip}{4pt}
 \setlength{\belowdisplayskip}{4pt}
 Let $\mathbf{X}=(X_1,\ldots,X_n)$ denote the full regressor sample,
-$\bar u=n^{-1}\sum_i u_i$, and $TSS_X=\sum_i(X_i-\bar X)^2>0$.
-Assume $\mathbb{E}[u_i\mid\mathbf{X}]=0$ for every $i$.
+$\bar U=n^{-1}\sum_i U_i$, and $TSS_X=\sum_i(X_i-\bar X)^2>0$.
+Assume $\mathbb{E}[U_i\mid\mathbf{X}]=0$ for every $i$.
 \begin{enumerate}
-\item \textbf{Average the population equation} $Y_i=\beta_0+\beta_1X_i+u_i$:
+\item \textbf{Average the population equation} $Y_i=\beta_0+\beta_1X_i+U_i$:
 \[
-\bar Y=\beta_0+\beta_1\bar X+\bar u.
+\bar Y=\beta_0+\beta_1\bar X+\bar U.
 \]
 \item \textbf{Substitute into the OLS intercept}:
 \[
 \hat\beta_0=\bar Y-\hat\beta_1\bar X
-=\beta_0+\bar u-\bar X(\hat\beta_1-\beta_1).
+=\beta_0+\bar U-\bar X(\hat\beta_1-\beta_1).
 \]
 \item \textbf{Condition on $\mathbf{X}$}, so $\bar X$ is fixed:
 \[
 \begin{aligned}
 \mathbb{E}[\hat\beta_0\mid\mathbf{X}]
-&=\beta_0+\mathbb{E}[\bar u\mid\mathbf{X}]
+&=\beta_0+\mathbb{E}[\bar U\mid\mathbf{X}]
 -\bar X\bigl(\mathbb{E}[\hat\beta_1\mid\mathbf{X}]-\beta_1\bigr)\\
 &=\beta_0+0-\bar X\cdot0=\beta_0.
 \end{aligned}
 \]
-Here $\mathbb{E}[\bar u\mid\mathbf{X}]=n^{-1}\sum_i\mathbb{E}[u_i\mid\mathbf{X}]=0$;
+Here $\mathbb{E}[\bar U\mid\mathbf{X}]=n^{-1}\sum_i\mathbb{E}[U_i\mid\mathbf{X}]=0$;
 conditional unbiasedness of the slope was derived earlier.
 \end{enumerate}
 By the law of iterated expectations,
 $\mathbb{E}[\hat\beta_0]=\mathbb{E}[\mathbb{E}[\hat\beta_0\mid\mathbf{X}]]=\beta_0$.
 \end{frame}
 
-\begin{frame}{The Intercept: Deriving Its Variance}
+\begin{frame}{OLS Finite Sample Properties}
 \footnotesize
 \setlength{\abovedisplayskip}{4pt}
 \setlength{\belowdisplayskip}{4pt}
 Assume conditionally uncorrelated errors and homoskedasticity:
-$\operatorname{Var}(u_i\mid\mathbf{X})=\sigma_u^2$.
+$\operatorname{Var}(U_i\mid\mathbf{X})=\sigma_U^2$.
 Write $d_i=X_i-\bar X$. Substituting the slope decomposition gives
 \[
 \hat\beta_0-\beta_0
-=\bar u-\bar X\frac{\sum_i d_i u_i}{TSS_X}
-=\sum_i a_i u_i,
-\qquad a_i=\frac1n-\frac{\bar X d_i}{TSS_X}.
+=\bar U-\bar X\frac{\sum_i d_i U_i}{TSS_X}
+=\sum_i a_i U_i,
+\text{ where }a_i=\frac1n-\frac{\bar X d_i}{TSS_X}.
 \]
 Conditional on $\mathbf{X}$, the weights $a_i$ are fixed and cross covariances vanish:
 \[
-\operatorname{Var}(\hat\beta_0\mid\mathbf{X})=\sigma_u^2\sum_i a_i^2.
+\operatorname{Var}(\hat\beta_0\mid\mathbf{X})=\sigma_U^2\sum_i a_i^2.
 \]
 Expand the squared weights:
 \[
@@ -944,67 +928,60 @@ Expand the squared weights:
 Therefore,
 \[
 \boxed{\operatorname{Var}(\hat\beta_0\mid\mathbf{X})
-=\sigma_u^2\left(\frac1n+\frac{\bar X^2}{TSS_X}\right)
-=\frac{\sigma_u^2\sum_i X_i^2}{nTSS_X}},
+=\sigma_U^2\left(\frac1n+\frac{\bar X^2}{TSS_X}\right)
+=\frac{\sigma_U^2\sum_i X_i^2}{nTSS_X}},
 \]
 because $\sum_i X_i^2=TSS_X+n\bar X^2$.
 \end{frame}
 
-\begin{frame}{The Intercept: From Finite to Large Samples}
+
+
+\begin{frame}{Testing Whether the Intercept or Slope Is Zero}
 \footnotesize
 \setlength{\abovedisplayskip}{3pt}
 \setlength{\belowdisplayskip}{3pt}
-\textbf{1. Unconditional variance.} By total variance, provided the moments are finite,
+\textbf{1. Estimate the regression} $Y_i=\beta_0+\beta_1X_i+U_i$ by OLS.
+Use $SER=\sqrt{SSR/(n-2)}$ and $TSS_X=\sum_i(X_i-\bar X)^2$.
+\par\smallskip
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{2. Test the intercept}
 \[
-\operatorname{Var}(\hat\beta_0)
-=\mathbb{E}[\operatorname{Var}(\hat\beta_0\mid\mathbf{X})]+\operatorname{Var}(\beta_0)
-=\sigma_u^2\mathbb{E}\!\left[\frac1n+\frac{\bar X^2}{TSS_X}\right].
+H_0:\beta_0=0,\text{ against }H_1:\beta_0\ne0.
 \]
-\textbf{2. Large samples.} Under i.i.d. sampling, exogeneity, homoskedasticity,
-and finite moments needed for the CLT, let $\mu_X=\mathbb{E}[X]$ and
-$v_X=\operatorname{Var}(X)>0$. The LLN gives
-$\bar X\xrightarrow{p}\mu_X$ and $TSS_X/n\xrightarrow{p}v_X$.
-With $\delta_1=\hat\beta_1-\beta_1$,
 \[
-\sqrt n(\hat\beta_0-\beta_0)=\sqrt n\,\bar u-\bar X\sqrt n\,\delta_1.
+SE(\hat\beta_0)=SER\sqrt{\frac1n+\frac{\bar X^2}{TSS_X}}.
 \]
-By the joint CLT, $\sqrt n\,\bar u$ and $\sqrt n\,\delta_1$ are asymptotically
-jointly normal. Since $\bar X\xrightarrow{p}\mu_X$, their combination satisfies
 \[
-\sqrt n(\hat\beta_0-\beta_0)\xrightarrow{d}
-\mathcal{N}\!\left(0,\sigma_u^2\left(1+\frac{\mu_X^2}{v_X}\right)\right).
+t_0^{\mathrm{obs}}=\frac{\hat\beta_0}{SE(\hat\beta_0)}.
 \]
-The limiting variance follows from $n$ times the conditional formula:
-$\sigma_u^2(1+\bar X^2/(TSS_X/n))\xrightarrow{p}\sigma_u^2(1+\mu_X^2/v_X)$.
-No finite-sample normality of the errors is assumed.
+Is the population regression line's value at $X=0$ different from zero?
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{2. Test the slope}
 \[
-\underbrace{\hat\beta_0\xrightarrow{p}\beta_0}_{\text{error shrinks at rate }1/\sqrt n}
-\qquad\qquad
-\widehat{SE}(\hat\beta_0)=SER\sqrt{\frac1n+\frac{\bar X^2}{TSS_X}}.
+H_0:\beta_1=0,\text{ against }H_1:\beta_1\ne0.
 \]
-\end{frame}
-
-\begin{frame}{Large Sample Distribution of the OLS Estimator}
-\begin{itemize}
-    \item Other than its mean and variance, the exact distribution of $\hat{\beta}_1$ is complicated and depends on the distribution of $(X; u)$
-    \item We derived $\mathbb{E}[\hat{\beta}_1]=\beta_1$. Under i.i.d. sampling, exogeneity, finite moments, and $\operatorname{Var}(X)>0$, the LLN applied to the OLS sample moments gives $\hat{\beta}_1\xrightarrow{p}\beta_1$: the slope estimator is consistent.
-    \item Under homoskedasticity and the moment conditions for the CLT, the large-sample normal approximation is $\hat{\beta}_1\approx\mathcal{N}(\beta_1,\sigma_u^2/TSS_X)$, using the observed $TSS_X$.
-    \item The feasible studentized statistic satisfies $\frac{\hat{\beta}_1-\beta_1}{SER/\sqrt{TSS_X}}\xrightarrow{d}\mathcal{N}(0,1)$.
-    \item Note that this parallels the sampling distribution of $\overline{Y}!$
-    \item The preceding slides derive the intercept's unbiasedness, variance, consistency, and large-sample normal distribution.
-\end{itemize}
-$\Rightarrow$ We are now ready to tackle hypothesis testing with OLS!
-\end{frame}
-
-
-
-\begin{frame}[allowframebreaks]{Material}
-\begin{itemize}
-    \item[--] \textbf{Textbooks:}
-    \begin{itemize}
-        \item Introduction to Econometrics, 4th Edition, Global Edition, by Stock and Watson -- Chapter 4
-    \end{itemize}
-\end{itemize}
+\[
+SE(\hat\beta_1)=\frac{SER}{\sqrt{TSS_X}}.
+\]
+\[
+t_1^{\mathrm{obs}}=\frac{\hat\beta_1}{SE(\hat\beta_1)}.
+\]
+Is the population regression slope different from zero?
+\end{column}
+\end{columns}
+\par\smallskip
+\textbf{3. For each test separately, use the normal approximation.}
+Under its null, conditional on $X$, $T_j\approx\mathcal{N}(0,1)$ for large $n$,
+using the OLS assumptions and homoskedasticity, for $j=0,1$.
+\[
+p_j\approx2\bigl[1-\Phi(|t_j^{\mathrm{obs}}|)\bigr].
+\]
+\textbf{4. Decision at 5\%:} reject that null if $|t_j^{\mathrm{obs}}|>1.96$
+(equivalently, $p_j<0.05$); otherwise, do not reject it.
+\par\smallskip
+These are two separate tests at 5\% each, not a joint test that both coefficients are zero.
 \end{frame}
 
 
