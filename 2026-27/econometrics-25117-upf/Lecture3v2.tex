@@ -442,29 +442,41 @@ $R^2$ ranges from 0 to 1, where higher values indicate a better fit (i.e., the r
 
 
 \begin{frame}{The Standard Error of the Regression ($SER$)}
-The SER measures the spread of the distribution of $u$ around the regression line in the units of the dependent variable.
-It is an estimator of the standard deviation of the regression error $u_i$.
-\begin{itemize}
-    \item The first-order condition with respect to the intercept is
-    \[
-        \frac{\partial}{\partial\beta_0}
-        \sum_{i=1}^n\left(Y_i-\beta_0-\beta_1X_i\right)^2
-        =-2\sum_{i=1}^n\left(Y_i-\beta_0-\beta_1X_i\right)=0.
-    \]
-    Evaluating this condition at the OLS estimates gives
-    \[
-        \sum_{i=1}^n \hat{u}_i=0
-        \qquad\Longrightarrow\qquad
-        \overline{\hat{u}}=0.
-    \]
-    Thus, the residuals' mean is zero by construction: this result comes from the FOC for the intercept.
-\end{itemize}
-\begin{equation*}
-    SER = \sqrt{\frac{1}{n-2}\sum_{i=1}^n (\hat{u}_i-\overline{\hat{u}})^2}
-    = \sqrt{\frac{1}{n-2}\sum_{i=1}^n \hat{u}_i^2}
-    =\sqrt{\frac{SSR}{n-2}}
-\end{equation*}
-Here, division by $n-2$ is a dof correction (two parameters, $\beta_0$ and $\beta_1$ have been estimated, whereas in $s_Y^2$ only one has been estimated: $\mu_Y$, with $\overline{Y}$)\\\vspace{.5cm}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\textbf{1. Population errors:}
+\[
+    u_i=Y_i-(\beta_0+\beta_1X_i).
+    \quad\text{If }E[u_i]=0,\quad
+    \sigma_u^2=\operatorname{Var}(u_i)=E[u_i^2],\quad
+    \sigma_u=\sqrt{E[u_i^2]}.
+\]
+$\sigma_u$ measures the typical spread around the population regression line, in units of $Y$.
+\par\medskip
+\textbf{2. Observable residuals:} The true coefficients are unknown, so replace them by their estimates:
+\[
+    \hat{u}_i=Y_i-(\hat{\beta}_0+\hat{\beta}_1X_i).
+\]
+The intercept first-order condition gives
+\[
+    \left[\frac{\partial}{\partial\beta_0}
+    \sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right]_{\beta=\hat{\beta}}
+    =-2\sum_{i=1}^n\hat{u}_i=0
+    \quad\Longrightarrow\quad\overline{\hat{u}}=0.
+\]
+\par\medskip
+\textbf{3. Estimate the error variance and standard deviation:}
+\[
+    \hat{\sigma}_u^2=\frac{1}{n-2}\sum_{i=1}^n(\hat{u}_i-\overline{\hat{u}})^2
+    =\frac{SSR}{n-2};
+    \qquad SER=\hat{\sigma}_u=\sqrt{\hat{\sigma}_u^2}.
+\]
+The $n-2$ denominator corrects for estimating the intercept and slope.
+\par\medskip
+Under the usual homoskedastic OLS assumptions, $SER^2$ is unbiased for $\sigma_u^2$; $SER$ estimates $\sigma_u$.
 \end{frame}
 
 
@@ -686,42 +698,41 @@ Because this holds for every possible value $x$, we can write the result using t
 \end{frame}
 
 
-\begin{frame}[shrink=8]{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
-\scriptsize
+\begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_1]$}
+\footnotesize
 Take expectations, condition on $X$, and then use $\mathbb{E}(u_i\mid X)=0$.
 Start from the OLS slope formula and substitute
-$Y_i=\beta_0+\beta_1X_i+u_i$:
-\begin{align*}
+$Y_i=\beta_0+\beta_1X_i+u_i$, using $\sum_i(X_i-\overline X)=0$:
+\[
 \hat{\beta}_1
-&=\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{\sum_i(X_i-\overline X)^2}\\
-&=\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2},
-\qquad \text{because }\sum_i(X_i-\overline X)=0\\
-&=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
+=\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{\sum_i(X_i-\overline X)^2}
+=\frac{\sum_i(X_i-\overline X)Y_i}{\sum_i(X_i-\overline X)^2}
+=\frac{\sum_i(X_i-\overline X)(\beta_0+\beta_1X_i+u_i)}
         {\sum_i(X_i-\overline X)^2}.
-\end{align*}
+\]
 Because $\sum_i(X_i-\overline X)=0$, the intercept term disappears. For the
 $\beta_1$ term, use $X_i=\overline X+(X_i-\overline X)$:
-\begin{align*}
+\[
 \sum_i(X_i-\overline X)X_i
-&=\sum_i(X_i-\overline X)\left[\overline X+(X_i-\overline X)\right]\\
-&=\overline X\sum_i(X_i-\overline X)+\sum_i(X_i-\overline X)^2\\
-&=\sum_i(X_i-\overline X)^2.
-\end{align*}
+=\sum_i(X_i-\overline X)\left[\overline X+(X_i-\overline X)\right]
+=\overline X\sum_i(X_i-\overline X)+\sum_i(X_i-\overline X)^2
+=\sum_i(X_i-\overline X)^2.
+\]
 Therefore,
 \[
 \hat{\beta}_1=\beta_1+
 \frac{\sum_{i=1}^n(X_i-\overline X)u_i}
      {\sum_{i=1}^n(X_i-\overline X)^2}.
 \]
-\begin{align*}
+\[
 \mathbb{E}[\hat\beta_1]
-&=\mathbb{E}[\mathbb{E}(\hat\beta_1\mid X)]\\
-&=\beta_1+\mathbb{E}\left[
+=\mathbb{E}[\mathbb{E}(\hat\beta_1\mid X)]
+=\beta_1+\mathbb{E}\left[
 \frac{\sum_i(X_i-\overline X)\mathbb{E}(u_i\mid X)}
-{\sum_i(X_i-\overline X)^2}\right]\\
-&=\beta_1+\mathbb{E}\left[\frac{\sum_i(X_i-\overline X)\cdot0}
+{\sum_i(X_i-\overline X)^2}\right]
+=\beta_1+\mathbb{E}\left[\frac{\sum_i(X_i-\overline X)\cdot0}
 {\sum_i(X_i-\overline X)^2}\right]=\beta_1.
-\end{align*}
+\]
 \end{frame}
 
 \begin{frame}{OLS Finite Sample Properties --- $var[\hat{\beta}_1]$}
@@ -740,9 +751,38 @@ This is called the \textbf{total sum of squares of $X$} (TSS$_X$): it measures t
 & &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
 & &= \frac{1}{TSS_X^2}var\left[\sum_{i=1}^n (X_i - \overline{X})u_i\bigg|X\right]\\
 & &= \frac{\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{TSS_X^2}\\
-& &= \frac{\sigma^2_u}{TSS_X}\\
+& &= \frac{\sigma^2_u}{TSS_X}
 \end{eqnarray*}
-Finally, the law of total variance and $\mathbb{E}(\hat\beta_1\mid X)=\beta_1$ imply $Var(\hat\beta_1)=\mathbb{E}[Var(\hat\beta_1\mid X)]$.
+\end{frame}
+
+\begin{frame}{From Conditional to Unconditional Variance}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+Let $\mathbf{X}=(X_1,\ldots,X_n)$ denote the full regressor sample. Conditional variance fixes the observed $X$ values; unconditional variance averages over possible samples. Assume the variances below are finite and $TSS_X>0$.
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\item \textbf{Law of total variance:}
+\[
+\operatorname{Var}(\hat\beta_1)
+=\mathbb{E}[\operatorname{Var}(\hat\beta_1\mid\mathbf{X})]
++\operatorname{Var}(\mathbb{E}[\hat\beta_1\mid\mathbf{X}]).
+\]
+The first term averages the within-sample conditional spread. The second measures how the conditional mean changes across $X$ samples.
+\item \textbf{Conditional unbiasedness:} $\mathbb{E}[\hat\beta_1\mid\mathbf{X}]=\beta_1$ for every $X$ sample. Since $\beta_1$ is fixed,
+\[
+\operatorname{Var}(\mathbb{E}[\hat\beta_1\mid\mathbf{X}])
+=\operatorname{Var}(\beta_1)=0.
+\]
+\item \textbf{Substitute the conditional variance under homoskedasticity:}
+\[
+\operatorname{Var}(\hat\beta_1)
+=\mathbb{E}\!\left[\frac{\sigma_u^2}{TSS_X}\right]
+=\sigma_u^2\,\mathbb{E}\!\left[\frac{1}{TSS_X}\right].
+\]
+\end{enumerate}
+\smallskip
+{\scriptsize With random $X$, $TSS_X$ changes across samples; for given $\mathbf{X}$, use $\operatorname{Var}(\hat\beta_1\mid\mathbf{X})=\sigma_u^2/TSS_X$.}
 \end{frame}
 
 % \begin{frame}{OLS Sample Properties --- $\mathbb{E}[\hat{\beta}_0]=\beta_0$}
@@ -783,15 +823,118 @@ Finally, the law of total variance and $\mathbb{E}(\hat\beta_1\mid X)=\beta_1$ i
 
 
 
+\begin{frame}{The Intercept: Derivation and Unbiasedness}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+Let $\mathbf{X}=(X_1,\ldots,X_n)$ denote the full regressor sample,
+$\bar u=n^{-1}\sum_i u_i$, and $TSS_X=\sum_i(X_i-\bar X)^2>0$.
+Assume $\mathbb{E}[u_i\mid\mathbf{X}]=0$ for every $i$.
+\begin{enumerate}
+\item \textbf{Average the population equation} $Y_i=\beta_0+\beta_1X_i+u_i$:
+\[
+\bar Y=\beta_0+\beta_1\bar X+\bar u.
+\]
+\item \textbf{Substitute into the OLS intercept}:
+\[
+\hat\beta_0=\bar Y-\hat\beta_1\bar X
+=\beta_0+\bar u-\bar X(\hat\beta_1-\beta_1).
+\]
+\item \textbf{Condition on $\mathbf{X}$}, so $\bar X$ is fixed:
+\[
+\begin{aligned}
+\mathbb{E}[\hat\beta_0\mid\mathbf{X}]
+&=\beta_0+\mathbb{E}[\bar u\mid\mathbf{X}]
+-\bar X\bigl(\mathbb{E}[\hat\beta_1\mid\mathbf{X}]-\beta_1\bigr)\\
+&=\beta_0+0-\bar X\cdot0=\beta_0.
+\end{aligned}
+\]
+Here $\mathbb{E}[\bar u\mid\mathbf{X}]=n^{-1}\sum_i\mathbb{E}[u_i\mid\mathbf{X}]=0$;
+conditional unbiasedness of the slope was derived earlier.
+\end{enumerate}
+By the law of iterated expectations,
+$\mathbb{E}[\hat\beta_0]=\mathbb{E}[\mathbb{E}[\hat\beta_0\mid\mathbf{X}]]=\beta_0$.
+\end{frame}
+
+\begin{frame}{The Intercept: Deriving Its Variance}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+Assume conditionally uncorrelated errors and homoskedasticity:
+$\operatorname{Var}(u_i\mid\mathbf{X})=\sigma_u^2$.
+Write $d_i=X_i-\bar X$. Substituting the slope decomposition gives
+\[
+\hat\beta_0-\beta_0
+=\bar u-\bar X\frac{\sum_i d_i u_i}{TSS_X}
+=\sum_i a_i u_i,
+\qquad a_i=\frac1n-\frac{\bar X d_i}{TSS_X}.
+\]
+Conditional on $\mathbf{X}$, the weights $a_i$ are fixed and cross covariances vanish:
+\[
+\operatorname{Var}(\hat\beta_0\mid\mathbf{X})=\sigma_u^2\sum_i a_i^2.
+\]
+Expand the squared weights:
+\[
+\begin{aligned}
+\sum_i a_i^2
+&=\frac{n}{n^2}
+-\frac{2\bar X}{nTSS_X}\underbrace{\sum_i d_i}_{=0}
++\frac{\bar X^2}{TSS_X^2}\underbrace{\sum_i d_i^2}_{=TSS_X}\\
+&=\frac1n+\frac{\bar X^2}{TSS_X}.
+\end{aligned}
+\]
+Therefore,
+\[
+\boxed{\operatorname{Var}(\hat\beta_0\mid\mathbf{X})
+=\sigma_u^2\left(\frac1n+\frac{\bar X^2}{TSS_X}\right)
+=\frac{\sigma_u^2\sum_i X_i^2}{nTSS_X}},
+\]
+because $\sum_i X_i^2=TSS_X+n\bar X^2$.
+\end{frame}
+
+\begin{frame}{The Intercept: From Finite to Large Samples}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\textbf{1. Unconditional variance.} By total variance, provided the moments are finite,
+\[
+\operatorname{Var}(\hat\beta_0)
+=\mathbb{E}[\operatorname{Var}(\hat\beta_0\mid\mathbf{X})]+\operatorname{Var}(\beta_0)
+=\sigma_u^2\mathbb{E}\!\left[\frac1n+\frac{\bar X^2}{TSS_X}\right].
+\]
+\textbf{2. Large samples.} Under i.i.d. sampling, exogeneity, homoskedasticity,
+and finite moments needed for the CLT, let $\mu_X=\mathbb{E}[X]$ and
+$v_X=\operatorname{Var}(X)>0$. The LLN gives
+$\bar X\xrightarrow{p}\mu_X$ and $TSS_X/n\xrightarrow{p}v_X$.
+With $\delta_1=\hat\beta_1-\beta_1$,
+\[
+\sqrt n(\hat\beta_0-\beta_0)=\sqrt n\,\bar u-\bar X\sqrt n\,\delta_1.
+\]
+By the joint CLT, $\sqrt n\,\bar u$ and $\sqrt n\,\delta_1$ are asymptotically
+jointly normal. Since $\bar X\xrightarrow{p}\mu_X$, their combination satisfies
+\[
+\sqrt n(\hat\beta_0-\beta_0)\xrightarrow{d}
+\mathcal{N}\!\left(0,\sigma_u^2\left(1+\frac{\mu_X^2}{v_X}\right)\right).
+\]
+The limiting variance follows from $n$ times the conditional formula:
+$\sigma_u^2(1+\bar X^2/(TSS_X/n))\xrightarrow{p}\sigma_u^2(1+\mu_X^2/v_X)$.
+No finite-sample normality of the errors is assumed.
+\[
+\underbrace{\hat\beta_0\xrightarrow{p}\beta_0}_{\text{error shrinks at rate }1/\sqrt n}
+\qquad\qquad
+\widehat{SE}(\hat\beta_0)=SER\sqrt{\frac1n+\frac{\bar X^2}{TSS_X}}.
+\]
+\end{frame}
+
 \begin{frame}{Large Sample Distribution of the OLS Estimator}
 \begin{itemize}
     \item Other than its mean and variance, the exact distribution of $\hat{\beta}_1$ is complicated and depends on the distribution of $(X; u)$
-    \item Because the $\mathbb{E}[\hat{\beta}_1] = \hat{\beta}_1$ and $var(\hat{\beta}_1)=0$ as $n\rightarrow \infty$, then, by the Law of Large Numbers, $\hat{\beta}_1 \xrightarrow[]{p} \beta_1$ (i.e., $\hat{\beta}_1$ is a consistent estimator of $\beta_1$)
-    \item When $n$ is large, by the Central Limit Theorem, the sampling distribution of $\hat{\beta}_1$ is well approximated by a normal distribution $\mathcal{N}(\beta_1; \frac{\sigma^2_u}{TSS_X})$
-    \item Said differently, $\frac{\hat{\beta}_1-\beta_1}{\sqrt{var(\hat{\beta}_1)}}\sim \mathcal{N}(0;1)$
+    \item We derived $\mathbb{E}[\hat{\beta}_1]=\beta_1$. Under i.i.d. sampling, exogeneity, finite moments, and $\operatorname{Var}(X)>0$, the LLN applied to the OLS sample moments gives $\hat{\beta}_1\xrightarrow{p}\beta_1$: the slope estimator is consistent.
+    \item Under homoskedasticity and the moment conditions for the CLT, the large-sample normal approximation is $\hat{\beta}_1\approx\mathcal{N}(\beta_1,\sigma_u^2/TSS_X)$, using the observed $TSS_X$.
+    \item The feasible studentized statistic satisfies $\frac{\hat{\beta}_1-\beta_1}{SER/\sqrt{TSS_X}}\xrightarrow{d}\mathcal{N}(0,1)$.
     \item Note that this parallels the sampling distribution of $\overline{Y}!$
-    \item We can use a similar reasoning with $\mathbb{E}[\hat{\beta}_0] = \hat{\beta}_0$ and that $var[\hat{\beta}_0] = \frac{\sigma^2_u \sum_{i=1}^n X_i}{n TSS_X}$
-\end{itemize}\vspace{1cm}
+    \item The preceding slides derive the intercept's unbiasedness, variance, consistency, and large-sample normal distribution.
+\end{itemize}
 $\Rightarrow$ We are now ready to tackle hypothesis testing with OLS!
 \end{frame}
 
