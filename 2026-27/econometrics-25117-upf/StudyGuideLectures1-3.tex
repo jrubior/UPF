@@ -1,0 +1,1068 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+\usepackage[default]{lato}
+\usepackage{amsmath,amssymb,booktabs,array}
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{section in head/foot}{fg=blue}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+\useinnertheme[shadow]{rounded}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{block title}{fg=blue,bg=blue!20!white}
+\setbeamercolor{block body}{bg=blue!5!white}
+\setbeamertemplate{footline}{\hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}\insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill \insertframenumber{} / \inserttotalframenumber\end{beamercolorbox}}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Prb}{\operatorname{Pr}}
+\title[]{\textcolor{blue}{Study Guide: Lectures 1--3\\Probability, Statistical Inference, and OLS}}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+\date{}
+\begin{document}
+
+\begin{frame}{Study Guide: Lectures 1--3}
+\begin{center}
+{\Large\textcolor{blue}{Probability $\longrightarrow$ Inference $\longrightarrow$ Regression}}\\[.4cm]
+25117 -- Econometrics \quad Universitat Pompeu Fabra
+\end{center}
+\begin{itemize}
+\item \textbf{Lecture 1:} describe distributions and dependence; understand random sampling, estimators, and their sampling distributions.
+\item \textbf{Lecture 2:} quantify uncertainty with standard errors, tests, confidence intervals, and comparisons of means.
+\item \textbf{Lecture 3:} derive and interpret ordinary least squares, assess fit, and distinguish statistical association from causality.
+\end{itemize}
+\begin{block}{How to study}
+For each formula, identify the object being estimated, the meaning of each symbol, the assumptions, and the interpretation. Work the examples before checking the answers.
+\end{block}
+\end{frame}
+
+\section{Lecture 1}
+\begin{frame}{Parameters, Random Variables, Estimators, and Estimates}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Object & Notation & What is random?\\
+\midrule
+Population mean & $\mu_Y=\E[Y]$ & Fixed, usually unknown\\
+Random sample & $Y_1,\ldots,Y_n$ & Values vary across samples\\
+Observed sample & $y_1,\ldots,y_n$ & Recorded numbers\\
+Estimator of the mean & $\overline Y=n^{-1}\sum_iY_i$ & A function of random data\\
+Estimate of the mean & $\overline y=n^{-1}\sum_i y_i$ & One realized number\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item Capitals denote random variables; lower-case letters denote their realizations.
+\item Example: observing $(y_1,y_2,y_3)=(170,180,175)$ gives $\overline y=175$ cm.
+\item The \textbf{sampling distribution} describes the different values of $\overline Y$ across repeated samples of the same size.
+\end{itemize}
+Unknown does not mean random: in frequentist inference, $\mu_Y$ is fixed even when we do not know it.
+\end{frame}
+
+\begin{frame}{Probability Distributions: Mass, Density, and Cumulative Probability}
+\small
+A random variable assigns a number to each outcome of an experiment. An \textbf{event} is a set of outcomes.
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+\begin{block}{Discrete: probability mass function}
+\[
+p_Y(y)=\Prb(Y=y),\qquad \sum_y p_Y(y)=1.
+\]
+Example: for a Bernoulli variable,
+\[
+\Prb(Y=1)=p,\qquad \Prb(Y=0)=1-p.
+\]
+Each possible value can have positive probability.
+\end{block}
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{block}{Continuous: probability density function}
+\[
+f_Y(y)\geq0,\qquad \int_{-\infty}^{\infty}f_Y(y)\,dy=1.
+\]
+\[
+\Prb(a<Y\leq b)=\int_a^b f_Y(y)\,dy.
+\]
+Probability is \textbf{area}, not height; $\Prb(Y=y)=0$ at any single point.
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+For either type, the \textbf{cumulative distribution function (CDF)} is
+\[
+F_Y(y)=\Prb(Y\leq y),\qquad
+\Prb(a<Y\leq b)=F_Y(b)-F_Y(a).
+\]
+\end{frame}
+
+\begin{frame}{Essential Distinction: Standard Deviation and Standard Error}
+\small
+For independent and identically distributed observations with variance $\sigma_Y^2$:
+\begin{center}
+\begin{tabular}{p{3.3cm}p{4.3cm}p{5.6cm}}
+\toprule
+Quantity & Formula & Interpretation\\
+\midrule
+Population standard deviation & $\sigma_Y=\sqrt{\Var(Y_i)}$ & Spread of individual observations\\[5pt]
+SD of the sample mean & $\sigma_{\overline Y}=\sigma_Y/\sqrt n$ & Spread of means across repeated samples\\[5pt]
+Sample standard deviation & $s_Y=\sqrt{\frac{\sum_i(y_i-\overline y)^2}{n-1}}$ & Estimate of $\sigma_Y$ from one sample\\[9pt]
+Estimated standard error & $\displaystyle SE(\overline Y)=\frac{s_Y}{\sqrt n}$ & Estimated sampling uncertainty of the mean\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{block}{When do we replace $\sigma_Y$ with $s_Y$?}
+When $\sigma_Y$ is unknown, as it usually is. We still divide by $\sqrt n$:
+$s_Y$ alone is \emph{not} the standard error of $\overline Y$.
+\end{block}
+Example: if $n=100$ and $s_Y=20$ cm, then $SE(\overline Y)=2$ cm.
+More observations make the mean more precise; they need not make individuals more similar.
+\end{frame}
+
+\begin{frame}{Moments: Mean, Variance, and Standard Deviation}
+\begin{align*}
+\mu_Y=\E[Y]&=\sum_y y\,p_Y(y)
+\quad\text{or}\quad \int_{-\infty}^{\infty}y f_Y(y)\,dy,\\
+\sigma_Y^2=\Var(Y)&=\E[(Y-\mu_Y)^2]=\E[Y^2]-\mu_Y^2,\\
+\sigma_Y&=\sqrt{\sigma_Y^2}.
+\end{align*}
+\begin{itemize}
+\item The mean describes location; variance and standard deviation describe dispersion.
+\item Standard deviation has the units of $Y$; variance has squared units.
+\item For constants $a,b$: $\E[a+bY]=a+b\E[Y]$ and $\Var(a+bY)=b^2\Var(Y)$.
+\end{itemize}
+\begin{block}{Worked example}
+If $Y$ takes $1,2,4$ with probabilities $.25,.50,.25$, then
+$\E[Y]=2.25$, $\E[Y^2]=6.25$, and $\Var(Y)=6.25-2.25^2=1.1875$.
+\end{block}
+\end{frame}
+
+\begin{frame}{Joint and Marginal Distributions: Read the Whole Table}
+Let $X=1$ mean a sunny day and $Y=1$ mean buying ice cream.
+\begin{center}
+\begin{tabular}{c|cc|c}
+ & $X=0$ & $X=1$ & Marginal of $Y$\\ \hline
+$Y=0$ & .15 & .25 & .40\\
+$Y=1$ & .05 & .55 & .60\\ \hline
+Marginal of $X$ & .20 & .80 & 1
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item A \textbf{joint probability} concerns both events: $\Prb(X=1,Y=1)=.55$.
+\item A \textbf{marginal probability} ignores the other variable by summing over it:
+\[
+p_Y(y)=\sum_x p_{XY}(x,y),\qquad
+p_X(x)=\sum_y p_{XY}(x,y).
+\]
+\item Thus $\Prb(Y=1)=.05+.55=.60$ and $\Prb(X=1)=.25+.55=.80$.
+\end{itemize}
+All joint cells are nonnegative and sum to 1. For continuous variables, integrate the joint density instead of summing probabilities.
+\end{frame}
+
+\begin{frame}{Conditional Distributions: Change the Reference Group}
+For $\Prb(X=x)>0$,
+\[
+\Prb(Y=y\mid X=x)=\frac{\Prb(X=x,Y=y)}{\Prb(X=x)}.
+\]
+\begin{enumerate}
+\item Restrict attention to outcomes with $X=x$.
+\item Divide each relevant joint cell by the probability of that group.
+\item Check that the conditional probabilities sum to 1.
+\end{enumerate}
+\begin{align*}
+\Prb(Y=1\mid X=1)&=.55/.80=.6875,\\
+\Prb(Y=0\mid X=1)&=.25/.80=.3125.
+\end{align*}
+Reversing the condition changes the denominator:
+\[
+\Prb(X=1\mid Y=1)=.55/.60\approx .9167.
+\]
+\textbf{Bayes' rule:}
+$\Prb(X=x\mid Y=y)=\Prb(Y=y\mid X=x)\Prb(X=x)/\Prb(Y=y)$.
+\end{frame}
+
+\begin{frame}{Conditional Means and the Law of Iterated Expectations}
+\small
+The conditional mean averages $Y$ \textbf{within} a group:
+\[
+m(x)=\E[Y\mid X=x]=\sum_y y\,\Prb(Y=y\mid X=x).
+\]
+For binary $Y$, $\E[Y\mid X=x]=\Prb(Y=1\mid X=x)$.
+In the sunny-day example,
+\[
+m(0)=.05/.20=.25,\qquad m(1)=.55/.80=.6875.
+\]
+The \textbf{Law of Iterated Expectations (LIE)} averages the group means using their population shares:
+\begin{align*}
+\E[Y]&=\E[\E[Y\mid X]]\\
+&=\sum_x \E[Y\mid X=x]\Prb(X=x)\\
+&=.25(.20)+.6875(.80)=.60.
+\end{align*}
+\textbf{What is random?} $m(x)$ is a number at a specified $x$; $m(X)=\E[Y\mid X]$ is a function of the random variable $X$.
+Do not give all groups equal weight unless they have equal probability.
+\end{frame}
+
+\begin{frame}{Conditional-Expectation Rules You Will Use in Regression}
+\small
+\begin{enumerate}
+\item \textbf{Linearity:}
+$\E[aY+bZ\mid X]=a\E[Y\mid X]+b\E[Z\mid X]$ for constants $a,b$.
+\item \textbf{Take out what is known:}
+\[
+\E[g(X)Y\mid X]=g(X)\E[Y\mid X].
+\]
+Why? Once $X=x$ is fixed, $g(x)$ is a constant:
+\[
+\E[g(X)Y\mid X=x]=g(x)\E[Y\mid X=x].
+\]
+In particular, $\E[XY\mid X]=X\E[Y\mid X]$.
+\item \textbf{Conditional variance:}
+\[
+\Var(Y\mid X=x)=\E[(Y-m(x))^2\mid X=x].
+\]
+\end{enumerate}
+A useful implication combines the first two rules with iterated expectations:
+\[
+\E[u\mid X]=0
+\ \Longrightarrow\ 
+\E[u]=0,\quad \E[Xu]=\E[X\E[u\mid X]]=0.
+\]
+Hence $\Cov(X,u)=0$.
+\end{frame}
+
+\begin{frame}{Independence, Covariance, and Correlation}
+\small
+\textbf{Independence:} knowing $X$ does not change the distribution of $Y$:
+\[
+p_{XY}(x,y)=p_X(x)p_Y(y)
+\quad\Longleftrightarrow\quad
+p_{Y\mid X}(y\mid x)=p_Y(y).
+\]
+\textbf{Covariance} measures linear comovement; \textbf{correlation} removes the units:
+\[
+\Cov(X,Y)=\E[XY]-\E[X]\E[Y],
+\qquad
+\rho_{XY}=\frac{\Cov(X,Y)}{\sigma_X\sigma_Y}\in[-1,1].
+\]
+\begin{itemize}
+\item Independence implies zero covariance (with finite moments).
+\item Zero covariance does \textbf{not} imply independence. If $X$ is equally likely to be $-1,0,1$ and $Y=X^2$, then $\Cov(X,Y)=0$ but $Y$ depends on $X$.
+\item In the sunny-day table: $\Cov(X,Y)=.55-(.80)(.60)=.07>0$. The variables are not independent.
+\end{itemize}
+\[
+\Var(aX+bY)=a^2\Var(X)+b^2\Var(Y)+2ab\Cov(X,Y).
+\]
+\end{frame}
+
+\begin{frame}{Random Sampling and the Distribution of the Sample Mean}
+An \textbf{independent and identically distributed (i.i.d.) sample} has:
+\begin{itemize}
+\item The same population distribution for every $Y_i$.
+\item Independence across observations. This does not require $X_i$ and $Y_i$ within the same observation to be independent.
+\end{itemize}
+For i.i.d.\ observations with finite variance,
+\begin{align*}
+\overline Y&=\frac1n\sum_{i=1}^nY_i,\\
+\E[\overline Y]&=\frac1n\sum_i\E[Y_i]=\mu_Y,\\
+\Var(\overline Y)&=\frac1{n^2}\sum_i\Var(Y_i)
+=\frac{n\sigma_Y^2}{n^2}=\frac{\sigma_Y^2}{n}.
+\end{align*}
+The covariance terms disappear because the observations are independent.
+Thus $SD(\overline Y)=\sigma_Y/\sqrt n$: quadrupling $n$ halves this standard deviation.
+\end{frame}
+
+\begin{frame}{Law of Large Numbers: Why the Mean Is Consistent}
+The \textbf{Law of Large Numbers (LLN)} describes convergence of the sample mean.
+For i.i.d.\ observations with $\E[|Y_i|]<\infty$,
+\[
+\overline Y\xrightarrow{p}\mu_Y.
+\]
+Convergence in probability means that, for every tolerance $\varepsilon>0$,
+\[
+\Prb(|\overline Y-\mu_Y|>\varepsilon)\longrightarrow0.
+\]
+\begin{itemize}
+\item As the sample grows, a large estimation error becomes unlikely.
+\item This does \textbf{not} mean $\Prb(\overline Y=\mu_Y)\to1$. Exact equality need never occur for continuous data.
+\item It does not mean that every additional observation moves the estimate closer to $\mu_Y$.
+\end{itemize}
+\begin{block}{Example}
+If $Y_i$ indicates a head on an independent fair coin toss, $\overline Y$ is the sample fraction of heads and converges in probability to $0.5$.
+\end{block}
+\end{frame}
+
+\begin{frame}{Central Limit Theorem: Why Normal Approximations Work}
+The \textbf{Central Limit Theorem (CLT)} describes the shape of sampling uncertainty.
+For i.i.d.\ observations with $0<\sigma_Y^2<\infty$,
+\[
+\frac{\overline Y-\mu_Y}{\sigma_Y/\sqrt n}
+=\frac{\sqrt n(\overline Y-\mu_Y)}{\sigma_Y}
+\xrightarrow{d}N(0,1).
+\]
+\begin{enumerate}
+\item \textbf{Center:} subtract $\mu_Y$ to measure the estimation error.
+\item \textbf{Scale:} divide by the standard deviation of the mean, $\sigma_Y/\sqrt n$.
+\item \textbf{Approximate:} for sufficiently large $n$, compare this standardized error with a standard normal distribution.
+\end{enumerate}
+Equivalently, $\overline Y\approx N(\mu_Y,\sigma_Y^2/n)$ in large samples.
+\begin{block}{LLN versus CLT}
+The LLN says the error becomes small. The CLT describes its approximate distribution and scale. It does not say that individual observations become normal.
+\end{block}
+\end{frame}
+
+\begin{frame}{Estimator Properties: Unbiasedness, Consistency, and Efficiency}
+\small
+\begin{center}
+\begin{tabular}{p{2.7cm}p{4.4cm}p{6cm}}
+\toprule
+Property & Definition & Question it answers\\
+\midrule
+Unbiasedness & $\E[\widehat\theta]=\theta$ & Is the estimator centered on the truth across samples?\\[6pt]
+Consistency & $\widehat\theta\xrightarrow{p}\theta$ & Does the estimation error vanish as $n$ grows?\\[6pt]
+Efficiency & Smallest variance in a specified class & Which eligible estimator is most precise?\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item For i.i.d.\ data with finite variance, $\overline Y$ is unbiased and consistent.
+\item Unbiasedness alone does not imply consistency: using $Y_1$ to estimate $\mu_Y$ is unbiased but its variance does not shrink with $n$.
+\item When comparing biased estimators, variance alone is insufficient:
+\[
+MSE(\widehat\theta)=\Var(\widehat\theta)+\operatorname{Bias}(\widehat\theta)^2.
+\]
+Here $\operatorname{Bias}(\widehat\theta)=\E[\widehat\theta]-\theta$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{BLUE, Least Squares, and the Cramér--Rao Bound}
+\small
+\textbf{BLUE} means \textbf{Best Linear Unbiased Estimator}.
+For i.i.d.\ observations with common finite variance, a linear estimator $\sum_iw_iY_i$ is unbiased for every $\mu_Y$ if $\sum_iw_i=1$.
+\[
+\Var\!\left(\sum_iw_iY_i\right)
+=\sigma_Y^2\sum_iw_i^2\geq\frac{\sigma_Y^2}{n}.
+\]
+Equal weights $w_i=1/n$ attain the bound: $\overline Y$ is BLUE.
+\par\medskip
+\textbf{Least squares} gives the same estimator by a different argument:
+\[
+\min_m\sum_i(Y_i-m)^2
+\quad\Longrightarrow\quad
+-2\sum_i(Y_i-m)=0
+\quad\Longrightarrow\quad m=\overline Y.
+\]
+\textbf{Cramér--Rao:} under regularity conditions, an unbiased estimator satisfies
+$\Var(\widehat\mu_Y)\geq1/\mathcal I_n(\mu_Y)$.
+For normal observations with known variance, the sample's \textbf{Fisher information} is
+$\mathcal I_n(\mu_Y)=n/\sigma_Y^2$. The mean reaches this bound even among nonlinear unbiased estimators.
+\par\medskip
+BLUE concerns a finite-sample comparison class; consistency is a separate large-sample property. Normality is not needed for the BLUE result above.
+\end{frame}
+
+\section{Lecture 2}
+\begin{frame}{Estimating an Unknown Variance and the Mean's Standard Error}
+\small
+Before observing the sample, write the random sample variance as
+\[
+S_Y^2=\frac1{n-1}\sum_i(Y_i-\overline Y)^2.
+\]
+After observing it, compute the number
+\[
+s_Y^2=\frac1{n-1}\sum_i(y_i-\overline y)^2,\qquad s_Y=\sqrt{s_Y^2}.
+\]
+\begin{itemize}
+\item We estimate $\mu_Y$ with $\overline y$. Since $\sum_i(y_i-\overline y)=0$, only $n-1$ deviations can vary freely.
+\item Division by $n-1$ makes $S_Y^2$ unbiased for $\sigma_Y^2$ under i.i.d.\ sampling. Its square root need not be unbiased for $\sigma_Y$.
+\item When $\sigma_Y$ is unknown, estimate the mean's SD by
+\[
+\boxed{SE(\overline Y)=\frac{s_Y}{\sqrt n}}.
+\]
+\end{itemize}
+This guide writes $S_Y$ for the random statistic and $s_Y$ for its observed value. The lectures often use $s_Y$ for both; the distinction is the same as $\overline Y$ versus $\overline y$.
+\end{frame}
+
+\begin{frame}{Known $\sigma_Y$ or Estimated $s_Y$: Which Reference Distribution?}
+\small
+\begin{center}
+\begin{tabular}{p{3.2cm}p{4.1cm}p{5.8cm}}
+\toprule
+Situation & Random test statistic under $H_0:\mu_Y=\mu_0$ & Reference distribution\\
+\midrule
+Known $\sigma_Y$ & $Z=\dfrac{\overline Y-\mu_0}{\sigma_Y/\sqrt n}$ & Exactly $N(0,1)$ for i.i.d.\ normal data; approximately normal for large $n$ by the CLT.\\[14pt]
+Unknown $\sigma_Y$ & $T=\dfrac{\overline Y-\mu_0}{S_Y/\sqrt n}$ & Exactly Student's $t_{n-1}$ for i.i.d.\ normal data; approximately $N(0,1)$ for large $n$ under the CLT conditions.\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item The observed number is $t_{\mathrm{obs}}=(\overline y-\mu_0)/(s_Y/\sqrt n)$.
+\item Estimating $\sigma_Y$ adds uncertainty: the finite-sample $t$ distribution has heavier tails.
+\item In large samples, $S_Y/\sigma_Y\xrightarrow{p}1$, so replacing $\sigma_Y$ does not change the limiting standard normal distribution.
+\end{itemize}
+For small, non-normal samples, neither an exact $t$ claim nor an automatic normal approximation is justified.
+\end{frame}
+
+\begin{frame}{Hypothesis Testing: A Procedure, Not Just a Formula}
+\begin{enumerate}
+\item \textbf{State the parameter and null:} for example, $H_0:\mu_Y=175$ cm.
+\item \textbf{Choose the alternative:} $H_1:\mu_Y\neq175$ is two-sided; $H_1:\mu_Y>175$ is one-sided.
+\item \textbf{Choose a significance level} $\alpha$ before looking at the result.
+\item \textbf{Compute the standard error} and the observed statistic:
+\[
+t_{\mathrm{obs}}=\frac{\overline y-\mu_0}{SE(\overline Y)}.
+\]
+\item \textbf{Use the appropriate null distribution} to calculate a $p$-value.
+\item \textbf{Decide and interpret:} reject if $p\leq\alpha$; otherwise do not reject.
+\end{enumerate}
+\begin{block}{Interpret the statistic}
+A value $t_{\mathrm{obs}}=-2.4$ means the observed mean is 2.4 estimated standard errors below the null value. It is not a probability.
+\end{block}
+\end{frame}
+
+\begin{frame}{$p$-Values, Tail Areas, and Significance Levels}
+\small
+A \textbf{$p$-value is a probability under the null hypothesis}: how often would the test statistic be at least as extreme as the observed one?
+For $Z\sim N(0,1)$, define $\Phi(z)=\Prb(Z\leq z)$.
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Alternative & Normal-approximation $p$-value & Reject at 5\% if\\
+\midrule
+$\mu_Y\neq\mu_0$ & $2[1-\Phi(|t_{\mathrm{obs}}|)]$ & $|t_{\mathrm{obs}}|\geq1.96$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For two-sided normal tests, critical values are:
+\[
+\alpha=10\%:\ 1.645,\qquad
+\alpha=5\%:\ 1.960,\qquad
+\alpha=1\%:\ 2.576.
+\]
+Use Student's $t$ probabilities and critical values when that is the reference distribution.
+\par\medskip
+\textbf{Avoid these interpretations:} the $p$-value is not $\Prb(H_0\text{ is true})$; failure to reject does not establish that $H_0$ is true. Statistical significance does not measure economic importance.
+\end{frame}
+
+\begin{frame}{Worked Example: Height, Standard Error, and a Mean Test}
+\small
+The ten illustrative heights from Lecture 2 have
+\[
+n=10,\quad \overline y=170\text{ cm},\quad
+\sum_i(y_i-\overline y)^2=388\text{ cm}^2.
+\]
+\begin{align*}
+s_Y&=\sqrt{388/9}=6.5659\text{ cm},\\
+SE(\overline Y)&=6.5659/\sqrt{10}=2.0763\text{ cm},\\
+t_{\mathrm{obs}}&=\frac{170-175}{2.0763}=-2.4081.
+\end{align*}
+For $H_0:\mu_Y=175$ versus $H_1:\mu_Y\neq175$:
+\begin{itemize}
+\item \textbf{Normal approximation:} $p\approx .0160$ and $|t_{\mathrm{obs}}|>1.96$.
+\item \textbf{If heights are i.i.d.\ normal and $\sigma_Y$ is unknown:} use $t_9$; $p\approx .0394$ and the 5\% critical value is $2.262$.
+\item Both reject at 5\%, but their $p$-values differ. With only ten observations, normality is an additional assumption, not a consequence of a large sample.
+\end{itemize}
+Do not divide by $s_Y$ alone: that describes individual dispersion, not uncertainty in the mean.
+\end{frame}
+
+\begin{frame}{Confidence Intervals: Formula, Meaning, and Link to Tests}
+\small
+A two-sided $(1-\alpha)$ confidence interval for a mean is
+\[
+\overline y\ \pm\ c\,SE(\overline Y),
+\]
+where $c=z_{1-\alpha/2}$ for a normal approximation, or $c=t_{1-\alpha/2,n-1}$ for exact inference with i.i.d.\ normal data and unknown variance.
+\begin{itemize}
+\item \textbf{Coverage:} over repeated samples, the interval procedure contains the fixed true parameter in $100(1-\alpha)\%$ of samples (approximately for asymptotic intervals).
+\item \textbf{Width:} more confidence gives a wider interval; greater precision gives a narrower interval.
+\item \textbf{Test equivalence:} a null value outside the interval is rejected by the corresponding two-sided test, using the same standard error and reference distribution.
+\end{itemize}
+For the height example:
+\[
+\text{Normal 95\% CI: }170\pm1.96(2.0763)\approx[165.93,174.07],
+\]
+\[
+\text{Normal-population }t_9\text{ CI: }170\pm2.262(2.0763)\approx[165.30,174.70].
+\]
+These are intervals for the \textbf{population mean}, not ranges containing 95\% of individual heights.
+\end{frame}
+
+\begin{frame}{Type I Error, Type II Error, and Power}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & $H_0$ true & A particular alternative true\\
+\midrule
+Reject $H_0$ & Type I error & Correct rejection\\
+Do not reject $H_0$ & Correct non-rejection & Type II error\\
+\bottomrule
+\end{tabular}
+\end{center}
+For a test calibrated to have size $\alpha$,
+\[
+\alpha=\Prb(\text{reject }H_0\mid H_0\text{ true}).
+\]
+At a specified alternative mean $\mu_1$,
+\[
+\beta(\mu_1)=\Prb_{\mu_1}(\text{do not reject }H_0),
+\qquad
+\operatorname{Power}(\mu_1)=1-\beta(\mu_1).
+\]
+\begin{itemize}
+\item $\alpha$ controls false rejection under the null. $\beta$ depends on the particular true alternative, sample size, and noise.
+\item For a fixed sample size and test family, lowering $\alpha$ makes rejection harder and generally reduces power.
+\item Larger samples or effects farther from the null generally increase power.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to Calculate $\beta$: Use a Specific Alternative}
+\small
+Consider a two-sided normal mean test with known $\sigma_Y$ and rejection rule
+\[
+|\overline Y-\mu_0|>c\,\frac{\sigma_Y}{\sqrt n},
+\qquad c=z_{1-\alpha/2}.
+\]
+If the true mean is $\mu_1$, define the effect in standard-error units:
+\[
+\delta=\frac{\mu_1-\mu_0}{\sigma_Y/\sqrt n}.
+\]
+Under this alternative, the test statistic has distribution $N(\delta,1)$, so
+\[
+\boxed{\beta(\mu_1)=\Phi(c-\delta)-\Phi(-c-\delta)}.
+\]
+\begin{block}{Example}
+Let $\alpha=.05$, $c=1.96$, and $\delta=2$.
+Then $\beta=\Phi(-.04)-\Phi(-3.96)\approx .4840$, so power is about $.5160$.
+\end{block}
+The formula is exact for normal observations with known variance and approximate when justified by the CLT. There is no single $\beta$ determined by $\alpha$ alone.
+\end{frame}
+
+\begin{frame}{Comparing Two Means: Independent Groups}
+\small
+For independent samples from groups $a$ and $b$, let $\Delta=\mu_a-\mu_b$ and test $H_0:\Delta=d_0$.
+\begin{align*}
+\widehat\Delta&=\overline Y^a-\overline Y^b,\\
+\Var(\widehat\Delta)&=\frac{\sigma_a^2}{n_a}+\frac{\sigma_b^2}{n_b},\\
+SE(\widehat\Delta)&=\sqrt{\frac{s_a^2}{n_a}+\frac{s_b^2}{n_b}},\\
+t_{\mathrm{obs}}&=\frac{(\overline y^a-\overline y^b)-d_0}{SE(\widehat\Delta)}.
+\end{align*}
+\begin{itemize}
+\item Subtract the hypothesized difference $d_0$, which need not be zero.
+\item Large-sample 95\% CI: $(\overline y^a-\overline y^b)\pm1.96\,SE(\widehat\Delta)$.
+\item Independence removes the covariance term. For paired measurements on the same people, analyze within-person differences instead.
+\item For small independent normal samples with unknown unequal variances, use Welch's $t$ method rather than treating 1.96 as exact.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Group Differences: Calculation and Causal Interpretation}
+\small
+From the two height samples in Lecture 2:
+\[
+n_a=n_b=10,\quad \overline y^a=170,\quad\overline y^b=164,
+\quad s_a^2=388/9,\quad s_b^2=132/9.
+\]
+\[
+SE(\widehat\Delta)=\sqrt{\frac{388/9}{10}+\frac{132/9}{10}}=2.4037.
+\]
+For $H_0:\Delta=5$ cm:
+\[
+t_{\mathrm{obs}}=\frac{(170-164)-5}{2.4037}=.4160,
+\qquad p\approx .6774
+\]
+using the lecture's rough normal approximation. Do not reject at 5\%.
+\par\medskip
+\textbf{A difference in conditional means is initially an association:}
+\[
+\E[Y\mid D=1]-\E[Y\mid D=0].
+\]
+Random assignment, together with a well-defined treatment, no spillovers, and appropriate observation of outcomes, can justify a causal interpretation.
+In observational data, different group composition can explain part or all of the difference.
+\end{frame}
+
+\section{Lecture 3}
+\begin{frame}{Simple Linear Regression: Three Different Objects}
+\small
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.4cm}>{\raggedright\arraybackslash}p{4.6cm}}
+\toprule
+Object & Equation & Meaning\\
+\midrule
+Population model & $Y_i=\beta_0+\beta_1X_i+u_i$ & Unknown parameters and unobserved error\\[9pt]
+Estimated rule before observing data & $\widehat Y_i=\widehat\beta_0+\widehat\beta_1X_i$ & Random estimators and fitted values\\[9pt]
+Fitted line in an observed sample & $\widehat y_i=\widehat b_0+\widehat b_1x_i$ & Numerical estimates and predictions\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item $\beta_0$ is an intercept; $\beta_1$ is a change in $Y$ per unit of $X$.
+\item $u_i$ contains determinants of $Y_i$ omitted from the displayed part of the model.
+\item A sample residual $\widehat u_i$ is not the same object as the population error $u_i$.
+\end{itemize}
+For clarity, this guide uses $\widehat b_j$ for a realized estimate of $\widehat\beta_j$; the lectures often retain $\widehat\beta_j$ in numerical applications.
+\end{frame}
+
+\begin{frame}{Ordinary Least Squares: Objective and First-Order Conditions}
+\small
+\textbf{Ordinary least squares (OLS)} chooses an intercept $a$ and slope $b$ to minimize
+\[
+Q_n(a,b)=\sum_{i=1}^n(Y_i-a-bX_i)^2.
+\]
+The \textbf{first-order conditions (FOCs)} are
+\begin{align*}
+\frac{\partial Q_n}{\partial a}
+&=-2\sum_i(Y_i-a-bX_i)=0,\\
+\frac{\partial Q_n}{\partial b}
+&=-2\sum_iX_i(Y_i-a-bX_i)=0.
+\end{align*}
+Evaluate them at $(a,b)=(\widehat\beta_0,\widehat\beta_1)$.
+The intercept condition gives
+\[
+n\overline Y-n\widehat\beta_0-n\widehat\beta_1\overline X=0
+\quad\Longrightarrow\quad
+\boxed{\widehat\beta_0=\overline Y-\widehat\beta_1\overline X}.
+\]
+If $TSS_X=\sum_i(X_i-\overline X)^2>0$, the squared-error objective has a unique minimizer.
+\end{frame}
+
+\begin{frame}{Solve the Slope FOC: Center, Substitute, and Divide}
+\small
+Substitute the intercept expression into the slope FOC:
+\begin{align*}
+0&=\sum_iX_i[Y_i-(\overline Y-\widehat\beta_1\overline X)-\widehat\beta_1X_i]\\
+ &=\sum_iX_i[(Y_i-\overline Y)-\widehat\beta_1(X_i-\overline X)].
+\end{align*}
+Since $\sum_i(Y_i-\overline Y)=0$ and $\sum_i(X_i-\overline X)=0$,
+\[
+\sum_iX_i(Y_i-\overline Y)
+=\sum_i(X_i-\overline X)(Y_i-\overline Y),
+\]
+\[
+\sum_iX_i(X_i-\overline X)=\sum_i(X_i-\overline X)^2=TSS_X.
+\]
+$TSS_X$ is the \textbf{Total Sum of Squares of $X$}: the total variation of the sampled $X_i$ values around their sample mean.
+Therefore,
+\[
+\boxed{\widehat\beta_1=
+\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{TSS_X}
+=\frac{S_{XY}}{S_X^2}}.
+\]
+Here $S_{XY}$ and $S_X^2$ denote the random sample covariance and variance, each dividing its sum by $n-1$. Their observed values are $s_{XY}$ and $s_X^2$.
+\end{frame}
+
+\begin{frame}{Worked OLS Example: From Sums to a Fitted Line}
+\small
+For the ten observations in Lecture 3, the observed summaries are
+\[
+n=10,\quad \sum_i x_i=55,\quad \sum_i y_i=84.90,
+\quad \overline x=5.5,\quad \overline y=8.49,
+\]
+\[
+\sum_i(x_i-\overline x)^2=82.50,\qquad
+\sum_i(x_i-\overline x)(y_i-\overline y)=-31.75.
+\]
+\begin{enumerate}
+\item Compute the sample variance and covariance:
+$s_X^2=82.50/9=9.1667$, $s_{XY}=-31.75/9=-3.5278$.
+\item Divide to obtain the slope:
+$\widehat b_1=-31.75/82.50=-.38485$.
+\item Recover the intercept:
+$\widehat b_0=8.49-(-.38485)(5.5)=10.60667$.
+\end{enumerate}
+Thus $\widehat y_i=10.60667-.38485x_i$.
+At $x_1=1$, $\widehat y_1=10.22182$; since $y_1=10.8$, the residual is $.57818$.
+\par\medskip
+A one-unit increase in $X$ is associated with about $.385$ fewer units of $Y$. This slope is not automatically causal.
+\end{frame}
+
+\begin{frame}{OLS Identities: What Is Zero by Construction?}
+\small
+For $Q_n(a,b)=\sum_i(Y_i-a-bX_i)^2$, evaluate the first-order conditions at $(a,b)=(\widehat\beta_0,\widehat\beta_1)$:
+\begin{align*}
+\left.\frac{\partial Q_n}{\partial a}\right|_{\widehat\beta_0,\widehat\beta_1} &=-2\sum_i\widehat u_i=0 \quad\Longrightarrow\quad \sum_i\widehat u_i=0,\\
+\left.\frac{\partial Q_n}{\partial b}\right|_{\widehat\beta_0,\widehat\beta_1} &=-2\sum_iX_i\widehat u_i=0 \quad\Longrightarrow\quad \sum_iX_i\widehat u_i=0.
+\end{align*}
+The first is the intercept FOC; the second is the slope FOC.
+\begin{itemize}
+\item \textbf{Mean residual is zero:} $\overline{\widehat u}=0$. Individual residuals are usually not zero.
+\item \textbf{The line passes through the means:}
+$\overline Y=\widehat\beta_0+\widehat\beta_1\overline X$.
+\item \textbf{Fitted values and residuals are orthogonal:}
+\[
+\sum_i\widehat Y_i\widehat u_i
+=\widehat\beta_0\sum_i\widehat u_i+
+\widehat\beta_1\sum_iX_i\widehat u_i=0.
+\]
+\end{itemize}
+\begin{block}{An algebraic identity is not an identifying assumption}
+These identities hold for the fitted OLS residuals even when $\E[u_i\mid X_i]\neq0$.
+A zero sample residual mean does not prove conditional mean zero for the population error.
+\end{block}
+\end{frame}
+
+\begin{frame}{Goodness of Fit: Three Sums of Squares and $R^2$}
+\small
+\begin{align*}
+TSS_Y&=\sum_i(Y_i-\overline Y)^2 &&\text{total variation around the mean},\\
+ESS&=\sum_i(\widehat Y_i-\overline Y)^2 &&\text{variation explained by the fitted line},\\
+SSR&=\sum_i(Y_i-\widehat Y_i)^2 &&\text{residual sum of squares}.
+\end{align*}
+Because $Y_i-\overline Y=(\widehat Y_i-\overline Y)+\widehat u_i$ and the cross term sums to zero,
+\[
+TSS_Y=ESS+SSR,\qquad
+\boxed{R^2=\frac{ESS}{TSS_Y}=1-\frac{SSR}{TSS_Y}}.
+\]
+\begin{itemize}
+\item With an intercept and $TSS_Y>0$, $0\leq R^2\leq1$.
+\item $R^2=.60$ means the fitted line accounts for 60\% of the sample variation around the mean.
+\item High $R^2$ does not establish causality or guarantee good predictions in a new sample.
+\end{itemize}
+Keep $TSS_X$ (variation in $X$) separate from $TSS_Y$ (variation in $Y$).
+\end{frame}
+
+\begin{frame}{SER, RMSE, and Coefficient Standard Errors Are Different}
+\small
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+\begin{block}{Standard error of the regression (SER)}
+\[
+\widehat\sigma_u^2=\frac{SSR}{n-2}=SER^2,
+\qquad SER=\sqrt{\widehat\sigma_u^2}.
+\]
+Two estimated coefficients use two degrees of freedom. Under the homoskedastic model, $SER^2$ estimates $\sigma_u^2$.
+\end{block}
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{block}{Root mean squared error (RMSE)}
+\[
+RMSE=\sqrt{\frac{SSR}{n}}.
+\]
+The square root of the average squared in-sample prediction error:
+$Y_i-\widehat Y_i=\widehat u_i$.
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+\begin{itemize}
+\item Both measure unexplained outcome dispersion, in units of $Y$; they become similar when $n$ is large.
+\item $SE(\widehat\beta_1)$ instead measures uncertainty about the estimated slope, in units of $Y$ per unit of $X$.
+\item Neither $SER$ nor $\widehat Y\pm SER$ is by itself a calibrated 95\% prediction interval.
+\end{itemize}
+Always check the denominator: some software labels $\sqrt{SSR/(n-2)}$ as Root MSE.
+\end{frame}
+
+\begin{frame}{Estimating the Error Variance: Why Residuals Need a Correction}
+\small
+\textbf{Assumptions.} Condition on all sampled regressors $\mathbf X$:
+$\E[u_i\mid\mathbf X]=0$, $\Var(u_i\mid\mathbf X)=\sigma_u^2$, and errors are
+uncorrelated conditional on $\mathbf X$; $TSS_X>0$ and $n>2$.
+\begin{block}{If the population coefficients were known}
+We could observe $u_i=Y_i-\beta_0-\beta_1X_i$. Since
+$\E[u_i^2\mid\mathbf X]=\sigma_u^2$,
+\[
+\E\!\left[\frac1n\sum_i u_i^2\,\middle|\,\mathbf X\right]=\sigma_u^2.
+\]
+\end{block}
+Actual residuals use fitted coefficients:
+$\widehat u_i=Y_i-\widehat\beta_0-\widehat\beta_1X_i$.
+Least squares fits some of the realized error, so the residual sum of squares is smaller on average.
+\begin{align*}
+\E[SSR\mid\mathbf X]&=(n-2)\sigma_u^2
+&&\text{(derived on the next slide)},\\
+\widehat\sigma_u^2&=\frac{SSR}{n-2},
+&\E[\widehat\sigma_u^2\mid\mathbf X]&=\sigma_u^2.
+\end{align*}
+\textbf{SER estimates $\sigma_u$; $SER^2$ is the unbiased variance estimator under these assumptions.}
+\end{frame}
+
+\begin{frame}{Why the Correction Is $n-2$: A Derivation}
+\small
+Under the previous assumptions, define $\overline u=n^{-1}\sum_i u_i$ and
+$d=\widehat\beta_1-\beta_1$. The intercept identity gives
+\[
+\widehat\beta_0-\beta_0=\overline u-d\overline X
+\quad\Longrightarrow\quad
+u_i=\widehat u_i+\overline u+d(X_i-\overline X).
+\]
+OLS orthogonality, $\sum_i\widehat u_i=0$ and
+$\sum_i(X_i-\overline X)\widehat u_i=0$, together with
+$\sum_i(X_i-\overline X)=0$, eliminates all cross-products when squaring and summing:
+\[
+SSR=\sum_i u_i^2-n\overline u^{\,2}-d^2TSS_X.
+\]
+Using OLS unbiasedness and $\Var(\widehat\beta_1\mid\mathbf X)=\sigma_u^2/TSS_X$
+\textbf{(results derived later in this guide)}, we obtain
+\begin{align*}
+\E\!\left[\sum_i u_i^2\,\middle|\,\mathbf X\right]&=n\sigma_u^2,\\
+\E[n\overline u^{\,2}\mid\mathbf X]&=n\Var(\overline u\mid\mathbf X)=\sigma_u^2,\\
+\E[d^2TSS_X\mid\mathbf X]&=TSS_X\Var(\widehat\beta_1\mid\mathbf X)=\sigma_u^2.
+\end{align*}
+Thus $\E[SSR\mid\mathbf X]=n\sigma_u^2-\sigma_u^2-\sigma_u^2=(n-2)\sigma_u^2$.
+One fitted direction for the intercept and one for the slope remove two $\sigma_u^2$ terms.
+\end{frame}
+
+\begin{frame}{Population Least Squares and Sample OLS}
+\small
+The \textbf{population linear projection} minimizes an expected squared error:
+\[
+(a^*,b^*)=\arg\min_{a,b}\E[(Y-a-bX)^2].
+\]
+Its FOCs, when the moments exist, are
+\[
+\E[Y-a^*-b^*X]=0,\qquad
+\E[X(Y-a^*-b^*X)]=0.
+\]
+Thus, for $\Var(X)>0$,
+\[
+b^*=\frac{\Cov(X,Y)}{\Var(X)},\qquad
+a^*=\E[Y]-b^*\E[X].
+\]
+\begin{itemize}
+\item Population coefficients are fixed features of the joint distribution.
+\item Sample OLS replaces population moments with sample moments; the estimated coefficients vary across samples.
+\item If $\E[Y\mid X]=\beta_0+\beta_1X$, the projection equals that conditional-mean line.
+\item If the conditional mean is nonlinear, the projection remains the best \emph{linear} predictor under squared loss.
+\end{itemize}
+Here $a^*,b^*$ distinguish population projection coefficients from sample estimators and any structural causal parameters.
+\end{frame}
+
+\begin{frame}{OLS Assumptions: What Each One Does}
+\small
+For a model $Y_i=\beta_0+\beta_1X_i+u_i$:
+\begin{enumerate}
+\item \textbf{Conditional mean zero:} $\E[u_i\mid X_i]=0$.
+It implies $\E[Y_i\mid X_i]=\beta_0+\beta_1X_i$ and removes systematic error differences across values of $X_i$.
+\item \textbf{i.i.d.\ observations:} the pairs $(X_i,Y_i)$ are independent across $i$ and drawn from one joint distribution.
+This supports the sampling arguments.
+\item \textbf{Finite moments and regressor variation:} the lecture assumes finite fourth moments and $\Var(X)>0$.
+These control tail behavior and ensure that a slope can be identified and estimated.
+\end{enumerate}
+\begin{block}{Causal interpretation needs a causal model}
+If $\beta_1$ is a structural causal effect, conditional mean zero helps identify it from observed variation. A fitted conditional-mean relationship alone does not prove that intervening on $X$ changes $Y$.
+\end{block}
+\textbf{Homoskedasticity}, $\Var(u_i\mid X_i)=\sigma_u^2$, is an additional assumption for the simple variance formula; it is not required for OLS unbiasedness.
+\end{frame}
+
+\begin{frame}{Omitted Variables: Why Conditional Mean Zero Can Fail}
+\small
+Suppose the structural equation is
+\[
+Y_i=\beta_0+\beta_1X_i+\gamma Z_i+v_i,\qquad \E[v_i\mid X_i,Z_i]=0.
+\]
+If we omit $Z_i$ and keep the displayed coefficients $\beta_0,\beta_1$, comparison with
+$Y_i=\beta_0+\beta_1X_i+u_i$ gives
+\[
+u_i=\gamma Z_i+v_i,\qquad
+\E[u_i\mid X_i]=\gamma\E[Z_i\mid X_i].
+\]
+If $\gamma\neq0$ and the conditional mean of $Z_i$ varies with $X_i$, the conditional mean of $u_i$ varies too; an intercept shift cannot remove that variation.
+\par\medskip
+The population projection slope becomes
+\[
+b^*=\frac{\Cov(X,Y)}{\Var(X)}
+=\beta_1+\gamma\frac{\Cov(X,Z)}{\Var(X)}.
+\]
+For example, if $Z$ is disadvantage, $\gamma<0$, and $\Cov(X,Z)>0$, omitting it shifts the slope downward.
+Conditional mean zero implies zero covariance; its failure does not always imply nonzero covariance.
+\end{frame}
+
+\begin{frame}{Decompose the OLS Slope: True Coefficient Plus Sampling Error}
+\small
+Write $D_i=X_i-\overline X$ and $TSS_X=\sum_iD_i^2$. First,
+\[
+\sum_iD_i(Y_i-\overline Y)=\sum_iD_iY_i
+\quad\text{because}\quad \sum_iD_i=0.
+\]
+Substitute $Y_i=\beta_0+\beta_1X_i+u_i$:
+\[
+\widehat\beta_1
+=\frac{\beta_0\sum_iD_i+\beta_1\sum_iD_iX_i+\sum_iD_i u_i}{TSS_X}.
+\]
+Now use $X_i=\overline X+D_i$:
+\[
+\sum_iD_iX_i=\overline X\sum_iD_i+\sum_iD_i^2=TSS_X.
+\]
+Therefore,
+\[
+\boxed{\widehat\beta_1=\beta_1+\frac{\sum_i(X_i-\overline X)u_i}{TSS_X}}.
+\]
+The intercept term disappears, and the remaining fraction is the estimation error. This identity holds before taking expectations.
+\end{frame}
+
+\begin{frame}{Why OLS Is Unbiased: Condition First, Then Average}
+\small
+Let $\mathbf X=(X_1,\ldots,X_n)$ denote \textbf{all} sampled regressors.
+Under i.i.d.\ sampling and conditional mean zero, $\E[u_i\mid\mathbf X]=0$.
+\begin{enumerate}
+\item Conditional on $\mathbf X$, every $X_i$, $\overline X$, and $TSS_X$ is fixed.
+\item Take the conditional expectation of the decomposition:
+\[
+\E[\widehat\beta_1\mid\mathbf X]
+=\beta_1+\frac{\sum_i(X_i-\overline X)\E[u_i\mid\mathbf X]}{TSS_X}
+=\beta_1.
+\]
+\item Apply the Law of Iterated Expectations:
+\[
+\E[\widehat\beta_1]=\E[\E[\widehat\beta_1\mid\mathbf X]]=\beta_1.
+\]
+\end{enumerate}
+The next slide derives the corresponding result for the intercept.
+\par\medskip
+These results require an identified slope ($TSS_X>0$) and existence of the relevant expectations. Homoskedasticity and normality are not needed for this argument.
+\end{frame}
+
+\begin{frame}{Why the Intercept Is Unbiased: Step by Step}
+\small
+Define $\overline u=\frac1n\sum_i u_i$.
+\begin{enumerate}
+\item Average the population equation:
+\[
+\overline Y=\beta_0+\beta_1\overline X+\overline u.
+\]
+\item Substitute into the intercept estimator:
+\[
+\widehat\beta_0=\overline Y-\widehat\beta_1\overline X
+=\beta_0+(\beta_1-\widehat\beta_1)\overline X+\overline u.
+\]
+\item Conditional on $\mathbf X=(X_1,\ldots,X_n)$, $\overline X$ is fixed and
+\[
+\E[\overline u\mid\mathbf X]=\frac1n\sum_i\E[u_i\mid\mathbf X]=0.
+\]
+Using the previous result $\E[\widehat\beta_1\mid\mathbf X]=\beta_1$,
+\[
+\begin{aligned}
+\E[\widehat\beta_0\mid\mathbf X]
+&=\beta_0+(\beta_1-\E[\widehat\beta_1\mid\mathbf X])\overline X
++\E[\overline u\mid\mathbf X]\\
+&=\beta_0+(\beta_1-\beta_1)\overline X+0=\beta_0.
+\end{aligned}
+\]
+\item Apply iterated expectations:
+\[
+\E[\widehat\beta_0]=\E[\E[\widehat\beta_0\mid\mathbf X]]=\beta_0.
+\]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{OLS Precision: Variance and Standard Error of the Slope}
+\small
+With errors uncorrelated across observations conditional on $\mathbf X$,
+\begin{align*}
+\Var(\widehat\beta_1\mid\mathbf X)
+&=\frac{1}{TSS_X^2}\Var\!\left(\sum_i(X_i-\overline X)u_i\mid\mathbf X\right)\\
+&=\frac{\sum_i(X_i-\overline X)^2\Var(u_i\mid\mathbf X)}{TSS_X^2}.
+\end{align*}
+Under \textbf{homoskedasticity}, every conditional error variance is $\sigma_u^2$, so
+\[
+\Var(\widehat\beta_1\mid\mathbf X)=\frac{\sigma_u^2}{TSS_X},
+\qquad
+\boxed{SE(\widehat\beta_1)=\sqrt{\frac{SSR}{(n-2)TSS_X}}
+=\frac{SER}{\sqrt{TSS_X}}}.
+\]
+\begin{itemize}
+\item More error variation makes the slope less precise.
+\item More variation in $X$ increases $TSS_X$ and makes the slope more precise.
+\item With stable regressor variation, larger samples typically increase $TSS_X$.
+\end{itemize}
+If error variance varies with $X$, the simple homoskedastic standard-error formula need not be valid.
+\end{frame}
+
+\begin{frame}{Precision of the Intercept: Where Is $X=0$?}
+\small
+Under conditional mean zero and homoskedastic errors that are uncorrelated across observations conditional on $\mathbf X$,
+\[
+\Var(\widehat\beta_0\mid\mathbf X)
+=\sigma_u^2\left(\frac1n+\frac{\overline X^2}{TSS_X}\right).
+\]
+Replace the unknown error variance by $SER^2=SSR/(n-2)$ to estimate its standard error:
+\[
+\boxed{SE(\widehat\beta_0)
+=SER\sqrt{\frac1n+\frac{\overline X^2}{TSS_X}}}.
+\]
+\begin{itemize}
+\item The intercept is the fitted outcome at $X=0$.
+\item Holding $n$, error variance, and $TSS_X$ fixed, the intercept is less precise when the sample's $X$ values are centered farther from zero.
+\item If $\overline X=0$, then $SE(\widehat\beta_0)=SER/\sqrt n$.
+\item A small standard error does not make an extrapolation substantively meaningful: check whether $X=0$ is relevant to the population.
+\end{itemize}
+Use the standard error for the coefficient being studied; the intercept and slope generally have different standard errors and different units.
+\end{frame}
+
+\begin{frame}{OLS in Large Samples: Consistency and Normal Approximation}
+\small
+Divide the numerator and denominator of the estimation error by $n$:
+\[
+\widehat\beta_1-\beta_1
+=\frac{n^{-1}\sum_i(X_i-\overline X)u_i}
+       {n^{-1}\sum_i(X_i-\overline X)^2}.
+\]
+\begin{enumerate}
+\item By the \textbf{Law of Large Numbers}, the numerator converges to $\Cov(X,u)=0$ under conditional mean zero.
+\item The denominator converges to $\Var(X)>0$.
+\item Therefore $\widehat\beta_1\xrightarrow{p}\beta_1$: OLS is \textbf{consistent}.
+\end{enumerate}
+Under the lecture's i.i.d.\ and moment assumptions, the \textbf{Central Limit Theorem} also gives asymptotic normality.
+With homoskedasticity,
+\[
+\sqrt n(\widehat\beta_1-\beta_1)
+\xrightarrow{d}N\!\left(0,\frac{\sigma_u^2}{\Var(X)}\right).
+\]
+Dividing $\widehat\beta_1-\beta_1$ by an appropriate estimated standard error gives an approximately standard normal statistic in large samples. This parallels inference for $\overline Y$.
+\end{frame}
+
+\section{Review}
+\begin{frame}{Lecture 1: Questions You Should Be Able to Answer}
+\small
+\begin{enumerate}
+\item \textbf{Joint, marginal, or conditional?}
+In the sunny-day table, explain why $.55$, $.60$, and $.6875$ answer different questions.
+\item \textbf{Why not reverse the condition?}
+Explain why $\Prb(Y=1\mid X=1)$ and $\Prb(X=1\mid Y=1)$ have different denominators.
+\item \textbf{Which average?}
+Recover $\E[Y]=.60$ by weighting the two conditional means.
+\item \textbf{What varies across samples?}
+Distinguish $\mu_Y$, $Y_i$, $\overline Y$, and $\overline y$.
+\item \textbf{Which theorem?}
+Use the Law of Large Numbers to explain consistency and the Central Limit Theorem to explain a normal approximation.
+\item \textbf{Which implication is valid?}
+Independence implies zero covariance; the converse is false.
+\end{enumerate}
+\begin{block}{Key check}
+If $n$ increases from 25 to 100 with the same population variance, the SD of the sample mean halves. The population SD of individual observations stays the same.
+\end{block}
+\end{frame}
+
+\begin{frame}{Lecture 2: An Inference Checklist}
+\begin{enumerate}
+\item Identify the parameter: one mean or a difference of means.
+\item State $H_0$, $H_1$, and $\alpha$; determine whether the test is one- or two-sided.
+\item Determine whether $\sigma_Y$ is known. If not, estimate it with $s_Y$.
+\item Calculate the \textbf{standard error of the estimator}, not just the SD of the observations.
+\item Compute the observed statistic and choose a justified reference distribution.
+\item Calculate the $p$-value or compare with a critical value; interpret the decision.
+\item Construct a confidence interval and check consistency with the corresponding test.
+\end{enumerate}
+\begin{block}{Quick check}
+If $\overline y=52$, $\mu_0=50$, $s_Y=10$, and $n=100$, then
+$SE(\overline Y)=1$, $t_{\mathrm{obs}}=2$, and the two-sided normal-approximation $p$-value is about $.0455$. The 95\% interval is $[50.04,53.96]$.
+\end{block}
+\end{frame}
+
+\begin{frame}{Lecture 3: An OLS Checklist}
+\small
+\begin{enumerate}
+\item Compute $\overline x,\overline y$, squared deviations of $x$, and cross-products.
+\item Obtain $\widehat b_1=s_{XY}/s_X^2$ and $\widehat b_0=\overline y-\widehat b_1\overline x$.
+\item Calculate $\widehat y_i$ and residuals $y_i-\widehat y_i$. Check the two sample FOCs.
+\item Compute $SSR,TSS_Y,ESS,R^2$, and $SER$; interpret their units and meanings.
+\item State the assumptions needed for unbiasedness, consistency, and the standard-error formula.
+\item Explain whether the slope has a causal interpretation; identify plausible omitted variables.
+\end{enumerate}
+\begin{block}{Do not confuse these statements}
+$\sum_i\widehat u_i=0$ is an OLS identity.\\
+$\E[u_i\mid X_i]=0$ is a population assumption.\\
+A high $R^2$ describes fit. A small standard error describes precision.\\
+Neither one alone establishes causality.
+\end{block}
+\end{frame}
+
+\end{document}

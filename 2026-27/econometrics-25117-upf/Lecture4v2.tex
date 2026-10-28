@@ -227,14 +227,14 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
     \begin{itemize}
         \item $\beta_1$ is the slope of the population regression line
         \item $\hat{\beta}_1$ is the OLS estimator of $\beta_1$
-         \item When $n$ is large, by the Central Limit Theorem, the sampling distribution of $\hat{\beta}_1$ is well approximated by a normal distribution $\mathcal{N}(\beta_1; \frac{\sigma^2_u}{TSS_X})$
+         \item Under homoskedasticity and the usual regularity conditions, the large-sample distribution conditional on $X$ is approximately $\mathcal{N}(\beta_1; \sigma_u^2/TSS_X)$.
     \end{itemize}
 \end{column}
-\begin{column}{0.7\textwidth}
+\begin{column}{0.62\textwidth}
 \begin{figure}
   \centering
          \vspace{-5mm}
-        \includegraphics[scale=.25]{images/testscores_corr.png}
+        \includegraphics[width=\linewidth]{images/lecture4_excel_scatter.png}
 \end{figure}
 \end{column}
 \end{columns}
@@ -256,11 +256,11 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
         \end{itemize}
     \end{itemize}
 \end{column}
-\begin{column}{0.7\textwidth}
+\begin{column}{0.62\textwidth}
 \begin{figure}
   \centering
          \vspace{-5mm}
-        \includegraphics[scale=.25]{images/testscores_corr.png}
+        \includegraphics[width=\linewidth]{images/lecture4_excel_scatter.png}
 \end{figure}
 \end{column}
 \end{columns}
@@ -280,209 +280,350 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
         \begin{equation*}
             t=\frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
         \end{equation*}
-        where $SE(\hat{\beta}_1)=\sqrt{\frac{SSR}{(n-2) TSS_X}}=\sqrt{\frac{\sum_{i=1}^n \hat{u}_i^2}{(n-2)\sum_{i=1}^n (X_i-\overline{X})}}$ when errors are homoskedastic (i.e., $var(u_i\mid X)=\sigma^2_u$~~~$\forall i=1,\dots, n$)
-        \item We reject $H_0: \beta_1=\beta_{1,0}$ at 5\% significance level if $\mid t \mid > 1.96$, or alternatively, if $p-value < 0.05$
+        where $SE(\hat{\beta}_1)=\sqrt{\frac{SSR}{(n-2) TSS_X}}=\sqrt{\frac{\sum_{i=1}^n \hat{u}_i^2}{(n-2)\sum_{i=1}^n (X_i-\overline{X})^2}}$ when errors are homoskedastic (i.e., $var(u_i\mid X)=\sigma^2_u$~~~$\forall i=1,\dots, n$)
+        \item Using the large-sample normal approximation, reject $H_0: \beta_1=\beta_{1,0}$ at 5\% if $|t|>1.96$, or if the two-sided $p$-value is below $0.05$. Excel's finite-sample test uses a $t_{n-2}$ critical value instead.
 
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Excel Application: Running the Regression}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-\begin{itemize}
-    \item In Excel, enable the Analysis ToolPak, then choose \textbf{Data $\rightarrow$ Data Analysis $\rightarrow$ Regression}.
-    \item Set the test-score column as the \textbf{Input Y Range} and the subsidized-meals column as the \textbf{Input X Range}; select \textbf{Labels} if the first row contains variable names.
-    \item We regress schools' average test scores ($Y$) against the share of subsidized meals ($X$). 
-    \item Our regression sample includes 500 schools ($i=1,\dots, 500$)
-\end{itemize}
+\begin{frame}{Excel: A Dataset of 100 Simulated Schools}
+\small
+Open \texttt{Lecture4\_Excel\_100schools.xlsx}, sheet \textbf{Data}.
+\begin{columns}[T]
+\begin{column}{.27\textwidth}
+\includegraphics[width=\linewidth,height=4.1cm,keepaspectratio]{images/lecture4_excel_data_table.png}
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg0.png}
-\end{figure}
+\begin{column}{.69\textwidth}
+\includegraphics[width=\linewidth]{images/lecture4_excel_scatter.png}
 \end{column}
 \end{columns}
+\begin{itemize}
+\item $X_i$: share of subsidized meals (0--1). $Y_i$: average test score, in points.
+\item These are \textbf{simulated teaching data}, with a negative association similar to the earlier example. They are not the original school records.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excel Step 1: Enable the Analysis ToolPak}
+\small
+\begin{enumerate}
+\item In desktop Excel, enable \textbf{Analysis ToolPak} if \textbf{Data Analysis} is missing:
+\begin{itemize}
+\item \textbf{Mac:} Tools $\rightarrow$ Excel Add-ins $\rightarrow$ Analysis ToolPak $\rightarrow$ OK.
+\item \textbf{Windows:} File $\rightarrow$ Options $\rightarrow$ Add-ins; Manage: Excel Add-ins $\rightarrow$ Go. Check Analysis ToolPak and click OK.
+\end{itemize}
+\item Open the \textbf{Data} tab and click \textbf{Data Analysis}.
+\end{enumerate}
 \begin{center}
-\begin{equation*}
-    Y_i = \hat{\beta}_0 + \hat{\beta}_1 X_i + \hat{u}_i
-\end{equation*}
+\includegraphics[width=5.8cm]{images/lecture4_excel_data_button.png}
 \end{center}
+The screenshots show Excel for Mac. The regression input ranges and calculations are the same on Windows.
+\par\medskip
+{\scriptsize Setup reference: \href{https://support.microsoft.com/en-us/excel/load-the-analysis-toolpak-in-excel}{Microsoft: Load the Analysis ToolPak in Excel}.}
 \end{frame}
 
-\begin{frame}{Excel Application: The Intercept}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-\begin{itemize}
-    \item The estimate of the intercept, $\hat{\beta}_0$ is equal to 847.072
-    \item This is the value of the expected average test score for a school not subsidizing meals at all (i.e., $X_i = 0$)
-    \item Because all schools in our sample data subsidize a non-zero share of meals, it does not really have a real-world interpretation
-    %\item It is the coefficient that determines the level of the regression line
-\end{itemize}
+\begin{frame}{Excel Step 2: Choose Regression}
+\begin{columns}[c]
+\begin{column}{.44\textwidth}
+\begin{enumerate}
+\item In the list of analysis tools, select \textbf{Regression}.
+\item Click \textbf{OK}.
+\end{enumerate}
+\medskip
+We want Excel to estimate
+\[
+Y_i=\beta_0+\beta_1X_i+u_i
+\]
+by minimizing the sum of squared residuals.
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg1.png}
-\end{figure}
+\begin{column}{.52\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=5.4cm,keepaspectratio]{images/lecture4_excel_choose_regression.png}
 \end{column}
 \end{columns}
-\begin{equation*}
-    Y_i = 847.072 + \hat{\beta}_1 X_i + \hat{u}_i
-\end{equation*}
 \end{frame}
 
-
-\begin{frame}{Excel Application: The Slope}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-\begin{itemize}
-    \item The estimate of the regression slope, $\hat{\beta}_1$ is equal to -154.8953
-    \item An 10\%-pt increase in the share of subsidized meals is associated with a 15.49 decrease in the average level of test scores
-    \item This represents a 25.69\% reduction in the standard deviation of test scores
-\end{itemize}
+\begin{frame}{Excel Step 3: Set the Input Ranges}
+\begin{columns}[c]
+\begin{column}{.47\textwidth}
+\small
+\begin{enumerate}
+\item \textbf{Input Y Range:}\\
+\texttt{Data!\$B\$1:\$B\$101}\\
+The outcome is \textbf{Test\_score}.
+\item \textbf{Input X Range:}\\
+\texttt{Data!\$A\$1:\$A\$101}\\
+The explanatory variable is \textbf{Meal\_share}.
+\item Check \textbf{Labels}: row 1 contains names, so there are 100 observations.
+\item Leave \textbf{Constant is Zero} unchecked: estimate an intercept.
+\end{enumerate}
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg2.png}
-\end{figure}
+\begin{column}{.49\textwidth}
+\includegraphics[width=\linewidth,height=5.7cm,keepaspectratio]{images/lecture4_excel_settings.png}
 \end{column}
 \end{columns}
-\begin{equation*}
-    Y_i = 847.02 -154.8953 X_i + \hat{u}_i
-\end{equation*}
 \end{frame}
 
-
-\begin{frame}{Excel Application: Testing the Intercept}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-\begin{itemize}
-    \item The estimate of the intercept, $\hat{\beta}_0$ is significantly different from 0.
-    \item $\mid t_{\hat{\beta}_0} \mid = 185.09 >> 2.54 $ (or, alternatively, $p-value < .01$
-    \item We reject $H_0: \beta_0 = 0 $  at the 1\% level
-\end{itemize}
+\begin{frame}{Excel Step 4: Choose the Output}
+\begin{columns}[c]
+\begin{column}{.47\textwidth}
+\small
+\begin{enumerate}
+\item Choose \textbf{New Worksheet Ply} and name it \textbf{Regression}. If that sheet already exists, use a new name, such as \textbf{Regression2}.
+\item Check \textbf{Residuals} and \textbf{Residual Plots}.
+\item The output includes \textbf{95\% confidence intervals} by default.
+\item Click \textbf{OK}. Widen the output columns if numbers are cut off.
+\end{enumerate}
+\medskip
+ToolPak output is a \textbf{snapshot}: rerun the regression after changing the data.
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-         \includegraphics[scale=.4]{images/reg3.png}
-\end{figure}
+\begin{column}{.49\textwidth}
+\includegraphics[width=\linewidth,height=5.7cm,keepaspectratio]{images/lecture4_excel_settings.png}
 \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}{Excel Step 5: Read the Summary Output}
+\centering
+\includegraphics[width=.94\textwidth,height=4.1cm,keepaspectratio]{images/lecture4_excel_summary.png}
+\par\medskip
+\raggedright\small
+\begin{itemize}
+\item \textbf{Observations:} $n=100$. Two coefficients are estimated, so residual degrees of freedom are $100-2=98$.
+\item \textbf{R Square:} $0.5086$. \textbf{Standard Error:} $42.60$, the SER.
+\item Under ANOVA, \textbf{Residual SS} is our $SSR$; \textbf{Total SS} is $TSS_Y$.
+\end{itemize}
+Yellow cells identify the results discussed in these slides.
+\end{frame}
+
+\begin{frame}{Excel: Interpret the Estimated Coefficients}
+\includegraphics[width=\textwidth]{images/lecture4_excel_coefficients.png}
+\[
+\widehat Y_i=847.0719-154.8951X_i.
+\]
+\begin{itemize}
+\item \textbf{Intercept:} the fitted score at $X=0$ is $847.07$. Since the simulated sample has $X>0$, this is an extrapolation.
+\item \textbf{Slope:} increasing $X$ by $0.10$ (10 percentage points) is associated with a change of
+\[
+-154.8951\times0.10=-15.49\text{ test-score points}.
+\]
+\item An association alone does not establish a causal effect of subsidized meals.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excel: Test Whether Each Coefficient Is Zero}
+\small
+\includegraphics[width=\textwidth]{images/lecture4_excel_coefficients.png}
+\[
+H_0:\beta_j=0,\qquad
+t_j=\frac{\widehat\beta_j-0}{SE(\widehat\beta_j)},\qquad
+p_j=P\!\left(|T_{98}|\geq |t_j|\right).
+\]
 \begin{center}
-\begin{eqnarray*}
-    &Y_i = &847.02 -154.8953 X_i + \hat{u}_i\\
-    &  &[4.576] 
-\end{eqnarray*}
+\begin{tabular}{lrrr}
+\toprule
+Coefficient & Standard error & $t$ statistic & Two-sided $p$-value\\
+\midrule
+Intercept & 8.7908 & 96.3594 & $6.80\times10^{-99}$\\
+Meal\_share & 15.3792 & $-10.0717$ & $8.46\times10^{-17}$\\
+\bottomrule
+\end{tabular}
 \end{center}
+Both $p$-values are below $0.05$: reject both zero-coefficient null hypotheses at 5\%.
+These are very small probabilities, \textbf{not zero}.
+\par\medskip
+{\footnotesize ToolPak uses homoskedastic standard errors. Exact finite-sample $t_{98}$ inference also assumes conditionally normal errors, with independent observations and conditional mean zero.}
 \end{frame}
 
-
-\begin{frame}{Excel Application: Testing the Slope}
- \begin{columns}
-\begin{column}{0.3\textwidth}
+\begin{frame}{Excel: Construct 95\% Confidence Intervals}
+\includegraphics[width=\textwidth]{images/lecture4_excel_coefficients.png}
+\[
+\widehat\beta_j\ \pm\ t_{0.975,98}\,SE(\widehat\beta_j),
+\qquad t_{0.975,98}=1.9845.
+\]
+\begin{align*}
+CI_{\beta_0}&=847.0719\pm1.9845(8.7908)
+             =[829.6270,\ 864.5169],\\
+CI_{\beta_1}&=-154.8951\pm1.9845(15.3792)
+             =[-185.4146,\ -124.3756].
+\end{align*}
+\small
 \begin{itemize}
-    \item The estimate of the regression slope, $\hat{\beta}_1$ is significantly different from 0.
-    \item $\mid t_{\hat{\beta}_1} \mid = 22.4 >> 2.54 $ (or, alternatively, $p-value < .01$
-    \item We reject $H_0: \beta_1 = 0 $ at the 1\% level
+\item These are Excel's \textbf{Lower 95\%} and \textbf{Upper 95\%} columns (using unrounded values).
+\item Neither interval contains zero, consistent with the two-sided tests.
+\item In repeated sampling, 95\% of intervals constructed this way cover the true coefficient, under the stated assumptions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excel: Standard Error, SER, and RMSE}
+\small
+First compute the fitted value and the residual:
+\[
+\widehat Y_i=\widehat\beta_0+\widehat\beta_1X_i,\qquad
+\widehat u_i=Y_i-\widehat Y_i,\qquad
+SSR=\sum_{i=1}^{100}\widehat u_i^2=177{,}846.1462.
+\]
+\begin{columns}[T]
+\begin{column}{.48\textwidth}
+\begin{block}{Excel's Standard Error = SER}
+\[
+SER=\sqrt{\frac{SSR}{n-2}}
+=\sqrt{\frac{177{,}846.1462}{98}}
+=42.6000.
+\]
+The denominator adjusts for estimating two coefficients. This estimates the error standard deviation.
+\end{block}
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{block}{RMSE with denominator $n$}
+\[
+RMSE=\sqrt{\frac{SSR}{n}}
+=\sqrt{\frac{177{,}846.1462}{100}}
+=42.1718.
+\]
+This is the square root of the average squared prediction error within the sample.
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+Both are measured in \textbf{test-score points}. In this course, distinguish the denominators; the earlier Stata Root MSE label corresponds to the SER.
+\end{frame}
+
+\begin{frame}{Excel: Compute and Interpret $R^2$}
+\small
+\begin{align*}
+TSS_Y&=\sum_i(Y_i-\overline Y)^2=361{,}934.9432,\\
+SSR&=\sum_i(Y_i-\widehat Y_i)^2=177{,}846.1462,\\
+ESS&=\sum_i(\widehat Y_i-\overline Y)^2=184{,}088.7970.
+\end{align*}
+With an intercept, $TSS_Y=ESS+SSR$. Therefore,
+\[
+R^2=1-\frac{SSR}{TSS_Y}
+=1-\frac{177{,}846.1462}{361{,}934.9432}
+=0.5086.
+\]
+\begin{itemize}
+\item The fitted line explains \textbf{50.86\% of the sample variation} in test scores around their mean.
+\item This measures in-sample fit, not the proportion of scores caused by meals.
+\item Adjusted $R^2=1-(1-R^2)\frac{n-1}{n-2}=0.5036$ penalizes the use of a regressor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excel: Inspect Predicted Values and Residuals}
+\begin{columns}[T]
+\begin{column}{.40\textwidth}
+\includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{images/lecture4_excel_residuals.png}
+\end{column}
+\begin{column}{.56\textwidth}
+\includegraphics[width=\linewidth]{images/lecture4_excel_residual_plot.png}
+\end{column}
+\end{columns}
+\small
+For observation 1, $Y_1=856.5580$ and $\widehat Y_1=834.2813$, so
+\[
+\widehat u_1=Y_1-\widehat Y_1=22.2767.
+\]
+The model underpredicts this school's score by 22.28 points.
+Look for patterns or changes in residual spread; a plot alone cannot prove homoskedasticity.
+\end{frame}
+
+\begin{frame}{By Hand, Step 1: Means and Deviations}
+\small
+Open \textbf{Paso\_a\_paso}. Each of the 100 observations has its own row (43--142).
+\[
+\overline X=\frac{\sum_iX_i}{100}=0.5000,\qquad
+\overline Y=\frac{\sum_iY_i}{100}=769.6244.
+\]
+\includegraphics[width=\textwidth]{images/lecture4_excel_manual_deviations.png}
+\begin{itemize}
+\item Row 43: \texttt{D43=B43-\$C\$5} computes $X_1-\overline X$; \texttt{E43=C43-\$C\$6} computes $Y_1-\overline Y$.
+\item Then square each deviation and multiply the two deviations: \texttt{F43=D43\^{}2}, \texttt{G43=E43\^{}2}, \texttt{H43=D43*E43}.
+\item Copy down through row 142. The dollar signs keep the means fixed. Row 144 sums each column; both deviation sums are zero up to rounding.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{By Hand, Step 2: From Sums to the OLS Line}
+\begin{center}
+\includegraphics[width=.88\textwidth,height=2.7cm,keepaspectratio]{images/lecture4_excel_manual_means.png}
+\end{center}
+\small
+Let $S_{XY}=\sum_i(X_i-\overline X)(Y_i-\overline Y)$ be the \textbf{cross-product sum}.
+Then $s_{XY}=S_{XY}/(n-1)$ and $s_X^2=TSS_X/(n-1)$.
+\begin{align*}
+\widehat\beta_1&=\frac{S_{XY}}{TSS_X}=\frac{s_{XY}}{s_X^2}
+=\frac{-1188.4740}{7.6728}=-154.8951,\\
+\widehat\beta_0&=\overline Y-\widehat\beta_1\overline X
+=769.6244-(-154.8951)(0.5000)=847.0719.
+\end{align*}
+Use \texttt{C13=C10/C9} and \texttt{C14=C6-C13*C5}. Keep full precision in the cells.
+\end{frame}
+
+\begin{frame}{By Hand, Step 3: Predictions, Fit, and Error Size}
+\small
+For the first observation (row 43), enter:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Cell & Excel formula & Meaning\\
+\midrule
+I43 & \texttt{=\$C\$14+\$C\$13*B43} & $\widehat Y_i=\widehat\beta_0+\widehat\beta_1X_i$\\
+J43 & \texttt{=C43-I43} & $\widehat u_i=Y_i-\widehat Y_i$\\
+K43 & \texttt{=J43\^{}2} & $\widehat u_i^2$\\
+L43 & \texttt{=(I43-\$C\$6)\^{}2} & $(\widehat Y_i-\overline Y)^2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Copy down through row 142. Sum column K for $SSR$, G for $TSS_Y$, and L for $ESS$.
+\begin{center}
+\includegraphics[width=.76\textwidth,height=2.6cm,keepaspectratio]{images/lecture4_excel_manual_fit.png}
+\end{center}
+Then calculate $R^2=1-SSR/TSS_Y$, $SER=\sqrt{SSR/98}$, and $RMSE=\sqrt{SSR/100}$.
+\end{frame}
+
+\begin{frame}{By Hand, Step 4: Standard Errors and $t$ Statistics}
+\small
+Under homoskedasticity, estimate the common error variance by $SER^2$:
+\begin{align*}
+SE(\widehat\beta_1)&=\frac{SER}{\sqrt{TSS_X}}
+=\frac{42.6000}{\sqrt{7.6728}}=15.3792,\\
+SE(\widehat\beta_0)&=SER\sqrt{\frac1n+\frac{\overline X^2}{TSS_X}}
+=42.6000\sqrt{\frac1{100}+\frac{0.5000^2}{7.6728}}=8.7908.
+\end{align*}
+In \textbf{Paso\_a\_paso}, the formulas are:
+\begin{itemize}
+\item C22: \texttt{=C20/SQRT(C9)}; C23: \texttt{=C20*SQRT(1/C4+C5\^{}2/C9)}.
+\item To test zero coefficients, divide each estimate by its own standard error:
+\[
+t_1=\frac{-154.8951}{15.3792}=-10.0717,\qquad
+t_0=\frac{847.0719}{8.7908}=96.3594.
+\]
+\item C24: \texttt{=C13/C22}; C25: \texttt{=C14/C23}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{By Hand, Step 5: $p$-Values and Confidence Intervals}
+\small
+A \textbf{$p$-value is a probability}: under $H_0$, how likely is a $t$ statistic at least this extreme in either direction?
+\begin{center}
+\includegraphics[width=.90\textwidth,height=2.6cm,keepaspectratio]{images/lecture4_excel_manual_inference.png}
+\end{center}
+\begin{columns}[T]
+\begin{column}{.49\textwidth}
+\textbf{Two-sided $p$-values ($df=98$)}
+\begin{itemize}
+\item Slope, C26:\\\texttt{=T.DIST.2T(ABS(C24),C19)}
+\item Intercept, C27:\\\texttt{=T.DIST.2T(ABS(C25),C19)}
 \end{itemize}
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-         \includegraphics[scale=.4]{images/reg4.png}
-\end{figure}
-\end{column}
-\end{columns}
-\begin{center}
-\begin{eqnarray*}
-    Y_i = &847.02 &-154.8953 X_i + \hat{u}_i\\
-      &[4.576] &~~~~[6.914]
-\end{eqnarray*}
-\end{center}
-\end{frame}
-
-
-
-\begin{frame}{Excel Application: Confidence Intervals}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-Recall that the CI defines
+\begin{column}{.48\textwidth}
+\textbf{95\% confidence intervals}
 \begin{itemize}
-    \item The set of points that cannot be rejected at the 5\% significance level;
-    \item A set-valued function of the data (an interval that is a function of the data) that contains the true parameter value 95\% of the time in repeated samples.
-    \end{itemize}
-\end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg5.png}
-\end{figure}
-\end{column}
-\end{columns}
-\begin{center}
-\begin{eqnarray*}
-    &CI_{\beta_0} &= 847.072 + 1.96\pm 4.576 = [838.0803 ; 856.0636]\notin 0\\
-    &CI_{\beta_1} &= -154.895 + 1.96\pm 6.914 = [ -168.4801 ; -141.3106]\notin 0
-\end{eqnarray*}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Excel Application: The SER}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-Remember that
-\begin{itemize}
-    \item The SER measures the spread of the distribution of $u$ around the regression line in the units of the dependent variable.
-    \item It is an estimator of the standard deviation of the regression error $u_i$.
+\item Critical value, C28:\\\texttt{=T.INV.2T(0.05,C19)}
+\item Use $\widehat\beta_j\pm\texttt{C28}\times SE(\widehat\beta_j)$.
 \end{itemize}
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-        \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg7.png}
-\end{figure}
-\end{column}
 \end{columns}
-\begin{center}
-\begin{eqnarray*}
-    SER = \sqrt{\frac{SSR}{n-2}}=\sqrt{\frac{\sum_{i=1}^n (\hat{u}_i-\overline{\hat{u}}_i)^2}{n-2}}=\sqrt{\frac{903808.084}{498}}\approx 42.601
-\end{eqnarray*}
-\end{center}
-\end{frame}
-
-\begin{frame}{Excel Application: $R^2$}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-Remember that
-\begin{itemize}
-    \item The regression $R^2$ measures the fraction of the variance of Y that is explained by X
-    \item It is unitless and ranges between zero (no fit) and one (perfect fit)
-\end{itemize}
-\end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-        \vspace{-5mm}
-        \includegraphics[scale=.4]{images/reg6.png}
-\end{figure}
-\end{column}
-\end{columns}
-\begin{center}
-\begin{eqnarray*}
-    &R^2 &= \frac{\text{explained sum of squares ($ESS$)}}{\text{total sum of squares ($TSS$)}} = \frac{\sum_{i=1}^n (\hat{Y}_i - \overline{Y})^2}{\sum_{i=1}^n (Y_i - \overline{Y})^2}=\frac{910811.722}{1814619.81}\approx  0.5019\\
-\end{eqnarray*}
-\end{center}
+\medskip
+{\footnotesize Yellow cells match ToolPak. Function names and separators may differ with Excel's language settings.}
 \end{frame}
 
 
@@ -547,51 +688,56 @@ For heteroskedastic data, the variance of $u_i$ is not constant:
 \end{columns}
 \end{frame}
 
-\begin{frame}{$var[\hat{\beta}_1]$ with robust standard errors}
-\begin{eqnarray*}
-& var(\hat{\beta}_1 \mid X) =  var(\hat{\beta}_1 - \beta_1 \mid X) &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})^2}\Bigg|X\right]\\
-& &= var\left[\frac{\sum_{i=1}^n (X_i - \overline{X})u_i}{TSS_X}\Bigg|X\right]\\
-& &= \frac{1}{TSS_X^2}var\left[\sum_{i=1}^n (X_i - \overline{X})u_i\bigg|X\right]\\
-& &= \frac{\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{TSS_X^2}\\
-%& &= \frac{\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{ \frac{1}{n} TSS_X^2}\\
-& &= \frac{\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2 var(u_i\mid X)}{ \frac{n-1}{n} s_X^2}\\
-\end{eqnarray*}
+\begin{frame}{The Variance of the Slope with Heteroskedastic Errors}
+\small
+Write $TSS_X=\sum_i(X_i-\overline X)^2$. Conditional on all the regressors, the weights are fixed:
+\[
+\widehat\beta_1-\beta_1=\frac{\sum_i(X_i-\overline X)u_i}{TSS_X}.
+\]
+If errors are uncorrelated across observations conditional on $X$,
+\begin{align*}
+\operatorname{var}(\widehat\beta_1\mid X)
+&=\frac{1}{TSS_X^2}\operatorname{var}\!\left(\sum_i(X_i-\overline X)u_i\mid X\right)\\
+&=\frac{\sum_i(X_i-\overline X)^2\operatorname{var}(u_i\mid X)}{TSS_X^2}.
+\end{align*}
+Under homoskedasticity, $\operatorname{var}(u_i\mid X)=\sigma_u^2$, so this reduces to
+$\sigma_u^2/TSS_X$. With heteroskedasticity, the observation-specific variances remain inside the sum.
 \end{frame}
 
-
-\begin{frame}{$var[\hat{\beta}_1]$ with robust standard errors}
-So, when $n$ is large $var(\hat{\beta}_1)$ converges toward 
-\begin{eqnarray*}
-     \sigma^2_{\hat{\beta}_1} =\frac{\sum_{i=1}^n (X_i - \mu_X)^2 var(u_i\mid X)}{n \sigma_X^2}
-\end{eqnarray*}
-and $\hat{\beta}_1 \sim \mathcal{N}(\beta_1; \frac{\sigma_\nu^2}{n \sigma_X^2})$ where $\nu=(X_i - \mu_X)u_i$\\\vspace{.5cm}
-The (robust) natural estimator of $\sigma^2_{\hat{\beta}_1}$ follows:
-\begin{eqnarray*}
-     \hat{\sigma}^2_{\hat{\beta}_1} =\frac{1}{n}\frac{\frac{1}{n-2}\sum_{i=1}^n (X_i - \overline{X})^2 \hat{u}_i^2}{\left[\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})\right]^2}
-\end{eqnarray*}\\\vspace{.5cm}
-(Heteroskedasticity-)Robust standard errors (or Eicker–Huber–White standard errors) are then $SE(\hat{\beta_1})=\sqrt{\hat{\sigma}^2_{\hat{\beta}_1}}$
+\begin{frame}{Estimate a Heteroskedasticity-Robust Standard Error}
+\small
+Use squared residuals to estimate each observation's contribution to the variance:
+\[
+\widehat{\operatorname{var}}_{\mathrm{HC1}}(\widehat\beta_1)
+=\frac{n}{n-2}\,
+\frac{\sum_i(X_i-\overline X)^2\widehat u_i^2}
+     {\left[\sum_i(X_i-\overline X)^2\right]^2}.
+\]
+\begin{itemize}
+\item The numerator allows the size of the error to vary with $X_i$.
+\item The denominator is $TSS_X^2$: square the \emph{sum of squared deviations}.
+\item $n/(n-2)$ is a degrees-of-freedom adjustment (HC1).
+\item Take the square root to obtain the robust standard error. Robust inference is justified by large-sample results under the usual regularity conditions.
+\end{itemize}
+The OLS coefficient estimates do not change; their estimated uncertainty does.
 \end{frame}
 
-
-\begin{frame}{In practice}
- \begin{columns}
-\begin{column}{0.35\textwidth}
-    \begin{itemize}
-    \item If the errors are either homoskedastic or heteroskedastic and you use heteroskedastic-robust standard errors, you are OK
-    \item If the errors are heteroskedastic and you use the homoskedasticity-only formula for standard errors, your standard errors will be wrong
-    \end{itemize}
+\begin{frame}{Excel in Practice: What the ToolPak Does Not Provide}
+\begin{columns}[c]
+\begin{column}{.49\textwidth}
+\small
+\begin{itemize}
+\item The standard errors in our \textbf{Regression} sheet use the homoskedasticity formula.
+\item The ToolPak Regression dialog has \textbf{no option for heteroskedasticity-robust standard errors}.
+\item If error variance changes with $X$, use a separate robust calculation before interpreting $t$ tests and confidence intervals.
+\end{itemize}
 \end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-5mm}
-        \includegraphics[scale=.4]{images/regrobust.png}
-\end{figure}
+\begin{column}{.47\textwidth}
+\includegraphics[width=\linewidth]{images/lecture4_excel_residual_plot.png}
+\small
+A residual plot helps diagnose changing spread. An absence of an obvious pattern does not establish constant variance.
 \end{column}
 \end{columns}
-    \begin{itemize}
-    \item The homoskedasticity-only estimator of the variance of $\hat{\beta}_1$ is inconsistent if there is heteroskedasticity.
-    \end{itemize}
 \end{frame}
 
 
