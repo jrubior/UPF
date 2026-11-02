@@ -172,14 +172,14 @@
 \begin{itemize}
     \item Hypothesis testing for regression coefficients is analogous to hypothesis testing for the population mean: Use the t-statistic to calculate the p-values and either accept or reject the null hypothesis. Like a confidence interval for the population mean, a 95\% confidence interval for a regression coefficient is computed as the estimator $\pm$1.96 standard errors.\\[1em]
     \item When X is binary, the regression model can be used to estimate and test hypotheses about the difference between the population means of the “X = 0” group and the “X = 1” group.\\[1em]
-    \item In general, the error $u_i$ is heteroskedastic; that is, the variance of $u_i$ at a given value of $X_i$, $var(u_i\mid X_i=x)$, depends on $x$. A special case is when the error is homoskedastic; that is, when $var(u_i\mid X_i=x)$ is constant. \\[1em]Homoskedasticity-only standard errors do not produce valid statistical inferences when the errors are heteroskedastic, but heteroskedasticity-robust standard errors do.\\[1em]
+    \item Throughout this lecture, assume homoskedastic errors: $\operatorname{Var}(u_i\mid \mathbf{X}_i)=\sigma_u^2$. Estimate coefficient variances with $SER^2(\mathbf{X}'\mathbf{X})^{-1}$.\\[1em]
 \end{itemize}
 \end{frame}
 
 \begin{frame}{What we learned in the last lesson}
 \begin{itemize}
     \item If the three least squares assumption hold and if the regression errors are homoskedastic, then, as a result of the Gauss–Markov theorem, the OLS estimator is BLUE.\\[1em]
-    \item If the three least squares assumptions hold, if the regression errors are homoskedastic, and if the regression errors are normally distributed, then the OLS t-statistic computed using homoskedasticity-only standard errors has a Student t distribution when the null hypothesis is true. The difference between the Student t distribution and the normal distribution is negligible if the sample size is moderate or large.\\[1em]
+    \item If the three least squares assumptions hold, if the regression errors are homoskedastic, and if the regression errors are normally distributed, then the OLS t-statistic computed using the usual OLS standard errors has a Student t distribution when the null hypothesis is true. The difference between the Student t distribution and the normal distribution is negligible if the sample size is moderate or large.\\[1em]
 \end{itemize}
 \end{frame}
 

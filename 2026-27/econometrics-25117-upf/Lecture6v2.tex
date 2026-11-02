@@ -165,9 +165,11 @@
 \end{frame}
 
 \begin{frame}{What we learned in the last lesson}
+\small
 \begin{itemize}
-    \item The coefficients in multiple regression can be estimated by OLS. When the four least squares assumptions are satisfied, the OLS estimators of the causal effect are unbiased, consistent, and normally distributed in large samples.\\[1em]
-    \item The role of control variables is to hold constant omitted factors so that the variable of interest is no longer correlated with the error term. Properly chosen control variables can eliminate omitted variable bias in the OLS estimate of the causal effect of interest.\\[1em]
+    \item Throughout: i.i.d. observations, exogeneity $E(u_i\mid X)=0$, full rank, and homoskedasticity $\operatorname{Var}(u_i\mid X)=\sigma^2$. Use the conventional covariance estimate $\widehat V=SER^2(X'X)^{-1}$. Exact $t/F$ inference additionally assumes conditionally normal errors; otherwise use large-sample approximations.
+    \item The coefficients in multiple regression can be estimated by OLS. When the four least squares assumptions are satisfied, the OLS estimators of the causal effect are unbiased, consistent, and normally distributed in large samples.\\[.5em]
+    \item The role of control variables is to hold constant omitted factors so that the variable of interest is no longer correlated with the error term. Properly chosen control variables can eliminate omitted variable bias in the OLS estimate of the causal effect of interest.\\[.5em]
     \item Perfect multicollinearity, which occurs when one regressor is an exact linear function of the other regressors, usually arises from a mistake in choosing which regressors to include in a multiple regression. Solving perfect multicollinearity requires changing the set of regressors.
 \end{itemize}
 \end{frame}
@@ -175,18 +177,34 @@
 
 \begin{frame}{Interpreting Single Coefficients in Multiple Regression Analysis}
 \begin{itemize}
-    \item Hypothesis tests and confidence intervals for a single coefficient in multiple regression follow the same logic and recipe as for the slope coefficient in a single-regressor model.\\[1em]
-    \item $\frac{\hat{\beta}_1-{\beta}_1}{\sqrt{var({\hat{\beta}}_1)}} \sim \mathcal{N}(0,1)$ by the Central Limit Theorem\\[1em]
-    \item Thus hypotheses on ${\beta}_1$ can be tested using the usual t-statistic, and confidence intervals are constructed as $\hat{\beta}_1\pm 1.96 \times SE(\hat{\beta}_1)$\\[1em]
-    \item So too for $\beta_1, \beta_2, \dots, \beta_k$...
+\item Tests and confidence intervals follow the same logic as in a single-regressor model.\\[1em]
+\item With conventional standard errors,
+\[t_j=\frac{\hat\beta_j-\beta_{j,0}}{SE(\hat\beta_j)}\ \xrightarrow{d}\ \mathcal N(0,1)\quad\text{under }H_0.\]
+\item With conditionally normal errors, $t_j\sim t_{n-k-1}$ exactly under $H_0$.\\[1em]
+\item A 95\% confidence interval is
+\[\hat\beta_j\pm t_{n-k-1;.975}\,SE(\hat\beta_j).\]
+The critical value 1.96 is a large-sample approximation. This applies to each coefficient.
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Interpreting Single Coefficients in Multiple Regression Analysis}
+\begin{frame}{Example: Coefficients and Standard Errors}
+Constructed teaching example: $n=8$, two regressors, homoskedastic OLS.
+\[\widehat Y_i=10+1X_{1i}+1X_{2i}\]
 \begin{center}
-    \includegraphics[scale=.6]{images/regcontr1.png}
+\begin{tabular}{lrrr}
+\toprule
+Coefficient & Estimate & Conventional SE & $t$ (null: zero)\\
+\midrule
+Intercept & 10 & $\sqrt{.2}=.4472$ & 22.3607\\
+$X_1$ & 1 & $\sqrt{.4}=.6325$ & 1.5811\\
+$X_2$ & 1 & $\sqrt{.2}=.4472$ & 2.2361\\
+\bottomrule
+\end{tabular}
 \end{center}
+\[SSR=8,\qquad df=8-2-1=5,\qquad SER^2=8/5=1.6.\]
+The estimated covariance of the two slope estimates is $-.2$.\\[.5em]
+The data and a worked joint test appear below.
 \end{frame}
 
 \begin{frame}{Tests of Joint Hypotheses }
@@ -216,7 +234,7 @@ You want to test whether \textit{school resources} matter for test scores.
 
 \begin{itemize}
     \item A joint hypothesis specifies a value for two or more coefficients, that is, it imposes a restriction on two or more coefficients.
-    \item In general, a joint hypothesis will involve $q$ restrictions. In the example, $q=2$, and the two restrictions are $\beta_1\neq0$ and $\beta_3\neq0$
+    \item In general, a joint hypothesis will involve $q$ restrictions. In the example, $q=2$, and the two restrictions are $\beta_1=0$ and $\beta_3=0$
     \item A ``common sense'' idea is to reject if either of the individual t-statistics exceeds 1.96 in absolute value.
     \item But this ``one at a time'' test isn’t valid: the resulting test rejects too often under the null hypothesis (more than 5\%) !
 \end{itemize}
@@ -227,7 +245,7 @@ You want to test whether \textit{school resources} matter for test scores.
 \begin{itemize}
     \item Because the rejection rate under the null isn’t 5\%.
     \item We’ll calculate the probability of incorrectly rejecting the null using the ``common sense'' test based on the two individual t-statistics.
-    \item To simplify suppose that $X_1$ and $X_3$ are independently distributed. Let $t_1$ and $t_3$ be 
+    \item For a large-sample illustration, suppose the two t-statistics are asymptotically independent standard normal under the null. Let $t_1$ and $t_3$ be
     \begin{eqnarray*}
     & t_1 = \frac{\hat{\beta_1}}{SE(\hat{\beta_1})} \text{~~\&~~} t_3 = \frac{\hat{\beta_3}}{SE(\hat{\beta_3})}
     \end{eqnarray*}
@@ -240,51 +258,41 @@ You want to test whether \textit{school resources} matter for test scores.
 \end{frame}
 
 \begin{frame}{Why can’t we just test the coefficients one at a time?}
-The probability of incorrectly rejecting the null hypothesis using the ``one at a time'' test (we want it to be 5\% and assume $t_1 \independent  t_3$):
-\begin{eqnarray*}
-    &Pr_{H_0}[\mid t_1 \mid > 1.96 \text{~~OR~~} \mid t_3 \mid > 1.96]\\
-    =&1-Pr_{H_0}[\mid t_1 \mid \leq 1.96 \text{~~AND~~} \mid t_3 \mid \leq 1.96]\\
-    =&1-Pr_{H_0}[\mid t_1 \mid \leq 1.96~~\times \mid t_3 \mid \leq 1.96]
-\end{eqnarray*}
-since $t_1$ and $t_3$ are independent by assumption.
-\begin{eqnarray*}
-    =&1-Pr_{H_0}[\mid t_1 \mid \leq 1.96] \times Pr_{H_0}[\mid t_3 \mid \leq 1.96]\\
-    =&1-(.95)^2\\
-    =&0.0975
-\end{eqnarray*}
-Which is way larger than the 5\%-critical value associated with the single t-test!\\
-
-Note that we have assumed independence but in fact, its size of the test depends on the correlation between $t_1$ and $t_3$, i.e., between $\hat{\beta}_1$ and $\hat{\beta}_3$.
-
+Large-sample illustration: assume independent standard normal limits for $t_1$ and $t_3$ under $H_0$.
+\begin{align*}
+&\Pr_{H_0}(|t_1|>1.96\ \text{or}\ |t_3|>1.96)\\
+&\quad=1-\Pr_{H_0}(|t_1|\leq1.96\ \text{and}\ |t_3|\leq1.96)\\
+&\quad=1-\Pr_{H_0}(|t_1|\leq1.96)\Pr_{H_0}(|t_3|\leq1.96)\\
+&\quad\approx1-(.95)^2=.0975.
+\end{align*}
+The false-positive probability is about 9.75\%, above the intended 5\% error probability.\\[1em]
+The product uses independence in this illustration. In general, the rejection probability depends on the correlation between the coefficient estimates.
 \end{frame}
 
 \begin{frame}{The F-statistic}
 \begin{itemize}
-    \item \textbf{The solution:} use a different test statistic designed to test both ${\beta}_1$ and ${\beta}_3$ at once: the F-statistic
-    \item The F-statistic tests all parts of a joint hypothesis at once.
-    \item Formula for the special case of the joint hypothesis ${\beta}_1={\beta}_{1,0}$ and ${\beta}_2={\beta}_{2,0}$ in a regression with two restrictions:
-    \begin{equation*}
-        F=\frac{1}{2}\frac{t^2_1+t^2_2-2\hat{\rho}_{t_1, t_2}t_1t_2}{1-\hat{\rho}^2_{t_1, t_2}}
-    \end{equation*}
-    \item With $t_1$ and $t_2$ being independently distributed, the large-sample distribution of the F-statistic is the distribution of the average of two independently distributed squared standard normal random variables...
-    \item With $q$ restrictions, the formula is more convoluted and requires softwares to be calculated
-    \item We reject the null when F is large. But how large? What is the distribution of the F-stat?
+\item The F-statistic tests all $q$ restrictions of a joint hypothesis at once.
+\item For $H_0:\beta_1=\beta_{1,0},\ \beta_2=\beta_{2,0}$ ($q=2$),
+\[F=\frac12\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{1-\hat\rho^2},\qquad
+ t_j=\frac{\hat\beta_j-\beta_{j,0}}{SE(\hat\beta_j)}.\]
+\item Use the same conventional covariance matrix $\widehat V=SER^2(X'X)^{-1}$ throughout:
+\[\hat\rho=\frac{\widehat{\operatorname{Cov}}(\hat\beta_1,\hat\beta_2)}{SE(\hat\beta_1)SE(\hat\beta_2)}.\]
+\item If $\hat\rho=0$, $F=(t_1^2+t_2^2)/2$; otherwise the formula accounts for dependence.
+\item This is exactly the restricted/unrestricted F shown below, using the same observations, hypothesis, and variance estimate. Reject for large $F$.
 \end{itemize}
-
 \end{frame}
 
 
 
 
 \begin{frame}{The $F_{q,n-k-1}$ distribution}
+ $q$ is the number of restrictions imposed by the null hypothesis $H_0$.
 \begin{itemize}
-    \item The F distribution is tabulated in many places
-    \item As $n \rightarrow \infty$, $F_{q,n-k-1}$ distribution asymptotes to the $\chi^2_q/q$ distribution
-    \item $F_{q,\infty}$ is the same as the $\chi^2_q/q$ 
-     \item The chi-squared distribution with q degrees of freedom ($\chi_q^2$) is defined to be the distribution of the sum of $q$ independent squared standard normal random variables.
-    \item For $q$ not too big and $n\geq 100$, the $F_{q,n-k-1}$ and the $\chi^2_q/q$ are essentially identical
-    \item Many regression packages (including STATA) compute p-values of F-statistics using the F-distribution
-    \item You will encounter the F distribution in published empirical work. Here, $F_{q,\infty}$:
+\item Under the maintained assumptions and conditionally normal errors, $F\sim F_{q,n-k-1}$ exactly under $H_0$.
+\item Without normality, inference is a large-sample approximation.
+\item For fixed $q$ and large denominator degrees of freedom $n-k-1$, $F_{q,n-k-1}$ approaches $\chi_q^2/q$. Use finite degrees of freedom when needed.
+\item $\chi_q^2$ is the sum of $q$ independent squared standard normal variables.
+\item The table gives large-sample critical values: $F_{q,\infty}=\chi_q^2/q$.
 \end{itemize}
 \begin{table}[]
 \begin{tabular}{|c|c|c|c|}
@@ -312,32 +320,18 @@ Note that we have assumed independence but in fact, its size of the test depends
 
 
 
-\begin{frame}{Interpreting Single Coefficients in Multiple Regression Analysis}
- \begin{columns}
-\begin{column}{0.25\textwidth}
-We can reject the null hypothesis that \textit{neither} the share of subsidized meals \textit{nor} the student-teacher ratio have an effect on test scores.
-\end{column}
-\begin{column}{0.8\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[scale=.45]{images/multireg1.png}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
 
 
 
-\begin{frame}{The Homoskedastic-only F-statistic}
-There is a simple formula for the F-statistic that holds \underline{only under homoscedasticity} (so it isn’t very useful) but which nevertheless might help you understand what the F-statistic is doing.\\[1em]
-
-When the errors are homoscedastic, there is a simple formula for computing the ``homoscedasticity-only'' F-statistic:\\[1em]
-
+\begin{frame}{The F-statistic from Restricted and Unrestricted Fits}
+The same F-statistic can be computed by comparing two OLS fits under the maintained assumptions.\\[1em]
 \begin{enumerate}
-    \item Run two regressions, one under the null hypothesis (the ``restricted'' regression) and one under the alternative hypothesis (the ``unrestricted'' regression).
-    \item Compare the fits of the regressions –- the $R^2$'s -- if the ``unrestricted'' model fits sufficiently better, reject the null
+\item Fit the restricted model, imposing $H_0$.\\[1em]
+\item Fit the unrestricted model, which permits both the null and the alternative.\\[1em]
+\item Compare their fit: if relaxing the restrictions improves fit sufficiently, reject $H_0$.
 \end{enumerate}
+\vspace{1em}
+Use the same observations and outcome, an intercept in both models, and the same null hypothesis as in the coefficient formula.
 \end{frame}
 
 \begin{frame}{Example: Are the coefficients on $strs$ and $frpmfracs$ zero?}
@@ -348,7 +342,7 @@ Restricted population regression (that is, under $H_0$):
     TestScore_i = \beta_0 + \beta_2 edfracbachplus_i + u_i
 \end{equation*}
 \\[1em]
-Unrestricted population regression (that is, under $H_1$):
+Unrestricted population regression (permits both $H_0$ and $H_1$):
 \begin{equation*}
     TestScore_i = \beta_0 + \beta_1 frpmfracs_i + \beta_2 edfracbachplus_i + \beta_3 strs_i + u_i
 \end{equation*}
@@ -357,75 +351,92 @@ The fit will be better (higher $R^2$) in the unrestricted regression. But by how
 \end{frame}
 
 
-\begin{frame}{The Homoskedastic-only F-statistic}
-\begin{equation*}
-    F^{Homoskedastic-only}_q=\frac{(R^2_{unrestricted}-R^2_{restricted})/q}{(1-R^2_{unrestricted})/(n-k_{unrestricted}-1)}
-\end{equation*}
-where
+\begin{frame}{The Same F-statistic from $R^2$}
+\[F=\frac{(SSR_R-SSR_U)/q}{SSR_U/(n-k_U-1)}
+=\frac{(R_U^2-R_R^2)/q}{(1-R_U^2)/(n-k_U-1)}.\]
 \begin{itemize}
-    \item $R^2_{unrestricted}$ is the $R^2$ for the unrestricted regression
-    \item $R^2_{restricted}$ is the $R^2$ for the restricted regression
-    \item $q$ is the number of restrictions under $H_0$
-    \item $k_{unrestricted}$ is the number of regressors in the unrestricted regression
+\item $R$ and $U$ denote restricted and unrestricted OLS fits.
+\item $q$ is the number of restrictions; $k_U$ counts unrestricted regressors, excluding the intercept.
+\item Use the same dataset and outcome, nested linear restrictions, and an intercept in both models.
+\item $SER^2=SSR_U/(n-k_U-1)$ is the variance estimate used in the coefficient formula.
+\item For $q=2$, this is exactly the two-coefficient formula shown earlier.
 \end{itemize}
-\vspace{1em}
-So the bigger the difference between the restricted and unrestricted $R^2$ -- i.e., the greater the improvement in fit by adding the variables in question -- the larger the homoskedasticity-only F.
-
+\vspace{.5em}
+A greater improvement in fit gives a larger F-statistic.
 \end{frame}
 
 
-\begin{frame}{The Homoskedastic-only F-statistic}
-\underline{\textbf{Restricted population regression (that is, under $H_0$):}}
-\begin{equation*}
-TestScore_i = 705.157 + 203.582 \times edfracbachplus_i + u_i
-\end{equation*}
-Standard errors: $(5.106)\ (21.472)$
-
-with $R^2_{restricted}$ = 0.2320\\[2em]
-\underline{\textbf{Unrestricted population regression (that is, under $H_0$):}}
-\begin{equation*}
-TestScore_i = 802.045 - 128.685 \times frpmfracs_i + 60.729 \times edfracbachplus_i + 0.564 \times strs_i + u_i
-\end{equation*}
-Standard errors: $(19.841)\ (10.817)\ (20.420)\ (0.576)$
-
-with $R^2_{unrestricted}$ = 0.4775
+\begin{frame}{Example: Restricted and Unrestricted Fits}
+\textbf{Restricted fitted regression:}
+\[\widehat{TestScore}_i=705.157+203.582\times edfracbachplus_i\]
+with $R_R^2=0.2320$.\\[2em]
+\textbf{Unrestricted fitted regression:}
+\begin{align*}
+\widehat{TestScore}_i={}&802.045-128.685\times frpmfracs_i\\
+&+60.729\times edfracbachplus_i+0.564\times strs_i
+\end{align*}
+with $R_U^2=0.4775$.
 \end{frame}
 
-\begin{frame}{The Homoskedastic-only F-statistic}
-\begin{equation*}
-    F^{Homoskedastic-only}_q=\frac{(0.4775-0.2320)/2}{(1-0.4775)/(500-3-1)}=116.5244
-\end{equation*}
-\\[1em] whereas the heteroskedasticity-robust $F$ is
-\begin{equation*}
-    F_q=78.12
-\end{equation*}
+\begin{frame}{Example: Comparing the Two School Regressions}
+\[F=\frac{(0.4775-0.2320)/2}{(1-0.4775)/(500-3-1)}=116.5244.\]
 \begin{itemize}
-    \item If the errors are a) i.i.d., b) homoskedastic, and c) normally distributed, then the homoskedasticity-only F-statistic follows an $F_{q,n-k-1}$ distribution
-    \item But if the errors are heteroscedastic, the large-sample distribution of the homoscedasticity-only F-statistic is \textbf{not} $\chi^2_q/q$
-\end{itemize}
-
-
-\end{frame}
-
-
-\begin{frame}{Why the Homoskedastic-only F-statistic?}
-\begin{itemize}
-    \item The theory of the homoskedasticity-only F-statistic and the $F_{q,n-k-1}$ distributions rests on implausibly strong assumptions
-    \item These statistics date to the early 20th century when data sets were small and computers were people…
-    \item The F-statistic and $F_{q,n-k-1}$ distribution were major breakthroughs: an easily computed formula; a single set of tables that could be published once, then applied in many settings; and a precise, mathematically elegant justification.
-    \item The strong assumptions were a minor price for this breakthrough.
-    \item But with modern computers and large samples we can use the heteroskedasticity-robust F-statistic and the $F_{q,\infty}$ distribution, which only require the four least squares assumptions
-    \item This historical legacy persists in modern software, in which homoskedasticity-only standard errors (and F-statistics) are the default, and in which p-values are computed using the $F_{q,\infty}$ distribution
+\item There are $q=2$ restrictions and $500-3-1=496$ residual degrees of freedom.\\[1em]
+\item Under the maintained assumptions and conditionally normal errors, use $F_{2,496}$ exactly; otherwise use a large-sample approximation.\\[1em]
+\item The coefficient formula with the conventional covariance matrix gives the same F-statistic for these fits. The underlying data and covariance estimates are not provided here for a numerical verification.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Summary}
-\begin{itemize}
-    \item The homoskedasticity-only F-statistic and the $F_{q,n-k-1}$ distributions are justified only under very strong conditions – stronger than are realistic in practice.\\[1em]
-    \item You should use the heteroskedasticity-robust F-statistic, with $F_{q,\infty}$ (i.e., $\chi^2_q/q$) critical values\\[1em]
-    \item For $n\geq100$, the F-statistic distribution is essentially the $\chi^2_q/q$ distribution\\[1em]
-    \item The homoskedasticity-only F-statistic is important historically (and thus in practice), and can help intuition, but isn’t valid when there is heteroskedasticity
-\end{itemize}
+
+\begin{frame}{Worked Example: One Dataset, Two Formulas}
+Constructed data: $n=8$, $k_U=2$. Test $H_0:\beta_1=\beta_2=0$ ($q=2$).
+\begin{columns}[T]
+\begin{column}{.35\textwidth}
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$i$&$X_1$&$X_2$&$Y$\\\midrule
+1&-1&-2&6\\
+2&-1&-2&8\\
+3&-1&0&8\\
+4&-1&0&10\\
+5&1&0&10\\
+6&1&0&12\\
+7&1&2&12\\
+8&1&2&14\\\bottomrule
+\end{tabular}
+\end{center}
+\end{column}
+\begin{column}{.62\textwidth}
+\textbf{Unrestricted fit}
+\[\widehat Y_i=10+X_{1i}+X_{2i}.\]
+Residuals: $(-1,1,-1,1,-1,1,-1,1)$; $SSR_U=8$.\\[1em]
+\textbf{Restricted fit}
+\[\widehat Y_i=\bar Y=10,\qquad SSR_R=TSS_Y=48.\]
+\[df=8-2-1=5,\qquad SER^2=\frac85.\]
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Same Example: Coefficient-Based F}
+The slope block of $\widehat V=SER^2(X'X)^{-1}$ is
+\[\widehat V_s=\begin{pmatrix}2/5&-1/5\\-1/5&1/5\end{pmatrix}.\]
+\[t_1=\frac1{\sqrt{2/5}}=\sqrt{5/2},\qquad
+ t_2=\frac1{\sqrt{1/5}}=\sqrt5,\qquad
+ \hat\rho=\frac{-1/5}{\sqrt{(2/5)(1/5)}}=-\frac1{\sqrt2}.\]
+\[F=\frac12\frac{(5/2)+5-2(-1/\sqrt2)\sqrt{5/2}\sqrt5}{1-1/2}
+=\boxed{12.5}.\]
+The covariance term is essential: simply averaging $t_1^2$ and $t_2^2$ would give $3.75$, not the joint F-statistic.
+\end{frame}
+
+\begin{frame}{Same Example: Fit-Based F}
+\[R_U^2=1-\frac8{48}=\frac56,\qquad R_R^2=0.\]
+\[F=\frac{(5/6-0)/2}{(1-5/6)/5}=12.5,\qquad
+F=\frac{(48-8)/2}{8/5}=12.5.\]
+\[\boxed{F_{\text{coefficient formula}}=F_{\text{fit formula}}=12.5}\]
+With conditionally normal errors, the exact null reference is $F_{2,5}$:
+\[p=\Pr(F_{2,5}\geq12.5)=\left(\frac16\right)^{5/2}=.01134023.\]
+Both formulas give the same p-value and reject at 5\%. Without normality, inference uses a large-sample approximation, which need not be accurate at $n=8$.
 \end{frame}
 
 
@@ -466,13 +477,17 @@ The original and rearranged regressions have the same $R^2$, the same predicted 
 \end{frame}
 
 
-\begin{frame}{Direct Testing (here, with STATA)}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[scale=.45]{images/multireg3.png}
-\end{figure}
-
+\begin{frame}{Testing Equality Using the Same Example}
+Test $H_0:\beta_1=\beta_2$, a single restriction ($q=1$).
+\[\hat d=\hat\beta_1-\hat\beta_2=1-1=0.\]
+\begin{align*}
+\widehat{\operatorname{Var}}(\hat d)
+&=\widehat{\operatorname{Var}}(\hat\beta_1)+\widehat{\operatorname{Var}}(\hat\beta_2)
+-2\widehat{\operatorname{Cov}}(\hat\beta_1,\hat\beta_2)\\
+&=.4+.2-2(-.2)=1.
+\end{align*}
+\[SE(\hat d)=1,\qquad t=\frac01=0,\qquad F=t^2=0.\]
+Under the exact normal-error reference ($t_5$ or $F_{1,5}$), $p=1$: do not reject equality. The same conventional covariance matrix is used throughout.
 \end{frame}
 
 
@@ -497,25 +512,27 @@ You can find a 95\% confidence set as the set of $(\beta_1, \beta_2)$ that canno
 
 \begin{frame}{Confidence Sets for Multiple Coefficients}
 \begin{itemize}
-    \item Let $F(\beta_{1,0}, \beta_{2,0})$ be the (heteroskedasticity-robust) F-statistic testing the hypothesis that $\beta_{1}=\beta_{1,0}$ and $\beta_{2}=\beta_{2,0}$\\[1em]
-    \item 95\% confidence set is defined by $\{\beta_{1,0}, \beta_{2,0}: F(\beta_{1,0}, \beta_{2,0})<3.00\}$\\[1em]
-    \item ... where 3.00 is the 5\% critical value of the $F_{2, \infty}$ distribution\\[1em]
-    \item This set has a coverage rate of 95\% because the test on which it is based (the test it “inverts”) has a size of 5\%\\[1em]
-    \item ... i.e., 5\% of the time, the test incorrectly rejects the null when the null is true, so 95\% of the time it does not; therefore the confidence set constructed as the nonrejected values contains the true value 95\% of the time (in 95\% of all samples).
+\item Let $F(\beta_{1,0},\beta_{2,0})$ test $H_0:\beta_1=\beta_{1,0},\ \beta_2=\beta_{2,0}$ using the conventional covariance matrix.\\[1em]
+\item The 95\% confidence set is
+\[\{(\beta_{1,0},\beta_{2,0}):F(\beta_{1,0},\beta_{2,0})<c\},
+\qquad c=F_{2,n-k-1;.95}.\]
+\item For large denominator degrees of freedom, $c\approx3.00$.\\[1em]
+\item Under conditionally normal errors, coverage is exactly 95\%; otherwise it is a large-sample approximation.\\[1em]
+\item Inverting a 5\% test includes precisely the coefficient pairs that are not rejected.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Confidence Sets for Multiple Coefficients}
-\begin{eqnarray*}
-    \biggl\{\beta_{1,0}, \beta_{2,0}: F(\beta_{1,0}, \beta_{2,0})<3.00\biggr\}\\
-    \Leftrightarrow\biggl\{\beta_{1,0}, \beta_{2,0}: F=\frac{1}{2}\biggl( \frac{t_1^2+t_2^2-2\hat{\rho}_{t_1, t_2}t_1t_2}{1-\hat{\rho}^2_{t_1, t_2}}\biggr)<3.00\biggr\}\\
-\end{eqnarray*}
-That is,
-\begin{eqnarray*}
-    F=\frac{1}{2(1-\hat{\rho}^2_{t_1, t_2})} \times \biggr[\biggl( \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}\biggr)^2+\biggl( \frac{\hat{\beta}_2-\beta_{2,0}}{SE(\hat{\beta}_2)}\biggr)^2+ 2\hat{\rho}^2_{t_1, t_2}\biggl(\frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}\biggr)\biggl(\frac{\hat{\beta}_2-\beta_{2,0}}{SE(\hat{\beta}_2)}\biggr)\biggr]
-\end{eqnarray*}
-thus the boundary of the set defined by $F<3.00$ is an ellipse.
+For each candidate pair, define
+\[t_1=\frac{\hat\beta_1-\beta_{1,0}}{SE(\hat\beta_1)},\qquad
+ t_2=\frac{\hat\beta_2-\beta_{2,0}}{SE(\hat\beta_2)}.\]
+The confidence set uses the same coefficient formula:
+\[\left\{(\beta_{1,0},\beta_{2,0}):
+\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}<c\right\},
+\qquad c=F_{2,n-k-1;.95}.\]
+The cross term is $-2\hat\rho t_1t_2$. The boundary $F=c$ is an ellipse.\\[1em]
+For large denominator degrees of freedom, $c\approx3.00$. The next figure illustrates the joint region and the separate intervals.
 \end{frame}
 
 
