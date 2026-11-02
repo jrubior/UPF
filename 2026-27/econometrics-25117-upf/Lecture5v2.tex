@@ -547,6 +547,28 @@ In general, holding all other regressors constant, $\frac{\Delta Y_i}{\Delta X_{
 \end{frame}
 
 
+\begin{frame}{First Differentiate with Respect to the Intercept}
+\footnotesize
+Define the residual and the sum of squared residuals:
+\[
+r_i(\bm{b})=Y_i-b_0-b_1X_{1i}-\cdots-b_kX_{ki},\qquad
+Q(\bm{b})=\sum_{i=1}^{n}r_i(\bm{b})^2.
+\]
+The intercept multiplies $1$ for every observation, so
+\[
+\frac{\partial r_i}{\partial b_0}=-1.
+\]
+By the chain rule,
+\[
+\begin{aligned}
+\frac{\partial Q}{\partial b_0}
+&=\sum_{i=1}^{n}2r_i(\bm{b})(-1)\\
+&=-2\sum_{i=1}^{n}(Y_i-b_0-b_1X_{1i}-\cdots-b_kX_{ki}).
+\end{aligned}
+\]
+At OLS, setting this derivative to zero gives $\sum_{i=1}^{n}\hat{u}_i=0$.
+\end{frame}
+
 \begin{frame}{The OLS Estimator in Multiple Regression}
 As with simple regression, OLS estimators $\hat{\beta}_0, \hat{\beta}_1, \hat{\beta}_2, ... , \hat{\beta}_k$ solve
 
@@ -555,21 +577,107 @@ As with simple regression, OLS estimators $\hat{\beta}_0, \hat{\beta}_1, \hat{\b
 \end{equation*}
 The derivative of the sum of squared prediction mistakes with respect to the $j$th regression coefficient, $b_j$, is
 \begin{eqnarray*}
-    \frac{\partial}{\partial b_j} = \sum_{i=1}^n (Y_i - b_0 - b_1 X_{1i}- b_2 X_{2i}-...- b_k X_{ki})^2\\
-    \Leftrightarrow -2 \sum_{i=1}^n X_{ji} (Y_i - b_0 - b_1 X_{1i}- b_2 X_{2i}-...- b_k X_{ki})
+    \frac{\partial}{\partial b_j} \sum_{i=1}^n (Y_i - b_0 - b_1 X_{1i}- b_2 X_{2i}-...- b_k X_{ki})^2\\
+    = -2 \sum_{i=1}^n X_{ji} (Y_i - b_0 - b_1 X_{1i}- b_2 X_{2i}-...- b_k X_{ki})
 \end{eqnarray*}
+Here $j=1,\ldots,k$; the intercept condition was derived on the previous slide.
 Combined, these yield the system of $k+1$ equations that, when set to 0, constitute the first-order conditions for the OLS estimator, $\bm{\hat{\beta}}$ --- the $(k+1)\times1$ dimensional vector of the $k+1$ estimates of the unknown regression coefficients
 
 \end{frame}
 
 
+\begin{frame}{Two Regressors ($k=2$): The Three Conditions}
+\footnotesize
+Keep $n$ observations, two regressors $X_{1i},X_{2i}$, and an intercept. Define
+\[
+r_i(\bm{b})=Y_i-b_0-b_1X_{1i}-b_2X_{2i},\qquad i=1,\ldots,n.
+\]
+The three first-order conditions are
+\[
+\begin{aligned}
+\frac{\partial Q}{\partial b_0}&=-2\sum_{i=1}^{n}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=0,\\
+\frac{\partial Q}{\partial b_1}&=-2\sum_{i=1}^{n}X_{1i}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=0,\\
+\frac{\partial Q}{\partial b_2}&=-2\sum_{i=1}^{n}X_{2i}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=0.
+\end{aligned}
+\]
+Evaluate at OLS, $\bm{b}=\bm{\hat{\beta}}$, so $r_i(\bm{\hat{\beta}})=\hat{u}_i$.
+At the optimum, the conditions are equivalently
+\[
+\sum_{i=1}^{n}r_i=0,\qquad
+\sum_{i=1}^{n}X_{1i}r_i=0,\qquad
+\sum_{i=1}^{n}X_{2i}r_i=0.
+\]
+\end{frame}
+
+\begin{frame}{The Same Three Conditions in Matrix Form}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+For $n$ observations and $k=2$ regressors, define
+\[
+\bm{X}_{n\times3}=\begin{bmatrix}1&X_{11}&X_{21}\\1&X_{12}&X_{22}\\\vdots&\vdots&\vdots\\1&X_{1n}&X_{2n}\end{bmatrix},
+\quad \bm{b}_{3\times1}=\begin{bmatrix}b_0\\b_1\\b_2\end{bmatrix},
+\quad \bm{r}_{n\times1}=\bm{Y}_{n\times1}-\bm{Xb}.
+\]
+\[
+\bm{X}'\bm{r}
+=\begin{bmatrix}1&1&\cdots&1\\X_{11}&X_{12}&\cdots&X_{1n}\\X_{21}&X_{22}&\cdots&X_{2n}\end{bmatrix}
+\begin{bmatrix}r_1\\r_2\\\vdots\\r_n\end{bmatrix}
+=\begin{bmatrix}\sum_{i=1}^{n}r_i\\\sum_{i=1}^{n}X_{1i}r_i\\\sum_{i=1}^{n}X_{2i}r_i\end{bmatrix}.
+\]
+The prime denotes transpose: $\bm{X}'$ is $3\times n$, so $\bm{X}'\bm{r}$ is $3\times1$.
+\[
+\underbrace{\begin{bmatrix}\partial Q/\partial b_0\\\partial Q/\partial b_1\\\partial Q/\partial b_2\end{bmatrix}}_{3\times1}
+=-2\bm{X}'(\bm{Y}-\bm{Xb});\qquad
+-2\bm{X}'(\bm{Y}-\bm{Xb})=\bm{0}_3.
+\]
+Expand the three rows to recover the scalar conditions (next slide).
+\end{frame}
+
+\begin{frame}{Each Matrix Row Is One First-Order Condition}
+\footnotesize
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\jot}{0pt}
+For $k=2$ and $n$ observations, let $\bm{r}=(r_1,\ldots,r_n)'$, where
+$r_i=Y_i-b_0-b_1X_{1i}-b_2X_{2i}$.
+
+\textbf{Row 1: intercept $b_0$ (slide 14)}
+\[
+\begin{aligned}
+-2\begin{bmatrix}1&1&\cdots&1\end{bmatrix}\bm{r}
+&=-2\sum_{i=1}^{n}r_i\\
+&=-2\sum_{i=1}^{n}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=\frac{\partial Q}{\partial b_0}.
+\end{aligned}
+\]
+\textbf{Row 2: slope $b_1$ (slide 15)}
+\[
+\begin{aligned}
+-2\begin{bmatrix}X_{11}&X_{12}&\cdots&X_{1n}\end{bmatrix}\bm{r}
+&=-2\sum_{i=1}^{n}X_{1i}r_i\\
+&=-2\sum_{i=1}^{n}X_{1i}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=\frac{\partial Q}{\partial b_1}.
+\end{aligned}
+\]
+\textbf{Row 3: slope $b_2$ (slide 15)}
+\[
+\begin{aligned}
+-2\begin{bmatrix}X_{21}&X_{22}&\cdots&X_{2n}\end{bmatrix}\bm{r}
+&=-2\sum_{i=1}^{n}X_{2i}r_i\\
+&=-2\sum_{i=1}^{n}X_{2i}(Y_i-b_0-b_1X_{1i}-b_2X_{2i})=\frac{\partial Q}{\partial b_2}.
+\end{aligned}
+\]
+At the OLS solution, each derivative equals zero: these are exactly the three entries of
+$-2\bm{X}'(\bm{Y}-\bm{Xb})=\bm{0}_3$.
+\end{frame}
+
 \begin{frame}{The OLS Estimator in Multiple Regression}
-The system of equation can be written as (with matricial notation)
+For a general sample of $n$ observations, the system of equations can be written in matrix notation as
 \begin{eqnarray*}
-    \bm{-2_{k+1}X'(Y-X\hat{\beta})=0_{k+1}}\\
+    \bm{-2X'(Y-X\hat{\beta})=0_{k+1}}\\
     \Rightarrow \bm{X'Y-X'X\hat{\beta}=0_{k+1}}\\
     \Rightarrow \bm{\hat{\beta}=(X'X)^{-1}X'Y}\\
 \end{eqnarray*}
+If $\bm{X}$ has full column rank, $\bm{X'X}$ is invertible.
 Where
 \begin{eqnarray*}
     \bm{Y}_{n\times1}=\begin{bmatrix}
@@ -600,19 +708,6 @@ Y_n
 \end{frame}
 
 
-\begin{frame}{Example: The impact of Subsidized Meals on Test Scores }
-\begin{center}
-    \includegraphics[scale=.6]{images/regcontr0.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{Example: The impact of Subsidized Meals on Test Scores }
-\begin{center}
-    \includegraphics[scale=.6]{images/regcontr1.png}
-\end{center}
-\end{frame}
-
-
 \begin{frame}{Goodness of Fit in Multiple Regression}
 Remember that:
 \begin{center}
@@ -631,31 +726,118 @@ Now, we will introduced the adjusted $R^2$, written $\overline{R}^2$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Goodness of Fit in Multiple Regression}
-With multiple regressors,
+\begin{frame}{Goodness of Fit: What Changes from $k=1$?}
+\small
+OLS with an intercept, full rank, and $n>k+1$; $k$ excludes the intercept.
+\[
+    SSR=\sum_{i=1}^n\hat{u}_i^2,
+    \qquad TSS_Y=\sum_{i=1}^n(Y_i-\bar{Y})^2.
+\]
+\vspace{-0.5em}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lcc}
+\toprule
+Quantity & Simple ($k=1$) & Multiple ($k$) \\
+\midrule
+Estimated coefficients & $\textcolor{red}{2}$ & $\textcolor{red}{k+1}$ \\
+Residual degrees of freedom & $\textcolor{red}{n-2}$ & $\textcolor{red}{n-(k+1)}$ \\
+RMSE & $\sqrt{SSR/n}$ & $\sqrt{SSR/n}$ \\
+SER & $\sqrt{\frac{SSR}{\textcolor{red}{n-2}}}$ & $\sqrt{\frac{SSR}{\textcolor{red}{n-k-1}}}$ \\
+$R^2$ & $1-SSR/TSS_Y$ & $1-SSR/TSS_Y$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{RMSE and $R^2$ use the same formulas; residuals and numerical values can change.}
 \begin{itemize}
-    \item RMSE = $\sqrt{\frac{1}{n}\sum_{i=1}^n \hat{u}_i^2}$
-    \item SER = $\sqrt{\frac{1}{n-(k+1)}\sum_{i=1}^n \hat{u}_i^2}$
-    \item $R^2$ = $\frac{\sum_{i=1}^n(\hat{Y}_i-\overline{{Y}})^2}{\sum_{i=1}^n({Y}_i-\overline{Y})^2}= 1-\frac{\sum_{i=1}^n \hat{u}_i^2}{\sum_{i=1}^n({Y}_i-\overline{Y})^2}$
+    \item One extra estimated slope uses one extra degree of freedom.
+    \item On the \textbf{same observations}, the old fit remains feasible by setting the new coefficient to zero. Thus $SSR$ weakly decreases and $R^2$ weakly increases; both can remain unchanged.
 \end{itemize}
-\vspace{1cm}
-BUT whenever a variable is added to the RHS, the sum of squared residuals is (almost systematically) smaller (the OLS finds the values of the coefficients that minimize
-the sum of squared residuals) so the $SSR \downarrow\Rightarrow R^2 \uparrow$
 \end{frame}
 
-\begin{frame}{Goodness of Fit in Multiple Regression}
-The $\overline{R}^2$,  ``adjusted'' $R^2$ corrects this by penalizing the inclusion of an additional regressor:
-\begin{equation*}
-    \overline{R}^2 = 1- \frac{n-1}{n-k-1}\frac{\sum_{i=1}^n \hat{u}_i^2}{\sum_{i=1}^n(\hat{Y}_i-\overline{Y})^2}
-\end{equation*}
-Note that:
+\begin{frame}{Adjusted $R^2$ Also Applies When $k=1$}
+\small
+Adjusted $R^2$ adjusts residual variance for the number of estimated coefficients, including the intercept:
+\[
+    \overline{R}^2
+    =1-\frac{SSR/(n-k-1)}{TSS_Y/(n-1)}
+    =1-\frac{n-1}{n-k-1}(1-R^2).
+\]
+Here $TSS_Y=\sum_{i=1}^n(Y_i-\bar{Y})^2$ uses observed $Y_i$.
+The $n-1$ counts one estimated $Y$ mean; $n-k-1$ counts $k+1$ estimated coefficients.
+\[
+    \textcolor{red}{\boxed{k=1:\qquad
+    \overline{R}^2=1-\frac{n-1}{n-2}(1-R^2)}}
+\]
+\textbf{The correction already exists in simple regression.}
 \begin{itemize}
-    \item $\overline{R}^2<R^2$ because $\frac{n-1}{n-k-1}>1$ but when $n\rightarrow\infty$ they become very close.
-    \item Adding one regressor $\downarrow SSR$ but also $\uparrow\frac{n-1}{n-k-1}$
-    \item $\overline{R}^2$ may be negative if the (many) regressors $\downarrow SSR$ but $\uparrow\uparrow\uparrow\frac{n-1}{n-k-1}$
+    \item $\overline{R}^2\leq R^2$; for fixed $k$, the difference tends to zero as $n$ grows.
+    \item Adding a regressor can raise or lower $\overline{R}^2$: $SSR$ may fall, but residual degrees of freedom also fall.
+    \item $\overline{R}^2$ can be negative if $SSR/(n-k-1)>TSS_Y/(n-1)$.
 \end{itemize}
-\vspace{.5cm}
-However, including a variable in a multiple regression should be based on whether including that variable allows you to better identify the causal effect of interest.
+\medskip
+For causal analysis, choose controls based on identification, not fit alone.
+\end{frame}
+
+\begin{frame}{Reminder: Estimating Coefficient Variances}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+With an intercept and $k$ regressors, assume full column rank, $n>k+1$, and homoskedastic errors.
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+    \item \textbf{Estimate error variance from residuals:}
+    \[
+        \hat{u}_i=Y_i-\hat{Y}_i;\qquad
+        \hat{\sigma}_u^2=SER^2=\frac{\sum_{i=1}^n\hat{u}_i^2}{n-k-1}.
+    \]
+    This estimates the variance of the errors, not the variance of a coefficient.
+    \item \textbf{Replace $\sigma_u^2$ in the coefficient covariance matrix:}
+    \[
+        \operatorname{Var}(\hat{\boldsymbol{\beta}}\mid\mathbf{X})
+        =\sigma_u^2(\mathbf{X}'\mathbf{X})^{-1}
+        \quad\longrightarrow\quad
+        \hat{V}=SER^2(\mathbf{X}'\mathbf{X})^{-1}.
+    \]
+    This $(k+1)\times(k+1)$ matrix has estimated variances of the intercept and slopes on its diagonal.
+    \item \textbf{Read off each variance and take its square root:}
+    \[
+        \hat{\sigma}^{2}_{\hat{\beta}_j}=\hat{V}_{j+1,j+1};\qquad
+        \widehat{SE}(\hat{\beta}_j)=\sqrt{\hat{V}_{j+1,j+1}},\qquad j=0,\ldots,k.
+    \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{The Case of $k=1$}
+\footnotesize
+\setbeamerfont{block title}{size=\small}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+For homoskedastic OLS with an intercept and one regressor ($k=1$), define
+\[
+    TSS_X=\sum_{i=1}^n(X_i-\bar{X})^2,\qquad SER^2=\frac{SSR}{n-2}.
+\]
+\[
+    (\mathbf{X}'\mathbf{X})^{-1}=
+    \begin{pmatrix}
+        \dfrac{1}{n}+\dfrac{\bar{X}^2}{TSS_X} & -\dfrac{\bar{X}}{TSS_X} \\[1pt]
+        -\dfrac{\bar{X}}{TSS_X} & \dfrac{1}{TSS_X}
+    \end{pmatrix}.
+\]
+The first diagonal entry is for the intercept; the second is for the slope.
+\begin{block}{Intercept $\hat{\beta}_0$}
+\[
+    \widehat{\operatorname{Var}}(\hat{\beta}_0)=SER^2\left(\frac{1}{n}+\frac{\bar{X}^2}{TSS_X}\right),\qquad
+    \widehat{SE}(\hat{\beta}_0)=SER\sqrt{\frac{1}{n}+\frac{\bar{X}^2}{TSS_X}}.
+\]
+\end{block}
+\begin{block}{Slope $\hat{\beta}_1$}
+\[
+    \widehat{\operatorname{Var}}(\hat{\beta}_1)=\frac{SER^2}{TSS_X},\qquad
+    \widehat{SE}(\hat{\beta}_1)=\frac{SER}{\sqrt{TSS_X}}.
+\]
+\end{block}
+The same $SER^2$ multiplies different diagonal entries. Each standard error is the square root of its estimated variance.
 \end{frame}
 
 \begin{frame}{The OLS Assumptions for Causal Inference
@@ -676,7 +858,7 @@ where $\beta_1, \dots, \beta_k$ are causal effects and\vspace{.5cm}
     \item There is no perfect multicollinearity.
 \end{enumerate}
 \vspace{.5cm}
-$\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators $\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_k$ are jointly normally distributed, and each $\hat{\beta}_j\sim \mathcal{N}(\beta_j; \sigma^2_{\hat{\beta}_j})$.
+$\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators $\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_k$ are approximately jointly normal, and each $\hat{\beta}_j\approx \mathcal{N}(\beta_j; \hat{\sigma}^2_{\hat{\beta}_j})$.
 \end{frame}
 
 
@@ -690,44 +872,13 @@ $\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators 
 
 
 
-\begin{frame}{Example: Perfect Multicolinearity}
-\begin{center}
-    \includegraphics[scale=.56]{images/multicolinearity0.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{Example: High Multicolinearity}
-\begin{center}
-    \includegraphics[scale=.13]{images/multicollinearity_illustration.jpg}
-\end{center}
-\end{frame}
-
-\begin{frame}{Example: High Multicolinearity}
-\begin{center}
-    \includegraphics[scale=.6]{images/multicolinearity1.png}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{The dummy variable trap}
+\begin{frame}{Example: dummy variable trap}
 Suppose you have a set of multiple mutually exclusive and exhaustive variables  --- that is, there are multiple categories and every observation falls in one and only one category (Freshmen, Sophomores, Juniors, Seniors, Other).\\ \vspace{.5cm}
 
 If you include all these variables and a constant (in general, the intercept), you will have perfect multicollinearity --- this is sometimes called the dummy variable trap (as it often occurs with dummy variables).\\ \vspace{.5cm}
 
 We can then decide to omit one of the groups (or the constant). In this case, the coefficients on the included binary variables represent the incremental effect of being in that category, relative to the base case of the omitted category.
 
-\end{frame}
-
-\begin{frame}{Example: Omitted category 1/2}
-\begin{center}
-    \includegraphics[scale=.56]{images/multicolinearity2.png}
-\end{center}
-\end{frame}
-
-\begin{frame}{Example: Omitted category 2/2}
-\begin{center}
-    \includegraphics[scale=.6]{images/multicolinearity3.png}
-\end{center}
 \end{frame}
 
 
@@ -745,6 +896,9 @@ We can then decide to omit one of the groups (or the constant). In this case, th
         \item Among individuals (entities) with the same value of the control variable(s), the variable of interest is uncorrelated with the omitted determinants of $Y$
     \end{enumerate}
 \end{frame}
+
+
+
 
 
 \begin{frame}{Conditional Mean Independance}
@@ -777,10 +931,8 @@ where $\beta_1, \dots, \beta_k$ are causal effects,  $W_{ji}$ are control variab
     \item There is no perfect multicollinearity.
 \end{enumerate}
 \vspace{.3cm}
-$\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators of interest, $\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_k$ are jointly normally distributed, and each $\hat{\beta}_j\sim \mathcal{N}(\beta_j; \sigma^2_{\hat{\beta}_j})$ BUT $\hat{\beta}_{k+1}, \hat{\beta}_{k+2}, \dots, \hat{\beta}_{k+r}$ might be biased!
+$\Rightarrow$ If assumptions 1-4 hold, then in large samples the OLS estimators of interest, $\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_k$ are jointly normally distributed, and each $\hat{\beta}_j\sim \mathcal{N}(\beta_j; \hat{\sigma}^2_{\hat{\beta}_j})$ BUT $\hat{\beta}_{k+1}, \hat{\beta}_{k+2}, \dots, \hat{\beta}_{k+r}$ might be biased!
 \end{frame}
-
-
 
 \begin{frame}[allowframebreaks]{Material}
 \begin{itemize}
