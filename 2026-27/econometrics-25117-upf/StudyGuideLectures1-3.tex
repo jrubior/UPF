@@ -158,7 +158,6 @@ p_X(x)=\sum_y p_{XY}(x,y).
 \]
 \item Thus $\Prb(Y=1)=.05+.55=.60$ and $\Prb(X=1)=.25+.55=.80$.
 \end{itemize}
-All joint cells are nonnegative and sum to 1. For continuous variables, integrate the joint density instead of summing probabilities.
 \end{frame}
 
 \begin{frame}{Conditional Distributions: Change the Reference Group}
@@ -175,17 +174,16 @@ For $\Prb(X=x)>0$,
 \Prb(Y=1\mid X=1)&=.55/.80=.6875,\\
 \Prb(Y=0\mid X=1)&=.25/.80=.3125.
 \end{align*}
-Reversing the condition changes the denominator:
+Reversing the condition changes the denominator. For $\Prb(Y=y)>0$,
 \[
-\Prb(X=1\mid Y=1)=.55/.60\approx .9167.
+\Prb(X=x\mid Y=y)=\frac{\Prb(X=x,Y=y)}{\Prb(Y=y)}.
 \]
-\textbf{Bayes' rule:}
-$\Prb(X=x\mid Y=y)=\Prb(Y=y\mid X=x)\Prb(X=x)/\Prb(Y=y)$.
+In the table, $\Prb(X=1\mid Y=1)=.55/.60\approx .9167$.
 \end{frame}
 
 \begin{frame}{Conditional Means and the Law of Iterated Expectations}
 \small
-The conditional mean averages $Y$ \textbf{within} a group:
+The conditional mean averages $Y$ \textbf{within} the group $X=x$, so $m(x)$ depends on $x$:
 \[
 m(x)=\E[Y\mid X=x]=\sum_y y\,\Prb(Y=y\mid X=x).
 \]
@@ -200,7 +198,7 @@ The \textbf{Law of Iterated Expectations (LIE)} averages the group means using t
 &=\sum_x \E[Y\mid X=x]\Prb(X=x)\\
 &=.25(.20)+.6875(.80)=.60.
 \end{align*}
-\textbf{What is random?} $m(x)$ is a number at a specified $x$; $m(X)=\E[Y\mid X]$ is a function of the random variable $X$.
+\textbf{Notice $x$ and $X$.} The value $x$ is a fixed number, so $m(x)$ is a number. The random variable $X$ can take different values across outcomes, so $m(X)=\E[Y\mid X]$ is a random variable.
 Do not give all groups equal weight unless they have equal probability.
 \end{frame}
 
@@ -248,6 +246,7 @@ p_{Y\mid X}(y\mid x)=p_Y(y).
 \]
 \begin{itemize}
 \item Independence implies zero covariance (with finite moments).
+\item If $\Cov(X,Y)\ne 0$, then $X$ and $Y$ are dependent.
 \item Zero covariance does \textbf{not} imply independence. If $X$ is equally likely to be $-1,0,1$ and $Y=X^2$, then $\Cov(X,Y)=0$ but $Y$ depends on $X$.
 \item In the sunny-day table: $\Cov(X,Y)=.55-(.80)(.60)=.07>0$. The variables are not independent.
 \end{itemize}
@@ -293,7 +292,7 @@ If $Y_i$ indicates a head on an independent fair coin toss, $\overline Y$ is the
 \end{block}
 \end{frame}
 
-\begin{frame}{Central Limit Theorem: Why Normal Approximations Work}
+\begin{frame}{Central Limit Theorem: The Standard Normal Reference}
 The \textbf{Central Limit Theorem (CLT)} describes the shape of sampling uncertainty.
 For i.i.d.\ observations with $0<\sigma_Y^2<\infty$,
 \[
@@ -304,11 +303,10 @@ For i.i.d.\ observations with $0<\sigma_Y^2<\infty$,
 \begin{enumerate}
 \item \textbf{Center:} subtract $\mu_Y$ to measure the estimation error.
 \item \textbf{Scale:} divide by the standard deviation of the mean, $\sigma_Y/\sqrt n$.
-\item \textbf{Approximate:} for sufficiently large $n$, compare this standardized error with a standard normal distribution.
+\item \textbf{Compare:} use the standard normal distribution to find tail probabilities for the standardized error.
 \end{enumerate}
-Equivalently, $\overline Y\approx N(\mu_Y,\sigma_Y^2/n)$ in large samples.
 \begin{block}{LLN versus CLT}
-The LLN says the error becomes small. The CLT describes its approximate distribution and scale. It does not say that individual observations become normal.
+The LLN explains why the sample mean is consistent. The CLT gives the reference distribution for the standardized estimation error.
 \end{block}
 \end{frame}
 
@@ -355,10 +353,7 @@ Equal weights $w_i=1/n$ attain the bound: $\overline Y$ is BLUE.
 \]
 \textbf{Cramér--Rao:} under regularity conditions, an unbiased estimator satisfies
 $\Var(\widehat\mu_Y)\geq1/\mathcal I_n(\mu_Y)$.
-For normal observations with known variance, the sample's \textbf{Fisher information} is
-$\mathcal I_n(\mu_Y)=n/\sigma_Y^2$. The mean reaches this bound even among nonlinear unbiased estimators.
-\par\medskip
-BLUE concerns a finite-sample comparison class; consistency is a separate large-sample property. Normality is not needed for the BLUE result above.
+Here $\mathcal I_n(\mu_Y)$ is the sample's Fisher information about $\mu_Y$.
 \end{frame}
 
 \section{Lecture 2}
@@ -383,24 +378,21 @@ s_Y^2=\frac1{n-1}\sum_i(y_i-\overline y)^2,\qquad s_Y=\sqrt{s_Y^2}.
 This guide writes $S_Y$ for the random statistic and $s_Y$ for its observed value. The lectures often use $s_Y$ for both; the distinction is the same as $\overline Y$ versus $\overline y$.
 \end{frame}
 
-\begin{frame}{Known $\sigma_Y$ or Estimated $s_Y$: Which Reference Distribution?}
-\small
+\begin{frame}{Standardizing the Sample Mean for a Test}
+Under $H_0:\mu_Y=\mu_0$, use the \textbf{standard normal distribution} $N(0,1)$ as the reference for either statistic:
 \begin{center}
-\begin{tabular}{p{3.2cm}p{4.1cm}p{5.8cm}}
+\begin{tabular}{ll}
 \toprule
-Situation & Random test statistic under $H_0:\mu_Y=\mu_0$ & Reference distribution\\
+Situation & Test statistic\\
 \midrule
-Known $\sigma_Y$ & $Z=\dfrac{\overline Y-\mu_0}{\sigma_Y/\sqrt n}$ & Exactly $N(0,1)$ for i.i.d.\ normal data; approximately normal for large $n$ by the CLT.\\[14pt]
-Unknown $\sigma_Y$ & $T=\dfrac{\overline Y-\mu_0}{S_Y/\sqrt n}$ & Exactly Student's $t_{n-1}$ for i.i.d.\ normal data; approximately $N(0,1)$ for large $n$ under the CLT conditions.\\
+Known $\sigma_Y$ & $Z=\dfrac{\overline Y-\mu_0}{\sigma_Y/\sqrt n}$\\[14pt]
+Estimated $\sigma_Y$ & $T=\dfrac{\overline Y-\mu_0}{S_Y/\sqrt n}$\\[8pt]
 \bottomrule
 \end{tabular}
 \end{center}
 \begin{itemize}
 \item The observed number is $t_{\mathrm{obs}}=(\overline y-\mu_0)/(s_Y/\sqrt n)$.
-\item Estimating $\sigma_Y$ adds uncertainty: the finite-sample $t$ distribution has heavier tails.
-\item In large samples, $S_Y/\sigma_Y\xrightarrow{p}1$, so replacing $\sigma_Y$ does not change the limiting standard normal distribution.
 \end{itemize}
-For small, non-normal samples, neither an exact $t$ claim nor an automatic normal approximation is justified.
 \end{frame}
 
 \begin{frame}{Hypothesis Testing: A Procedure, Not Just a Formula}
@@ -412,7 +404,7 @@ For small, non-normal samples, neither an exact $t$ claim nor an automatic norma
 \[
 t_{\mathrm{obs}}=\frac{\overline y-\mu_0}{SE(\overline Y)}.
 \]
-\item \textbf{Use the appropriate null distribution} to calculate a $p$-value.
+\item \textbf{Use standard normal tail areas} to calculate a $p$-value.
 \item \textbf{Decide and interpret:} reject if $p\leq\alpha$; otherwise do not reject.
 \end{enumerate}
 \begin{block}{Interpret the statistic}
@@ -427,26 +419,23 @@ For $Z\sim N(0,1)$, define $\Phi(z)=\Prb(Z\leq z)$.
 \begin{center}
 \begin{tabular}{lll}
 \toprule
-Alternative & Normal-approximation $p$-value & Reject at 5\% if\\
+Alternative & $p$-value & Reject at 5\% if\\
 \midrule
 $\mu_Y\neq\mu_0$ & $2[1-\Phi(|t_{\mathrm{obs}}|)]$ & $|t_{\mathrm{obs}}|\geq1.96$\\
 \bottomrule
 \end{tabular}
 \end{center}
-For two-sided normal tests, critical values are:
+For a two-sided test, the standard normal critical values are
 \[
 \alpha=10\%:\ 1.645,\qquad
 \alpha=5\%:\ 1.960,\qquad
 \alpha=1\%:\ 2.576.
 \]
-Use Student's $t$ probabilities and critical values when that is the reference distribution.
-\par\medskip
-\textbf{Avoid these interpretations:} the $p$-value is not $\Prb(H_0\text{ is true})$; failure to reject does not establish that $H_0$ is true. Statistical significance does not measure economic importance.
 \end{frame}
 
 \begin{frame}{Worked Example: Height, Standard Error, and a Mean Test}
 \small
-The ten illustrative heights from Lecture 2 have
+The height data from Lecture 2 give
 \[
 n=10,\quad \overline y=170\text{ cm},\quad
 \sum_i(y_i-\overline y)^2=388\text{ cm}^2.
@@ -456,12 +445,12 @@ s_Y&=\sqrt{388/9}=6.5659\text{ cm},\\
 SE(\overline Y)&=6.5659/\sqrt{10}=2.0763\text{ cm},\\
 t_{\mathrm{obs}}&=\frac{170-175}{2.0763}=-2.4081.
 \end{align*}
-For $H_0:\mu_Y=175$ versus $H_1:\mu_Y\neq175$:
-\begin{itemize}
-\item \textbf{Normal approximation:} $p\approx .0160$ and $|t_{\mathrm{obs}}|>1.96$.
-\item \textbf{If heights are i.i.d.\ normal and $\sigma_Y$ is unknown:} use $t_9$; $p\approx .0394$ and the 5\% critical value is $2.262$.
-\item Both reject at 5\%, but their $p$-values differ. With only ten observations, normality is an additional assumption, not a consequence of a large sample.
-\end{itemize}
+For $H_0:\mu_Y=175$ versus $H_1:\mu_Y\neq175$, the two-sided $p$-value is
+\[
+p=2[1-\Phi(2.4081)]\approx .0160.
+\]
+Reject $H_0$ at 5\%.
+\par\medskip
 Do not divide by $s_Y$ alone: that describes individual dispersion, not uncertainty in the mean.
 \end{frame}
 
@@ -469,22 +458,19 @@ Do not divide by $s_Y$ alone: that describes individual dispersion, not uncertai
 \small
 A two-sided $(1-\alpha)$ confidence interval for a mean is
 \[
-\overline y\ \pm\ c\,SE(\overline Y),
+\overline y\ \pm\ z_{1-\alpha/2}\,SE(\overline Y),
 \]
-where $c=z_{1-\alpha/2}$ for a normal approximation, or $c=t_{1-\alpha/2,n-1}$ for exact inference with i.i.d.\ normal data and unknown variance.
+where $z_{1-\alpha/2}$ is the standard normal quantile.
 \begin{itemize}
-\item \textbf{Coverage:} over repeated samples, the interval procedure contains the fixed true parameter in $100(1-\alpha)\%$ of samples (approximately for asymptotic intervals).
+\item \textbf{Coverage:} over repeated samples, the interval procedure captures the fixed population mean about $100(1-\alpha)\%$ of the time.
 \item \textbf{Width:} more confidence gives a wider interval; greater precision gives a narrower interval.
-\item \textbf{Test equivalence:} a null value outside the interval is rejected by the corresponding two-sided test, using the same standard error and reference distribution.
+\item \textbf{Test equivalence:} the corresponding two-sided test rejects a null value outside the interval.
 \end{itemize}
-For the height example:
+For the height example, the 95\% confidence interval is
 \[
-\text{Normal 95\% CI: }170\pm1.96(2.0763)\approx[165.93,174.07],
+170\pm1.96(2.0763)\approx[165.93,174.07].
 \]
-\[
-\text{Normal-population }t_9\text{ CI: }170\pm2.262(2.0763)\approx[165.30,174.70].
-\]
-These are intervals for the \textbf{population mean}, not ranges containing 95\% of individual heights.
+The interval estimates the \textbf{population mean}.
 \end{frame}
 
 \begin{frame}{Type I Error, Type II Error, and Power}
@@ -517,7 +503,7 @@ At a specified alternative mean $\mu_1$,
 
 \begin{frame}{How to Calculate $\beta$: Use a Specific Alternative}
 \small
-Consider a two-sided normal mean test with known $\sigma_Y$ and rejection rule
+Consider a two-sided test for a mean with known $\sigma_Y$ and rejection rule
 \[
 |\overline Y-\mu_0|>c\,\frac{\sigma_Y}{\sqrt n},
 \qquad c=z_{1-\alpha/2}.
@@ -526,7 +512,7 @@ If the true mean is $\mu_1$, define the effect in standard-error units:
 \[
 \delta=\frac{\mu_1-\mu_0}{\sigma_Y/\sqrt n}.
 \]
-Under this alternative, the test statistic has distribution $N(\delta,1)$, so
+Use $N(\delta,1)$ as the reference for the test statistic under this alternative:
 \[
 \boxed{\beta(\mu_1)=\Phi(c-\delta)-\Phi(-c-\delta)}.
 \]
@@ -534,7 +520,7 @@ Under this alternative, the test statistic has distribution $N(\delta,1)$, so
 Let $\alpha=.05$, $c=1.96$, and $\delta=2$.
 Then $\beta=\Phi(-.04)-\Phi(-3.96)\approx .4840$, so power is about $.5160$.
 \end{block}
-The formula is exact for normal observations with known variance and approximate when justified by the CLT. There is no single $\beta$ determined by $\alpha$ alone.
+$\beta$ depends on both the critical value $c$ and the effect $\delta$.
 \end{frame}
 
 \begin{frame}{Comparing Two Means: Independent Groups}
@@ -548,9 +534,9 @@ t_{\mathrm{obs}}&=\frac{(\overline y^a-\overline y^b)-d_0}{SE(\widehat\Delta)}.
 \end{align*}
 \begin{itemize}
 \item Subtract the hypothesized difference $d_0$, which need not be zero.
-\item Large-sample 95\% CI: $(\overline y^a-\overline y^b)\pm1.96\,SE(\widehat\Delta)$.
+\item Use standard normal tail areas to test $H_0$.
+\item The 95\% CI is $(\overline y^a-\overline y^b)\pm1.96\,SE(\widehat\Delta)$.
 \item Independence removes the covariance term. For paired measurements on the same people, analyze within-person differences instead.
-\item For small independent normal samples with unknown unequal variances, use Welch's $t$ method rather than treating 1.96 as exact.
 \end{itemize}
 \end{frame}
 
@@ -564,12 +550,12 @@ n_a=n_b=10,\quad \overline y^a=170,\quad\overline y^b=164,
 \[
 SE(\widehat\Delta)=\sqrt{\frac{388/9}{10}+\frac{132/9}{10}}=2.4037.
 \]
-For $H_0:\Delta=5$ cm:
+For $H_0:\Delta=5$ cm versus $H_1:\Delta\ne5$ cm,
 \[
 t_{\mathrm{obs}}=\frac{(170-164)-5}{2.4037}=.4160,
-\qquad p\approx .6774
+\qquad p=2[1-\Phi(.4160)]\approx .6774.
 \]
-using the lecture's rough normal approximation. Do not reject at 5\%.
+Do not reject $H_0$ at 5\%.
 \par\medskip
 \textbf{A difference in conditional means is initially an association:}
 \[
@@ -906,7 +892,7 @@ Under i.i.d.\ sampling and conditional mean zero, $\E[u_i\mid\mathbf X]=0$.
 \end{enumerate}
 The next slide derives the corresponding result for the intercept.
 \par\medskip
-These results require an identified slope ($TSS_X>0$) and existence of the relevant expectations. Normality is not needed for this argument.
+These results require an identified slope ($TSS_X>0$) and existence of the relevant expectations.
 \end{frame}
 
 \begin{frame}{Why the Intercept Is Unbiased: Step by Step}
@@ -985,7 +971,7 @@ Replace the unknown error variance by $SER^2=SSR/(n-2)$ to estimate its standard
 Use the standard error for the coefficient being studied; the intercept and slope generally have different standard errors and different units.
 \end{frame}
 
-\begin{frame}{OLS in Large Samples: Consistency and Normal Approximation}
+\begin{frame}{OLS: Consistency and the Normal Reference}
 \small
 Divide the numerator and denominator of the estimation error by $n$:
 \[
@@ -998,13 +984,74 @@ Divide the numerator and denominator of the estimation error by $n$:
 \item The denominator converges to $\Var(X)>0$.
 \item Therefore $\widehat\beta_1\xrightarrow{p}\beta_1$: OLS is \textbf{consistent}.
 \end{enumerate}
-Under the lecture's i.i.d.\ and moment assumptions, the \textbf{Central Limit Theorem} also gives asymptotic normality.
-Under the maintained OLS assumptions,
+With i.i.d.\ sampling, the required moments, and constant conditional error variance $\sigma_u^2$, the \textbf{Central Limit Theorem} gives
 \[
 \sqrt n(\widehat\beta_1-\beta_1)
 \xrightarrow{d}N\!\left(0,\frac{\sigma_u^2}{\Var(X)}\right).
 \]
-Dividing $\widehat\beta_1-\beta_1$ by an appropriate estimated standard error gives an approximately standard normal statistic in large samples. This parallels inference for $\overline Y$.
+For inference on the slope, divide the estimation error by its estimated standard error and use the standard normal reference distribution.
+\end{frame}
+
+\begin{frame}{Simple Regression in Matrix Notation}
+\small
+Stack the outcomes in $\mathbf Y=(Y_1,\ldots,Y_n)'$ and the errors in $\mathbf u=(u_1,\ldots,u_n)'$. The prime denotes transpose.
+\[
+\mathbf Y=\mathbf X\boldsymbol{\beta}+\mathbf u,\qquad
+\mathbf X=\begin{bmatrix}1&X_1\\ \vdots&\vdots\\ 1&X_n\end{bmatrix},\qquad
+\boldsymbol{\beta}=\begin{bmatrix}\beta_0\\ \beta_1\end{bmatrix}.
+\]
+The first column of $\mathbf X$ gives the intercept. If $TSS_X>0$, the OLS normal equations have a unique solution.
+\[
+\mathbf X'(\mathbf Y-\mathbf X\widehat{\boldsymbol{\beta}})=\mathbf 0,
+\qquad
+\boxed{\widehat{\boldsymbol{\beta}}=(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf Y}.
+\]
+\[
+\widehat{\mathbf Y}=\mathbf X\widehat{\boldsymbol{\beta}},
+\qquad
+\widehat{\mathbf u}=\mathbf Y-\widehat{\mathbf Y},
+\qquad
+SER^2=\frac{\widehat{\mathbf u}'\widehat{\mathbf u}}{n-2}.
+\]
+With $\Var(\mathbf u\mid\mathbf X)=\sigma_u^2\mathbf I_n$, where $\mathbf I_n$ is the identity matrix,
+\[
+\Var(\widehat{\boldsymbol{\beta}}\mid\mathbf X)=\sigma_u^2(\mathbf X'\mathbf X)^{-1},
+\qquad
+\widehat V=SER^2(\mathbf X'\mathbf X)^{-1}.
+\]
+The standard errors of $\widehat\beta_0$ and $\widehat\beta_1$ are the square roots of the diagonal entries of $\widehat V$.
+\end{frame}
+
+\begin{frame}{From the Matrix Formula to the Slope and Intercept}
+\small
+The two matrix products collect the sample sums.
+\[
+\mathbf X'\mathbf X
+=\begin{bmatrix}n&\sum_i X_i\\ \sum_i X_i&\sum_i X_i^2\end{bmatrix},
+\qquad
+\mathbf X'\mathbf Y
+=\begin{bmatrix}\sum_i Y_i\\ \sum_i X_iY_i\end{bmatrix}.
+\]
+Let $D=\det(\mathbf X'\mathbf X)=n\sum_i X_i^2-(\sum_i X_i)^2=nTSS_X$. The matrix formula is
+\[
+\widehat{\boldsymbol{\beta}}
+=\frac1D
+\begin{bmatrix}\sum_i X_i^2&-\sum_i X_i\\ -\sum_i X_i&n\end{bmatrix}
+\begin{bmatrix}\sum_i Y_i\\ \sum_i X_iY_i\end{bmatrix}.
+\]
+The second row gives the slope. Dividing the numerator and denominator by $n$ gives the centered sums.
+\[
+\widehat\beta_1
+=\frac{n\sum_i X_iY_i-(\sum_i X_i)(\sum_i Y_i)}{D}
+=\frac{\sum_i(X_i-\overline X)(Y_i-\overline Y)}{TSS_X}
+=\frac{S_{XY}}{S_X^2}.
+\]
+The first row of $(\mathbf X'\mathbf X)\widehat{\boldsymbol{\beta}}=\mathbf X'\mathbf Y$ gives the intercept.
+\[
+n\widehat\beta_0+\Bigl(\sum_i X_i\Bigr)\widehat\beta_1=\sum_i Y_i
+\quad\Longrightarrow\quad
+\widehat\beta_0=\overline Y-\widehat\beta_1\overline X.
+\]
 \end{frame}
 
 \section{Review}
@@ -1020,7 +1067,7 @@ Recover $\E[Y]=.60$ by weighting the two conditional means.
 \item \textbf{What varies across samples?}
 Distinguish $\mu_Y$, $Y_i$, $\overline Y$, and $\overline y$.
 \item \textbf{Which theorem?}
-Use the Law of Large Numbers to explain consistency and the Central Limit Theorem to explain a normal approximation.
+Use the Law of Large Numbers to explain consistency and the Central Limit Theorem to explain the standard normal reference.
 \item \textbf{Which implication is valid?}
 Independence implies zero covariance; the converse is false.
 \end{enumerate}
@@ -1035,13 +1082,13 @@ If $n$ increases from 25 to 100 with the same population variance, the SD of the
 \item State $H_0$, $H_1$, and $\alpha$; determine whether the test is one- or two-sided.
 \item Determine whether $\sigma_Y$ is known. If not, estimate it with $s_Y$.
 \item Calculate the \textbf{standard error of the estimator}, not just the SD of the observations.
-\item Compute the observed statistic and choose a justified reference distribution.
+\item Compute the observed statistic and use the standard normal reference distribution.
 \item Calculate the $p$-value or compare with a critical value; interpret the decision.
 \item Construct a confidence interval and check consistency with the corresponding test.
 \end{enumerate}
 \begin{block}{Quick check}
 If $\overline y=52$, $\mu_0=50$, $s_Y=10$, and $n=100$, then
-$SE(\overline Y)=1$, $t_{\mathrm{obs}}=2$, and the two-sided normal-approximation $p$-value is about $.0455$. The 95\% interval is $[50.04,53.96]$.
+$SE(\overline Y)=1$, $t_{\mathrm{obs}}=2$, and the two-sided $p$-value is about $.0455$. The 95\% interval is $[50.04,53.96]$.
 \end{block}
 \end{frame}
 
