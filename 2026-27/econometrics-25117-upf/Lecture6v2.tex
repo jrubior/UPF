@@ -167,7 +167,7 @@
 \begin{frame}{What we learned in the last lesson}
 \small
 \begin{itemize}
-    \item Throughout: i.i.d. observations, exogeneity $E(u_i\mid X)=0$, full rank, and homoskedasticity $\operatorname{Var}(u_i\mid X)=\sigma^2$. Use the conventional covariance estimate $\widehat V=SER^2(X'X)^{-1}$. Exact $t/F$ inference additionally assumes conditionally normal errors; otherwise use large-sample approximations.
+    \item Throughout: i.i.d. observations, exogeneity $E(u_i\mid X)=0$, and full rank. Use the conventional covariance estimate $\widehat V=SER^2(X'X)^{-1}$. Exact $t/F$ inference additionally assumes conditionally normal errors; otherwise use large-sample approximations.
     \item The coefficients in multiple regression can be estimated by OLS. When the four least squares assumptions are satisfied, the OLS estimators of the causal effect are unbiased, consistent, and normally distributed in large samples.\\[.5em]
     \item The role of control variables is to hold constant omitted factors so that the variable of interest is no longer correlated with the error term. Properly chosen control variables can eliminate omitted variable bias in the OLS estimate of the causal effect of interest.\\[.5em]
     \item Perfect multicollinearity, which occurs when one regressor is an exact linear function of the other regressors, usually arises from a mistake in choosing which regressors to include in a multiple regression. Solving perfect multicollinearity requires changing the set of regressors.
@@ -189,7 +189,7 @@ The critical value 1.96 is a large-sample approximation. This applies to each co
 
 
 \begin{frame}{Example: Coefficients and Standard Errors}
-Constructed teaching example: $n=8$, two regressors, homoskedastic OLS.
+Constructed teaching example: $n=8$, two regressors, OLS.
 \[\widehat Y_i=10+1X_{1i}+1X_{2i}\]
 \begin{center}
 \begin{tabular}{lrrr}
@@ -278,19 +278,72 @@ The product uses independence in this illustration. In general, the rejection pr
 \item Use the same conventional covariance matrix $\widehat V=SER^2(X'X)^{-1}$ throughout:
 \[\hat\rho=\frac{\widehat{\operatorname{Cov}}(\hat\beta_1,\hat\beta_2)}{SE(\hat\beta_1)SE(\hat\beta_2)}.\]
 \item If $\hat\rho=0$, $F=(t_1^2+t_2^2)/2$; otherwise the formula accounts for dependence.
-\item This is exactly the restricted/unrestricted F shown below, using the same observations, hypothesis, and variance estimate. Reject for large $F$.
+\item Reject for large $F$.
 \end{itemize}
 \end{frame}
 
 
 
 
+\begin{frame}{The F-statistic in Matrix Notation}
+\small
+For $H_0:\beta_1=\beta_{1,0},\ \beta_2=\beta_{2,0}$, there are $q=2$ restrictions.
+\par\smallskip
+\textbf{1. Collect the deviations from the null and their estimated covariances.}
+Let $s_j=SE(\hat\beta_j)$ and $\hat\rho$ be the estimated correlation between the two coefficient estimates:
+\[
+\hat{\mathbf d}=\begin{pmatrix}\hat\beta_1-\beta_{1,0}\\\hat\beta_2-\beta_{2,0}\end{pmatrix},
+\qquad
+\widehat V_d=\begin{pmatrix}s_1^2&\hat\rho s_1s_2\\\hat\rho s_1s_2&s_2^2\end{pmatrix}.
+\]
+$\widehat V_d$ is the $2\times2$ block for these coefficients in $SER^2(X'X)^{-1}$.
+\par\smallskip
+\textbf{2. Combine the deviations into one number.} A prime denotes transpose:
+\[
+\boxed{F=\frac12\hat{\mathbf d}'\widehat V_d^{-1}\hat{\mathbf d}}
+\qquad (1\times2)(2\times2)(2\times1)\ \longrightarrow\ \text{one number}.
+\]
+\textbf{3. Multiplying out gives the formula on slide 10.} Since $t_j=(\hat\beta_j-\beta_{j,0})/s_j$,
+\[
+F=\frac12\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{1-\hat\rho^2}.
+\]
+For $q$ coefficient restrictions, use a $q\times1$ deviation vector, its $q\times q$ covariance matrix, and divide by $q$.
+\end{frame}
+
+\begin{frame}{The t-statistics in Matrix Notation: The Connection to F}
+\small
+\textbf{1. Divide each deviation by its own standard error.} Put the standard errors on the diagonal of $D$:
+\[
+D=\begin{pmatrix}s_1&0\\0&s_2\end{pmatrix},\qquad
+\mathbf t=D^{-1}\hat{\mathbf d}
+=\begin{pmatrix}(\hat\beta_1-\beta_{1,0})/s_1\\(\hat\beta_2-\beta_{2,0})/s_2\end{pmatrix}
+=\begin{pmatrix}t_1\\t_2\end{pmatrix}.
+\]
+$\mathbf t$ stacks the individual t-statistics; each entry tests one coefficient.
+\par\smallskip
+\textbf{2. Separate standard errors from correlations.}
+\[
+\widehat C=\begin{pmatrix}1&\hat\rho\\\hat\rho&1\end{pmatrix},
+\qquad \widehat V_d=D\widehat C D,
+\qquad \widehat V_d^{-1}=D^{-1}\widehat C^{-1}D^{-1}.
+\]
+\textbf{3. Substitute into F.} For $q$ restrictions, the same steps give
+\[
+F=\frac1q\hat{\mathbf d}'D^{-1}\widehat C^{-1}D^{-1}\hat{\mathbf d}
+=\boxed{\frac1q\mathbf t'\widehat C^{-1}\mathbf t}.
+\]
+\begin{itemize}
+\item \textbf{Similarity:} both tests measure deviations from the null relative to their uncertainty.
+\item \textbf{Connection:} F combines the individual t-statistics, accounting for their correlations.
+\item With $q=1$, $\widehat C=(1)$ and $F=t^2$. With $q=2$ and $\hat\rho=0$, $F=(t_1^2+t_2^2)/2$.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{The $F_{q,n-k-1}$ distribution}
  $q$ is the number of restrictions imposed by the null hypothesis $H_0$.
 \begin{itemize}
-\item Under the maintained assumptions and conditionally normal errors, $F\sim F_{q,n-k-1}$ exactly under $H_0$.
-\item Without normality, inference is a large-sample approximation.
-\item For fixed $q$ and large denominator degrees of freedom $n-k-1$, $F_{q,n-k-1}$ approaches $\chi_q^2/q$. Use finite degrees of freedom when needed.
+\item $F\sim F_{q,n-k-1}$ exactly under $H_0$.
+\item For fixed $q$ and large denominator degrees of freedom $n-k-1$, $F_{q,n-k-1}$ approaches $\chi_q^2/q$.
 \item $\chi_q^2$ is the sum of $q$ independent squared standard normal variables.
 \item The table gives large-sample critical values: $F_{q,\infty}=\chi_q^2/q$.
 \end{itemize}
@@ -322,6 +375,82 @@ The product uses independence in this illustration. In general, the rejection pr
 
 
 
+
+\begin{frame}{One Restriction: Why $F=t^2$}
+\small
+Test one restriction ($q=1$): $H_0:\beta_j=\beta_{j,0}$ against $H_1:\beta_j\neq\beta_{j,0}$.
+\par\medskip
+\textbf{1. Write the F-statistic for one restriction.}
+\[F=\frac{(\hat\beta_j-\beta_{j,0})^2}{\widehat{\operatorname{Var}}(\hat\beta_j)}.\]
+\textbf{2. A standard error is the square root of the estimated variance.}
+\[\widehat{\operatorname{Var}}(\hat\beta_j)=[SE(\hat\beta_j)]^2.\]
+\textbf{3. Substitute and recognize the t-statistic.}
+\[F=\frac{(\hat\beta_j-\beta_{j,0})^2}{[SE(\hat\beta_j)]^2}
+=\left[\frac{\hat\beta_j-\beta_{j,0}}{SE(\hat\beta_j)}\right]^2
+=\boxed{t^2}.\]
+$q=1$ means one restriction, even when the regression has several explanatory variables.
+\end{frame}
+
+\begin{frame}{Two t Tails Become One F Tail}
+\small
+For $q=1$, squaring maps both negative and positive t-statistics to $F\geq0$.
+\begin{center}
+\includegraphics[width=.98\textwidth,height=.64\textheight,keepaspectratio]{images/lecture6_t_f_equivalence.pdf}
+\end{center}
+At the 5\% significance level, the two red t tails have total probability $2.5\%+2.5\%=5\%$, equal to the red right tail of F.
+\[
+ t<-1.96\ \text{or}\ t>1.96
+ \quad\Longleftrightarrow\quad F=t^2>1.96^2\approx3.84.
+\]
+The alternative remains \textbf{two-sided}: large F detects a deviation in either direction.
+\end{frame}
+
+\begin{frame}{Why the F-test and Two-Sided t-test Agree}
+\small
+Let $\nu=n-k-1$, where $k$ excludes the intercept.
+Under the null and the assumptions for exact t inference,
+\[T\sim t_\nu \quad\Longrightarrow\quad T^2\sim F_{1,\nu}.\]
+\textbf{1. Same rejection rule at significance $\alpha$:} let $c=t_{\nu,1-\alpha/2}$.
+\[|t_{\mathrm{obs}}|>c
+\quad\Longleftrightarrow\quad F_{\mathrm{obs}}=t_{\mathrm{obs}}^2>c^2.\]
+\textbf{2. Same p-value:}
+\[\Pr(F_{1,\nu}\geq t_{\mathrm{obs}}^2)
+=\Pr(|T_\nu|\geq |t_{\mathrm{obs}}|).\]
+The two t tails together equal the right F tail.
+\par\medskip
+\textbf{3. Same critical values after squaring:}
+\[F_{1,\nu;1-\alpha}=\bigl(t_{\nu,1-\alpha/2}\bigr)^2.\]
+The next slide compares the large-sample critical values with the table on slide 13.
+\par\medskip
+\textbf{This equivalence is for a two-sided t-test.}
+\end{frame}
+
+\begin{frame}{The $q=1$ Row on Slide 13 Is the Squared t Table}
+\small
+Slide 13 reports \textbf{large-sample} F critical values. For one restriction, take the two-sided t cutoff (its standard-normal limit) and square it:
+\[
+ c_\alpha=\Phi^{-1}(1-\alpha/2),\qquad
+ F_{1,\infty;1-\alpha}=c_\alpha^2.
+\]
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lrrr}
+\hline
+\textbf{Significance level $\alpha$} & \textbf{10\%} & \textbf{5\%} & \textbf{1\%}\\\hline
+Two-sided t cutoff $c_\alpha$ & $1.644854$ & $1.959964$ & $2.575829$\\
+Squared cutoff $c_\alpha^2$ & $2.705543$ & $3.841459$ & $6.634897$\\
+\rowcolor[HTML]{DAE8FC}
+F table, slide 13: $q=1$ & $\mathbf{2.71}$ & $\mathbf{3.84}$ & $\mathbf{6.63}$\\\hline
+\end{tabular}
+\end{center}
+Square the unrounded quantile, then round the result: the highlighted values match slide 13 exactly.
+\par\medskip
+\textbf{Finite samples:} with matching $\nu=n-k-1$, the same relationship is
+\[
+ F_{1,\nu;1-\alpha}=\bigl(t_{\nu,1-\alpha/2}\bigr)^2.
+\]
+Only the $q=1$ row comes from a single squared t-statistic; $q>1$ tests several restrictions jointly.
+\end{frame}
 
 \begin{frame}{The F-statistic from Restricted and Unrestricted Fits}
 The same F-statistic can be computed by comparing two OLS fits under the maintained assumptions.\\[1em]

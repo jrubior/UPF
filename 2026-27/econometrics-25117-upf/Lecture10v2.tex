@@ -333,7 +333,22 @@ Sharp decline in the number of kids per woman in the 1980s which is $not$ explai
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.9\linewidth]{images/cps1.png}
+         \small
+\textbf{Selected year coefficients}\\[.5em]
+\begin{tabular}{lr}
+\hline
+Year (base: 1972) & Coefficient\\\hline
+1974 & $0.2682$\\
+1976 & $-0.0974$\\
+1978 & $-0.0687$\\
+1980 & $-0.0713$\\
+1982 & $-0.5225$\\
+1984 & $-0.5452$\\\hline
+\end{tabular}
+\par\medskip
+$n=1{,}129$, $R^2=0.1295$, $SER=1.5548$.
+\par\medskip
+Controls: education, age, age squared, race, region, and type of residence.
 \end{figure}
 \end{column}
 \end{columns}
@@ -363,7 +378,23 @@ As in Lecture 7, we can allow for different intercepts \textit{and} slopes gradi
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.8\linewidth]{images/gendergap0.png}
+         \small
+\textbf{Dependent variable: log wage}\\[.5em]
+\begin{tabular}{lr}
+\hline
+Regressor & Coefficient\\\hline
+Education & $0.0747209$\\
+1985 $\times$ Education & $0.0184605$\\
+Female & $-0.3167086$\\
+1985 $\times$ Female & $0.0850520$\\
+Experience & $0.0295843$\\
+Experience squared & $-0.0003994$\\
+Union & $0.2021319$\\
+1985 & $0.1178062$\\
+Intercept & $0.4589329$\\\hline
+\end{tabular}
+\par\medskip
+$n=1{,}084$, $R^2=0.4262$, $SER=0.4127$.
 \end{figure}
 \end{frame}
 
@@ -694,7 +725,22 @@ and $\beta_1$ isolates the impact of changes in $X$ within a unit, ignoring the 
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/fixedeffects1.jpg}
+         \small
+\textbf{State fixed effects: traffic fatalities and beer tax}\\[.5em]
+\begin{tabular}{lrr}
+\hline
+Regressor & Coefficient & Clustered SE\\\hline
+Beer tax & $-0.6558736$ & $0.2918556$\\
+Reported intercept & $2.3770750$ & $0.1497966$\\\hline
+\end{tabular}
+\par\medskip
+336 observations, 48 states, 7 years per state; within $R^2=0.0407$.
+\par\medskip
+Standard errors are clustered by state to allow serial correlation within a state.
+\par\medskip
+\texttt{xtreg vfrall beertax, fe vce(cluster state)}
+\par\medskip
+The \texttt{fe} option includes state fixed effects. Individual state effects are omitted from this table; the reported intercept depends on their normalization.
 \end{figure}
 \end{frame}
 
@@ -767,7 +813,24 @@ and $\beta_1$ captures the effect of changes in $X$ within a specific time perio
 \begin{figure}
   \centering
          \vspace{-1mm}
-         \includegraphics[width=.75\linewidth]{images/beertax_panel4.jpg}
+         \small
+\textbf{State and year fixed effects}\\[.5em]
+\begin{tabular}{lrr}
+\hline
+Regressor & Coefficient & Clustered SE\\\hline
+Beer tax & $-0.6399799$ & $0.3570783$\\
+1983 & $-0.0799029$ & $0.0350861$\\
+1984 & $-0.0724206$ & $0.0438809$\\
+1985 & $-0.1239763$ & $0.0460559$\\
+1986 & $-0.0378645$ & $0.0570604$\\
+1987 & $-0.0509021$ & $0.0636084$\\
+1988 & $-0.0518038$ & $0.0644023$\\
+Reported intercept & $2.4284700$ & $0.2016885$\\\hline
+\end{tabular}
+\par\medskip
+336 observations, 48 states; within $R^2=0.0803$. Base year: 1982.
+\par\smallskip
+Standard errors are clustered by state; state effects are omitted from the table.
 \end{figure}
 \end{frame}
 
@@ -816,7 +879,7 @@ Assumption 3 and 4 did not change (see Lecture 7).
 
 
 \begin{frame}{Clustered SEs}
-The usual OLS standard errors (both homoskedasticity-only and heteroskedasticity-robust) will in general be wrong because they assume that $u_{it}$ is serially uncorrelated.\\[1em]
+The usual OLS standard errors will in general be wrong when $u_{it}$ is serially correlated, because they omit covariances between errors at different dates.\\[1em]
 
 In practice, they often understate the true sampling uncertainty: if $u_{it}$ are correlated over time, you don’t have as much information (as much random variation) as you would if $u_{it}$ were uncorrelated!\\[1em]
 
@@ -856,11 +919,11 @@ Remember that $var(X + Y) = var(X) + var(Y) + 2cov(X,Y)$... therefore
     &\sigma_\eta^2 = &\frac{1}{T} \Big[var(\tilde{X}_{i1} \tilde{u}_{i1})+\dots+ var(\tilde{X}_{iT} \tilde{u}_{iT}) +\\
     & &2cov(\tilde{X}_{i1} \tilde{u}_{i1}, \tilde{X}_{i2} \tilde{u}_{i2}) + \dots + 2cov(\tilde{X}_{i,T-1} \tilde{u}_{i,T-1}, \tilde{X}_{iT} \tilde{u}_{iT}) \Big]
 \end{eqnarray*}
-The heteroskedasticity-robust variance formula seen so far misses all the (auto)covariances in the final part the equation... If there is a serial correlation, the usual heteroskedasticity-robust variance estimator is inconsistent!\\[1em]
+The variance formula for independent observations misses the autocovariances in the final part of this equation. If errors are serially correlated, these terms must be included when estimating sampling uncertainty.\\[1em]
 
-Clustered SEs for panel data are the logical extension of heteroskedastic (HR) SEs for cross-section. In cross-section regression, HR SEs are valid whether or not there is HR. In panel data regression, clustered SEs are valid whether or not there is HR and/or serial correlation.\\[1em]
+Clustered SEs for panel data allow errors to be correlated over time within each unit. Inference uses independent units and a sufficiently large number of units.\\[1em]
 
-To conclude, the HR-robust clustered SEs reads
+The clustered standard error is
 \begin{equation*}
     SE(\hat{\beta}_1)=\sqrt{\frac{1}{nT}\frac{s_{\hat{\eta}}^2}{\hat{Q}_{\tilde{X}}^2}}
 \end{equation*}

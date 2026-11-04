@@ -254,9 +254,23 @@ For example, let's estimate the following quadratic specification:
 \end{frame}
 
 \begin{frame}{Polynomials in $X$}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/quadratic0.jpg}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$\text{Income}$ & $3.850995$ \\
+$\text{Income}^2$ & $-0.0423085$ \\
+Intercept & $607.3017$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=420$ \qquad $R^2=0.5562$ \qquad $\mathrm{SER}=12.724$
 \end{center}
+\small Income is district per capita income, measured in thousands of dollars.
 \end{frame}
 
 
@@ -298,9 +312,24 @@ from 45 to 46                           & 0.0                                   
 
 
 \begin{frame}{Polynomials in $X$}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/quadratic2.jpg}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$\text{Income}$ & $5.018677$ \\
+$\text{Income}^2$ & $-0.0958052$ \\
+$\text{Income}^3$ & $0.0006855$ \\
+Intercept & $600.079$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=420$ \qquad $R^2=0.5584$ \qquad $\mathrm{SER}=12.707$
 \end{center}
+\small Income is district per capita income, measured in thousands of dollars.
 \end{frame}
 
 
@@ -315,8 +344,11 @@ We just ran
 \begin{equation*}
     H_0: \beta_2=\beta_3 = 0 \textbf{~~~VS~~~}  H_1: \beta_2\neq 0 \text{~and/or~} \beta_3\neq 0
 \end{equation*}
-    \item The F-statistic of the test is $37.69>>4.61$\\[1em]
-    \item The hypothesis that the population regression is linear is rejected at the 1\% significance level against the alternative that it is a polynomial of degree up to 3.
+    \item Compute the F-statistic using the restricted and unrestricted sums of squared residuals:
+    \[
+        F=\frac{(SSR_{\mathrm{linear}}-SSR_{\mathrm{cubic}})/2}{SSR_{\mathrm{cubic}}/(n-4)}.
+    \]
+    \item Reject $H_0$ if $F$ exceeds the $F_{2,n-4}$ critical value at the 1\% significance level, or if the p-value is below $0.01$.
 \end{itemize}
 \end{frame}
 
@@ -479,9 +511,24 @@ $\beta_3$ can be interpreted as the incremental effect to $D_{1}$ (resp. $D_{2}$
 \end{frame}
 
 \begin{frame}{Interactions between two dummies}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/dumdum.png}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$H$ & $-62.37116$ \\
+$L$ & $-42.54073$ \\
+$H \times L$ & $24.82402$ \\
+Intercept & $796.65$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=500$ \qquad $R^2=0.3605$ \qquad $\mathrm{SER}=48.368$
 \end{center}
+\small $H=\texttt{high\_share\_meals}$ indicates the high subsidized-meal-share group; $L=\texttt{low\_educ}$ indicates the low educational-attainment group. Each dummy is 1 for its named group and 0 otherwise.
 \end{frame}
 
 
@@ -580,9 +627,24 @@ Run the fully interacted model
 
 
 \begin{frame}{Interactions between a dummy and a continuous variable}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/contdum.png}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$S$ & $-162.5841$ \\
+$L$ & $-46.65102$ \\
+$S \times L$ & $56.57384$ \\
+Intercept & $853.1778$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=500$ \qquad $R^2=0.5143$ \qquad $\mathrm{SER}=42.153$
 \end{center}
+\small $S=\texttt{frpm\_frac\_s}$ is the share of students eligible for free or reduced-price meals. $L=\texttt{low\_educ}$ is 1 for the low educational-attainment group and 0 otherwise.
 \end{frame}
 
 
@@ -613,9 +675,24 @@ The intercepts and slopes depend on $D_1$.
 
 
 \begin{frame}{Interactions between a dummy and a continuous variable}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/contdum.png}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$S$ & $-162.5841$ \\
+$L$ & $-46.65102$ \\
+$S \times L$ & $56.57384$ \\
+Intercept & $853.1778$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=500$ \qquad $R^2=0.5143$ \qquad $\mathrm{SER}=42.153$
 \end{center}
+\small $S=\texttt{frpm\_frac\_s}$ is the share of students eligible for free or reduced-price meals. $L=\texttt{low\_educ}$ is 1 for the low educational-attainment group and 0 otherwise.
 \end{frame}
 
 \begin{frame}{Interactions between a dummy and a continuous variable}
@@ -650,9 +727,24 @@ We made obvious that the impact of $X_1$ on $Y$ varies with $X_2$!
 \end{comment}
 
 \begin{frame}{Interactions between two continuous variable}
+\textbf{Dependent variable: TestScore}
 \begin{center}
-    \includegraphics[width=\linewidth]{images/contcont.png}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lr}
+\toprule
+Regressor & Coefficient \\
+\midrule
+$S$ & $-245.3094$ \\
+$E$ & $-159.7155$ \\
+$S \times E$ & $161.8956$ \\
+Intercept & $944.4173$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$n=500$ \qquad $R^2=0.5325$ \qquad $\mathrm{SER}=41.358$
 \end{center}
+\small $S=\texttt{frpm\_frac\_s}$ is the share of students eligible for free or reduced-price meals. $E$ is the education measure (\texttt{ed\_frac\_sc\_lesscollege}).
 \end{frame}
 
 

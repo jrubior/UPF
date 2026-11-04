@@ -457,7 +457,6 @@ $X_i$ is a function of $u_i$, the unexplained variation of $Y_i$.
   \item Even with consistent OLS estimators and large samples, inconsistent standard errors lead to hypothesis tests with incorrect significance levels and unreliable 95\% confidence intervals.\\[1em]
   \item Main reasons for inconsistent standard errors:
     \begin{itemize}
-      \item \textbf{Heteroskedasticity:} For historical reasons, most regression software report by defaulkt homoskedastic-only standard errors. Use heteroskedasticity-robust standard errors and F-statistics with a heteroskedasticity-robust variance estimator.\\[.5em]
       \item \textbf{Correlation of the Error Term Across Observations:} E.g., if the omitted variables that constitute the regression error are persistent (like district demographics or geographies), these omitted variables could result in serial and/or spatial correlation of the regression errors for adjacent observations. Common in panel data or time series data, requires alternative formulas for standard errors. (more in $Lecture~10$)
     \end{itemize}
     \vspace{1em}
@@ -482,7 +481,6 @@ Applying this list of threats to a multiple regression study provides a systemat
 \begin{column}{0.45\textwidth}
 \textbf{Inconsistent SE :}
 \begin{enumerate}
-    \item Heteroskedasticity
     \item Serial and Spatial Correlation
     \item[]
     \item[]

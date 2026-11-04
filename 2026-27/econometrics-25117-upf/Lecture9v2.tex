@@ -387,7 +387,6 @@ Can you think of an instrument to estimate the supply elasticity of butter? In t
     \item This all assumes that the instruments are valid -- we’ll discuss what happens if they aren’t valid shortly.
     \item However, the OLS standard errors from the second stage regression aren’t right because they do not account for the estimation in the first stage
     \item Instead, use a single specialized command that computes the 2SLS estimator and the correct SEs.
-    \item As usual, use heteroskedasticity-robust SEs
 \end{itemize}
 \end{frame}
 
@@ -430,11 +429,19 @@ and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$.\\[1em]
 
 
 \begin{frame}{Example with $m=1$ -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_FS_ols.png}
-\end{figure}
+\textbf{First stage: dependent variable \texttt{ltavgprs}}
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Regressor & Coefficient estimate\\
+\hline
+\texttt{rtaxso} & $.0266403$\\
+\texttt{ltperinc} & $.424329$\\
+Constant & $-.1397201$\\
+\hline
+\end{tabular}
+\end{center}
+$n=48$, $R^2=.3987$, Root MSE $=.13936$.
 \end{frame}
 
 \begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
@@ -446,20 +453,43 @@ and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$.\\[1em]
 \end{frame}
 
 \begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_SS_ols.png}
-\end{figure}
+\textbf{Manual second stage: dependent variable \texttt{ltpackpc}}
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Regressor & Coefficient estimate\\
+\hline
+\texttt{hat\_ltavgprs} & $-1.274014$\\
+\texttt{ltperinc} & $.3865991$\\
+Constant & $.0012983$\\
+\hline
+\end{tabular}
+\end{center}
+$n=48$, $R^2=.0900$, Root MSE $=.33569$.
+\vspace{1em}
+
+The fitted price comes from the first stage. This gives the 2SLS coefficients; second-stage OLS standard errors do not account for the first stage.
 \end{frame}
 
 
 \begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_SS_ivreg.png}
-\end{figure}
+\textbf{Dedicated 2SLS: dependent variable \texttt{ltpackpc}}
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Regressor & Coefficient estimate\\
+\hline
+\texttt{ltavgprs} & $-1.274014$\\
+\texttt{ltperinc} & $.3865991$\\
+Constant & $.0012983$\\
+\hline
+\end{tabular}
+\end{center}
+$n=48$, $R^2=.4479$, Root MSE $=.26147$.
+\vspace{1em}
+
+Instrument: \texttt{rtaxso}. Exogenous control: \texttt{ltperinc}.\\[.5em]
+A single specialized command gives the 2SLS coefficients and proper 2SLS standard errors, accounting for the first stage.
 \end{frame}
 
 
@@ -510,9 +540,9 @@ Suppose you have $m>k$. Then,
     \begin{equation*}
         \hat{u}^{2SLS}_i = \gamma_0 + \gamma_1 Z_{1i} + \dots   \gamma_m Z_{mi} +  \gamma_{m+1} W_{1i} + \dots + \gamma_{m+r+1} W_{ri} + e_i
     \end{equation*}
-    \item Recover the homoskedasticity-only F-statistic testing $H_0: \gamma_0=\gamma_1=\dots=\gamma_m=0$. The overidentifying restrictions test statistic is $J = mF$
-    \item Under the null hypothesis that all the instruments
-are exogenous, if $e_i$ is homoskedastic, in large samples $J\sim\chi^2_{m-k}$ where $m-k$ is the degree of \textit{over}identification
+    \item Recover the F-statistic testing $H_0: \gamma_0=\gamma_1=\dots=\gamma_m=0$. The overidentifying restrictions test statistic is $J = mF$
+    \item Under the maintained assumptions and the null hypothesis that all the instruments
+are exogenous, in large samples $J\sim\chi^2_{m-k}$ where $m-k$ is the degree of \textit{over}identification
 \end{enumerate}
 \end{frame}
 

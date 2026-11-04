@@ -227,7 +227,7 @@ $Y_i = \beta_0 + \beta_1 X_i + u_i$\\\vspace{.5cm}
     \begin{itemize}
         \item $\beta_1$ is the slope of the population regression line
         \item $\hat{\beta}_1$ is the OLS estimator of $\beta_1$
-         \item Under homoskedasticity and the usual regularity conditions, the large-sample distribution conditional on $X$ is approximately $\mathcal{N}(\beta_1; \sigma_u^2/TSS_X)$.
+         \item Under the maintained OLS assumptions, the large-sample distribution conditional on $X$ is approximately $\mathcal{N}(\beta_1; \sigma_u^2/TSS_X)$.
     \end{itemize}
 \end{column}
 \begin{column}{0.62\textwidth}
@@ -459,7 +459,7 @@ Meal\_share & 15.3792 & $-10.0717$ & $8.46\times10^{-17}$\\
 Both $p$-values are below $0.05$: reject both zero-coefficient null hypotheses at 5\%.
 These are very small probabilities, \textbf{not zero}.
 \par\medskip
-{\footnotesize ToolPak uses homoskedastic standard errors. Exact finite-sample $t_{98}$ inference also assumes conditionally normal errors, with independent observations and conditional mean zero.}
+{\footnotesize Exact finite-sample $t_{98}$ inference additionally assumes conditionally normal errors, with independent observations and conditional mean zero.}
 \end{frame}
 
 \begin{frame}{Excel: Construct 95\% Confidence Intervals}
@@ -550,7 +550,7 @@ For observation 1, $Y_1=856.5580$ and $\widehat Y_1=834.2813$, so
 \widehat u_1=Y_1-\widehat Y_1=22.2767.
 \]
 The model underpredicts this school's score by 22.28 points.
-Look for patterns or changes in residual spread; a plot alone cannot prove homoskedasticity.
+Look for systematic patterns in the residuals.
 \end{frame}
 
 \begin{frame}{By Hand, Step 1: Means and Deviations}
@@ -609,7 +609,7 @@ Then calculate $R^2=1-SSR/TSS_Y$, $SER=\sqrt{SSR/98}$, and $RMSE=\sqrt{SSR/100}$
 
 \begin{frame}{By Hand, Step 4: Standard Errors and $t$ Statistics}
 \small
-Under homoskedasticity, estimate the common error variance by $SER^2$:
+Under the maintained OLS assumptions, use $SER^2$ to estimate $\sigma_u^2$:
 \begin{align*}
 SE(\widehat\beta_1)&=\frac{SER}{\sqrt{TSS_X}}
 =\frac{42.6000}{\sqrt{7.6728}}=15.3792,\\

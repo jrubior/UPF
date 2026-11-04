@@ -984,7 +984,7 @@ Use the design from Problem 2: $X=(1,2,3,4,5)$, $n=5$, $\overline X=3$, and $S_{
 \item Now treat $\sigma_U^2$ as unknown. Use Problem 7's $SSR=6.4$ to estimate the standard errors of both coefficients. Distinguish these from the theoretical standard deviations above.
 \end{enumerate}
 \end{frame}
-\note{All quantities are invented for teaching. Solution to Problem 12. With fixed Xi and conditionally uncorrelated homoskedastic errors, slope variance is sigmaU squared times sum of slope weights squared=sigmaU squared/Sxx=4/10=.4 and SD=sqrt(.4)=.6324555. Intercept variance is sigmaU squared times sum ai squared, with sum ai squared=1/n+xbar squared/Sxx=1/5+9/10=1.1. Intercept variance4.4, SD2.0976177. Estimated error variance SER squared=SSR/(n-2)=6.4/3=32/15. Estimated slope SE=sqrt((32/15)/10)=.4618802; intercept SE=sqrt((32/15)*(1/5+9/10))=1.5318834. These estimates can differ from the true SDs in one sample. With n5, do not invoke the large-sample normal approximation for tests or intervals.}
+\note{All quantities are invented for teaching. Solution to Problem 12. With fixed Xi and conditionally uncorrelated errors, slope variance is sigmaU squared times sum of slope weights squared=sigmaU squared/Sxx=4/10=.4 and SD=sqrt(.4)=.6324555. Intercept variance is sigmaU squared times sum ai squared, with sum ai squared=1/n+xbar squared/Sxx=1/5+9/10=1.1. Intercept variance4.4, SD2.0976177. Estimated error variance SER squared=SSR/(n-2)=6.4/3=32/15. Estimated slope SE=sqrt((32/15)/10)=.4618802; intercept SE=sqrt((32/15)*(1/5+9/10))=1.5318834. These estimates can differ from the true SDs in one sample. With n5, do not invoke the large-sample normal approximation for tests or intervals.}
 
 \ifshowsolutions
 % SOLUTION 12 START
@@ -1065,7 +1065,7 @@ With only five observations, these variance calculations do not by themselves ju
 \fi
 
 \begin{frame}{Problem 13: What makes a slope estimate precise?}
-Three fixed designs satisfy the mean-zero, homoskedastic, conditionally uncorrelated error assumptions, with $\sigma_U=4$:
+Three fixed designs satisfy the mean-zero, conditionally uncorrelated error assumptions, with $\sigma_U=4$:
 \begin{center}
 \begin{tabular}{c|rrr}
 Design & $n$ & $\overline X$ & $S_{XX}$\\ \hline
@@ -1139,7 +1139,7 @@ Regress test-score gains $Y$ (points) on weekly tutoring hours $X$. A large i.i.
 n=102,\quad\overline X=10,\quad S_{XX}=400,\quad SSR=400,
 \qquad\widehat\beta_0=1.5,\quad\widehat\beta_1=.3.
 \]
-Assume zero conditional-mean errors, homoskedasticity, conditionally uncorrelated errors, finite fourth moments, and a valid large-sample normal approximation.
+Assume zero conditional-mean errors, conditionally uncorrelated errors, finite fourth moments, and a valid large-sample normal approximation.
 \begin{enumerate}
 \setlength{\itemsep}{5pt}
 \item Calculate $SER$ and the estimated SEs of both coefficients.

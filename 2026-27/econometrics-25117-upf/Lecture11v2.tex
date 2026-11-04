@@ -177,7 +177,7 @@
 \item Unit fixed effects regression can be estimated by including binary variables for $n - 1$ entities plus the observable independent variables (the $X$’s) and an intercept.
 \item Time fixed effects control for unobserved variables that are the same across entities but vary over time.
 \item A regression with time and entity fixed effects can be estimated by including binary variables for $n - 1$ entities and binary variables for $T - 1$ time periods plus the $X$’s and an intercept.
-\item In panel data, variables are typically autocorrelated -- that is, correlated over time within an entity. Standard errors need to allow both for this autocorrelation and for potential heteroskedasticity, and one way to do so is to use clustered standard errors.
+\item In panel data, variables are typically autocorrelated -- that is, correlated over time within an entity. Clustered standard errors allow for this autocorrelation within entities.
 \end{itemize}
 \end{frame}
 
@@ -273,29 +273,10 @@ y_i=\beta_0+\beta_1x_{1,i}+\beta_2x_{2,i}+...+\beta_kx_{k,i}+u_i
     \[
     Assumption: \ \ E[u_i \mid x_i']=0 
     \]
-    \item \textbf{Error Variance (valid under the previous assumption)}: 
-    \[
-    Var(y_i \mid x_i)=x_i'\beta(1-x_i'\beta){\color{red} \ \ heteroscedasticity}
-    \]
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Properties of the Linear Probability Model}
-As we just mentioned, the error variance is heteroscedastic. In particular, we have:
-\[
-u_i=\begin{cases} 
-      1-x_i'\beta & \text{if} \ \  y_i=1  \\
-      -x_i'\beta & \text{if} \ \ y_i=0\\
-\end{cases}
-\]
-And therefore:
-\[
-u_i=\begin{cases} 
-      1-x_i'\beta & \text{with probability} \ \ x_i'\beta  \\
-      -x_i'\beta & \text{with probability} \ \  1-x_i'\beta \\
-\end{cases}
-\]
-\end{frame}
+
 
 \begin{frame}{Linear Probability Model}
  \begin{columns}
@@ -327,7 +308,6 @@ There advantages and disadvantages in modelling $Pr(Y=1\mid X)$ as a linear func
         \end{center}
         \begin{itemize}
             \item Very simple to estimate and to interpret
-            \item Statistical inference is the same as for multiple OLS regression (need heteroskedasticity-robust standard errors, etc.)
         \end{itemize}
     \end{column}
     \begin{column}{.5\textwidth}

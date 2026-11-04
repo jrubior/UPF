@@ -475,7 +475,7 @@ The intercept first-order condition gives
 \]
 The $n-2$ denominator corrects for estimating the intercept and slope.
 \par\medskip
-Under the usual homoskedastic OLS assumptions, $SER^2$ is unbiased for $\sigma_U^2$; $SER$ estimates $\sigma_U$.
+Under the maintained OLS assumptions, $SER^2$ is unbiased for $\sigma_U^2$; $SER$ estimates $\sigma_U$.
 \par\smallskip
 As with the sample standard deviation $s_Y$, we estimate an unknown spread from deviations around a fitted mean; see the comparison next.
 \end{frame}
@@ -786,7 +786,7 @@ Therefore,
 \setlength{\belowdisplayskip}{3pt}
 \textbf{Reminder: $SER$ estimates $\sigma_U$, so $SER^2$ estimates $\sigma_U^2$.}
 \par\smallskip
-Write $\hat\beta_1-\beta_1$ as a weighted sum of errors. Conditional on $X$, the weights are fixed; independence makes the variance of the sum equal to the sum of variances. Under homoskedasticity, $var(U_i\mid X)=\sigma_U^2$.
+Write $\hat\beta_1-\beta_1$ as a weighted sum of errors. Conditional on $X$, the weights are fixed; independence makes the variance of the sum equal to the sum of variances. Under the maintained OLS assumptions, $var(U_i\mid X)=\sigma_U^2$.
 \par\smallskip
 Define $TSS_X=\sum_{i=1}^n(X_i-\overline X)^2$, the \textbf{total sum of squares of $X$}: total variation of the observed $X_i$ values around their sample mean.
 \[
@@ -835,7 +835,7 @@ With similar regressor spread and error variance, the slope's standard error als
  \begin{columns}
 \begin{column}{0.52\textwidth}
 \begin{itemize}
-    \item \textbf{Hold the observed $X$ values fixed.} Under homoskedasticity,
+    \item \textbf{Hold the observed $X$ values fixed.} Under the maintained OLS assumptions,
     \[
     \operatorname{Var}(\hat\beta_1\mid X)=\frac{\sigma_U^2}{TSS_X}.
     \]
@@ -902,7 +902,7 @@ $\mathbb{E}[\hat\beta_0]=\mathbb{E}[\mathbb{E}[\hat\beta_0\mid\mathbf{X}]]=\beta
 \footnotesize
 \setlength{\abovedisplayskip}{4pt}
 \setlength{\belowdisplayskip}{4pt}
-Assume conditionally uncorrelated errors and homoskedasticity:
+Under the maintained OLS assumptions,
 $\operatorname{Var}(U_i\mid\mathbf{X})=\sigma_U^2$.
 Write $d_i=X_i-\bar X$. Substituting the slope decomposition gives
 \[
@@ -974,7 +974,7 @@ Is the population regression slope different from zero?
 \par\smallskip
 \textbf{3. For each test separately, use the normal approximation.}
 Under its null, conditional on $X$, $T_j\approx\mathcal{N}(0,1)$ for large $n$,
-using the OLS assumptions and homoskedasticity, for $j=0,1$.
+using the maintained OLS assumptions, for $j=0,1$.
 \[
 p_j\approx2\bigl[1-\Phi(|t_j^{\mathrm{obs}}|)\bigr].
 \]

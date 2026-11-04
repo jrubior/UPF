@@ -728,7 +728,7 @@ Keep $TSS_X$ (variation in $X$) separate from $TSS_Y$ (variation in $Y$).
 \widehat\sigma_u^2=\frac{SSR}{n-2}=SER^2,
 \qquad SER=\sqrt{\widehat\sigma_u^2}.
 \]
-Two estimated coefficients use two degrees of freedom. Under the homoskedastic model, $SER^2$ estimates $\sigma_u^2$.
+Two estimated coefficients use two degrees of freedom. Under the maintained OLS assumptions, $SER^2$ estimates $\sigma_u^2$.
 \end{block}
 \end{column}
 \begin{column}{.48\textwidth}
@@ -839,7 +839,6 @@ These control tail behavior and ensure that a slope can be identified and estima
 \begin{block}{Causal interpretation needs a causal model}
 If $\beta_1$ is a structural causal effect, conditional mean zero helps identify it from observed variation. A fitted conditional-mean relationship alone does not prove that intervening on $X$ changes $Y$.
 \end{block}
-\textbf{Homoskedasticity}, $\Var(u_i\mid X_i)=\sigma_u^2$, is an additional assumption for the simple variance formula; it is not required for OLS unbiasedness.
 \end{frame}
 
 \begin{frame}{Omitted Variables: Why Conditional Mean Zero Can Fail}
@@ -907,7 +906,7 @@ Under i.i.d.\ sampling and conditional mean zero, $\E[u_i\mid\mathbf X]=0$.
 \end{enumerate}
 The next slide derives the corresponding result for the intercept.
 \par\medskip
-These results require an identified slope ($TSS_X>0$) and existence of the relevant expectations. Homoskedasticity and normality are not needed for this argument.
+These results require an identified slope ($TSS_X>0$) and existence of the relevant expectations. Normality is not needed for this argument.
 \end{frame}
 
 \begin{frame}{Why the Intercept Is Unbiased: Step by Step}
@@ -951,7 +950,7 @@ With errors uncorrelated across observations conditional on $\mathbf X$,
 &=\frac{1}{TSS_X^2}\Var\!\left(\sum_i(X_i-\overline X)u_i\mid\mathbf X\right)\\
 &=\frac{\sum_i(X_i-\overline X)^2\Var(u_i\mid\mathbf X)}{TSS_X^2}.
 \end{align*}
-Under \textbf{homoskedasticity}, every conditional error variance is $\sigma_u^2$, so
+Substituting $\Var(u_i\mid\mathbf X)=\sigma_u^2$ gives
 \[
 \Var(\widehat\beta_1\mid\mathbf X)=\frac{\sigma_u^2}{TSS_X},
 \qquad
@@ -963,12 +962,11 @@ Under \textbf{homoskedasticity}, every conditional error variance is $\sigma_u^2
 \item More variation in $X$ increases $TSS_X$ and makes the slope more precise.
 \item With stable regressor variation, larger samples typically increase $TSS_X$.
 \end{itemize}
-If error variance varies with $X$, the simple homoskedastic standard-error formula need not be valid.
 \end{frame}
 
 \begin{frame}{Precision of the Intercept: Where Is $X=0$?}
 \small
-Under conditional mean zero and homoskedastic errors that are uncorrelated across observations conditional on $\mathbf X$,
+Under the maintained OLS assumptions,
 \[
 \Var(\widehat\beta_0\mid\mathbf X)
 =\sigma_u^2\left(\frac1n+\frac{\overline X^2}{TSS_X}\right).
@@ -1001,7 +999,7 @@ Divide the numerator and denominator of the estimation error by $n$:
 \item Therefore $\widehat\beta_1\xrightarrow{p}\beta_1$: OLS is \textbf{consistent}.
 \end{enumerate}
 Under the lecture's i.i.d.\ and moment assumptions, the \textbf{Central Limit Theorem} also gives asymptotic normality.
-With homoskedasticity,
+Under the maintained OLS assumptions,
 \[
 \sqrt n(\widehat\beta_1-\beta_1)
 \xrightarrow{d}N\!\left(0,\frac{\sigma_u^2}{\Var(X)}\right).
