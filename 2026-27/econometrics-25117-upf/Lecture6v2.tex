@@ -310,35 +310,6 @@ F=\frac12\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{1-\hat\rho^2}.
 For $q$ coefficient restrictions, use a $q\times1$ deviation vector, its $q\times q$ covariance matrix, and divide by $q$.
 \end{frame}
 
-\begin{frame}{The t-statistics in Matrix Notation: The Connection to F}
-\small
-\textbf{1. Divide each deviation by its own standard error.} Put the standard errors on the diagonal of $D$:
-\[
-D=\begin{pmatrix}s_1&0\\0&s_2\end{pmatrix},\qquad
-\mathbf t=D^{-1}\hat{\mathbf d}
-=\begin{pmatrix}(\hat\beta_1-\beta_{1,0})/s_1\\(\hat\beta_2-\beta_{2,0})/s_2\end{pmatrix}
-=\begin{pmatrix}t_1\\t_2\end{pmatrix}.
-\]
-$\mathbf t$ stacks the individual t-statistics; each entry tests one coefficient.
-\par\smallskip
-\textbf{2. Separate standard errors from correlations.}
-\[
-\widehat C=\begin{pmatrix}1&\hat\rho\\\hat\rho&1\end{pmatrix},
-\qquad \widehat V_d=D\widehat C D,
-\qquad \widehat V_d^{-1}=D^{-1}\widehat C^{-1}D^{-1}.
-\]
-\textbf{3. Substitute into F.} For $q$ restrictions, the same steps give
-\[
-F=\frac1q\hat{\mathbf d}'D^{-1}\widehat C^{-1}D^{-1}\hat{\mathbf d}
-=\boxed{\frac1q\mathbf t'\widehat C^{-1}\mathbf t}.
-\]
-\begin{itemize}
-\item \textbf{Similarity:} both tests measure deviations from the null relative to their uncertainty.
-\item \textbf{Connection:} F combines the individual t-statistics, accounting for their correlations.
-\item With $q=1$, $\widehat C=(1)$ and $F=t^2$. With $q=2$ and $\hat\rho=0$, $F=(t_1^2+t_2^2)/2$.
-\end{itemize}
-\end{frame}
-
 \begin{frame}{The $F_{q,n-k-1}$ distribution}
  $q$ is the number of restrictions imposed by the null hypothesis $H_0$.
 \begin{itemize}
@@ -405,29 +376,56 @@ At the 5\% significance level, the two red t tails have total probability $2.5\%
 The alternative remains \textbf{two-sided}: large F detects a deviation in either direction.
 \end{frame}
 
-\begin{frame}{Why the F-test and Two-Sided t-test Agree}
+\begin{frame}{Why Squaring Combines the Two t Tails}
 \small
 Let $\nu=n-k-1$, where $k$ excludes the intercept.
-Under the null and the assumptions for exact t inference,
-\[T\sim t_\nu \quad\Longrightarrow\quad T^2\sim F_{1,\nu}.\]
-\textbf{1. Same rejection rule at significance $\alpha$:} let $c=t_{\nu,1-\alpha/2}$.
-\[|t_{\mathrm{obs}}|>c
-\quad\Longleftrightarrow\quad F_{\mathrm{obs}}=t_{\mathrm{obs}}^2>c^2.\]
-\textbf{2. Same p-value:}
-\[\Pr(F_{1,\nu}\geq t_{\mathrm{obs}}^2)
-=\Pr(|T_\nu|\geq |t_{\mathrm{obs}}|).\]
-The two t tails together equal the right F tail.
 \par\medskip
-\textbf{3. Same critical values after squaring:}
-\[F_{1,\nu;1-\alpha}=\bigl(t_{\nu,1-\alpha/2}\bigr)^2.\]
-The next slide compares the large-sample critical values with the table on slide 13.
+\textbf{Squaring removes the sign.} Let $a=|t_{\mathrm{obs}}|$.
+\[
+T_\nu^2\geq a^2
+\quad\Longleftrightarrow\quad
+T_\nu\leq-a\ \text{or}\ T_\nu\geq a.
+\]
+A squared value is at least $a^2$ whenever the original value is at least $a$ away from zero: in the left t tail or the right t tail.
 \par\medskip
-\textbf{This equivalence is for a two-sided t-test.}
+For $a>0$, these two events cannot overlap, so we add their probabilities:
+\[
+\underbrace{\Pr(T_\nu^2\geq a^2)}_{\text{one right tail after squaring}}
+=
+\underbrace{\Pr(T_\nu\leq-a)+\Pr(T_\nu\geq a)}_{\text{two t tails}}.
+\]
+\textbf{The same event in two forms:} squaring combines the two disjoint t tails into one right tail, without changing their total probability.
 \end{frame}
 
-\begin{frame}{The $q=1$ Row on Slide 13 Is the Squared t Table}
+\begin{frame}{\large Why the F-test and Two-Sided t-test Have the Same p-value}
 \small
-Slide 13 reports \textbf{large-sample} F critical values. For one restriction, take the two-sided t cutoff (its standard-normal limit) and square it:
+Under the null and the assumptions for exact t inference,
+\[
+T_\nu\sim t_\nu\quad\Longrightarrow\quad T_\nu^2\sim F_{1,\nu},
+\qquad \nu=n-k-1.
+\]
+Therefore, the two tests count \textbf{the same null outcomes}:
+\[
+\boxed{\Pr(F_{1,\nu}\geq t_{\mathrm{obs}}^2)
+=\Pr(|T_\nu|\geq |t_{\mathrm{obs}}|).}
+\]
+\textbf{Example: $\boldsymbol{t_{\mathrm{obs}}=-2}$, so $\boldsymbol{F_{\mathrm{obs}}=4}$.}
+\[
+F=T_\nu^2\geq4\quad\Longleftrightarrow\quad T_\nu\leq-2\ \text{or}\ T_\nu\geq2.
+\]
+\[
+p_F=\Pr(F_{1,\nu}\geq4)
+=\Pr(T_\nu\leq-2)+\Pr(T_\nu\geq2)
+=p_{\text{two-sided t}}.
+\]
+The same reasoning gives $|t_{\mathrm{obs}}|>c\iff F_{\mathrm{obs}}>c^2$: square the two-sided t critical value to obtain the F critical value.
+\par\smallskip
+The next slide compares these critical values with the table on slide 12.
+\end{frame}
+
+\begin{frame}{The $q=1$ Row on Slide 12 Is the Squared t Table}
+\small
+Slide 12 reports \textbf{large-sample} F critical values. For one restriction, take the two-sided t cutoff (its standard-normal limit) and square it:
 \[
  c_\alpha=\Phi^{-1}(1-\alpha/2),\qquad
  F_{1,\infty;1-\alpha}=c_\alpha^2.
@@ -440,16 +438,78 @@ Slide 13 reports \textbf{large-sample} F critical values. For one restriction, t
 Two-sided t cutoff $c_\alpha$ & $1.644854$ & $1.959964$ & $2.575829$\\
 Squared cutoff $c_\alpha^2$ & $2.705543$ & $3.841459$ & $6.634897$\\
 \rowcolor[HTML]{DAE8FC}
-F table, slide 13: $q=1$ & $\mathbf{2.71}$ & $\mathbf{3.84}$ & $\mathbf{6.63}$\\\hline
+F table, slide 12: $q=1$ & $\mathbf{2.71}$ & $\mathbf{3.84}$ & $\mathbf{6.63}$\\\hline
 \end{tabular}
 \end{center}
-Square the unrounded quantile, then round the result: the highlighted values match slide 13 exactly.
+Square the unrounded quantile, then round the result: the highlighted values match slide 12 exactly.
 \par\medskip
 \textbf{Finite samples:} with matching $\nu=n-k-1$, the same relationship is
 \[
  F_{1,\nu;1-\alpha}=\bigl(t_{\nu,1-\alpha/2}\bigr)^2.
 \]
 Only the $q=1$ row comes from a single squared t-statistic; $q>1$ tests several restrictions jointly.
+\end{frame}
+
+\begin{frame}{A Complete Example: Constructing $\hat\beta$ and $\widehat V$}
+\footnotesize
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+Two regressors and an intercept: $Y_i=\beta_0+\beta_1X_{1i}+\beta_2X_{2i}+u_i$; $n=8$, $k=2$.
+\par\medskip
+\begin{columns}[T]
+\begin{column}{.36\textwidth}
+\textbf{All eight observations}
+\[
+X=\begin{pmatrix}
+1&-1&-2\\
+1&-1&-2\\
+1&-1&0\\
+1&-1&0\\
+1&1&0\\
+1&1&0\\
+1&1&2\\
+1&1&2
+\end{pmatrix},\quad
+Y=\begin{pmatrix}6\\8\\8\\10\\10\\12\\12\\14\end{pmatrix}.
+\]
+The first column of $X$ is for the intercept; the next two are $X_1$ and $X_2$.
+\par\medskip
+\textbf{Residuals and error variance}
+\[
+\hat u=Y-X\hat\beta=(-1,1,-1,1,-1,1,-1,1)'.
+\]
+\[
+SSR=\hat u'\hat u=8,\qquad df=8-3=5,
+\]
+\[
+SER^2=\frac{SSR}{n-k-1}=\frac85.
+\]
+\end{column}
+\begin{column}{.61\textwidth}
+\textbf{1. Form the cross-products.}
+\[
+X'X=\begin{pmatrix}8&0&0\\0&8&8\\0&8&16\end{pmatrix},\qquad
+X'Y=\begin{pmatrix}80\\16\\24\end{pmatrix}.
+\]
+\textbf{2. Invert and multiply to obtain the OLS estimates.}
+\[
+(X'X)^{-1}=\frac18\begin{pmatrix}1&0&0\\0&2&-1\\0&-1&1\end{pmatrix},
+\]
+\[
+\hat\beta=(X'X)^{-1}X'Y=(10,1,1)'.
+\]
+\textbf{3. Estimate the coefficient covariance matrix.}
+\[
+\widehat V=SER^2(X'X)^{-1}
+=\frac15\begin{pmatrix}1&0&0\\0&2&-1\\0&-1&1\end{pmatrix}.
+\]
+Rows and columns follow $(\hat\beta_0,\hat\beta_1,\hat\beta_2)$.
+For a joint test of the two slopes, use the bottom-right block:
+\[
+\widehat V_d=\begin{pmatrix}0.4&-0.2\\-0.2&0.2\end{pmatrix}.
+\]
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{The F-statistic from Restricted and Unrestricted Fits}
@@ -496,15 +556,24 @@ A greater improvement in fit gives a larger F-statistic.
 
 
 \begin{frame}{Example: Restricted and Unrestricted Fits}
+\small
+\setlength{\abovedisplayskip}{.35em}
+\setlength{\belowdisplayskip}{.35em}
 \textbf{Restricted fitted regression:}
 \[\widehat{TestScore}_i=705.157+203.582\times edfracbachplus_i\]
-with $R_R^2=0.2320$.\\[2em]
+\[R_R^2=1-\frac{SSR_R}{TSS_Y}=0.2320
+\quad\Rightarrow\quad SSR_R=0.7680\,TSS_Y.\]
 \textbf{Unrestricted fitted regression:}
 \begin{align*}
 \widehat{TestScore}_i={}&802.045-128.685\times frpmfracs_i\\
 &+60.729\times edfracbachplus_i+0.564\times strs_i
 \end{align*}
-with $R_U^2=0.4775$.
+\[R_U^2=1-\frac{SSR_U}{TSS_Y}=0.4775
+\quad\Rightarrow\quad SSR_U=0.5225\,TSS_Y.\]
+Both fits use the same outcome and observations, so
+$TSS_Y=\sum_i(Y_i-\bar Y)^2$ is the same.
+\[\boxed{F=\frac{(R_U^2-R_R^2)/q}{(1-R_U^2)/(n-k_U-1)}}\]
+$n=500$, $q=2$, $k_U=3$ ($k_U$ excludes the intercept).
 \end{frame}
 
 \begin{frame}{Example: Comparing the Two School Regressions}
@@ -630,7 +699,7 @@ What is a joint confidence set for $\beta_1$ and $\beta_2$?\\[1em]
 
 A 95\% joint confidence set is:
 \begin{itemize}
-    \item A set-valued function of the data that contains the true coefficient(s) in 95\% hypothetical repeated samples.
+    \item A set-valued function of the data that contains the true coefficients in approximately 95\% of repeated samples, using our large-sample approximation.
     \item Equivalently, the set of coefficient values that cannot be rejected at the 5\% significance level
 \end{itemize}
 
@@ -643,12 +712,43 @@ You can find a 95\% confidence set as the set of $(\beta_1, \beta_2)$ that canno
 \begin{itemize}
 \item Let $F(\beta_{1,0},\beta_{2,0})$ test $H_0:\beta_1=\beta_{1,0},\ \beta_2=\beta_{2,0}$ using the conventional covariance matrix.\\[1em]
 \item The 95\% confidence set is
-\[\{(\beta_{1,0},\beta_{2,0}):F(\beta_{1,0},\beta_{2,0})<c\},
-\qquad c=F_{2,n-k-1;.95}.\]
-\item For large denominator degrees of freedom, $c\approx3.00$.\\[1em]
-\item Under conditionally normal errors, coverage is exactly 95\%; otherwise it is a large-sample approximation.\\[1em]
+\[\{(\beta_{1,0},\beta_{2,0}):F(\beta_{1,0},\beta_{2,0})\le c\},
+\qquad c=F_{2,\infty;.95}\approx3.00.\]
+\item We use the large-sample critical value from the F table on slide 12.\\[1em]
+\item The resulting joint confidence set has approximately 95\% coverage in repeated samples.\\[1em]
 \item Inverting a 5\% test includes precisely the coefficient pairs that are not rejected.
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reminder: A Confidence Set for One Coefficient}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\begin{enumerate}
+\item \textbf{Test each candidate value.} For $H_0:\beta_j=b$ vs.\ $H_1:\beta_j\ne b$, define
+\[
+t(b)=\frac{\hat\beta_j-b}{SE(\hat\beta_j)}.
+\]
+Under $H_0$, this statistic is approximately $N(0,1)$ in large samples: the two-sided 5\% cutoff is $1.96$.
+\item \textbf{Keep every value not rejected at 5\%:}
+\[
+\{b\in\mathbb{R}:|t(b)|\le1.96\}
+=\left\{b\in\mathbb{R}:\left|\frac{\hat\beta_j-b}{SE(\hat\beta_j)}\right|\le1.96\right\}.
+\]
+\item \textbf{Rearrange to obtain the familiar interval:}
+\[
+|\hat\beta_j-b|\le1.96\,SE(\hat\beta_j)
+\iff \hat\beta_j-1.96\,SE(\hat\beta_j)\le b\le\hat\beta_j+1.96\,SE(\hat\beta_j).
+\]
+\[
+\boxed{\bigl[\hat\beta_j-1.96\,SE(\hat\beta_j),\ \hat\beta_j+1.96\,SE(\hat\beta_j)\bigr].}
+\]
+\end{enumerate}
+This is an approximate 95\% confidence interval: over repeated samples, about 95\% of the intervals constructed this way contain the true $\beta_j$.
+
+\medskip
+For one coefficient, the set is an interval; for two coefficients, the joint set is a region of pairs.
 \end{frame}
 
 
@@ -658,10 +758,39 @@ For each candidate pair, define
  t_2=\frac{\hat\beta_2-\beta_{2,0}}{SE(\hat\beta_2)}.\]
 The confidence set uses the same coefficient formula:
 \[\left\{(\beta_{1,0},\beta_{2,0}):
-\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}<c\right\},
-\qquad c=F_{2,n-k-1;.95}.\]
-The cross term is $-2\hat\rho t_1t_2$. The boundary $F=c$ is an ellipse.\\[1em]
-For large denominator degrees of freedom, $c\approx3.00$. The next figure illustrates the joint region and the separate intervals.
+\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}\le c\right\},
+\qquad c=F_{2,\infty;.95}\approx3.00.\]
+The cross term is $-2\hat\rho t_1t_2$. The boundary is obtained by setting $F=c$; the confidence set includes the boundary and its interior.\\[1em]
+The next slide rewrites this boundary as the equation of an ellipse.
+\end{frame}
+
+
+\begin{frame}{Why the Boundary $F=c$ Is an Ellipse}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{1. Start from the boundary and rotate the axes.}
+\[
+t_1^2+t_2^2-2\hat\rho t_1t_2=2c(1-\hat\rho^2),\qquad
+z_1=\frac{t_1+t_2}{\sqrt2},\quad z_2=\frac{t_2-t_1}{\sqrt2}.
+\]
+These new coordinates follow the two diagonal directions in the $(t_1,t_2)$ plane.
+\par\smallskip
+\textbf{2. Substitute to remove the cross term.}
+\[
+t_1^2+t_2^2=z_1^2+z_2^2,\qquad 2t_1t_2=z_1^2-z_2^2,
+\]
+\[
+\underbrace{(1-\hat\rho)z_1^2+(1+\hat\rho)z_2^2}_{t_1^2+t_2^2-2\hat\rho t_1t_2}
+=2c(1-\hat\rho^2).
+\]
+\textbf{3. Divide to obtain the standard ellipse equation.}
+\[
+\boxed{\frac{z_1^2}{2c(1+\hat\rho)}+\frac{z_2^2}{2c(1-\hat\rho)}=1.}
+\]
+Both denominators are positive when $|\hat\rho|<1$. This has the familiar form $z_1^2/a^2+z_2^2/b^2=1$, with semiaxes $a=\sqrt{2c(1+\hat\rho)}$ and $b=\sqrt{2c(1-\hat\rho)}$.
+\par\smallskip
+Rotating back to $(t_1,t_2)$ and rescaling by the standard errors gives an ellipse in coefficient values, centered at $(\hat\beta_1,\hat\beta_2)$, where $t_1=t_2=0$.
 \end{frame}
 
 
