@@ -31,3 +31,16 @@ These instructions apply to files under this course folder.
 - Remove stale `tmp/` build folders and `.DS_Store` files from the course project; do not commit them.
 - Keep required source dependencies such as `images/` and bibliography files. The `.tex` and `.pdf` rule applies to authored and delivered course documents, not to assets required to compile them.
 - Keep the active syllabus source and its PDF together in `syllabus/`.
+
+## Exam Format
+
+- Use the `upf_exam_format` agent when authoring or reviewing exams, and follow its persistent exam-format instructions.
+- Always author exams as editable LaTeX `.tex` sources; a PDF may supplement the source.
+- Use Century Gothic, Garamond, or Courier at 10–12 pt; default to Garamond 11 pt. Use single line spacing and 2 cm margins.
+- Do not use bold text, including automatic bold in headings or labels, shading, or colors.
+- Keep questions in a compact, continuous block. Do not add dedicated answer spaces, boxes, or blank pages. The only identification fields are the student's full-name line and UPF number `U` followed by exactly six digit slots (for example, `U______`) on the first page, immediately beside each other.
+- Format for double-sided printing; if PDF print preferences are supported, use long-edge duplex.
+- Keep administrative printing and copying instructions out of student-facing exam text. Do not put optical-reading instructions on the exam; communicate those separately through Moodle or the board if needed.
+- Do not request extra photocopies. The required quantity is the number of registered students, excluding cancelled exam sittings.
+- Build questions only from the lessons and seminars specified by the user. Use English unless the user says otherwise. Check scoring, solvability, and timing; do not invent the test date, permitted materials, sanctions, or institutional policies.
+- For Econometrics 25117, do not introduce or assess the homoskedasticity assumption in exams or teaching notes. Do not retain an inference formula that depends on that assumption while omitting its name. Use only procedures taught in the allowed material, supplying an appropriate standard error when needed rather than requiring the restricted slope standard-error formula.

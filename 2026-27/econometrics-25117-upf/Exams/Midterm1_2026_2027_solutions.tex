@@ -1,0 +1,862 @@
+% Instructor copy. Keep separate from the student exam.
+% Compile from the course root with pdflatex.
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+\usepackage{amsmath,amssymb}
+\usepackage[ebgaramond]{newtxmath}
+\usepackage[margin=2cm,includefoot,footskip=8mm]{geometry}
+\usepackage{enumitem,tabularx,fancyhdr,needspace}
+\usepackage[unicode,hidelinks]{hyperref}
+\hypersetup{pdfnewwindow=true,pdftitle={Econometrics 25117: Midterm 1 answer key with lecture references}}
+\linespread{1}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\emergencystretch}{1em}
+\raggedbottom
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\normalfont\thepage}
+\pdfcatalog{/ViewerPreferences << /Duplex /DuplexFlipLongEdge >>}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\heading}[1]{\par\medskip\noindent #1\par\nobreak\smallskip}
+% External PDF destinations use 1-based page values; hyperref writes a GoToR
+% action with the corresponding 0-based PDF destination. Paths are relative
+% to the final answer-key PDF in Exams/, not to the compilation directory.
+\newcommand{\lecturepage}[2]{\href[page=#2]{../Lecture#1v2.pdf}{Lecture~#1, PDF p.~#2}}
+\newcommand{\seminarpage}[2]{\href[page=#2]{../seminars/seminar_lecture#1.pdf}{Seminar~#1, PDF p.~#2}}
+\newcommand{\lecturetext}[4]{\par\smallskip\noindent
+  \lecturepage{#1}{#2}, ``#3'':\par\nobreak
+  \noindent``#4''\par}
+\newcommand{\seminartext}[4]{\par\smallskip\noindent
+  Supplemental practice: \seminarpage{#1}{#2}, ``#3'':\par\nobreak
+  \noindent``#4''\par}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {6pt}{3pt}{\normalfont\fontsize{12}{14}\selectfont}}
+\makeatother
+\begin{document}
+\begin{center}
+{\fontsize{12}{14}\selectfont Econometrics (25117): Midterm 1, 2026--2027}\\
+Worked answer key, explanations and lecture references: 150-minute midterm\\
+\normalsize Monday, 9 November 2026
+\end{center}
+
+The maximum is 100 points; divide the raw total by 10 for the grade out of 10.
+Award method credit for correct reasoning with an arithmetic error, and avoid
+penalizing the same carried-forward error twice. Accept equivalent notation,
+exact fractions and reasonable rounding. The solutions below use the
+large-sample standard normal approximation, not an exact Student $t$ reference.
+
+Each answer below includes the lecture sentences or formulas used to solve it.
+Page numbers count PDF pages from 1, including the title page; they coincide
+with the printed slide numbers in Lectures 1--3. The page references are
+clickable links to the course PDFs. Keep this key in \textnormal{Exams/}, with the
+lecture PDFs in the parent course folder and seminar PDFs in
+\textnormal{seminars/} under that parent folder.
+
+Quotation marks identify lecture wording. A sentence marked ``Application''
+explains a calculation or deduction for this exam; it is not presented as a
+quotation from the slides. Supplemental seminar references identify matching
+practice where useful. The exam data differ from the examples in the lectures.
+
+\section*{Multiple-choice questions}
+\begin{center}
+\begin{tabular}{c|cccccccc}
+Question & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+Answer & b & c & b & a & d & b & d & c
+\end{tabular}
+\end{center}
+Four points per correct option; zero for a wrong or blank response.
+\begin{enumerate}[label=\arabic*.,leftmargin=*,itemsep=3pt,topsep=3pt]
+\item Answer (b). $\E[Y_1]=\mu$, so the estimator is unbiased. Its distribution never
+concentrates at $\mu$ as $n$ grows: the same nondegenerate random variable is
+used for every $n$. In particular, for some $\varepsilon>0$,
+$\Pr(|Y_1-\mu|>\varepsilon)>0$ remains unchanged. Thus it is inconsistent.
+The positive variance ensures nondegeneracy. Option (a) incorrectly claims
+consistency; (c) and (d) incorrectly claim bias, and (c) also incorrectly claims
+consistency. Merely observing a nonvanishing variance is not a general proof
+of inconsistency for arbitrary estimator sequences; here the unchanged
+distribution supplies the argument.
+% Lecture1v2.tex:601,706--707; PDF pages21,27.
+\lecturetext{1}{21}{Random Sampling}{Then, the expected value of every draw is the population mean and the variance of every draw is the population variance.}
+\lecturetext{1}{27}{Estimators}{$\hat\mu_Y$ is \textit{unbiased} if $\mathbb{E}(\hat\mu_Y)=\mu_Y$}
+The same slide defines consistency by
+$\hat\mu_Y\xrightarrow{p}\mu_Y$.
+Application: substitute $Y_1$ into these definitions. Its expectation is right,
+but its unchanged distribution does not concentrate at $\mu$ as $n$ grows.
+This particular counterexample is an application of the definitions, rather
+than a worked numerical example on that slide.
+\item Answer (c). Independence implies $\E[XY]=\E[X]\E[Y]$ and hence zero
+covariance. Options (a) and (b) reverse implications that do not hold in
+general. For example, let $X$ be uniform on $[-1,1]$ and $Y=X^2$. Symmetry
+gives $\Cov(X,Y)=0$, but $Y$ depends on $X$ and $\E[Y\mid X]=X^2$ is not
+constant. Option (d) is false because perfect positive correlation between
+nondegenerate variables means an exact increasing linear relationship, not
+independence.
+% Lecture1v2.tex:567--568; PDF page19. The quadratic graphic is on page20.
+\lecturetext{1}{19}{Covariance}{When $X$ and $Y$ are independent, $\sigma_{XY}=0$. The converse is not true in general: zero covariance does not necessarily imply independence.}
+The quadratic plot in panel (d) of \lecturepage{1}{20} illustrates a nonlinear
+relationship with zero correlation. Application: the $Y=X^2$ example above
+also shows why zero covariance need not make the conditional mean constant.
+The uniform-distribution calculation is an added illustration of the slide's
+point, not a quotation of a worked lecture example.
+\item Answer (b). The CLT is
+$\sqrt n(\bar Y-\mu)/\sigma\xrightarrow{d}N(0,1)$.
+The factor $\sqrt n$ offsets the shrinking spread of the sample mean.
+Option (a) incorrectly makes an exact finite-sample normality claim without
+assuming a normal population. In (c), the expression without $\sqrt n$
+converges in probability to zero. Option (d) is false because the law of
+large numbers gives $\bar Y\xrightarrow{p}\mu$, not necessarily zero.
+% Lecture1v2.tex:663,667,671--673,639,645--647; PDF pages25,23.
+\lecturetext{1}{25}{Asymptotic properties ($n\rightarrow\infty$) of the sampling distribution (2/2)}{If $Y_1,Y_2,\ldots,Y_n$ are drawn randomly from the same population (i.i.d.) and large outliers are unlikely, then $\overline Y$ is approximately distributed as $\mathcal N(\mu_Y,\sigma_Y^2/n)$ as $n$ grows}
+The CLT box on this page states
+\[
+\frac{\overline Y-\mu_Y}{\sigma_Y/\sqrt n}
+\xrightarrow{d}\mathcal N(0,1).
+\]
+\lecturetext{1}{25}{Asymptotic properties ($n\rightarrow\infty$) of the sampling distribution (2/2)}{$\overline Y\sim\mathcal N(\mu_Y,\sigma_{\overline Y}^2)$ exactly when $Y\sim\mathcal N(\mu_Y,\sigma_Y^2)$, and approximately when $Y$ follows another distribution}
+\lecturetext{1}{23}{Asymptotic properties ($n\rightarrow\infty$) of the sampling distribution (1/2)}{In this case, we say that $\overline Y$ converges in probability to $\mathbb E(Y)$}
+Application: the exam does not assume a normal population, so the exact
+finite-sample claim in (a) is not guaranteed. The CLT formula is algebraically
+the same as (b). Convergence in probability concerns getting arbitrarily
+close to the mean: $\Pr(|\bar Y-\mu|>\varepsilon)\to0$ for every
+$\varepsilon>0$; it does not require exact equality.
+\item Answer (a). A Type I error rejects a true null. Option (b) describes a
+Type II error: failing to reject a false null. Options (c) and (d) describe
+correct decisions, so neither is an error.
+% Lecture2v2.tex:406,419; PDF page14.
+\lecturetext{2}{14}{Type I and Type II Errors in Hypothesis Testing}{Occurs when we reject a null hypothesis that is actually true.}
+This is the sentence in the Type I box. The Type II box on the same page says:
+``Occurs when we fail to reject a null hypothesis that is actually false.''
+Application: these are exactly the descriptions in options (a) and (b),
+respectively; only the first answers the Type I question.
+\item Answer (d). Coverage is a repeated-sampling property of the interval procedure.
+In the frequentist framework the parameter is fixed, and the interval is random
+before the sample is observed. With the approximation used here, coverage is
+approximately 95\%. Option (a) assigns a probability to the fixed parameter
+after observing the interval. Option (b) confuses uncertainty about a mean
+with dispersion of individual observations. Option (c) confuses interval
+coverage with exact equality between sample and population means.
+% Lecture2v2.tex:546,557,562--568; PDF pages20--21.
+\lecturetext{2}{20}{What are Confidence Intervals (CIs)?}{They provide a range of plausible values for a population parameter, not just a single point estimate.}
+\lecturetext{2}{21}{Computing CIs}{For $Z\sim\mathcal N(0,1)$, choose $c$ so that $P(-c\leq Z\leq c)=1-\alpha$.}
+The slide gives the interval $\overline y\pm c\times SE(\overline Y)$.
+Application: with $c=1.96$, the large-sample probability statement can be
+rewritten as
+\[
+\Pr\!\left(\mu_Y\in
+[\overline Y-1.96SE(\overline Y),\,
+ \overline Y+1.96SE(\overline Y)]\right)\approx0.95.
+\]
+The interval varies across samples while $\mu_Y$ stays fixed. This explains
+the repeated-sampling wording in (d). The slides give the probability
+construction; they do not print that exact repeated-sampling sentence.
+\item Answer (b). The two residual identities are the sample OLS first-order
+conditions when an intercept is included, regardless of the population
+relationship between $X_i$ and $U_i$. Option (a) confuses these mechanical
+sample identities with the population condition $\E[U_i\mid X_i]=0$.
+Option (c) equates the unobserved population error with the fitted residual,
+which generally differ because coefficients are estimated. Option (d) would
+require a perfect fit; OLS makes residuals sum to zero, not each residual
+equal zero.
+% Lecture3v2.tex:270,274,276,330--331,605; Seminar3:407.
+\lecturetext{3}{7}{The Ordinary Least Squares (OLS) Estimator}{The first-order conditions are}
+\[
+\sum_{i=1}^n(Y_i-\hat\beta_0-\hat\beta_1X_i)=0,
+\qquad
+\sum_{i=1}^n(Y_i-\hat\beta_0-\hat\beta_1X_i)X_i=0.
+\]
+Using $\hat U_i=Y_i-\hat Y_i$ from \lecturepage{3}{9} gives the two
+residual identities in option (b).
+\lecturetext{3}{19}{The conditions for causality}{The error term $U_i$ has conditional mean $0$ given $X_i$: $\mathbb E[U_i\mid X_i]=0$;}
+Application: this is a population restriction, separate from the sample
+equations used to fit the line.
+\seminartext{3}{11}{Solution 3: Normal equations and squared errors (continued)}{These sample fitting identities do not establish causality.}
+\item Answer (d). At $n=100$, the standard deviation of the sample mean is
+$\sigma_Y/10$; at $n=400$, it is $\sigma_Y/20$. The ratio is $1/2$, so the
+standard deviation is halved. Option (a) gives the change in the variance,
+which is divided by four. Options (b) and (c) incorrectly say that uncertainty
+increases or stays unchanged as the sample size quadruples.
+% Lecture1v2.tex:625; PDF page22.
+\lecturetext{1}{22}{Sample Distribution Mean and Dispersion}{The standard deviation of the sampling distribution is therefore given by $\frac{\sigma_Y}{\sqrt n}$}
+Application: the ratio of the new standard deviation to the old one is
+$\sqrt{100}/\sqrt{400}=10/20=1/2$. The population distribution has not changed;
+the sample mean has become more precise.
+\item Answer (c). $SER^2=SSR/(n-2)$ accounts for the two fitted coefficients,
+while $RMSE^2=SSR/n$. Both describe the size of fitted residuals; neither is
+the standard error of the slope. Option (a) reverses the denominators.
+Option (b) is false because $SER>RMSE$ for positive $SSR$ and finite $n>2$.
+Option (d) uses $n-1$, the denominator for a sample variance around an estimated
+mean, rather than $n-2$ for this regression or $n$ for $RMSE$.
+% Lecture3v2.tex:528,532,534,541; PDF page16.
+\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{Both measures summarize the typical size of the OLS residuals.}
+The two displayed definitions on that page are
+\[
+SER=\sqrt{\frac{SSR}{n-2}},\qquad RMSE=\sqrt{\frac{SSR}{n}}.
+\]
+The slide explains: ``The two degrees of freedom are used to estimate
+$\beta_0$ and $\beta_1$.''
+Application: these are the formulas in (c); for the same positive $SSR$,
+dividing by the smaller denominator makes $SER$ larger than $RMSE$.
+\end{enumerate}
+
+\Needspace{7.5cm}
+\section*{Long-answer questions}
+\heading{Question 9: joint probabilities and dependence (10 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item $\Pr(D=1)=0.24+0.36=0.60$ and
+$\Pr(Y=1)=0.04+0.36=0.40$. Each marginal probability sums the joint cells
+over the other variable. Award 1 point each.
+% Lecture1v2.tex:381--383; PDF page13.
+The ``Marginal Probability distribution'' formula on
+\lecturepage{1}{13}, ``Joint Probability Distribution $\Pr(X=x,Y=y)$'', is
+\[
+\Pr(Y=y)=\sum_i\Pr(X=x_i,Y=y).
+\]
+Application: sum down a column for the marginal of $D$ and across a row for
+the marginal of $Y$. The result uses the exam's cells, not the lecture's
+different joint-distribution example.
+\item Because $Y$ is binary,
+\[
+\E[Y\mid D=0]=\frac{0.04}{0.40}=0.10,\qquad
+\E[Y\mid D=1]=\frac{0.36}{0.60}=0.60.
+\]
+For a zero--one variable, its mean is the probability of being one; the
+denominator restricts attention to the group being conditioned on.
+The law of iterated expectations then gives
+$\E[Y]=0.10(0.40)+0.60(0.60)=0.40$.
+The overall mean is a weighted average of the two group means, with the
+population group shares as weights.
+Award 1 point for each conditional mean and 1 point for the weighted average.
+% Lecture1v2.tex:385--387,442,455--463,489; PDF pages13--16.
+The conditional-probability formula on \lecturepage{1}{13} is
+$\Pr(Y=y\mid X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$.
+\lecturetext{1}{14}{Working with the joint distribution}{Same cell, different denominator: conditioning changes the reference group.}
+\lecturetext{1}{16}{Calculating the law of iterated expectations}{Because $Y$ is binary, $\mathbb E(Y\mid X=x)=\Pr(Y=1\mid X=x)$.}
+The ``Law of Iterated Expectations'' formula on \lecturepage{1}{15} is
+\[
+\mathbb E(Y)=\mathbb E[\mathbb E(Y\mid X)]
+\equiv\sum_i\mathbb E(Y\mid X=x_i)\Pr(X=x_i).
+\]
+Application: replace $X$ by $D$, calculate the two within-group probabilities,
+and weight them by the population shares $0.40$ and $0.60$.
+\item The product $DY$ equals one only when both variables equal one. Thus
+$\E[DY]=\Pr(D=1,Y=1)=0.36$, so
+\[
+\Cov(D,Y)=0.36-(0.60)(0.40)=0.12.
+\]
+For a binary variable with probability $p$ of being one, its variance is
+$p(1-p)$. Both variances therefore equal $0.60(0.40)=0.24$. Consequently,
+\[
+\Corr(D,Y)=\frac{0.12}{\sqrt{0.24\cdot0.24}}=0.50.
+\]
+Correlation divides covariance by the product of the two standard deviations,
+removing the units. The positive sign means that workshop attendance and
+employment are positively associated; it does not by itself establish a
+causal effect.
+Award 1.5 points for the covariance and 1.5 for the correlation, including
+the variance calculation.
+% Lecture1v2.tex:560--564,577--578,294--300; PDF pages19,20,10.
+\lecturetext{1}{19}{Covariance}{The covariance between $X$ and $Y$, $\sigma_{XY}$ or $\operatorname{Cov}(X,Y)$, is the average product of how two variables differ from their means. It measures how $X$ and $Y$ move together.}
+\lecturetext{1}{20}{Correlation}{To clarify the relationship, covariance is normalized by the variables' standard deviations.}
+The correlation formula on that slide is
+$\rho_{XY}=\sigma_{XY}/(\sigma_X\sigma_Y)\in[-1,1]$.
+The moment definitions on \lecturepage{1}{10}, ``Statistical Moments'', include
+$\operatorname{Var}(Y)=\mathbb E[(Y-\mu_Y)^2]$.
+Application: expanding the covariance definition gives
+$\Cov(D,Y)=\E[DY]-\E[D]\E[Y]$.
+For a zero--one variable $B$, $B^2=B$, so its variance is
+$\E[B^2]-\E[B]^2=p-p^2=p(1-p)$. These algebraic steps give the covariance
+and both variances used above.
+\item They are not independent: $\Pr(D=1,Y=1)=0.36$ differs from
+$\Pr(D=1)\Pr(Y=1)=0.24$. Equivalently,
+$\Pr(Y=1\mid D=1)=0.60\ne0.40=\Pr(Y=1)$.
+Award 1 point for the conclusion and 1 point for a valid probability comparison.
+% Lecture1v2.tex:521--526; PDF page17.
+\lecturetext{1}{17}{Independence}{The joint probability distribution of $X$ and $Y$ can be expressed as the product of their individual probability distributions}
+The same slide writes the independence criterion as
+\[
+\Pr(Y=y\mid X=x)=\Pr(Y=y)
+\quad\Longleftrightarrow\quad
+\Pr(X=x,Y=y)=\Pr(Y=y)\Pr(X=x).
+\]
+Application: one cell violating the product equality is enough to rule out
+independence. Here $0.36\ne0.24$.
+\end{enumerate}
+
+\heading{Question 10: comparing two means (11 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item The estimated difference is $\widehat\Delta=74-68=6$ points. Under the
+stated independence,
+\[
+SE(\widehat\Delta)=\sqrt{\frac{12^2}{100}+\frac{16^2}{100}}
+=\sqrt{1.44+2.56}=2\text{ points}.
+\]
+Each sample mean has estimated variance $s_g^2/n_g$. Independence makes the
+variance of their difference the sum of these variances; the standard error
+is the square root of that sum.
+Award 1 point for the estimate and 1 point for the standard error.
+% Lecture2v2.tex:594--603; PDF page22.
+\lecturetext{2}{22}{Mean Difference Testing: Comparing Groups 1/2}{Assume two independent samples of sizes $n_a$ and $n_b$, with i.i.d. observations within each sample. Thus $\operatorname{Cov}(\overline Y^a,\overline Y^b)=0$.}
+The slide says: ``Estimate the standard error using the sample standard
+deviations, $s_Y^a$ and $s_Y^b$:'' and gives
+\[
+SE(\overline Y^a-\overline Y^b-d_0)
+=\sqrt{\frac{(s_Y^a)^2}{n_a}+\frac{(s_Y^b)^2}{n_b}}.
+\]
+Application: subtracting the fixed null value $d_0$ does not change the
+variance. Insert the two sample SDs and sizes to obtain $SE=2$.
+\item Test $H_0:\Delta=2$ against $H_1:\Delta\ne2$.
+The observed test statistic is
+$t_{\mathrm{obs}}=(6-2)/2=2$.
+Award 0.5 points for each hypothesis and 2 points for the correctly centered
+and standardized statistic. Using $6/2=3$ tests the wrong null.
+% Lecture2v2.tex:587,612--614; PDF pages22--23.
+\lecturetext{2}{23}{Mean Difference Testing: Comparing Groups 2/2}{Once we have $SE(\overline Y^a-\overline Y^b)$, we can easily compute the corresponding t-statistic}
+\[
+t=\frac{(\overline y^a-\overline y^b)-d_0}
+{SE(\overline Y^a-\overline Y^b)}.
+\]
+The hypotheses on \lecturepage{2}{22} allow a general null difference $d_0$.
+Application: set $d_0=2$ here. The numerator is the distance between the
+estimated difference 6 and the claimed difference 2.
+\item For the two-sided test, compare the absolute statistic with each
+critical value. At 5\%, $|2|>1.96$, so reject $H_0$. At 1\%,
+$|2|<2.576$, so do not reject $H_0$. A stricter significance level requires
+stronger evidence against the null. Award 1 point for each comparison
+and its correct decision. No probability-table lookup is required.
+% Lecture2v2.tex:616,562--568; Seminar2:331,335--338.
+\lecturetext{2}{23}{Mean Difference Testing: Comparing Groups 2/2}{We can reject that $\mu_Y^a-\mu_Y^b=d_0$ at the 5\%-level when $\mid t\mid>1.96$}
+\seminartext{2}{10}{Solution 2: Decisions and the meaning of .0164 (continued)}{Reject $H_0$ when the p-value is at most $\alpha$, or equivalently when $|t^{\mathrm{obs}}|$ reaches the two-sided critical value.}
+The seminar table prints critical values 1.960 at 5\% and 2.576 at 1\%.
+The table on \lecturepage{2}{21} prints the 1\% value rounded to 2.58.
+Application: use the more precise value supplied in the exam; either rounding
+gives the same decision for $|t|=2$.
+\item The 95\% interval is
+\[
+6\pm1.96(2)=[2.08,9.92]\text{ points}.
+\]
+It excludes the null value 2, consistently with rejection by the two-sided
+5\% test using the same normal approximation. Award 0.5 points for the
+formula, 0.5 for each endpoint, 0.25 for checking the value 2, and 0.25 for
+the test--interval connection. The interval concerns the population difference,
+not the spread of individual scores.
+% Lecture2v2.tex:617--621; PDF page23.
+\lecturetext{2}{23}{Mean Difference Testing: Comparing Groups 2/2}{Similarly, we can construct the confidence interval for $\mu_Y^a-\mu_Y^b$}
+\[
+CI_{\mu_Y^a-\mu_Y^b}
+=(\overline y^a-\overline y^b)\pm1.96\times
+SE(\overline Y^a-\overline Y^b).
+\]
+The same slide states: ``We can reject that $\mu_Y^a-\mu_Y^b=d_0$ at the
+5\%-level when $d_0\notin CI_{\mu_Y^a-\mu_Y^b}$.''
+Application: the excluded value is 2, which is the null being tested;
+checking only whether zero belongs to the interval would answer a different
+test question.
+\item With $m$ students in each independent group, the planned standard
+error is $\sqrt{12^2/m+16^2/m}=20/\sqrt m$. The planned 95\% interval
+half-width is therefore
+\[
+h(m)=1.96\frac{20}{\sqrt m}=\frac{39.2}{\sqrt m}.
+\]
+Requiring $h(m)\leq2$ gives $\sqrt m\geq19.6$, or
+$m\geq19.6^2=384.16$. Sample size must be an integer and must meet the
+inequality, so round up: $m_{\min}=385$ students per group, or 770 in total.
+For comparison, $m=384$ gives a half-width just above 2. These are planning
+calculations using the supplied standard deviations; the realized interval
+width can differ when standard deviations are estimated from the new data.
+Award 1 point for the half-width inequality and bound, 0.5 for rounding up to
+385 per group, and 0.5 for the total of 770.
+% Lecture2v2.tex:594--603,617--619; Seminar2:538--547,561--562.
+Application of the independent-group variance formula on
+\lecturepage{2}{22} and the interval formula on \lecturepage{2}{23}:
+replace both group sizes by $m$ and solve the half-width inequality.
+This two-group planning calculation combines the lecture formulas; it is
+not a verbatim worked example in the lecture.
+\seminartext{2}{20}{Solution 6: Sample size for a target half-width}{For $m_n\leq m$, solve and round up:}
+That seminar uses $m$ for a target half-width and $n$ for the sample size,
+and gives $n_{\min}=\lceil(1.96\sigma/m)^2\rceil$ for one mean. In this exam,
+$m$ instead denotes students per group. Apply the same solve-and-round-up
+method to the two-group standard error derived above.
+The seminar also states: ``Realized precision depends on how well the
+planning value describes the population.''
+\end{enumerate}
+
+\Needspace{4\baselineskip}
+\heading{Question 11: simple OLS (11 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item For simple OLS with an intercept, divide the centered cross-product
+sum by the centered sum of squares of $X$:
+\[
+\widehat\beta_1=
+\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}
+=\frac{50}{100}=0.5,\qquad
+\widehat\beta_0=70-0.5(4)=68.
+\]
+The intercept follows from the fact that the fitted line passes through
+$(\bar x,\bar y)$.
+The fitted line is $\widehat y_i=68+0.5x_i$: one additional weekly study hour
+is associated with 0.5 additional predicted score points. This is not yet a
+causal statement. Award 0.5 points each for the slope, intercept, fitted line
+and interpretation.
+% Lecture3v2.tex:307--316,184; PDF pages8,3.
+\lecturetext{3}{8}{The Ordinary Least Squares (OLS) Estimator}{The intercept adjusts the average outcome for the fitted slope.}
+The displayed coefficient formulas are
+\[
+\hat\beta_0=\overline Y-\hat\beta_1\overline X,\qquad
+\hat\beta_1=\frac{\sum_i(Y_i-\overline Y)(X_i-\overline X)}
+{\sum_i(X_i-\overline X)^2}=\frac{s_{XY}}{s_X^2}.
+\]
+The same slide says: ``The slope compares the comovement of $X$ and $Y$
+with the variation in $X$.''
+\lecturetext{3}{3}{The regression line}{The slope is the difference in the expected values of Y, for two values of X that differ by one unit}
+Application: use the supplied centered sums in the estimator formula and
+read the fitted slope as the change in predicted score per additional hour.
+The estimated-line interpretation alone makes no causal claim.
+\item $\widehat y_i=68+0.5(6)=71$ and
+$\widehat u_i=72-71=1$. The fitted score is the point on the estimated line
+at six hours. The residual is observed minus fitted, so this student scores
+one point above the prediction. Award 0.5 points for the fitted score and
+0.5 for the residual.
+% Lecture3v2.tex:330--331; Seminar3:379.
+The formulas on \lecturepage{3}{9}, ``Back to the Linear Regression Model'', are
+\[
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i,\qquad
+\hat U_i=Y_i-\hat Y_i.
+\]
+\seminartext{3}{10}{Solution 3: Fitted scores and vertical residuals}{Residuals use the estimated sample line. Population errors use the true population coefficients.}
+Application: substitute six hours into the fitted line, then subtract its
+prediction from the observed score. Reversing the subtraction would give
+the wrong residual sign.
+\item Since OLS includes an intercept,
+\[
+ESS=\widehat\beta_1^2\sum_i(x_i-\bar x)^2=0.5^2(100)=25,
+\qquad SSR=TSS_Y-ESS=425-25=400.
+\]
+Thus $R^2=25/425=1/17\approx0.0588$ and
+$SER=\sqrt{400/(102-2)}=2$ score points.
+The fitted values account for about 5.88\% of the sample variation in scores.
+$SER$ summarizes residual dispersion in score points, using $n-2$ because
+the fitted line estimates an intercept and a slope. It is not a coefficient
+standard error. Award 1 point each for $ESS$, $SSR$, $R^2$ and $SER$.
+% Lecture3v2.tex:434,421--422,528,532,547; Seminar3:597.
+\lecturetext{3}{13}{$R^2$}{The $R^2$ is the ratio of the sample variance of $\hat Y$ to the sample variance of $Y$}
+This page writes $R^2$ as the explained sum of squares divided by the total
+sum of squares, and also as one minus the residual sum of squares divided
+by the total sum of squares.
+\lecturetext{3}{12}{Goodness of Fit}{The standard error of the regression ($SER$) measures the magnitude of a typical regression residual in the units of Y.}
+The definition $SER=\sqrt{SSR/(n-2)}$ appears on \lecturepage{3}{16}.
+\seminartext{3}{19}{Solution 6: Decomposing the observed score variation}{Thus $TSS=ESS+SSR$: $32=25.6+6.4$.}
+Application: the seminar numbers illustrate the decomposition. For this exam,
+$\hat y_i-\bar y=0.5(x_i-\bar x)$, so $ESS=0.5^2(100)=25$ and the
+corresponding decomposition is $425=25+400$.
+\item Sample correlation can be calculated directly from centered sums:
+\[
+r_{XY}=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
+{\sqrt{\sum_i(x_i-\bar x)^2\sum_i(y_i-\bar y)^2}}
+=\frac{50}{\sqrt{100\cdot425}}
+=\frac{1}{\sqrt{17}}\approx0.2425.
+\]
+The sample covariance and both sample variances would each use the same
+$n-1$ divisor; it cancels in this correlation formula. Squaring gives
+$r_{XY}^2=1/17\approx0.0588=R^2$. This equality holds for simple OLS with
+an intercept. Correlation retains the positive sign of the association,
+whereas $R^2$ records its squared strength. Award 1 point for the correlation
+and 1 point for verifying the equality numerically.
+% Lecture2v2.tex:748,750; Lecture3v2.tex:309--312,436--437.
+\lecturetext{2}{28}{The California Test Score Data Set}{The sample correlation, $r_{XY}=\frac{s_{XY}}{s_Xs_Y}$}
+The same page gives
+$s_{XY}=(n-1)^{-1}\sum_i(X_i-\overline X)(Y_i-\overline Y)$.
+Application: the $n-1$ terms cancel when this covariance is divided by the
+two sample standard deviations, giving the centered-sum correlation above.
+
+The identity $r^2=R^2$ is an algebraic consequence of the OLS formulas on
+\lecturepage{3}{8} and the fit definition on \lecturepage{3}{13}; it is not
+printed there as a separate sentence. Writing $S_{XX},S_{XY},S_{YY}$ for the
+three centered sums supplied in the question gives
+\[
+ESS=\hat\beta_1^2S_{XX}=\frac{S_{XY}^2}{S_{XX}},\qquad
+R^2=\frac{S_{XY}^2}{S_{XX}S_{YY}}=r_{XY}^2.
+\]
+This derivation requires simple OLS with an intercept, as in the exam.
+\item Substitute $X_i=M_i/60$ into the original fitted line:
+\[
+\widehat y_i=68+0.5\left(\frac{M_i}{60}\right)
+=68+\frac{1}{120}M_i.
+\]
+The intercept remains 68, and the slope is $1/120\approx0.00833$ score
+points per additional study minute. A minute is $1/60$ of an hour, so its
+slope is $1/60$ of the hourly slope. The conversion changes the numerical
+regressor units, but it does not change any fitted score or residual.
+Consequently $ESS$, $SSR$ and $TSS_Y$ remain the same, giving
+$R^2=1/17\approx0.0588$ and $SER=2$ score points again. Award 0.5 points
+each for the intercept, slope, unchanged $R^2$ and unchanged $SER$.
+% Lecture3v2.tex:330--331,421,547; Seminar3:451.
+Application of the fitted-value formula on \lecturepage{3}{9}: expressing
+the same study time in minutes means $X_i=M_i/60$. Substitute that identity
+without changing the fitted score.
+\seminartext{3}{13}{Solution 4: Shares, percentage points, and predicted scores}{Changing the units changes the coefficient's numerical scale and preserves the predictions.}
+The seminar example converts a share to percentage points; the exam applies
+the same substitution method to hours and minutes.
+\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{Both are measured in the units of $Y$. They describe the typical size of the part of $Y$ that the regression does not explain.}
+Application: the outcome units and every residual are unchanged. Therefore
+the residual sum of squares and $SER$ are unchanged. The explained and total
+sums of squares are also unchanged, so $R^2$ stays the same, consistently
+with its unitless interpretation on \lecturepage{3}{12}.
+\end{enumerate}
+
+
+\heading{Additional paper-and-pencil problems: Questions 12--14}
+
+\heading{Question 12: Lesson 1---a small library population (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item There is one student with $Y=0$, six with $Y=2$ and one with $Y=4$.
+Each student has probability $1/8$ of being selected, so
+\[
+\Pr(Y=0)=\frac18,\qquad \Pr(Y=2)=\frac68=\frac34,\qquad
+\Pr(Y=4)=\frac18.
+\]
+The probabilities add to one. Accumulating the probabilities from left to
+right gives the complete c.d.f.:
+\[
+F_Y(y)=
+\begin{cases}
+0,&y<0,\\
+1/8,&0\leq y<2,\\
+7/8,&2\leq y<4,\\
+1,&y\geq4.
+\end{cases}
+\]
+Award 1.5 points for the marginal distribution and 1.5 points for the complete c.d.f.,
+including its values at the jumps.
+\lecturetext{1}{7}{Some Revision}{The cumulative distribution function (c.d.f.) is the probability that the random variable is less than or equal to a particular value}
+The marginal-distribution formula on \lecturepage{1}{13},
+``Joint Probability Distribution $\Pr(X=x,Y=y)$'', is
+$\Pr(Y=y)=\sum_i\Pr(X=x_i,Y=y)$.
+Application: add the two programme counts in each row and divide by eight,
+then sum the probabilities at all outcomes no larger than $y$.
+\seminartext{1}{5}{Solution 1: The earnings c.d.f. (continued)}{At each jump, the filled dot gives the value of the right-continuous c.d.f.}
+Application: use the same step-function construction, with this problem's
+jumps at 0, 2 and 4. In particular, $F_Y(0)=1/8$, $F_Y(2)=7/8$ and $F_Y(4)=1$.
+\item Weight each value and its square by its probability:
+\[
+\E[Y]=0\!\left(\frac18\right)+2\!\left(\frac34\right)
+       +4\!\left(\frac18\right)=\frac32+\frac12=2,
+\]
+\[
+\E[Y^2]=0^2\!\left(\frac18\right)+2^2\!\left(\frac34\right)
+       +4^2\!\left(\frac18\right)=3+2=5.
+\]
+Therefore
+\[
+\Var(Y)=\E[Y^2]-(\E[Y])^2=5-2^2=1.
+\]
+A direct check gives
+$\Var(Y)=(0-2)^2/8+(2-2)^2(3/4)+(4-2)^2/8=1$.
+The mean is two books and the variance is one book squared. These are moments
+of the specified eight-student population, not estimates from a sample;
+there is no $n-1$ correction. Award 1 point for each requested moment.
+\lecturetext{1}{10}{Statistical Moments}{The mean (or expected value) indicates the long-run average of a random variable $Y$:}
+That slide gives $\mathbb E(Y)=\sum_i y_i\Pr(Y=y_i)$ and
+$\operatorname{Var}(Y)=\mathbb E[(Y-\mu_Y)^2]$.
+The variance shortcut on \lecturepage{1}{11}, ``Calculating variance two ways'',
+is $\operatorname{Var}(Y)=\mathbb E(Y^2)-[\mathbb E(Y)]^2$.
+Application: substitute the marginal probabilities from part (a).
+\item Each programme contains four students, so
+$\Pr(G=\mathrm A)=\Pr(G=\mathrm B)=4/8=1/2$.
+Programme A contains one student borrowing zero books, two borrowing two and
+one borrowing four. Programme B has four students, all borrowing two. Thus
+\[
+\E[Y\mid G=\mathrm A]=\frac{0(1)+2(2)+4(1)}4=\frac84=2,
+\qquad
+\E[Y\mid G=\mathrm B]=\frac{2(4)}4=2.
+\]
+Iterated expectations weights the two conditional means by their population
+programme shares:
+\[
+\E[Y]=\E[Y\mid G=\mathrm A]\Pr(G=\mathrm A)
+     +\E[Y\mid G=\mathrm B]\Pr(G=\mathrm B)
+     =2\!\left(\frac12\right)+2\!\left(\frac12\right)=2.
+\]
+This agrees with part (b). Award 1 point for each conditional mean and
+1 point for the correctly weighted recovery of the marginal mean.
+The formulas on \lecturepage{1}{15}, ``Conditional and Iterated Expectations'',
+are
+\[
+\mathbb E(Y\mid X=x)=\sum_i y_i\Pr(Y=y_i\mid X=x),\qquad
+\mathbb E(Y)=\sum_i\mathbb E(Y\mid X=x_i)\Pr(X=x_i).
+\]
+\lecturetext{1}{14}{Working with the joint distribution}{Same cell, different denominator: conditioning changes the reference group.}
+Application: within a programme, divide its counts by four rather than eight.
+For the marginal mean, average the two programme means using their shares.
+\item The variables are not independent. For example,
+\[
+\Pr(Y=2\mid G=\mathrm B)=\frac44=1,
+\qquad \Pr(Y=2)=\frac68=\frac34.
+\]
+Knowing that the selected student is in programme B changes the probability
+of borrowing two books. The conditional means happen to be equal, but the
+conditional distributions differ: programme A includes zero and four books,
+whereas programme B contains only two. Equality of conditional means alone
+therefore does not imply independence.
+Award 1.5 points for the conditional-versus-marginal probability comparison
+and 1.5 points for the conclusion about independence and equal means.
+The independence criterion on \lecturepage{1}{17}, ``Independence'', includes
+$\Pr(Y=y\mid X=x)=\Pr(Y=y)$.
+Application: the displayed failure at $y=2$ rules out independence. The
+conclusion about equal means is a deduction from this problem's calculations,
+not a quotation of a worked example in the lecture.
+\end{enumerate}
+
+\heading{Question 13: Lesson 2---from sample summaries to inference (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item The sample mean is
+\[
+\bar y=\frac{5200}{100}=52\text{ points}.
+\]
+The supplied raw-square identity gives
+\[
+S_{YY}=280300-100(52)^2=280300-270400=9900\text{ points}^2.
+\]
+Thus
+\[
+s_Y^2=\frac{9900}{100-1}=100\text{ points}^2,\qquad
+s_Y=10\text{ points},\qquad
+SE(\bar Y)=\frac{10}{\sqrt{100}}=1\text{ point}.
+\]
+The sample SD describes dispersion of individual scores; the SE describes
+sampling uncertainty in the estimated mean. Award 0.5 points for the mean, 0.75 for the centered sum of squares,
+0.75 for the sample variance, 0.5 for the sample SD, and 0.5 for the SE,
+with appropriate units (3 points in total).
+\lecturetext{2}{8}{Sample Variance and Sample Standard Deviation}{The sample variance, $s_Y^2$ is an estimator of the population variance $\sigma_Y^2$}
+The page defines $s_Y^2=(n-1)^{-1}\sum_i(Y_i-\overline Y)^2$ and
+$s_Y=\sqrt{s_Y^2}$. Application: the raw-square identity in the question
+follows by expanding $(y_i-\bar y)^2$ and using $\sum_i y_i=n\bar y$;
+it is an algebraic shortcut, not a sentence quoted from the lecture.
+\lecturetext{2}{10}{Step 2: Estimating the Standard Error}{Replacing $\sigma_Y$ by $s_Y$ gives the estimated standard deviation of $\overline Y$:}
+The displayed formula is $SE(\overline Y)=s_Y/\sqrt n$.
+\lecturetext{2}{10}{Step 2: Estimating the Standard Error}{The standard error measures the sampling uncertainty of the estimator $\overline Y$.}
+\item The hypotheses are $H_0:\mu_Y=50$ and $H_1:\mu_Y\ne50$.
+The observed statistic is
+\[
+t_{\mathrm{obs}}=\frac{52-50}{1}=2.
+\]
+At 5\%, $|2|>1.96$, so reject $H_0$. At 1\%, $|2|<2.576$, so do not
+reject $H_0$. This uses the stated large-sample normal approximation;
+no exact Student $t$ reference distribution is being assumed.
+Award 0.5 points for each hypothesis, 1 point for the correctly centered
+and standardized statistic, and 0.5 for each correct critical-value
+comparison and decision (3 points in total).
+\lecturetext{2}{7}{P-Value for a One-Sample Mean Test}{We test a population mean against a hypothesized value:}
+The hypotheses on that page are $H_0:\mu_Y=\mu_Y^0$ versus
+$H_1:\mu_Y\ne\mu_Y^0$. Set $\mu_Y^0=50$ here.
+The statistic displayed on \lecturepage{2}{13}, ``The t-statistic and its
+use for hypothesis testing'', is
+$t=(\overline y-\mu_Y^0)/SE(\overline Y)$.
+\seminartext{2}{10}{Solution 2: Decisions and the meaning of .0164 (continued)}{Reject $H_0$ when the p-value is at most $\alpha$, or equivalently when $|t^{\mathrm{obs}}|$ reaches the two-sided critical value.}
+The seminar table gives 1.960 at 5\% and 2.576 at 1\%. The table on
+\lecturepage{2}{21} rounds the 1\% value to 2.58; that rounding gives the
+same decision in this problem.
+\item The 95\% normal approximate interval is
+\[
+52\pm1.96(1)=[50.04,53.96]\text{ points}.
+\]
+It excludes 50, in agreement with rejection by the two-sided 5\% test.
+Do not round the lower endpoint to 50 before checking inclusion.
+Award 0.75 points for the interval formula, 0.75 for each endpoint, and
+0.75 for checking 50 and connecting the result to the test (3 points in total).
+\lecturetext{2}{21}{Computing CIs}{Use $\overline y\pm c\times SE(\overline Y)$, adding and subtracting $c$ standard errors.}
+The same slide says: ``Excluding 175 cm is equivalent to rejecting
+$H_0:\mu_Y=175$ cm at 5\% (two-sided).'' Application: replace the lecture's
+null value 175 by this problem's null value 50; it is excluded here.
+\item Using the planning SD, the planned half-width is
+\[
+h(n)=1.96\frac{10}{\sqrt n}=\frac{19.6}{\sqrt n}.
+\]
+The required inequality is
+\[
+\frac{19.6}{\sqrt n}\leq0.98
+\quad\Longleftrightarrow\quad
+\sqrt n\geq20
+\quad\Longleftrightarrow\quad n\geq400.
+\]
+The minimum integer is therefore 400 students. It is four times the original
+sample size. With the SD unchanged, quadrupling $n$ halves the planned SE
+from 1 to 0.5 and the planned half-width from 1.96 to 0.98. The actual
+interval width can differ if the new survey's estimated SD differs from
+the planning value. Award 1 point for the half-width inequality, 1 point for
+the minimum sample size, and 1 point for the sample-size/precision comparison
+(3 points in total).
+\lecturetext{2}{9}{Step 1: The Standard Deviation of the Sample Mean}{This is smaller when $n$ is larger: averaging more observations makes the sample mean more precise.}
+That page gives the theoretical SD $\sigma_Y/\sqrt n$. Combine it with
+the interval construction on \lecturepage{2}{21} to form the half-width.
+This planning inequality is an application of those lecture formulas.
+\seminartext{2}{20}{Solution 6: Sample size for a target half-width}{For $m_n\leq m$, solve and round up:}
+The seminar's formula is
+$n_{\min}=\lceil(1.96\sigma/m)^2\rceil$, where $m$ denotes target
+half-width. Insert $\sigma=10$ and $m=0.98$ to obtain exactly 400.
+\end{enumerate}
+
+\Needspace{7cm}
+\heading{Question 14: Lesson 3---simple OLS from five observations (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item The means are $\bar x=15/5=3$ and $\bar y=35/5=7$.
+Set $d_{xi}=x_i-3$ and $d_{yi}=y_i-7$. The centered calculations are:
+\begin{center}
+\begin{tabular}{c|rrrrrr}
+$i$ & $x_i$ & $y_i$ & $d_{xi}$ & $d_{yi}$ & $d_{xi}^2$ & $d_{xi}d_{yi}$ \\ \hline
+1 & 1 & 4 & $-2$ & $-3$ & 4 & 6 \\
+2 & 2 & 4 & $-1$ & $-3$ & 1 & 3 \\
+3 & 3 & 7 & 0 & 0 & 0 & 0 \\
+4 & 4 & 8 & 1 & 1 & 1 & 1 \\
+5 & 5 & 12 & 2 & 5 & 4 & 10 \\ \hline
+Sum & 15 & 35 & 0 & 0 & 10 & 20
+\end{tabular}
+\end{center}
+Therefore $S_{XX}=10$, $S_{XY}=20$,
+$\widehat\beta_1=20/10=2$ and
+$\widehat\beta_0=7-2(3)=1$.
+The fitted line is $\widehat y_i=1+2x_i$. One additional weekly study hour is
+associated with two additional predicted quiz points. This interpretation
+of the fitted association alone does not establish a causal effect.
+Award 0.5 points for each mean, 0.5 for each centered sum, 0.5 for each
+coefficient, 0.5 for the fitted line, and 0.5 for the slope interpretation.
+% Lecture3v2.tex:307--316; PDF page8.
+\lecturetext{3}{8}{The Ordinary Least Squares (OLS) Estimator}{The intercept adjusts the average outcome for the fitted slope.}
+The same page gives
+\[
+\hat\beta_1=\frac{\sum_i(Y_i-\overline Y)(X_i-\overline X)}
+{\sum_i(X_i-\overline X)^2},\qquad
+\hat\beta_0=\overline Y-\hat\beta_1\overline X.
+\]
+Its other bullet says: ``The slope compares the comovement of $X$ and $Y$
+with the variation in $X$.'' Application: the centered table supplies the
+numerator and denominator directly; the slope is measured in quiz points
+per weekly study hour.
+\Needspace{5.5cm}
+\item Use $\widehat y_i=1+2x_i$ and
+$\widehat u_i=y_i-\widehat y_i$:
+\begin{center}
+\begin{tabular}{c|rrrrr}
+$i$ & $x_i$ & $y_i$ & $\widehat y_i$ & $\widehat u_i$ & $x_i\widehat u_i$ \\ \hline
+1 & 1 & 4 & 3 & 1 & 1 \\
+2 & 2 & 4 & 5 & $-1$ & $-2$ \\
+3 & 3 & 7 & 7 & 0 & 0 \\
+4 & 4 & 8 & 9 & $-1$ & $-4$ \\
+5 & 5 & 12 & 11 & 1 & 5 \\ \hline
+Sum & 15 & 35 & 35 & 0 & 0
+\end{tabular}
+\end{center}
+Thus $\sum_i\widehat u_i=1-1+0-1+1=0$ and
+$\sum_i x_i\widehat u_i=1-2+0-4+5=0$.
+These are the sample OLS fitting identities for an intercept and one
+regressor. Individual residuals can be positive, negative or zero even
+though both sums equal zero.
+Award 1 point for the five fitted scores, 1 point for the residuals, and
+0.5 for each verified zero sum.
+% Lecture3v2.tex:330--331,270,274,276; PDF pages9,7.
+The formulas on \lecturepage{3}{9}, ``Back to the Linear Regression Model'', are
+$\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and
+$\hat U_i=Y_i-\hat Y_i$.
+\lecturetext{3}{7}{The Ordinary Least Squares (OLS) Estimator}{The first-order conditions are}
+\[
+\sum_i(Y_i-\hat\beta_0-\hat\beta_1X_i)=0,\qquad
+\sum_i(Y_i-\hat\beta_0-\hat\beta_1X_i)X_i=0.
+\]
+Application: use the estimated coefficients in the first two formulas and
+add the residuals and the hour-weighted residuals to check the latter two.
+\seminartext{3}{11}{Solution 3: Normal equations and squared errors (continued)}{These sample fitting identities do not establish causality.}
+\Needspace{5.5cm}
+\item The squared deviations are:
+\begin{center}
+\begin{tabular}{c|rrr}
+$i$ & $(y_i-7)^2$ & $(\widehat y_i-7)^2$ & $\widehat u_i^2$ \\ \hline
+1 & 9 & 16 & 1 \\
+2 & 9 & 4 & 1 \\
+3 & 0 & 0 & 0 \\
+4 & 1 & 4 & 1 \\
+5 & 25 & 16 & 1 \\ \hline
+Sum & $TSS=44$ & $ESS=40$ & $SSR=4$
+\end{tabular}
+\end{center}
+The decomposition is $44=40+4$. Hence
+\[
+R^2=\frac{ESS}{TSS}=\frac{40}{44}=\frac{10}{11}
+=1-\frac4{44},\qquad
+SER=\sqrt{\frac{SSR}{n-2}}=\sqrt{\frac4{5-2}}
+=\frac2{\sqrt3}.
+\]
+The fitted line explains $10/11$ of the sample variation in quiz scores;
+$1/11$ remains in the residuals. $SER$ is residual dispersion measured in
+quiz points, with two fitted coefficients accounted for by $n-2$.
+It is not a standard error of a coefficient. Accept
+$\sqrt{4/3}$ or $2\sqrt3/3$ for the same exact $SER$.
+Award 0.5 points each for $TSS$, $ESS$ and $SSR$, 0.75 for $R^2$ and
+0.75 for $SER$. The displayed decomposition verifies the three sums;
+carry forward one consistent arithmetic error without penalizing it twice.
+% Lecture3v2.tex:434,436--437,532,534; PDF pages13,16.
+\lecturetext{3}{13}{$R^2$}{The $R^2$ is the ratio of the sample variance of $\hat Y$ to the sample variance of $Y$}
+That page displays $R^2=ESS/TSS=1-SSR/TSS$ with the corresponding squared
+sum definitions.
+\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{The two degrees of freedom are used to estimate $\beta_0$ and $\beta_1$.}
+The $SER$ formula on that page is $SER=\sqrt{SSR/(n-2)}$.
+\seminartext{3}{19}{Solution 6: Decomposing the observed score variation}{Thus $TSS=ESS+SSR$: $32=25.6+6.4$.}
+Application: the seminar demonstrates the same identity with different
+numbers. The exam calculations give $44=40+4$ and the exact residual
+spread $2/\sqrt3$; neither a decimal approximation nor a probability table
+is needed.
+\item Because $X_i=M_i/60$, substitute into the fitted line:
+\[
+\widehat y_i=1+2\left(\frac{M_i}{60}\right)
+=1+\frac1{30}M_i.
+\]
+The intercept is still 1 quiz point. The slope is $1/30$ of a quiz point per
+additional study minute: 60 minutes correspond to the original two-point
+change per study hour. This is a change of regressor units, so every fitted
+score and residual stays the same. The outcome units, sample size and sums
+of squares also stay the same. Therefore $R^2=10/11$ and
+$SER=2/\sqrt3$ quiz points remain unchanged.
+Award 0.5 points each for the intercept, minute slope, unchanged $R^2$ and
+unchanged $SER$, with the invariance explanation included in the last two items.
+% Seminar3:443,445,451; Lecture3v2.tex:330--331,436--437,532,547.
+\seminartext{3}{13}{Solution 4: Shares, percentage points, and predicted scores}{Changing the units changes the coefficient's numerical scale and preserves the predictions.}
+The seminar converts a share to percentage points. Application: here the
+same substitution method converts hours to minutes; $X_i=M_i/60$ is the
+reason the slope is divided by 60.
+\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{Both are measured in the units of $Y$. They describe the typical size of the part of $Y$ that the regression does not explain.}
+Application: the fitted scores, residuals and outcome units have not
+changed. Thus the sums in the $R^2$ definition on \lecturepage{3}{13} and
+the $SER$ definition on \lecturepage{3}{16} remain the same. The numerical
+invariance after this specific hours-to-minutes conversion is a deduction,
+not a separate verbatim lecture example.
+\end{enumerate}
+
+%\heading{Coverage and time budget (instructor only)}
+%Questions 1--8: 12 minutes; Q9: 13; Q10: 20; Q11: 25; Q12: 17; Q13: 20;
+%Q14: 25; reading and checking: 18 minutes. Total: 150 minutes.
+%Existing questions: 64 points; new Q12--14: 12 each. Total: 100; grade=raw/10.
+%These are planning estimates, not a timed student pilot.
+%
+%Question 9 follows the joint-distribution, moments and iterated-expectations
+%material in Lecture 1 and Seminar 1. Question 10 follows standard errors,
+%nonzero-null mean comparisons, critical-value tests, confidence intervals
+%and sample-size planning in Lecture 2 and Seminar 2. Question 11 follows
+%scalar OLS estimation, fitted values, residuals, fit, correlation and
+%regressor-unit conversion in Lectures 1--3 and Seminars 1--3. The six
+%written problems require numerical calculations rather than derivations.
+%All numerical data are newly constructed for this exam; no multiple
+%regression or later-course techniques are required.
+%
+%Production: use double-sided printing with long-edge binding. Copy quantity
+%should equal enrolled students excluding cancelled exam sittings; do not
+%request extra copies. Optical-reading instructions, if separately needed,
+%belong in Moodle or on the classroom board, not in the student paper.
+\end{document}
