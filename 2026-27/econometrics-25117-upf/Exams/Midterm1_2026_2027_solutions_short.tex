@@ -1,0 +1,232 @@
+% Concise answer key. Keep separate from the student exam and full key.
+% Compile from the course root with pdflatex.
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+\usepackage{amsmath,amssymb}
+\usepackage[ebgaramond]{newtxmath}
+\usepackage[margin=2cm,includefoot,footskip=8mm]{geometry}
+\usepackage{enumitem,tabularx,fancyhdr,needspace}
+\usepackage[unicode,hidelinks]{hyperref}
+\hypersetup{pdfnewwindow=true,pdftitle={Econometrics 25117: concise Midterm 1 answer key}}
+\linespread{1}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\emergencystretch}{1em}
+\raggedbottom
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\normalfont\thepage}
+\pdfcatalog{/ViewerPreferences << /Duplex /DuplexFlipLongEdge >>}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\heading}[1]{\par\medskip\noindent #1\par\nobreak\smallskip}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {6pt}{3pt}{\normalfont\fontsize{12}{14}\selectfont}}
+\makeatother
+\begin{document}
+\begin{center}
+{\fontsize{12}{14}\selectfont Econometrics (25117): Midterm 1, 2026--2027}\\
+Concise answer key\\
+\normalsize Monday, 9 November 2026
+\end{center}
+
+MCQs: 2.5 points each (20 points); Questions 9--10: 10 points each;
+Questions 11--15: 12 points each. Total: 100 points.
+
+\href{Midterm1_2026_2027_solutions.pdf}{Full explanations and lecture references: detailed answer key.}
+
+\section*{\textbf{Multiple-choice questions}}
+\begin{center}
+\begin{tabular}{c|cccccccc}
+Question & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+Answer & b & c & b & a & d & b & d & c
+\end{tabular}
+\end{center}
+
+\section*{\textbf{Long-answer questions}}
+\Needspace{4\baselineskip}
+\heading{Question 9: joint probabilities and dependence (10 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item $\Pr(D=1)=0.24+0.36=0.60$; $\Pr(Y=1)=0.04+0.36=0.40$.
+\item $\E[Y\mid D=0]=0.04/0.40=0.10$;
+$\E[Y\mid D=1]=0.36/0.60=0.60$.
+$\E[Y]=0.10(0.40)+0.60(0.60)=0.40$.
+\item $\E[DY]=0.36$ and $\Var(D)=\Var(Y)=0.24$, so
+\[
+\Cov(D,Y)=0.36-(0.60)(0.40)=0.12,\qquad
+\Corr(D,Y)=\frac{0.12}{\sqrt{0.24\cdot0.24}}=0.50.
+\]
+\item Not independent: $\Pr(D=1,Y=1)=0.36\ne
+\Pr(D=1)\Pr(Y=1)=0.24$.
+\end{enumerate}
+
+\Needspace{4\baselineskip}
+\heading{Question 10: comparing two means (10 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item $\widehat\Delta=74-68=6$ score points;
+$SE(\widehat\Delta)=\sqrt{12^2/100+16^2/100}=2$ score points.
+\item $H_0:\Delta=2$ versus $H_1:\Delta\ne2$;
+$t_{\mathrm{obs}}=(6-2)/2=2$.
+\item At 5\%: $|2|>1.96$, reject $H_0$.
+At 1\%: $|2|<2.576$, do not reject $H_0$.
+\item $CI_{95\%}=6\pm1.96(2)=[2.08,9.92]$ score points.
+It excludes 2, consistently with the two-sided 5\% rejection.
+\item The planned half-width satisfies
+\[
+1.96\sqrt{\frac{12^2+16^2}{m}}=\frac{39.2}{\sqrt m}\leq2
+\quad\Longleftrightarrow\quad m\geq384.16.
+\]
+$m_{\min}=385$ students per group; total $2m_{\min}=770$ students.
+\end{enumerate}
+
+\Needspace{5cm}
+\heading{Question 11: a small library population (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item $\Pr(Y=0)=1/8$, $\Pr(Y=2)=3/4$ and $\Pr(Y=4)=1/8$;
+\[
+F_Y(y)=\begin{cases}
+0,&y<0,\\
+1/8,&0\leq y<2,\\
+7/8,&2\leq y<4,\\
+1,&y\geq4.
+\end{cases}
+\]
+\item $\E[Y]=0(1/8)+2(3/4)+4(1/8)=2$ books;
+$\E[Y^2]=0^2(1/8)+2^2(3/4)+4^2(1/8)=5$ books squared;
+$\Var(Y)=5-2^2=1$ book squared.
+\item $\Pr(G=\mathrm A)=\Pr(G=\mathrm B)=1/2$.
+$\E[Y\mid G=\mathrm A]=[0(1)+2(2)+4(1)]/4=2$ books and
+$\E[Y\mid G=\mathrm B]=2(4)/4=2$ books.
+$\E[Y]=2(1/2)+2(1/2)=2$ books.
+\item Not independent:
+$\Pr(Y=2\mid G=\mathrm B)=1\ne3/4=\Pr(Y=2)$.
+Equal conditional means do not imply independence.
+\end{enumerate}
+
+\Needspace{4cm}
+\heading{Question 12: from sample summaries to inference (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item
+\[
+\bar y=5200/100=52\text{ points},\qquad
+S_{YY}=280300-100(52)^2=9900\text{ points}^2.
+\]
+\[
+s_Y^2=9900/99=100\text{ points}^2,\qquad
+s_Y=10\text{ points},\qquad SE(\bar Y)=10/\sqrt{100}=1\text{ point}.
+\]
+\item $H_0:\mu_Y=50$ versus $H_1:\mu_Y\ne50$;
+$t_{\mathrm{obs}}=(52-50)/1=2$.
+At 5\%: $|2|>1.96$, reject $H_0$.
+At 1\%: $|2|<2.576$, do not reject $H_0$.
+\item $CI_{95\%}=52\pm1.96(1)=[50.04,53.96]$ points.
+It excludes 50, consistently with the two-sided 5\% rejection.
+\item
+\[
+n_{\min}=\left\lceil\left(\frac{1.96(10)}{0.98}\right)^2\right\rceil
+=400=4(100).
+\]
+With the planning SD unchanged, the planned SE halves from 1 to 0.5 points
+and the planned half-width halves from 1.96 to 0.98 points.
+\end{enumerate}
+
+\Needspace{6\baselineskip}
+\heading{Question 13: simple OLS (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=3pt,topsep=2pt]
+\item Minimize $Q(b_0,b_1)=\sum_i(y_i-b_0-b_1x_i)^2$. The first-order conditions are
+\[
+\frac{\partial Q}{\partial b_0}=-2\sum_i(y_i-b_0-b_1x_i)=0,
+\qquad
+\frac{\partial Q}{\partial b_1}=-2\sum_i x_i(y_i-b_0-b_1x_i)=0.
+\]
+The first gives $\widehat\beta_0=\bar y-\widehat\beta_1\bar x$.
+Substituting into the second and centering gives
+\[
+0=\sum_i(x_i-\bar x)(y_i-\bar y)
+-\widehat\beta_1\sum_i(x_i-\bar x)^2,
+\qquad
+\widehat\beta_1=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}.
+\]
+The solution is unique when $\sum_i(x_i-\bar x)^2>0$, so the $x_i$ are not all equal.
+\item $\widehat\beta_1=50/100=0.5$, $\widehat\beta_0=70-0.5(4)=68$;
+$\widehat y_i=68+0.5x_i$. One additional weekly study hour is associated with
+0.5 additional predicted score points.
+\item $\widehat y_i=68+0.5(6)=71$; $\widehat u_i=72-71=1$ point.
+\item $ESS=0.5^2(100)=25$, $SSR=425-25=400$;
+$R^2=25/425=1/17$, $SER=\sqrt{400/(102-2)}=2$ points.
+\item $r_{XY}=50/\sqrt{100(425)}=1/\sqrt{17}$;
+$r_{XY}^2=1/17=R^2$.
+\item $\widehat y_i=68+M_i/120$: intercept $68$, slope $1/120$ point per minute;
+$R^2=1/17$ and $SER=2$ points.
+\end{enumerate}
+
+\Needspace{6\baselineskip}
+\heading{Question 14: one regressor without an intercept (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=3pt,topsep=2pt]
+\item Minimize $Q(b_1)=\sum_i(y_i-b_1x_i)^2$. Then
+\[
+Q'(b_1)=-2\sum_i x_i(y_i-b_1x_i)=0
+\quad\Longrightarrow\quad
+\widehat\beta_1=\frac{\sum_i x_i y_i}{\sum_i x_i^2}.
+\]
+Uniqueness requires $\sum_i x_i^2>0$ (at least one nonzero $x_i$);
+then $Q''(b_1)=2\sum_i x_i^2>0$.
+\item The raw sums and estimate are
+\[
+\sum_i x_i^2=100+102(4)^2=1732,\qquad
+\sum_i x_i y_i=50+102(4)(70)=28610,
+\]
+\[
+\widehat\beta_1=\frac{28610}{1732}=\frac{14305}{866},
+\qquad \widehat y_i=\frac{14305}{866}x_i.
+\]
+One additional weekly study hour adds $14305/866\approx16.5185$ predicted
+score points in this imposed line through the origin.
+\item $\widehat y_i=6(14305/866)=42915/433\approx99.11$ points;
+$\widehat u_i=72-42915/433=-11739/433\approx-27.11$ points.
+\item
+\[
+\sum_i x_i\widehat u_i=28610-\frac{14305}{866}(1732)=0,
+\qquad
+\sum_i\widehat u_i=7140-\frac{14305}{866}(408)=\frac{173400}{433}.
+\]
+The ordinary sum need not be zero: without an intercept, there is no
+intercept first-order condition imposing it.
+\end{enumerate}
+
+\Needspace{6\baselineskip}
+\heading{Question 15: simple OLS from five observations (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=3pt,topsep=2pt]
+\item $\bar x=3$, $\bar y=7$, $S_{XX}=10$, $S_{XY}=20$;
+$\widehat\beta_1=20/10=2$, $\widehat\beta_0=7-2(3)=1$;
+$\widehat y_i=1+2x_i$. One additional weekly study hour is associated with
+two additional predicted quiz points.
+\item Fitted values and residuals:
+\begin{center}
+\begin{tabular}{c|rrrrr}
+$i$ & 1 & 2 & 3 & 4 & 5 \\ \hline
+$\widehat y_i$ & 3 & 5 & 7 & 9 & 11 \\
+$\widehat u_i$ & 1 & $-1$ & 0 & $-1$ & 1 \\
+$x_i\widehat u_i$ & 1 & $-2$ & 0 & $-4$ & 5
+\end{tabular}
+\end{center}
+$\sum_i\widehat u_i=1-1+0-1+1=0$;
+$\sum_i x_i\widehat u_i=1-2+0-4+5=0$.
+\item $TSS=44$, $ESS=40$, $SSR=4$; $44=40+4$.
+\[
+R^2=\frac{40}{44}=\frac{10}{11},\qquad
+SER=\sqrt{\frac4{5-2}}=\frac2{\sqrt3}\ \text{points}.
+\]
+\item $\widehat y_i=1+M_i/30$: intercept $1$, slope $1/30$ point per minute;
+$R^2=10/11$, $SER=2/\sqrt3$ points. Fitted scores and residuals are unchanged,
+so both fit statistics are unchanged.
+\end{enumerate}
+\end{document}

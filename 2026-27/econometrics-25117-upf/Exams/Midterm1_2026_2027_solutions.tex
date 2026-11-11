@@ -45,7 +45,8 @@
 \begin{document}
 \begin{center}
 {\fontsize{12}{14}\selectfont Econometrics (25117): Midterm 1, 2026--2027}\\
-Worked answer key, explanations and lecture references: 150-minute midterm\\
+Worked answer key, explanations and lecture references: 180-minute midterm\\
+Lectures 1--3 and Seminars 1--3\\
 \normalsize Monday, 9 November 2026
 \end{center}
 
@@ -67,14 +68,16 @@ explains a calculation or deduction for this exam; it is not presented as a
 quotation from the slides. Supplemental seminar references identify matching
 practice where useful. The exam data differ from the examples in the lectures.
 
-\section*{Multiple-choice questions}
+\section*{\textbf{Multiple-choice questions}}
 \begin{center}
 \begin{tabular}{c|cccccccc}
 Question & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
 Answer & b & c & b & a & d & b & d & c
 \end{tabular}
 \end{center}
-Four points per correct option; zero for a wrong or blank response.
+Each correct option earns 2.5 points; a wrong or blank response earns zero.
+The eight multiple-choice questions are worth 20 points; Questions 9--15
+are worth 80 points.
 \begin{enumerate}[label=\arabic*.,leftmargin=*,itemsep=3pt,topsep=3pt]
 \item Answer (b). $\E[Y_1]=\mu$, so the estimator is unbiased. Its distribution never
 concentrates at $\mu$ as $n$ grows: the same nondegenerate random variable is
@@ -138,27 +141,40 @@ This is the sentence in the Type I box. The Type II box on the same page says:
 ``Occurs when we fail to reject a null hypothesis that is actually false.''
 Application: these are exactly the descriptions in options (a) and (b),
 respectively; only the first answers the Type I question.
-\item Answer (d). Coverage is a repeated-sampling property of the interval procedure.
-In the frequentist framework the parameter is fixed, and the interval is random
-before the sample is observed. With the approximation used here, coverage is
-approximately 95\%. Option (a) assigns a probability to the fixed parameter
-after observing the interval. Option (b) confuses uncertainty about a mean
-with dispersion of individual observations. Option (c) confuses interval
-coverage with exact equality between sample and population means.
-% Lecture2v2.tex:546,557,562--568; PDF pages20--21.
-\lecturetext{2}{20}{What are Confidence Intervals (CIs)?}{They provide a range of plausible values for a population parameter, not just a single point estimate.}
-\lecturetext{2}{21}{Computing CIs}{For $Z\sim\mathcal N(0,1)$, choose $c$ so that $P(-c\leq Z\leq c)=1-\alpha$.}
-The slide gives the interval $\overline y\pm c\times SE(\overline Y)$.
-Application: with $c=1.96$, the large-sample probability statement can be
-rewritten as
+\item Answer (d). For a proposed null value $\mu_0$, the observed statistic is
 \[
-\Pr\!\left(\mu_Y\in
-[\overline Y-1.96SE(\overline Y),\,
- \overline Y+1.96SE(\overline Y)]\right)\approx0.95.
+t(\mu_0)=\frac{\bar y-\mu_0}{SE(\bar Y)}=\frac{3-\mu_0}{1}.
 \]
-The interval varies across samples while $\mu_Y$ stays fixed. This explains
-the repeated-sampling wording in (d). The slides give the probability
-construction; they do not print that exact repeated-sampling sentence.
+The question specifies rejection when $|t(\mu_0)|>1.96$. Consequently, the
+values that are not rejected satisfy
+\[
+|3-\mu_0|\leq1.96
+\quad\Longleftrightarrow\quad
+3-1.96\leq\mu_0\leq3+1.96
+\quad\Longleftrightarrow\quad
+\mu_0\in[1.04,4.96].
+\]
+The smallest such value is $1.04$. At that value, $t=1.96$ exactly, so it
+is not rejected under the stated strict-greater-than rule. Option (a), zero,
+is rejected because $t(0)=3>1.96$. Option (b), 1.96, lies inside the
+non-rejection interval, but it is not its minimum. Option (c), 4.96, is
+the upper endpoint, where $t=-1.96$, rather than the minimum. Option (d)
+is the lower endpoint and therefore answers the question.
+% Lecture2v2.tex:381,568,577; PDF pages13,21. The question explicitly
+% specifies the strict rejection boundary; use that stated convention.
+The statistic on \lecturepage{2}{13}, ``The t-statistic and its use for
+hypothesis testing'', is
+\[
+t=\frac{\overline y-\mu_Y^0}{SE(\overline Y)}.
+\]
+\lecturetext{2}{21}{Computing CIs}{Use $\overline y\pm c\times SE(\overline Y)$, adding and subtracting $c$ standard errors.}
+The same slide states: ``Excluding 175 cm is equivalent to rejecting
+$H_0:\mu_Y=175$ cm at 5\% (two-sided).''
+Application: invert the test using the estimate 3 and standard error 1.
+The resulting interval is $3\pm1.96(1)=[1.04,4.96]$, and its smallest
+value is the requested null value. The boundary is included because the
+question explicitly rejects only for a statistic strictly greater than
+1.96 in absolute value; equality does not trigger rejection.
 \item Answer (b). The two residual identities are the sample OLS first-order
 conditions when an intercept is included, regardless of the population
 relationship between $X_i$ and $U_i$. Option (a) confuses these mechanical
@@ -209,7 +225,7 @@ dividing by the smaller denominator makes $SER$ larger than $RMSE$.
 \end{enumerate}
 
 \Needspace{7.5cm}
-\section*{Long-answer questions}
+\section*{\textbf{Long-answer questions}}
 \heading{Question 9: joint probabilities and dependence (10 points)}
 \begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
 \item $\Pr(D=1)=0.24+0.36=0.60$ and
@@ -292,7 +308,8 @@ Application: one cell violating the product equality is enough to rule out
 independence. Here $0.36\ne0.24$.
 \end{enumerate}
 
-\heading{Question 10: comparing two means (11 points)}
+\Needspace{4\baselineskip}
+\heading{Question 10: comparing two means (10 points)}
 \begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
 \item The estimated difference is $\widehat\Delta=74-68=6$ points. Under the
 stated independence,
@@ -317,7 +334,7 @@ variance. Insert the two sample SDs and sizes to obtain $SE=2$.
 \item Test $H_0:\Delta=2$ against $H_1:\Delta\ne2$.
 The observed test statistic is
 $t_{\mathrm{obs}}=(6-2)/2=2$.
-Award 0.5 points for each hypothesis and 2 points for the correctly centered
+Award 0.5 points for each hypothesis and 1 point for the correctly centered
 and standardized statistic. Using $6/2=3$ tests the wrong null.
 % Lecture2v2.tex:587,612--614; PDF pages22--23.
 \lecturetext{2}{23}{Mean Difference Testing: Comparing Groups 2/2}{Once we have $SE(\overline Y^a-\overline Y^b)$, we can easily compute the corresponding t-statistic}
@@ -391,132 +408,7 @@ planning value describes the population.''
 \end{enumerate}
 
 \Needspace{4\baselineskip}
-\heading{Question 11: simple OLS (11 points)}
-\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
-\item For simple OLS with an intercept, divide the centered cross-product
-sum by the centered sum of squares of $X$:
-\[
-\widehat\beta_1=
-\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}
-=\frac{50}{100}=0.5,\qquad
-\widehat\beta_0=70-0.5(4)=68.
-\]
-The intercept follows from the fact that the fitted line passes through
-$(\bar x,\bar y)$.
-The fitted line is $\widehat y_i=68+0.5x_i$: one additional weekly study hour
-is associated with 0.5 additional predicted score points. This is not yet a
-causal statement. Award 0.5 points each for the slope, intercept, fitted line
-and interpretation.
-% Lecture3v2.tex:307--316,184; PDF pages8,3.
-\lecturetext{3}{8}{The Ordinary Least Squares (OLS) Estimator}{The intercept adjusts the average outcome for the fitted slope.}
-The displayed coefficient formulas are
-\[
-\hat\beta_0=\overline Y-\hat\beta_1\overline X,\qquad
-\hat\beta_1=\frac{\sum_i(Y_i-\overline Y)(X_i-\overline X)}
-{\sum_i(X_i-\overline X)^2}=\frac{s_{XY}}{s_X^2}.
-\]
-The same slide says: ``The slope compares the comovement of $X$ and $Y$
-with the variation in $X$.''
-\lecturetext{3}{3}{The regression line}{The slope is the difference in the expected values of Y, for two values of X that differ by one unit}
-Application: use the supplied centered sums in the estimator formula and
-read the fitted slope as the change in predicted score per additional hour.
-The estimated-line interpretation alone makes no causal claim.
-\item $\widehat y_i=68+0.5(6)=71$ and
-$\widehat u_i=72-71=1$. The fitted score is the point on the estimated line
-at six hours. The residual is observed minus fitted, so this student scores
-one point above the prediction. Award 0.5 points for the fitted score and
-0.5 for the residual.
-% Lecture3v2.tex:330--331; Seminar3:379.
-The formulas on \lecturepage{3}{9}, ``Back to the Linear Regression Model'', are
-\[
-\hat Y_i=\hat\beta_0+\hat\beta_1X_i,\qquad
-\hat U_i=Y_i-\hat Y_i.
-\]
-\seminartext{3}{10}{Solution 3: Fitted scores and vertical residuals}{Residuals use the estimated sample line. Population errors use the true population coefficients.}
-Application: substitute six hours into the fitted line, then subtract its
-prediction from the observed score. Reversing the subtraction would give
-the wrong residual sign.
-\item Since OLS includes an intercept,
-\[
-ESS=\widehat\beta_1^2\sum_i(x_i-\bar x)^2=0.5^2(100)=25,
-\qquad SSR=TSS_Y-ESS=425-25=400.
-\]
-Thus $R^2=25/425=1/17\approx0.0588$ and
-$SER=\sqrt{400/(102-2)}=2$ score points.
-The fitted values account for about 5.88\% of the sample variation in scores.
-$SER$ summarizes residual dispersion in score points, using $n-2$ because
-the fitted line estimates an intercept and a slope. It is not a coefficient
-standard error. Award 1 point each for $ESS$, $SSR$, $R^2$ and $SER$.
-% Lecture3v2.tex:434,421--422,528,532,547; Seminar3:597.
-\lecturetext{3}{13}{$R^2$}{The $R^2$ is the ratio of the sample variance of $\hat Y$ to the sample variance of $Y$}
-This page writes $R^2$ as the explained sum of squares divided by the total
-sum of squares, and also as one minus the residual sum of squares divided
-by the total sum of squares.
-\lecturetext{3}{12}{Goodness of Fit}{The standard error of the regression ($SER$) measures the magnitude of a typical regression residual in the units of Y.}
-The definition $SER=\sqrt{SSR/(n-2)}$ appears on \lecturepage{3}{16}.
-\seminartext{3}{19}{Solution 6: Decomposing the observed score variation}{Thus $TSS=ESS+SSR$: $32=25.6+6.4$.}
-Application: the seminar numbers illustrate the decomposition. For this exam,
-$\hat y_i-\bar y=0.5(x_i-\bar x)$, so $ESS=0.5^2(100)=25$ and the
-corresponding decomposition is $425=25+400$.
-\item Sample correlation can be calculated directly from centered sums:
-\[
-r_{XY}=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
-{\sqrt{\sum_i(x_i-\bar x)^2\sum_i(y_i-\bar y)^2}}
-=\frac{50}{\sqrt{100\cdot425}}
-=\frac{1}{\sqrt{17}}\approx0.2425.
-\]
-The sample covariance and both sample variances would each use the same
-$n-1$ divisor; it cancels in this correlation formula. Squaring gives
-$r_{XY}^2=1/17\approx0.0588=R^2$. This equality holds for simple OLS with
-an intercept. Correlation retains the positive sign of the association,
-whereas $R^2$ records its squared strength. Award 1 point for the correlation
-and 1 point for verifying the equality numerically.
-% Lecture2v2.tex:748,750; Lecture3v2.tex:309--312,436--437.
-\lecturetext{2}{28}{The California Test Score Data Set}{The sample correlation, $r_{XY}=\frac{s_{XY}}{s_Xs_Y}$}
-The same page gives
-$s_{XY}=(n-1)^{-1}\sum_i(X_i-\overline X)(Y_i-\overline Y)$.
-Application: the $n-1$ terms cancel when this covariance is divided by the
-two sample standard deviations, giving the centered-sum correlation above.
-
-The identity $r^2=R^2$ is an algebraic consequence of the OLS formulas on
-\lecturepage{3}{8} and the fit definition on \lecturepage{3}{13}; it is not
-printed there as a separate sentence. Writing $S_{XX},S_{XY},S_{YY}$ for the
-three centered sums supplied in the question gives
-\[
-ESS=\hat\beta_1^2S_{XX}=\frac{S_{XY}^2}{S_{XX}},\qquad
-R^2=\frac{S_{XY}^2}{S_{XX}S_{YY}}=r_{XY}^2.
-\]
-This derivation requires simple OLS with an intercept, as in the exam.
-\item Substitute $X_i=M_i/60$ into the original fitted line:
-\[
-\widehat y_i=68+0.5\left(\frac{M_i}{60}\right)
-=68+\frac{1}{120}M_i.
-\]
-The intercept remains 68, and the slope is $1/120\approx0.00833$ score
-points per additional study minute. A minute is $1/60$ of an hour, so its
-slope is $1/60$ of the hourly slope. The conversion changes the numerical
-regressor units, but it does not change any fitted score or residual.
-Consequently $ESS$, $SSR$ and $TSS_Y$ remain the same, giving
-$R^2=1/17\approx0.0588$ and $SER=2$ score points again. Award 0.5 points
-each for the intercept, slope, unchanged $R^2$ and unchanged $SER$.
-% Lecture3v2.tex:330--331,421,547; Seminar3:451.
-Application of the fitted-value formula on \lecturepage{3}{9}: expressing
-the same study time in minutes means $X_i=M_i/60$. Substitute that identity
-without changing the fitted score.
-\seminartext{3}{13}{Solution 4: Shares, percentage points, and predicted scores}{Changing the units changes the coefficient's numerical scale and preserves the predictions.}
-The seminar example converts a share to percentage points; the exam applies
-the same substitution method to hours and minutes.
-\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{Both are measured in the units of $Y$. They describe the typical size of the part of $Y$ that the regression does not explain.}
-Application: the outcome units and every residual are unchanged. Therefore
-the residual sum of squares and $SER$ are unchanged. The explained and total
-sums of squares are also unchanged, so $R^2$ stays the same, consistently
-with its unitless interpretation on \lecturepage{3}{12}.
-\end{enumerate}
-
-
-\heading{Additional paper-and-pencil problems: Questions 12--14}
-
-\heading{Question 12: Lesson 1---a small library population (12 points)}
+\heading{Question 11: a small library population (12 points)}
 \begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
 \item There is one student with $Y=0$, six with $Y=2$ and one with $Y=4$.
 Each student has probability $1/8$ of being selected, so
@@ -616,7 +508,8 @@ conclusion about equal means is a deduction from this problem's calculations,
 not a quotation of a worked example in the lecture.
 \end{enumerate}
 
-\heading{Question 13: Lesson 2---from sample summaries to inference (12 points)}
+\Needspace{4\baselineskip}
+\heading{Question 12: from sample summaries to inference (12 points)}
 \begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
 \item The sample mean is
 \[
@@ -705,8 +598,317 @@ $n_{\min}=\lceil(1.96\sigma/m)^2\rceil$, where $m$ denotes target
 half-width. Insert $\sigma=10$ and $m=0.98$ to obtain exactly 400.
 \end{enumerate}
 
+\Needspace{4\baselineskip}
+\heading{Question 13: simple OLS (12 points)}
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item For trial coefficient values $b_0$ and $b_1$, minimize
+\[
+Q(b_0,b_1)=\sum_{i=1}^n(y_i-b_0-b_1x_i)^2.
+\]
+Differentiate separately with respect to the intercept and slope:
+\begin{align*}
+\frac{\partial Q}{\partial b_0}
+ &=-2\sum_i(y_i-b_0-b_1x_i),\\
+\frac{\partial Q}{\partial b_1}
+ &=-2\sum_i x_i(y_i-b_0-b_1x_i).
+\end{align*}
+At the minimum, both derivatives equal zero, so
+\[
+\sum_i(y_i-\widehat\beta_0-\widehat\beta_1x_i)=0,\qquad
+\sum_i x_i(y_i-\widehat\beta_0-\widehat\beta_1x_i)=0.
+\]
+The first condition gives
+\[
+n\bar y-n\widehat\beta_0-n\widehat\beta_1\bar x=0
+\quad\Longrightarrow\quad
+\widehat\beta_0=\bar y-\widehat\beta_1\bar x.
+\]
+Substitute this expression into the second condition:
+\begin{align*}
+0
+&=\sum_i x_i\big[(y_i-\bar y)-\widehat\beta_1(x_i-\bar x)\big]\\
+&=\sum_i(x_i-\bar x)(y_i-\bar y)
+ -\widehat\beta_1\sum_i(x_i-\bar x)^2.
+\end{align*}
+To obtain the second line, write $x_i=(x_i-\bar x)+\bar x$.
+The terms multiplied by $\bar x$ vanish because
+$\sum_i(y_i-\bar y)=0$ and $\sum_i(x_i-\bar x)=0$.
+Thus, with $S_{XX}=\sum_i(x_i-\bar x)^2>0$,
+\[
+\widehat\beta_1=
+\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2},
+\qquad
+\widehat\beta_0=\bar y-\widehat\beta_1\bar x.
+\]
+The condition $S_{XX}>0$ means that the observed regressor values are not
+all equal. It makes the normal equations identify a unique intercept and
+slope, giving the unique least-squares minimum. If every $x_i$ equals
+$\bar x$, the data identify only the fitted level
+$b_0+b_1\bar x$, rather than a unique coefficient pair.
+Award 0.5 points for the objective, 0.25 for each first-order condition,
+0.5 for the slope formula, 0.25 for the intercept formula, and 0.25 for
+the condition. Total: 2 points.
+% Lecture3v2.tex:253--276,283--299,307--312; PDF pages6--8.
+The least-squares criterion on \lecturepage{3}{6}, ``The Ordinary Least
+Squares (OLS) Estimator'', supplies the minimization method.
+\lecturetext{3}{7}{The Ordinary Least Squares (OLS) Estimator}{The first-order conditions are}
+The two zero-sum equations displayed above match the slide's conditions
+when its observations $Y_i,X_i$ are written in lower case. That page also
+solves the first condition for the intercept. Application: differentiating
+the trial-coefficient objective and expanding the centered terms gives the
+slope formula. This is the algebra underlying the coefficient formulas
+printed on \lecturepage{3}{8}; numerical substitution belongs to the next
+part of this question.
+\item For simple OLS with an intercept, divide the centered cross-product
+sum by the centered sum of squares of $X$:
+\[
+\widehat\beta_1=
+\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}
+=\frac{50}{100}=0.5,\qquad
+\widehat\beta_0=70-0.5(4)=68.
+\]
+The intercept follows from the fact that the fitted line passes through
+$(\bar x,\bar y)$.
+The fitted line is $\widehat y_i=68+0.5x_i$: one additional weekly study hour
+is associated with 0.5 additional predicted score points. This is not yet a
+causal statement. Award 0.5 points each for the slope, intercept, fitted line
+and interpretation.
+% Lecture3v2.tex:307--316,184; PDF pages8,3.
+\lecturetext{3}{8}{The Ordinary Least Squares (OLS) Estimator}{The intercept adjusts the average outcome for the fitted slope.}
+The displayed coefficient formulas are
+\[
+\hat\beta_0=\overline Y-\hat\beta_1\overline X,\qquad
+\hat\beta_1=\frac{\sum_i(Y_i-\overline Y)(X_i-\overline X)}
+{\sum_i(X_i-\overline X)^2}=\frac{s_{XY}}{s_X^2}.
+\]
+The same slide says: ``The slope compares the comovement of $X$ and $Y$
+with the variation in $X$.''
+\lecturetext{3}{3}{The regression line}{The slope is the difference in the expected values of Y, for two values of X that differ by one unit}
+Application: use the supplied centered sums in the estimator formula and
+read the fitted slope as the change in predicted score per additional hour.
+The estimated-line interpretation alone makes no causal claim.
+\item $\widehat y_i=68+0.5(6)=71$ and
+$\widehat u_i=72-71=1$. The fitted score is the point on the estimated line
+at six hours. The residual is observed minus fitted, so this student scores
+one point above the prediction. Award 1 point for the fitted score and
+1 point for the residual.
+% Lecture3v2.tex:330--331; Seminar3:379.
+The formulas on \lecturepage{3}{9}, ``Back to the Linear Regression Model'', are
+\[
+\hat Y_i=\hat\beta_0+\hat\beta_1X_i,\qquad
+\hat U_i=Y_i-\hat Y_i.
+\]
+\seminartext{3}{10}{Solution 3: Fitted scores and vertical residuals}{Residuals use the estimated sample line. Population errors use the true population coefficients.}
+Application: substitute six hours into the fitted line, then subtract its
+prediction from the observed score. Reversing the subtraction would give
+the wrong residual sign.
+\item Since OLS includes an intercept,
+\[
+ESS=\widehat\beta_1^2\sum_i(x_i-\bar x)^2=0.5^2(100)=25,
+\qquad SSR=TSS_Y-ESS=425-25=400.
+\]
+Thus $R^2=25/425=1/17\approx0.0588$ and
+$SER=\sqrt{400/(102-2)}=2$ score points.
+The fitted values account for about 5.88\% of the sample variation in scores.
+$SER$ summarizes residual dispersion in score points, using $n-2$ because
+the fitted line estimates an intercept and a slope. It is not a coefficient
+standard error. Award 0.5 points each for $ESS$, $SSR$, $R^2$ and $SER$.
+% Lecture3v2.tex:434,421--422,528,532,547; Seminar3:597.
+\lecturetext{3}{13}{$R^2$}{The $R^2$ is the ratio of the sample variance of $\hat Y$ to the sample variance of $Y$}
+This page writes $R^2$ as the explained sum of squares divided by the total
+sum of squares, and also as one minus the residual sum of squares divided
+by the total sum of squares.
+\lecturetext{3}{12}{Goodness of Fit}{The standard error of the regression ($SER$) measures the magnitude of a typical regression residual in the units of Y.}
+The definition $SER=\sqrt{SSR/(n-2)}$ appears on \lecturepage{3}{16}.
+\seminartext{3}{19}{Solution 6: Decomposing the observed score variation}{Thus $TSS=ESS+SSR$: $32=25.6+6.4$.}
+Application: the seminar numbers illustrate the decomposition. For this exam,
+$\hat y_i-\bar y=0.5(x_i-\bar x)$, so $ESS=0.5^2(100)=25$ and the
+corresponding decomposition is $425=25+400$.
+\item Sample correlation can be calculated directly from centered sums:
+\[
+r_{XY}=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
+{\sqrt{\sum_i(x_i-\bar x)^2\sum_i(y_i-\bar y)^2}}
+=\frac{50}{\sqrt{100\cdot425}}
+=\frac{1}{\sqrt{17}}\approx0.2425.
+\]
+The sample covariance and both sample variances would each use the same
+$n-1$ divisor; it cancels in this correlation formula. Squaring gives
+$r_{XY}^2=1/17\approx0.0588=R^2$. This equality holds for simple OLS with
+an intercept. Correlation retains the positive sign of the association,
+whereas $R^2$ records its squared strength. Award 1 point for the correlation
+and 1 point for verifying the equality numerically.
+% Lecture2v2.tex:748,750; Lecture3v2.tex:309--312,436--437.
+\lecturetext{2}{28}{The California Test Score Data Set}{The sample correlation, $r_{XY}=\frac{s_{XY}}{s_Xs_Y}$}
+The same page gives
+$s_{XY}=(n-1)^{-1}\sum_i(X_i-\overline X)(Y_i-\overline Y)$.
+Application: the $n-1$ terms cancel when this covariance is divided by the
+two sample standard deviations, giving the centered-sum correlation above.
+
+The identity $r^2=R^2$ is an algebraic consequence of the OLS formulas on
+\lecturepage{3}{8} and the fit definition on \lecturepage{3}{13}; it is not
+printed there as a separate sentence. Writing $S_{XX},S_{XY},S_{YY}$ for the
+three centered sums supplied in the question gives
+\[
+ESS=\hat\beta_1^2S_{XX}=\frac{S_{XY}^2}{S_{XX}},\qquad
+R^2=\frac{S_{XY}^2}{S_{XX}S_{YY}}=r_{XY}^2.
+\]
+This derivation requires simple OLS with an intercept, as in the exam.
+\item Substitute $X_i=M_i/60$ into the original fitted line:
+\[
+\widehat y_i=68+0.5\left(\frac{M_i}{60}\right)
+=68+\frac{1}{120}M_i.
+\]
+The intercept remains 68, and the slope is $1/120\approx0.00833$ score
+points per additional study minute. A minute is $1/60$ of an hour, so its
+slope is $1/60$ of the hourly slope. The conversion changes the numerical
+regressor units, but it does not change any fitted score or residual.
+Consequently $ESS$, $SSR$ and $TSS_Y$ remain the same, giving
+$R^2=1/17\approx0.0588$ and $SER=2$ score points again. Award 0.5 points
+each for the intercept, slope, unchanged $R^2$ and unchanged $SER$.
+% Lecture3v2.tex:330--331,421,547; Seminar3:451.
+Application of the fitted-value formula on \lecturepage{3}{9}: expressing
+the same study time in minutes means $X_i=M_i/60$. Substitute that identity
+without changing the fitted score.
+\seminartext{3}{13}{Solution 4: Shares, percentage points, and predicted scores}{Changing the units changes the coefficient's numerical scale and preserves the predictions.}
+The seminar example converts a share to percentage points; the exam applies
+the same substitution method to hours and minutes.
+\lecturetext{3}{16}{SER and RMSE: What Is the Difference?}{Both are measured in the units of $Y$. They describe the typical size of the part of $Y$ that the regression does not explain.}
+Application: the outcome units and every residual are unchanged. Therefore
+the residual sum of squares and $SER$ are unchanged. The explained and total
+sums of squares are also unchanged, so $R^2$ stays the same, consistently
+with its unitless interpretation on \lecturepage{3}{12}.
+\end{enumerate}
+
+\Needspace{5cm}
+\heading{Question 14: one regressor without an intercept (12 points)}
+Use the same sample as Question 13, but impose a line through the origin.
+The through-origin estimator below is derived as an application of the
+least-squares method, rather than quoted as a formula printed in the lecture.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
+\item For a trial value $b_1$, minimize
+\[
+Q(b_1)=\sum_{i=1}^{102}(y_i-b_1x_i)^2.
+\]
+Its derivative is
+\[
+Q'(b_1)=-2\sum_i x_i(y_i-b_1x_i).
+\]
+At the OLS solution, set this derivative to zero:
+\[
+\sum_i x_i y_i-\widehat\beta_1\sum_i x_i^2=0
+\quad\Longrightarrow\quad
+\widehat\beta_1=\frac{\sum_i x_i y_i}{\sum_i x_i^2}.
+\]
+The denominator must satisfy $\sum_i x_i^2>0$: at least one observed
+regressor value must be nonzero. Then
+$Q''(b_1)=2\sum_i x_i^2>0$, so the solution is the unique minimum.
+If all regressor values were zero, the objective would not depend on
+$b_1$ and no unique coefficient would be identified. These are raw sums;
+there is no fitted intercept in this model.
+Award 1 point for the objective, 1 point for the derivative and first-order
+condition, 1.5 points for the estimator, and 0.5 for the denominator
+condition. Total: 4 points.
+% Lecture3v2.tex:253--266,270--276; PDF pages6--7.
+The least-squares expression displayed on \lecturepage{3}{6}, ``The Ordinary
+Least Squares (OLS) Estimator'', is
+\[
+\min_{\beta_0,\beta_1}\sum_{i=1}^n
+\bigl(Y_i-(\hat\beta_0+\hat\beta_1X_i)\bigr)^2.
+\]
+This displayed lecture expression has an intercept and one regressor.
+\lecturetext{3}{7}{The Ordinary Least Squares (OLS) Estimator}{The first-order conditions are}
+Application: apply the same minimization and differentiation method to the
+new fitted value $b_1x_i$, which has only one coefficient and no constant
+term. The estimator and denominator condition above are derived for this
+problem; they are not presented as verbatim lecture formulas.
+\Needspace{5cm}
+\item To calculate the coefficient, first express its raw sums using the summaries in Question 13:
+\[
+\sum_i(x_i-\bar x)^2=\sum_i x_i^2-n\bar x^2,
+\]
+\[
+\sum_i(x_i-\bar x)(y_i-\bar y)
+=\sum_i x_i y_i-n\bar x\bar y.
+\]
+These follow by expanding the products and using
+$\sum_i x_i=n\bar x$ and $\sum_i y_i=n\bar y$.
+Using the summaries in Question 13 gives
+\[
+\sum_i x_i^2=100+102(4)^2=100+1632=1732,
+\]
+\[
+\sum_i x_i y_i=50+102(4)(70)=50+28560=28610.
+\]
+Therefore
+\[
+\widehat\beta_1=\frac{28610}{1732}=\frac{14305}{866}\approx16.5185,
+\qquad \widehat y_i=\frac{14305}{866}x_i.
+\]
+The fitted slope is $14305/866$ score points per additional weekly study
+hour within this imposed through-origin line. The intercept is fixed at
+zero, so the slope absorbs much of the score level that the intercept
+accounted for in Question 13. This descriptive fitted association does not
+by itself establish a causal effect. The exact fraction is sufficient;
+no decimal division is needed.
+Award 1 point for each recovered raw sum, 1 point for the coefficient, and
+1 point for the slope interpretation. Total: 4 points.
+Application: the two raw-sum identities are algebraic expansions of the
+Question 13 summaries. Insert those sums into the estimator derived in
+part (a), using the least-squares method on \lecturepage{3}{6} and
+\lecturepage{3}{7}. The lecture's intercept-model formula is not being
+substituted unchanged into the no-intercept model.
+\Needspace{4cm}
+\item With $x_i=6$, the new fitted score is
+\[
+\widehat y_i=\frac{14305}{866}(6)=\frac{42915}{433}.
+\]
+The residual is observed minus fitted:
+\[
+\widehat u_i=72-\frac{42915}{433}
+=\frac{31176-42915}{433}=-\frac{11739}{433}.
+\]
+These are approximately 99.11 and $-27.11$ score points, respectively;
+the exact fractions earn full credit. The negative residual means the
+observed score is below this model's prediction.
+Award 1 point for the fitted score and 1 point for the residual.
+Total: 2 points.
+The residual definition on \lecturepage{3}{9}, ``Back to the Linear
+Regression Model'', is $\hat U_i=Y_i-\hat Y_i$.
+Application: the residual definition is unchanged, but the fitted score now
+uses the through-origin coefficient from part (b), rather than the fitted
+line with an intercept in Question 13.
+\Needspace{5cm}
+\item The first-order condition implies
+\[
+\sum_i x_i\widehat u_i
+=\sum_i x_i y_i-\widehat\beta_1\sum_i x_i^2
+=28610-\frac{14305}{866}(1732)=0.
+\]
+The sample summaries also give $\sum_i x_i=102(4)=408$ and
+$\sum_i y_i=102(70)=7140$. Hence the ordinary residual sum is
+\[
+\sum_i\widehat u_i
+=\sum_i y_i-\widehat\beta_1\sum_i x_i
+=7140-\frac{14305}{866}(408)
+=\frac{173400}{433}\approx400.46.
+\]
+This sum is not zero. The single first-order condition makes the
+regressor-weighted residual sum zero. There is no intercept coefficient
+to differentiate with respect to, so no additional first-order condition
+forces the ordinary residual sum to zero. A particular no-intercept
+regression might happen to have residuals summing to zero, but the model
+does not require it.
+Award 0.5 points for the weighted residual sum, 1 point for the ordinary
+sum, and 0.5 for the explanation. Total: 2 points.
+Application of the differentiation method on \lecturepage{3}{7}: the
+lecture's intercept equation imposes a zero ordinary residual sum in its
+model. Here that coefficient is absent, leaving only the condition
+weighted by $x_i$. This conclusion is derived from this problem's
+objective, not asserted as a separate quoted lecture result.
+\end{enumerate}
+
 \Needspace{7cm}
-\heading{Question 14: Lesson 3---simple OLS from five observations (12 points)}
+\heading{Question 15: simple OLS from five observations (12 points)}
 \begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=4pt,topsep=2pt]
 \item The means are $\bar x=15/5=3$ and $\bar y=35/5=7$.
 Set $d_{xi}=x_i-3$ and $d_{yi}=y_i-7$. The centered calculations are:
@@ -766,6 +968,7 @@ Award 1 point for the five fitted scores, 1 point for the residuals, and
 The formulas on \lecturepage{3}{9}, ``Back to the Linear Regression Model'', are
 $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and
 $\hat U_i=Y_i-\hat Y_i$.
+\Needspace{6\baselineskip}
 \lecturetext{3}{7}{The Ordinary Least Squares (OLS) Estimator}{The first-order conditions are}
 \[
 \sum_i(Y_i-\hat\beta_0-\hat\beta_1X_i)=0,\qquad
@@ -813,6 +1016,7 @@ Application: the seminar demonstrates the same identity with different
 numbers. The exam calculations give $44=40+4$ and the exact residual
 spread $2/\sqrt3$; neither a decimal approximation nor a probability table
 is needed.
+\Needspace{11cm}
 \item Because $X_i=M_i/60$, substitute into the fitted line:
 \[
 \widehat y_i=1+2\left(\frac{M_i}{60}\right)
@@ -840,20 +1044,21 @@ not a separate verbatim lecture example.
 \end{enumerate}
 
 %\heading{Coverage and time budget (instructor only)}
-%Questions 1--8: 12 minutes; Q9: 13; Q10: 20; Q11: 25; Q12: 17; Q13: 20;
-%Q14: 25; reading and checking: 18 minutes. Total: 150 minutes.
-%Existing questions: 64 points; new Q12--14: 12 each. Total: 100; grade=raw/10.
-%These are planning estimates, not a timed student pilot.
+%Questions 1--8: 12 minutes; Q9: 13; Q10: 20; Q11: 17; Q12: 20;
+%Q13: 25; Q14: 30; Q15: 25; reading and checking: 18 minutes. Total: 180 minutes.
+%MCQs: 20 points; Q9--10: 10 each; Q11--15: 12 each. Written: 80 points.
+%Total: 100; grade=raw/10. These are planning estimates, not a timed student pilot.
 %
-%Question 9 follows the joint-distribution, moments and iterated-expectations
-%material in Lecture 1 and Seminar 1. Question 10 follows standard errors,
-%nonzero-null mean comparisons, critical-value tests, confidence intervals
-%and sample-size planning in Lecture 2 and Seminar 2. Question 11 follows
-%scalar OLS estimation, fitted values, residuals, fit, correlation and
-%regressor-unit conversion in Lectures 1--3 and Seminars 1--3. The six
-%written problems require numerical calculations rather than derivations.
-%All numerical data are newly constructed for this exam; no multiple
-%regression or later-course techniques are required.
+%Q9 covers joint probabilities, moments and iterated expectations.
+%Q10 and Q12 cover mean inference and sample-size planning.
+%Q11 covers distributions, moments, conditional means and independence.
+%Q13 and Q15 cover simple OLS calculations, fit and regressor-unit conversion.
+%Q14 applies the Lecture 3 least-squares method to one regressor without an
+%intercept, using the Question 13 sample summaries. It requires a derivation,
+%raw-sum recovery, predictions and residual-sum calculations.
+%Its model-specific formulas are derived here, not claimed as printed lecture
+%formulas. The other questions follow Lectures 1--3 and Seminars 1--3.
+%All numerical data are constructed for teaching.
 %
 %Production: use double-sided printing with long-edge binding. Copy quantity
 %should equal enrolled students excluding cancelled exam sittings; do not

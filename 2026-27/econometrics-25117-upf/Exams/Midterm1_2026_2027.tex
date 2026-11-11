@@ -1,8 +1,7 @@
 % Compile from the course root with pdflatex; the editable master is this .tex file.
 % Production: print double-sided, long-edge binding. Copy count equals enrolled
 % students excluding cancelled exam sittings; do not request extra copies.
-% Format: Garamond 11 pt, single spacing, 2 cm margins, black, no bold/shading.
-% Content: current Lecture1v2--Lecture3v2 and seminar_lecture1--3 only.
+% Format: Garamond 11 pt, single spacing, 2 cm margins, black; section headings bold, no shading.
 \documentclass[a4paper,11pt,twoside]{article}
 \usepackage[T1]{fontenc}
 \usepackage{ebgaramond}
@@ -36,25 +35,39 @@
   \end{tabularx}}
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {6pt}{3pt}{\normalfont\fontsize{12}{14}\selectfont}}
+  {6pt}{3pt}{\normalfont\bfseries\fontsize{12}{14}\selectfont}}
 \makeatother
+\newsavebox{\ExamOpeningBox}
+\newlength{\ExamOpeningHeight}
+\newcommand{\ExamOpening}{%
+  \begin{minipage}[b]{\textwidth}
+  \normalfont\normalsize
+  \linespread{1}\selectfont
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{3pt}
+  \begin{center}
+  {\fontsize{12}{14}\selectfont Econometrics (25117): Midterm 1, 2026--2027}\\
+  Duration: 180 minutes\\
+  \normalsize Monday, 9 November 2026
+  \end{center}
+  Name and surname: \rule{8.4cm}{0.4pt}\hfill UPF ID: U\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\par
+  Answer all questions. Questions 1--8 have one correct option each: 2.5 points for a
+  correct answer, 0 for a wrong or blank answer. Questions 9--15 are worth 80 points;
+  show calculations and briefly explain your reasoning on separate answer paper.
+  The total is 100 points; the grade out of 10 is the total divided by 10.
+  For inference, use the large-sample standard normal approximation. The two-sided
+  critical values are 1.96 at 5\% and 2.576 at 1\%.
+  Exact fractions, radicals or sensible rounding are acceptable. All numerical examples are
+  hypothetical.\par
+  \vspace{2pt}\noindent\leaders\hbox{.\kern2pt}\hfill\kern0pt\par\vspace{2pt}
+  \end{minipage}}
 
 \begin{document}
-\begin{center}
-{\fontsize{12}{14}\selectfont Econometrics (25117): Midterm 1, 2026--2027}\\
-Lectures 1--3 and Seminars 1--3 \hspace{1em} Duration: 150 minutes\\
-\normalsize Monday, 9 November 2026
-\end{center}
-Name and surname: \rule{8.4cm}{0.4pt}\hfill UPF ID: U\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}\makebox[4mm]{\_}
-
-Answer all questions. Questions 1--8 have one correct option each: 4 points for a
-correct answer, 0 for a wrong or blank answer. Questions 9--14 are worth 68 points;
-show calculations and briefly explain your reasoning on separate answer paper.
-The total is 100 points; the grade out of 10 is the total divided by 10.
-For inference, use the large-sample standard normal approximation. The two-sided
-critical values are 1.96 at 5\% and 2.576 at 1\%.
-Exact fractions, radicals or sensible rounding are acceptable. All numerical examples are
-hypothetical.
+\sbox{\ExamOpeningBox}{\ExamOpening}
+\setlength{\ExamOpeningHeight}{\dimexpr\ht\ExamOpeningBox+\dp\ExamOpeningBox+5pt\relax}
+\newgeometry{left=2cm,right=2cm,top=2cm,bottom=2cm,includehead,includefoot,headheight=\ExamOpeningHeight,headsep=3mm,footskip=8mm}
+\setlength{\headwidth}{\textwidth}
+\fancyhead[C]{\usebox{\ExamOpeningBox}}
 
 \section*{Multiple-choice questions}
 \begin{enumerate}[label=\arabic*.,leftmargin=*,itemsep=5pt,topsep=4pt,parsep=0pt]
@@ -83,12 +96,11 @@ $0<\sigma^2<\infty$, the central limit theorem states that, as $n\to\infty$:
 {rejects a false null hypothesis.}
 {does not reject a true null hypothesis.}
 
-\item Which is the frequentist interpretation of a 95\% confidence-interval
-procedure?
-\mcoptions{The fixed population mean has a 95\% probability of lying in the observed interval.}
-{95\% of individual observations lie in every interval for the population mean.}
-{95\% of sample means equal the population mean.}
-{Across repeated samples, approximately 95\% of intervals constructed this way contain the fixed population mean.}
+\item A large-sample two-sided test uses an estimate $\bar y=3$ and
+$SE(\bar Y)=1$. The null $H_0:\mu_Y=0$ is rejected at 5\%. For any
+hypothesized value $\mu_0$, reject when $|t|>1.96$. What is the smallest
+$\mu_0$ for which $H_0:\mu_Y=\mu_0$ would not be rejected?
+\mcoptions{$0$.}{$1.96$.}{$4.96$.}{$1.04$.}
 
 \item In an OLS regression with an intercept and a nonconstant regressor,
 which statement is necessarily true, apart from numerical rounding?
@@ -136,7 +148,7 @@ iterated expectations to recover $\E[Y]$. (3 points)
 calculation. (2 points)
 \end{enumerate}
 
-\item Comparing two means (11 points).
+\item Comparing two means (10 points).
 An experiment randomly assigns students to a tutoring group ($T$) or a control
 group ($C$). Treat observations as i.i.d. within each group and independent across groups.
 The outcome is a test score. The sample summaries are:
@@ -152,7 +164,7 @@ Let $\Delta=\mu_T-\mu_C$ be the population difference in mean scores.
 \item Estimate $\Delta$ and calculate its estimated standard error. (2 points)
 \item The claim is that tutoring raises the population mean by exactly two
 points. State a null and a two-sided alternative, and calculate the test
-statistic. (3 points)
+statistic. (2 points)
 \item Use the supplied critical values to decide whether to reject the null
 at the 5\% and 1\% significance levels. Show both comparisons. (2 points)
 \item Construct a 95\% confidence interval for $\Delta$. Does it contain the
@@ -163,35 +175,8 @@ for a planned 95\% confidence-interval half-width of at most 2 score points.
 Also report the total planned sample size. (2 points)
 \end{enumerate}
 
-\item Simple OLS: estimation, fit and interpretation (11 points).
-Using $n=102$ independent observations, a researcher regresses test score $Y_i$
-on weekly independent-study hours $X_i$, with an intercept:
-$Y_i=\beta_0+\beta_1X_i+U_i$. The observed sample has
-\[
-\bar x=4,\quad \bar y=70,\quad
-\sum_i(x_i-\bar x)^2=100,\quad
-\sum_i(x_i-\bar x)(y_i-\bar y)=50,\quad
-TSS_Y=\sum_i(y_i-\bar y)^2=425.
-\]
-\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
-\item Calculate $\widehat\beta_1$ and $\widehat\beta_0$. Write the fitted line
-and interpret the slope in the units of this example. (2 points)
-\item For a student with $x_i=6$ and $y_i=72$, calculate the fitted score and
-the residual. (1 point)
-\item Calculate the explained sum of squares ($ESS$), the residual sum of
-squares ($SSR$), $R^2$ and $SER$. (4 points)
-\item Calculate the sample correlation between study hours and test scores
-using the supplied centered sums. Verify numerically that the square of this correlation equals
-$R^2$. (2 points)
-\item Study time is now recorded in minutes, $M_i=60X_i$. Calculate the
-intercept and slope in the fitted regression of test score on minutes.
-Report the numerical values of $R^2$ and $SER$ after this conversion.
-(2 points)
-\end{enumerate}
-
-
 \Needspace{6.5cm}
-\item Lesson 1: A small library population (12 points).
+\item A small library population (12 points).
 The following table describes a population of eight students. $G$ records each
 student's programme, A or B, and $Y$ is the number of books borrowed last week.
 The entries are numbers of students, not probabilities. Select one of these
@@ -218,7 +203,7 @@ conditional means to infer independence. (3 points)
 \end{enumerate}
 
 \Needspace{6.5cm}
-\item Lesson 2: From sample summaries to inference (12 points).
+\item From sample summaries to inference (12 points).
 An i.i.d. sample of 100 students has assessment scores $y_i$, measured in
 points. The following raw sums are available:
 \[
@@ -249,8 +234,61 @@ standard deviation. Find the minimum integer sample size for a planned
 with 100 and explain the change in precision. (3 points)
 \end{enumerate}
 
+\item Simple OLS: estimation, fit and interpretation (12 points).
+Using $n=102$ independent observations, a researcher regresses test score $Y_i$
+on weekly independent-study hours $X_i$, with an intercept:
+$Y_i=\beta_0+\beta_1X_i+U_i$. The observed sample has
+\[
+\bar x=4,\quad \bar y=70,\quad
+\sum_i(x_i-\bar x)^2=100,\quad
+\sum_i(x_i-\bar x)(y_i-\bar y)=50,\quad
+TSS_Y=\sum_i(y_i-\bar y)^2=425.
+\]
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item Before substituting the sample summaries, write the least-squares objective for the model with an intercept,
+differentiate with respect to both coefficients, and derive formulas for
+$\widehat\beta_0$ and $\widehat\beta_1$. State the condition required for a unique
+solution. (2 points)
+\item Calculate $\widehat\beta_1$ and $\widehat\beta_0$. Write the fitted line
+and interpret the slope in the units of this example. (2 points)
+\item For a student with $x_i=6$ and $y_i=72$, calculate the fitted score and
+the residual. (2 points)
+\item Calculate the explained sum of squares ($ESS$), the residual sum of
+squares ($SSR$), $R^2$ and $SER$. (2 points)
+\item Calculate the sample correlation between study hours and test scores
+using the supplied centered sums. Verify numerically that the square of this correlation equals
+$R^2$. (2 points)
+\item Study time is now recorded in minutes, $M_i=60X_i$. Calculate the
+intercept and slope in the fitted regression of test score on minutes.
+Report the numerical values of $R^2$ and $SER$ after this conversion.
+(2 points)
+\end{enumerate}
+
+
+\Needspace{7cm}
+\item One regressor without an intercept (12 points).
+Use the same 102 observations and sample summaries given in Question 13.
+Consider the model $Y_i=\beta_1X_i+U_i$, with no intercept. Derive the
+estimator before substituting numbers. Exact fractions are acceptable
+throughout; decimal division is not required.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=2pt,topsep=2pt]
+\item Write the least-squares objective, differentiate it to obtain the
+first-order condition, and derive a closed-form formula for
+$\widehat\beta_1$. State the denominator condition required for a unique
+solution. (4 points)
+\item Calculate $\widehat\beta_1$ and
+interpret the fitted slope in the units of this example. (4 points)
+\item For the same student with $x_i=6$ and $y_i=72$ in Question 13,
+calculate the fitted score and residual under this no-intercept model.
+(2 points)
+\item Use the first-order condition to evaluate
+$\sum_i x_i\widehat u_i$. Calculate the ordinary residual sum
+$\sum_i\widehat u_i$. Must this ordinary sum equal zero without an
+intercept? Explain. (2 points)
+\end{enumerate}
+
 \Needspace{6.5cm}
-\item Lesson 3: Simple OLS from five observations (12 points).
+\item Simple OLS from five observations (12 points).
 The following table contains five hypothetical students. $X$ is weekly study
 time in hours and $Y$ is a quiz score in points.
 \begin{center}
