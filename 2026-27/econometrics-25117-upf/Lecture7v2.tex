@@ -334,59 +334,138 @@ $n=420$ \qquad $R^2=0.5584$ \qquad $\mathrm{SER}=12.707$
 
 
 \begin{frame}{Polynomials in $X$}
-We just ran
+\small
+\textbf{Link to Lecture 6: restricted versus unrestricted regression.}
+\[
+H_0:\beta_2=\beta_3=0
+\qquad\text{vs.}\qquad
+H_1:\beta_2\neq0\ \text{and/or}\ \beta_3\neq0.
+\]
+\textbf{Unrestricted ($U$):} estimate all four coefficients in the cubic model:
+\[
+\text{TestScore}_i=\beta_0+\beta_1\text{Income}_i
++\beta_2\text{Income}_i^2+\beta_3\text{Income}_i^3+u_i.
+\]
+\textbf{Restricted ($R$):} impose $H_0$ and re-estimate the linear model:
+\[
+\text{TestScore}_i=\beta_0+\beta_1\text{Income}_i+u_i.
+\]
+Thus $SSR_R=SSR_{\mathrm{linear}}$ and $SSR_U=SSR_{\mathrm{cubic}}$, using the same observations.
+\[
+\underbrace{F=\frac{(SSR_R-SSR_U)/q}{SSR_U/(n-k_U-1)}}_{\text{Lecture 6}}
+=\frac{(SSR_{\mathrm{linear}}-SSR_{\mathrm{cubic}})/2}{SSR_{\mathrm{cubic}}/(n-4)}.
+\]
+$q=2$ restrictions; $k_U=3$ regressors (excluding the intercept), so $n-k_U-1=n-4$.
+\medskip
 
-\begin{equation*}
-    \text{TestScore}_i = \beta_0 + \beta_1 \text{Income}_i + \beta_2 \text{Income}_i^2 + \beta_3 \text{Income}_i^3  + u_i
-\end{equation*}
-\begin{itemize}
-    \item We can test the linear model against this cubic model:\\
-\begin{equation*}
-    H_0: \beta_2=\beta_3 = 0 \textbf{~~~VS~~~}  H_1: \beta_2\neq 0 \text{~and/or~} \beta_3\neq 0
-\end{equation*}
-    \item Compute the F-statistic using the restricted and unrestricted sums of squared residuals:
-    \[
-        F=\frac{(SSR_{\mathrm{linear}}-SSR_{\mathrm{cubic}})/2}{SSR_{\mathrm{cubic}}/(n-4)}.
-    \]
-    \item Reject $H_0$ if $F$ exceeds the $F_{2,n-4}$ critical value at the 1\% significance level, or if the p-value is below $0.01$.
-\end{itemize}
+Reject $H_0$ at 1\% if $F$ exceeds the $F_{2,n-4}$ critical value, or if $p<0.01$.
 \end{frame}
 
 
-\begin{frame}{Logarithmic functions of $Y$ and/or $X$}
-\begin{itemize}
-    \item Remember that, according to Taylor's expansion, $f(x)\approx f(a) + f'(a)(x-a)$
-    \item Following this equation, $log(x)\approx log(x)\mid_{x=a} + \frac{\partial log(x)}{\partial x}\mid_{x=a}(x-a)$
-    \item Therefore, for $a=1$, $log(x)\approx x-1$
-    \item It follows that, in the neighborhood of 1,  $log(x)$ can be approximated by $x-1$.
-    \item Consider $Y + \Delta Y \approx Y$ (i.e., $x=\frac{Y + \Delta Y}{Y}\approx1$).
-    \item Then $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$... the percent change is a linear approximation of the log difference!
-    \item Approximating the curve of $log(x)$ with $x-1$ gets worse and worse as we move away from $x=1$... For instance:
-    \begin{equation*}
-        log(.7+.5)- log(.7) = .54 \neq \frac{.5}{.7}=.71
-    \end{equation*}
-\end{itemize}
+\begin{frame}{Log Changes: Why the Approximation Works}
+\small
+Throughout these slides, $\log$ denotes the natural logarithm; $Y>0$.
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\textbf{1. Approximate $\log(x)$ near $x=1$.}
+\[
+f(x)\approx f(1)+f'(1)(x-1).
+\]
+For $f(x)=\log(x)$, $f(1)=0$ and $f'(1)=1$, so
+\[
+\boxed{\log(x)\approx x-1\quad\text{near }x=1.}
+\]
+\textbf{2. Let $x$ be the ratio of new to old $Y$:}
+\[
+x=\frac{Y+\Delta Y}{Y}=1+\frac{\Delta Y}{Y}.
+\]
+A small proportional change makes $x$ close to 1.
+\end{column}
+\begin{column}{0.46\textwidth}
+\centering
+\begin{tikzpicture}[x=2.7cm,y=2.5cm,font=\scriptsize]
+\draw[->,gray] (0.3,0)--(2.15,0) node[right] {$x$};
+\draw[->,gray] (0.35,-1.02)--(0.35,1.14);
+\draw[blue,very thick,domain=0.4:2.05,samples=90] plot (\x,{ln(\x)});
+\draw[orange!85!black,thick,dashed,domain=0.4:2.05] plot (\x,{\x-1});
+\fill (1,0) circle (1.5pt) node[below=3pt] {$1$};
+\draw[gray,dotted] (1.714,0)--(1.714,0.714);
+\draw[black,<->] (1.714,0.539)--(1.714,0.714);
+\node[blue,anchor=west] at (1.52,0.23) {$\log(x)$};
+\node[orange!85!black,anchor=west] at (1.48,1.03) {$x-1$};
+\node[align=center] at (1.2,-0.79) {Same value and slope at $x=1$;\\the gap grows away from 1.};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\medskip
+\textbf{3. Use the log-ratio identity and multiply by 100:}
+\[
+\log(Y+\Delta Y)-\log(Y)=\log\!\left(1+\frac{\Delta Y}{Y}\right)
+\approx\frac{\Delta Y}{Y}
+\quad\Rightarrow\quad
+100\,\Delta\log Y\approx\text{percentage change in }Y.
+\]
 \end{frame}
 
+\begin{frame}{Log Changes versus Percentage Changes}
+\small
+\textbf{Define two different measures of the same change:}
+\[
+g=\frac{Y_{\mathrm{new}}-Y_{\mathrm{old}}}{Y_{\mathrm{old}}},
+\qquad d=\log(Y_{\mathrm{new}})-\log(Y_{\mathrm{old}})=\log(1+g).
+\]
+$100g$ is the percentage change; $100d$ is the change in \textbf{log points}.
+\[
+\boxed{g=e^d-1\quad\text{(exact)}}\qquad
+\boxed{g\approx d\quad\text{(only for small changes)}}.
+\]
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Change in $Y$ & Actual change: $100g$ & Log points: $100\log(1+g)$\\
+\midrule
+$100\to101$ & $1.00\%$ & $1.00$\\
+$100\to105$ & $5.00\%$ & $4.88$\\
+$0.7\to1.2$ & $71.43\%$ & $53.90$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Our example is a large change:}
+\[
+g=\frac{1.2-0.7}{0.7}=0.7143,
+\qquad d=\log(1.2/0.7)=0.5390\approx0.54.
+\]
+Thus about 54 log points correspond to a \textbf{71.4\% increase}, not a 54\% increase.\\
+The approximation understates the increase by about 17.5 percentage points here.
+\end{frame}
 
-\begin{frame}{[short digression] Logarithmic functions of $Y$ and/or $X$}
-\begin{itemize}
-    \item So how should we think about log changes? 
-        \begin{eqnarray*}
-            &log(.7+.5)- log(.7) &= .54 =54\times0.01\\
-            & {} &\approx 54\times log(1.01) \\
-            &\Leftrightarrow \frac{.7+.5}{.7}= \frac{1.2}{.7}&\approx 1.01^{54}           \\
-        \end{eqnarray*}
-    \item 1.2 is, relative to .7, approximately equivalent to 54 different 1\% increases \textit{compounded}!\\[1em]
-    \item In economics, we often think in terms of compounding percent changes (e.g., compound interest rates, inflation, population growth, investments returns, price elasticity, etc.), i.e.,
-    \begin{equation*}
-        Y_T = \prod_t (1+R_t)
-    \end{equation*}
-    \item Then, it is easier to write
-        \begin{equation*}
-        log(Y_T) = \sum_t log(1+R_t)= \sum_t log(Y_t) - log(Y_{t-1})
-    \end{equation*}
-\end{itemize}
+\begin{frame}{Why About 54 Successive Increases of 1\%?}
+\small
+\textbf{1. Each 1\% increase multiplies the current value by $1.01$.}
+After $m$ such increases, $Y_{\mathrm{new}}=Y_{\mathrm{old}}(1.01)^m$.
+\[
+\log(Y_{\mathrm{new}}/Y_{\mathrm{old}})=m\log(1.01)
+\quad\Rightarrow\quad
+m=\frac{\log(1.2/0.7)}{\log(1.01)}
+=\frac{0.5390}{0.009950}\approx54.17.
+\]
+\textbf{2. This explains the number 54:} each 1\% step adds about $0.01$ to the log.
+\[
+0.7(1.01)^{54}\approx1.198\approx1.2,
+\qquad 100\big[(1.01)^{54}-1\big]\approx71.14\%.
+\]
+The increases compound: later 1\% increases apply to a larger base. Simply adding
+$54\times1\%=54\%$ misses this growth of the base.
+\medskip
+
+\textbf{3. More generally, logarithms turn compounded growth into a sum.}
+If $R_t=(Y_t-Y_{t-1})/Y_{t-1}$ is the proportional growth rate in period $t$,
+\[
+\frac{Y_T}{Y_0}=\prod_{t=1}^{T}(1+R_t)
+\quad\Rightarrow\quad
+\log(Y_T)-\log(Y_0)=\sum_{t=1}^{T}\log(1+R_t).
+\]
+This equality is exact. For small period-by-period changes, $\log(1+R_t)\approx R_t$.
 \end{frame}
 
 
@@ -408,50 +487,200 @@ In each case, $\beta_1$ has a different interpretation.
 \end{frame}
 
 
-\begin{frame}{Linear-log population regression function}
+\begin{frame}{Linear-log: Rising but Flattening}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\textbf{Model and change (holding $u$ fixed):}
+\[
+Y=\beta_0+\beta_1\log X+u,
+\]
+\[
+\Delta Y=\beta_1[\log(X+\Delta X)-\log X]
+\approx\beta_1\frac{\Delta X}{X}.
+\]
+\textbf{A 1\% increase in $X$:}
+\[
+\frac{\Delta X}{X}=0.01
+\quad\Rightarrow\quad
+\Delta Y\approx\frac{\beta_1}{100}.
+\]
+This is a change in \textbf{units of $Y$}, not percent. With $\beta_1=20$, it is about $0.2$ units.
+\vspace{3pt}
 
-\begin{eqnarray*}
-    & Y &= \beta_0 + \beta_1 log(X) + u\\
-    & \Rightarrow Y + \Delta Y &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
-    &\Rightarrow  \Delta Y &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\Delta Y &\approx \beta_1  \frac{\Delta X}{X}  \\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y}{\Delta X/X}\\    
-\end{eqnarray*}
-Because $100\times\Delta X/X$= percentage change in $X$, a 1\% change in $X$ is associated with a $\beta_1/100$ change in $Y$.
+\textbf{Why does the curve flatten?}
+\[
+\boxed{\frac{dY}{dX}=\frac{\beta_1}{X}.}
+\]
+For $\beta_1>0$, a larger $X$ means a smaller slope: the same extra unit of $X$ adds less to $Y$.
+\end{column}
+\begin{column}{0.41\textwidth}
+\centering
+\textbf{Example: $Y=20\log X$}
+
+\begin{tikzpicture}[x=0.105cm,y=0.039cm,font=\scriptsize]
+\draw[->,gray] (0,0)--(44,0) node[right] {$X$};
+\draw[->,gray] (0,0)--(0,85) node[above] {$Y$};
+\draw[blue,very thick,domain=1:40,samples=90] plot (\x,{20*ln(\x)});
+\foreach \x in {10,20,40} {
+\draw (\x,0)--(\x,-2) node[below] {\x};
+\fill[blue] (\x,{20*ln(\x)}) circle(1.4pt);
+}
+\foreach \y in {20,40,60,80} \draw (0,\y)--(-0.7,\y) node[left] {\y};
+\end{tikzpicture}
+
+\vspace{3pt}
+\begin{tabular}{c|ccc}
+$X$ & 10 & 20 & 40\\
+\hline
+Slope $20/X$ & 2 & 1 & 0.5
+\end{tabular}
+\vspace{3pt}
+
+\raggedright
+Doubling $X$ always adds $20\log 2\approx13.86$ units to $Y$, but requires a larger dollar increase at higher $X$.
+\end{column}
+\end{columns}
+\vspace{3pt}
+{\scriptsize Graphs use the original $X,Y$ axes and set $u=0$. With $\beta_1<0$, this curve decreases and becomes less steep.}
 \end{frame}
 
-\begin{frame}{Log-linear population regression function}
+\begin{frame}{Log-linear: Constant Percentage Growth}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\textbf{Model and change (holding $u$ fixed):}
+\[
+\log Y=\beta_0+\beta_1X+u,
+\qquad \Delta\log Y=\beta_1\Delta X.
+\]
+For a small log change, $\Delta\log Y\approx\Delta Y/Y$.
+\vspace{3pt}
 
-\begin{eqnarray*}
-    & log(Y) &= \beta_0 + \beta_1 X + u\\
-    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 (X + \Delta X) + u\\
-    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1  \Delta X\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\frac{\Delta Y}{Y} &\approx \beta_1 \Delta X\\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X}\\    
-\end{eqnarray*}
-Because $100\times\Delta Y/Y$= percentage change in $Y$, a change in $X$ by 1 unit is associated with a $100\times \beta_1$\% change in $Y$. \hfill[$\beta_1$=semi-elasticity]
+\textbf{A one-unit increase in $X$:}
+\[
+\Delta X=1
+\ \Rightarrow\ \frac{\Delta Y}{Y}\approx\beta_1
+\ \Rightarrow\ 100\frac{\Delta Y}{Y}\approx100\beta_1.
+\]
+Multiplying by 100 gives the \textbf{percentage change in $Y$}.
+\vspace{3pt}
+
+With $\beta_1=0.05$, one extra unit of $X$ gives about 5\% more $Y$, not 5 units.
+\[
+\text{Exact change}=100(e^{0.05}-1)\%\approx5.13\%.
+\]
+\textbf{Why does the curve steepen?}
+\[
+Y=e^{\beta_0+\beta_1X}\ (u=0),
+\qquad\boxed{\frac{dY}{dX}=\beta_1Y.}
+\]
+For $\beta_1>0$, the same percentage increase applies to a growing base: the gain in units gets larger.
+\end{column}
+\begin{column}{0.41\textwidth}
+\centering
+\textbf{Example: $Y=10e^{0.05X}$}
+
+\begin{tikzpicture}[x=0.135cm,y=0.065cm,font=\scriptsize]
+\draw[->,gray] (0,0)--(34,0) node[right] {$X$};
+\draw[->,gray] (0,0)--(0,51) node[above] {$Y$};
+\draw[blue,very thick,domain=0:30,samples=90] plot (\x,{10*exp(0.05*\x)});
+\foreach \x in {0,10,20,30} {
+\draw (\x,0)--(\x,-1) node[below] {\x};
+\fill[blue] (\x,{10*exp(0.05*\x)}) circle(1.4pt);
+}
+\foreach \y in {10,20,30,40,50} \draw (0,\y)--(-0.5,\y) node[left] {\y};
+\end{tikzpicture}
+
+\vspace{3pt}
+\begin{tabular}{c|ccc}
+$X$ & 0 & 10 & 20\\
+\hline
+$Y$ & 10 & 16.49 & 27.18\\
+Slope $0.05Y$ & 0.50 & 0.82 & 1.36
+\end{tabular}
+\vspace{3pt}
+
+\raggedright
+The curve is exponential on $X,Y$ axes. It becomes a \textbf{straight line} on $X,\log Y$ axes (as in slide 21).
+\end{column}
+\end{columns}
+\vspace{3pt}
+{\scriptsize The graph sets $u=0$. For $\beta_1<0$, exponential decay approaches zero and becomes less steep.}
 \end{frame}
 
+\begin{frame}{Log-log: The Elasticity Determines the Shape}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\textbf{Model and change (holding $u$ fixed):}
+\[
+\log Y=\beta_0+\beta_1\log X+u,
+\]
+\[
+\Delta\log Y=\beta_1\Delta\log X
+\quad\Rightarrow\quad
+\frac{\Delta Y}{Y}\approx\beta_1\frac{\Delta X}{X}.
+\]
+\textbf{A 1\% increase in $X$:}
+\[
+\frac{\Delta X}{X}=0.01
+\quad\Rightarrow\quad
+100\frac{\Delta Y}{Y}\approx\beta_1.
+\]
+So $Y$ changes by approximately $\beta_1$\%. Here $\beta_1$ is the \textbf{elasticity}.
+\vspace{3pt}
 
-\begin{frame}{Log-Log population regression function}
+\textbf{Shape in levels:} with $A=e^{\beta_0}>0$ and $u=0$,
+\[
+Y=AX^{\beta_1},
+\qquad\boxed{\frac{dY}{dX}=A\beta_1X^{\beta_1-1}.}
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item $0<\beta_1<1$: rises and flattens.
+\item $\beta_1=1$: straight line through the origin.
+\item $\beta_1>1$: rises and steepens.
+\end{itemize}
+\end{column}
+\begin{column}{0.41\textwidth}
+\centering
+\textbf{Examples with $A=1$: $Y=X^{\beta_1}$}
 
-\begin{eqnarray*}
-    & log(Y) &= \beta_0 + \beta_1 log(X) + u\\
-    & \Rightarrow log(Y + \Delta Y) &= \beta_0 + \beta_1 log(X + \Delta X) + u\\
-    &\Rightarrow  log(Y + \Delta Y)-log(Y) &=  \beta_1 [log(X + \Delta X)- log(X)]\\    
-\end{eqnarray*}
-Because $log(Y + \Delta Y) - log(Y) \approx \frac{\Delta Y}{Y}$
-\begin{eqnarray*}
-    &\frac{\Delta Y}{Y} &\approx \beta_1 \frac{\Delta X}{X}\\    
-    &\Rightarrow  \beta_1  &=  \frac{\Delta Y/Y}{\Delta X/X}\\    
-\end{eqnarray*}
-A 1\% change in $X$ by 1 unit is associated with a $\beta_1$\% change in $Y$.\hfill[$\beta_1$=elasticity]
+\begin{tikzpicture}[x=1.03cm,y=0.4cm,font=\scriptsize]
+\draw[->,gray] (0,0)--(4.4,0) node[right] {$X$};
+\draw[->,gray] (0,0)--(0,9) node[above] {$Y$};
+\draw[blue,very thick,domain=0.1:4,samples=90] plot (\x,{sqrt(\x)});
+\draw[gray!80,thick,dashed] (0.1,0.1)--(4,4);
+\draw[orange!85!black,very thick,domain=0.1:4,samples=90] plot (\x,{pow(\x,1.5)});
+\foreach \x in {1,2,3,4} \draw (\x,0)--(\x,-0.12) node[below] {\x};
+\foreach \y in {2,4,6,8} \draw (0,\y)--(-0.06,\y) node[left] {\y};
+\node[blue,above] at (3.1,1.8) {$\beta_1=0.5$};
+\node[gray!80,above,rotate=20] at (3.1,3.1) {$\beta_1=1$};
+\node[orange!85!black,above,rotate=35] at (3.1,5.5) {$\beta_1=1.5$};
+\end{tikzpicture}
+
+\vspace{3pt}
+\raggedright
+For $\beta_1=0.5$, a 1\% increase in $X$ gives about 0.5\% more $Y$; for $\beta_1=1.5$, about 1.5\% more $Y$.
+\vspace{3pt}
+
+All three become straight lines on \textbf{$\log X,\log Y$ axes}, with slopes $\beta_1$.
+\end{column}
+\end{columns}
+\vspace{3pt}
+{\scriptsize Graphs use the original $X,Y$ axes. If $\beta_1<0$, $Y$ decreases and flattens; if $\beta_1=0$, it is constant.}
 \end{frame}
 
 \begin{frame}{(Linear-)Cubic vs. Linear-Log}
