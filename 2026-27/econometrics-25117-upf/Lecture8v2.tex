@@ -383,23 +383,145 @@ so $\hat{\beta}_1$ will be biased towards 0, even in large samples, and even app
 \end{frame}
 
 \begin{frame}{Missing Data}
-Data are often missing. Sometimes missing data introduces bias, sometimes it doesn’t. It is useful to consider three cases:
+Data are often missing. Whether this biases a regression depends on \textbf{which observations remain in the sample}.
 \begin{enumerate}
-    \item Data are missing at random.
-    \item Data are missing based on the value of one or more $X$’s
-    \item Data are missing based in part on the value of Y or u
+    \item Observations are missing completely at random (independently of $X$ and $u$).
+    \item Missingness depends only on the observed regressors $X$.
+    \item Missingness depends on $Y$ or on unobserved factors $u$, even after conditioning on $X$.
 \end{enumerate}
-\vspace{1em}
-Cases 1 and 2 don’t introduce bias: the standard errors are larger than they would be if the data weren’t missing, but $\hat{\beta}_k$ is unbiased.
+\medskip
+For a correctly specified model with $\mathbb{E}(u\mid X)=0$, cases 1 and 2 preserve the zero-conditional-mean assumption where data remain. We still need variation in $X$ to estimate the slope.
+\medskip
 
-\textbf{\textit{Case 1:}} Suppose you took a random sample of 100 workers and recorded their answers, but your dog randomly ate 20 of the response sheets. This is equivalent to having taken a simple random sample of 80 workers, so no bias is introduced.
+\textbf{Case 1:} Your dog randomly eats 20 of 100 response sheets. The remaining 80 are still a random sample; losing observations reduces information.
+\medskip
 
-\vspace{0.5em}
-\textbf{\textit{Case 2:}} In the test scores exercise, suppose you do not observe schools with a share of subsidized meals below $40\%$. You cannot draw conclusions for those schools, but you can still draw conclusions about the subset with a share of subsidized meals at least $40\%$.
+\textbf{Case 2:} Schools with a subsidized-meal share below 40\% are absent. Selection is based on $X$; the relationship can still be estimated over the observed range, but the sample does not establish its shape outside that range.
+\medskip
 
-\vspace{0.5em}
-\textbf{\textit{Case 3}} introduces sample selection bias.
+\textbf{Case 3 can introduce sample selection bias.} The next slides show why, and why selection on $Y$ and selection on $u$ are related but distinct.
+\end{frame}
 
+\begin{frame}{Selection: Which Mean Must Be Zero?}
+\small
+\textbf{1. Define an indicator for whether an observation is available:}
+\[
+S_i=\begin{cases}1,&\text{observation $i$ is included in the regression},\\
+0,&\text{observation $i$ is missing or excluded}.\end{cases}
+\]
+\textbf{2. Start with a valid model in the full population:}
+\[
+Y_i=\beta_0+\beta_1X_i+u_i,
+\qquad \mathbb{E}(u_i\mid X_i)=0.
+\]
+OLS uses only observations with $S_i=1$. In that selected population,
+\[
+\mathbb{E}(Y_i\mid X_i,S_i=1)
+=\beta_0+\beta_1X_i+\underbrace{\mathbb{E}(u_i\mid X_i,S_i=1)}_{\text{does selection change this mean?}}.
+\]
+\textbf{3. A common example for the next slides:}
+\[
+\boxed{Y_i=2+X_i+u_i,\quad X_i\in\{0,1,2\},\quad
+u_i\sim\mathrm{Uniform}[-2,2],\quad u_i\text{ independent of }X_i.}
+\]
+Each value of $X_i$ has probability $1/3$. At every $X_i$, errors are evenly spread from $-2$ to $2$, so their mean is zero and $\mathbb{E}(Y_i\mid X_i)=2+X_i$.
+\medskip
+
+\textbf{Interpretation:} $X$ is an observed characteristic and $u$ collects unobserved factors that raise or lower $Y$ relative to its predicted value.
+\end{frame}
+
+\begin{frame}{Selection Only on $X$: Keep $X_i\geq1$}
+\small
+Use $Y_i=2+X_i+u_i$ with $u_i$ independent of $X_i$ and uniform on $[-2,2]$.
+\medskip
+
+\textbf{1. Selection rule:} $S_i=1$ if $X_i\geq1$; otherwise $S_i=0$.
+\begin{center}
+\begin{tabular}{cclc}
+\hline
+$X_i$ & Included? & Errors among included observations & Mean error\\
+\hline
+0 & No & No observations retained & Not defined\\
+1 & Yes & Entire interval $[-2,2]$ & 0\\
+2 & Yes & Entire interval $[-2,2]$ & 0\\
+\hline
+\end{tabular}
+\end{center}
+\textbf{2. Once $X_i=x\geq1$ is fixed, inclusion adds no information about $u_i$:}
+\[
+\mathbb{E}(u_i\mid X_i=x,S_i=1)
+=\mathbb{E}(u_i\mid X_i=x)=0.
+\]
+\textbf{3. The regression relationship is preserved:}
+\[
+\mathbb{E}(Y_i\mid X_i=x,S_i=1)=2+x,\qquad x\in\{1,2\}.
+\]
+The distribution of $X$ changes, but the balance of positive and negative errors \textbf{at each retained $X$} does not. Both retained values identify the slope of 1.
+\medskip
+
+More generally, if $\Pr(S_i=1\mid X_i,u_i)=\Pr(S_i=1\mid X_i)>0$, conditioning on inclusion preserves $\mathbb{E}(u_i\mid X_i)=0$. This protects the regression coefficients, not the population average of $Y$.
+\end{frame}
+
+\begin{frame}{Selection Only on $Y$: Keep $Y_i\geq3$}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{1. Rewrite the outcome-based rule using $Y_i=2+X_i+u_i$:}
+\[
+S_i=1\ \Longleftrightarrow\ Y_i\geq3
+\ \Longleftrightarrow\ 2+X_i+u_i\geq3
+\ \Longleftrightarrow\ \boxed{u_i\geq1-X_i.}
+\]
+\textbf{2. At a fixed $X_i=x$, selection removes the lower part of the error distribution.}
+The retained errors are uniform on $[1-x,2]$; their mean is the midpoint:
+\[
+\mathbb{E}(u_i\mid X_i=x,S_i=1)=\frac{(1-x)+2}{2}=\frac{3-x}{2}.
+\]
+\begin{center}
+\begin{tabular}{ccccc}
+\hline
+$X_i$ & Retained $u_i$ & Mean $u_i$ & Full-sample mean $Y_i$ & Selected mean $Y_i$\\
+\hline
+0 & $[1,2]$ & 1.5 & 2 & 3.5\\
+1 & $[0,2]$ & 1 & 3 & 4\\
+2 & $[-1,2]$ & 0.5 & 4 & 4.5\\
+\hline
+\end{tabular}
+\end{center}
+\textbf{3. Substitute the new mean error into the regression:}
+\[
+\mathbb{E}(Y_i\mid X_i=x,S_i=1)
+=2+x+\frac{3-x}{2}=\boxed{3.5+0.5x}.
+\]
+The true slope is 1, but OLS in the selected population targets 0.5. Low-$X$ observations need unusually high $u$ to enter; high-$X$ observations can enter with lower $u$. The fitted relationship flattens.
+\end{frame}
+
+\begin{frame}{Are Selection on $Y$ and Selection on $u$ the Same?}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{They are different rules. At a fixed $X$, however, $Y$ and $u$ move one-for-one.}
+\[
+Y_i=\beta_0+\beta_1X_i+u_i
+\quad\Rightarrow\quad
+Y_i\geq c\ \Longleftrightarrow\ u_i\geq c-\beta_0-\beta_1X_i.
+\]
+A fixed cutoff on $Y$ becomes an \textbf{$X$-dependent cutoff on $u$}. In our example, $Y_i\geq3$ means $u_i\geq1-X_i$, which changes both the intercept and slope.
+\medskip
+
+\textbf{Compare a rule based only on $u$: keep observations with $u_i\geq0$.}
+\[
+\mathbb{E}(u_i\mid X_i=x,S_i=1)=\frac{0+2}{2}=1,
+\qquad
+\mathbb{E}(Y_i\mid X_i=x,S_i=1)=3+x.
+\]
+Here the zero-conditional-mean assumption fails, but only the intercept changes: the slope remains 1. The same rule in outcome terms is $Y_i\geq2+X_i$, not a fixed cutoff on $Y$.
+\medskip
+
+\textbf{Missing versus observed:} if observations with $Y_i<3$ are missing, the observed sample obeys $Y_i\geq3$. Likewise, missing $u_i<0$ means retaining $u_i\geq0$. Selection need not be deliberate; nonresponse or eligibility rules can produce it.
+\medskip
+
+\textbf{Dependence alone does not guarantee bias.} With our symmetric errors, retaining $|u_i|\geq1$ keeps both tails equally and still gives $\mathbb{E}(u_i\mid X_i,S_i=1)=0$. Always check the \emph{selected conditional mean}, not just which variable enters the rule.
 \end{frame}
 
 \begin{frame}{Sample Selection Bias}
