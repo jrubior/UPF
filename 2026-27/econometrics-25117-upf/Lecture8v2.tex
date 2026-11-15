@@ -196,13 +196,6 @@ A comparison of many related studies on the same topic is called a meta-analysis
 \end{frame}
 
 
-\begin{frame}{A Meta-Analysis -- Lane (2016)}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[scale=1.2]{images/extvalidity.jpg}
-\end{figure}
-\end{frame}
 
 \begin{frame}{A Meta-Analysis -- Hahn-Holbrook et al. (2018)}
 \begin{figure}
@@ -289,10 +282,8 @@ If the multiple regression includes control variables, then we need to ask wheth
 
 \begin{itemize}
     \item If the omitted causal variable can be measured, include it as an additional regressor in multiple regression;\\[1em]
-    \item If you have data on one or more controls and they are adequate (that is, if conditional mean independence plausibly holds), then include the control variables;\\[1em]
     \item If the omitted variable(s) cannot be measured or adequately controlled for, use instrumental variables regression ($Lecture~9$);\\[1em]
     \item Possibly, use panel data in which each entity (individual) is observed more than once ($Lecture~10$);\\[1em]
-    \item Run a randomized controlled experiment if you can (again, randomization of treatment $X$ ensures that $X$ necessarily will be distributed independently of $u$.)
 \end{itemize}
 \end{frame}
 
@@ -338,31 +329,32 @@ Now consider $\tilde{X}$, the mis-measured version of X (which is the actually o
 \end{frame}
 
 \begin{frame}{Errors-in-variables}
-You think you are running
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 X_i + u_i
-\end{equation*}
-But because $X$ is mis-measured, you are actually running
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 \tilde{X}_i + [\beta_1 (X-\tilde{X}) + u_i]
-\end{equation*}
-i.e., since $X-\tilde{X}$ is unobserved,
-\begin{equation*}
-    Y_i = \beta_0 + \beta_1 \tilde{X}_i + \tilde{u}_i
-\end{equation*}
-where $\tilde{u}_i=\beta_1 (X-\tilde{X}) + u_i$..\\[1em]
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+For observation $i$, $X_i$ is the true, unobserved regressor and $\tilde{X}_i$ is the observed, mismeasured regressor. The measurement error is $v_i=\tilde{X}_i-X_i$, so $X_i-\tilde{X}_i=-v_i$ is the true minus recorded value.
 
-Therefore,
-\begin{equation*}
-    cov(\tilde{X}_i, \tilde{u}_i) = \beta_1 cov(\tilde{X}_i, X_i-\tilde{X}_i) + cov(\tilde{X}_i, u_i)
-\end{equation*}
-It is often plausible that $cov(\tilde{X}_i, u_i)=0$, but typically $cov(\tilde{X}_i, X-\tilde{X})\neq 0$, and therefore, $cov(\tilde{X}_i, \tilde{u}_i) \neq 0$... yielding a biased $\hat{\beta_1}$.
-
-
+\medskip
+Start from the true model and rewrite $X_i$ using the observed regressor:
+\[
+    Y_i=\beta_0+\beta_1 X_i+u_i,
+    \qquad X_i=\tilde{X}_i+(X_i-\tilde{X}_i).
+\]
+Substituting gives
+\[
+    Y_i=\beta_0+\beta_1\tilde{X}_i+\underbrace{\beta_1(X_i-\tilde{X}_i)+u_i}_{\tilde{u}_i}.
+\]
+The unobserved measurement discrepancy $X_i-\tilde{X}_i$ enters the regression error $\tilde{u}_i$. Therefore,
+\[
+    \operatorname{cov}(\tilde{X}_i,\tilde{u}_i)
+    =\beta_1\operatorname{cov}(\tilde{X}_i,X_i-\tilde{X}_i)
+    +\operatorname{cov}(\tilde{X}_i,u_i).
+\]
+Even if $\operatorname{cov}(\tilde{X}_i,u_i)=0$, the first term can be nonzero: the observed regressor is then correlated with the new error, biasing OLS.
 \end{frame}
 
 \begin{frame}{Classical Measurement Error}
-The classical measurement error model assumes that $\tilde{X}_i=X_i+v_i$ where $v_i$ is is mean-zero random noise (e.g., white noise) with $\rho_{X_i, v_i}=0$ and $\rho_{u_i, v_i}=0$.\\[1em]
+The classical measurement error model assumes that $\tilde{X}_i=X_i+v_i$ where $v_i$ is is mean-zero random noise (e.g., white noise) with $\operatorname{Cov}(X_i,v_i)=0$ and $\operatorname{Cov}(u_i,v_i)=0$.\\[1em]
 
 Under the classic measurement error model, $\hat{\beta}_1$ will be biased towards zero...\\[1em]
 
@@ -377,7 +369,7 @@ Starting from,
 \begin{eqnarray*}
     cov(\tilde{X}_i, \tilde{u}_i) = \beta_1 cov(\tilde{X}_i, X_i-\tilde{X}_i) + cov(\tilde{X}_i, u_i)
 \end{eqnarray*}
-Then, for $\tilde{X}_i=X_i+v_i$,  with $\rho_{X_i, v_i}=0$ and $\rho_{u_i, v_i}=0$,
+Then, for $\tilde{X}_i=X_i+v_i$,  with $\operatorname{Cov}(X_i,v_i)=0$ and $\operatorname{Cov}(u_i,v_i)=0$,
 \begin{eqnarray*}
         &cov(\tilde{X}_i, \tilde{u}_i) &= \beta_1 cov(X_i+v_i, -v_i)=-\beta_1\sigma_v^2\\
         &var(\tilde{X}_i)&=\sigma_X^2 + \sigma_v^2
