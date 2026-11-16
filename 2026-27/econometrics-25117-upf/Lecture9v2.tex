@@ -264,28 +264,93 @@ For an instrumental variable (an “instrument”) Z to be valid, it must satisf
 
 
 
-\begin{frame}{Two Stages Least Squares (2SLS)}
-Assume that $Z$ satifies both conditions. Then the 2SLS estimator of $\beta_1$ is obtained by
-\begin{itemize}
-    \item \textbf{First Stage ---} Regress $X_i$ on $Z_i$ (including the intercept), and obtain the predicted values $\hat{X}_i$.
-    \item \textbf{Second Stage ---} Regress $Y_i$ on $\hat{X}_i$ (including the intercept), the coefficient on $\hat{X}_i$ is the 2SLS estimator $\hat{\beta}_1^{2SLS}$
-\end{itemize}
-\vspace{0.5em}
-Formally, suppose that $Z$ satisfies both conditions. As a first step, suppose that we use it as a proxy for $X$. The reduced-form estimator, $\beta_1^{RF}$, reads
-\begin{equation*}
-\beta_1^{RF} = \frac{cov(Z_i, Y_i)}{var(Z_i)} = \frac{cov(Z_i, \beta_0 + \beta_1 X_i + u_i)}{var(Z_i)} = \beta_1 \frac{cov(Z_i, X_i)}{var(Z_i)}
-\end{equation*}
-\begin{equation*}
-\Rightarrow \beta_1 = \frac{cov(Z_i, Y_i)}{cov(Z_i, X_i)}
-\end{equation*}
-The IV estimator (replacing population covariances with the sample covariances) is a consistent estimator of $\beta_1$:
-\begin{equation*}
-\hat{\beta}_1^{2SLS}= \frac{s_{ZY}}{s_{ZX}} \overset{p}{\to} \frac{cov(Z_i, Y_i)}{cov(Z_i, X_i)} = \beta_1
-\end{equation*}
-\begin{center}
-Note that $\hat{\beta}_1^{OLS}= \frac{s_{XY}}{s_{XX}}$.
-\end{center}
+\begin{frame}{First Stage and Reduced Form}
+The structural equation is $Y_i=\beta_0+\beta_1X_i+U_i$. Our goal is to recover the causal slope $\beta_1$ using the instrument $Z_i$.
 
+\medskip
+\textbf{First stage.} Regress $X_i$ on $Z_i$ with an intercept. The population slope $\pi_1$ measures how much $X_i$ changes in the fitted line per unit of $Z_i$.
+\[
+\pi_1=\frac{\operatorname{Cov}(Z_i,X_i)}{\operatorname{Var}(Z_i)}.
+\]
+\textbf{Reduced form (RF).} Regress $Y_i$ on $Z_i$ with an intercept. The population slope $\beta_1^{\mathrm{RF}}$ measures how much $Y_i$ changes in the fitted line per unit of $Z_i$.
+\[
+\beta_1^{\mathrm{RF}}=\frac{\operatorname{Cov}(Z_i,Y_i)}{\operatorname{Var}(Z_i)}.
+\]
+\end{frame}
+
+\begin{frame}{How the Reduced Form Contains the Causal Slope}
+Substitute the structural equation for $Y_i$ and expand the covariance.
+\[
+\begin{aligned}
+\operatorname{Cov}(Z_i,Y_i)
+&=\operatorname{Cov}(Z_i,\beta_0+\beta_1 X_i+U_i)\\
+&=\underbrace{\operatorname{Cov}(Z_i,\beta_0)}_{0\text{ because }\beta_0\text{ is constant}}
++\beta_1\operatorname{Cov}(Z_i,X_i)
++\underbrace{\operatorname{Cov}(Z_i,U_i)}_{0\text{ by instrument exogeneity}}\\
+&=\beta_1\operatorname{Cov}(Z_i,X_i).
+\end{aligned}
+\]
+Divide both sides by $\operatorname{Var}(Z_i)$ to express the relationship in regression slopes.
+\[
+\underbrace{\frac{\operatorname{Cov}(Z_i,Y_i)}{\operatorname{Var}(Z_i)}}_{\beta_1^{\mathrm{RF}}}
+=\beta_1\underbrace{\frac{\operatorname{Cov}(Z_i,X_i)}{\operatorname{Var}(Z_i)}}_{\pi_1}.
+\]
+The change in fitted $Y$ per unit of $Z$ equals the change in fitted $X$ per unit of $Z$ times the causal effect per unit of $X$.
+\end{frame}
+
+\begin{frame}{The IV Slope Is a Ratio}
+Instrument relevance means $\operatorname{Cov}(Z_i,X_i)\neq0$, so the first-stage slope $\pi_1$ is nonzero. Divide $\beta_1^{\mathrm{RF}}=\beta_1\pi_1$ by $\pi_1$.
+\[
+\beta_1=\frac{\beta_1^{\mathrm{RF}}}{\pi_1}
+=\frac{\operatorname{Cov}(Z_i,Y_i)/\operatorname{Var}(Z_i)}
+      {\operatorname{Cov}(Z_i,X_i)/\operatorname{Var}(Z_i)}
+=\frac{\operatorname{Cov}(Z_i,Y_i)}{\operatorname{Cov}(Z_i,X_i)}.
+\]
+For example, if a one-unit increase in $Z$ predicts a two-unit increase in $X$ and a six-unit increase in $Y$, the IV slope is $6/2=3$ units of $Y$ per unit of $X$.
+
+\medskip
+In the sample, the IV estimate is the \textbf{estimated reduced-form slope divided by the estimated first-stage slope}.
+\[
+\hat\beta_1^{\mathrm{IV}}
+=\frac{\hat\beta_1^{\mathrm{RF}}}{\hat\pi_1}
+=\frac{s_{ZY}/s_{ZZ}}{s_{ZX}/s_{ZZ}}
+=\frac{s_{ZY}}{s_{ZX}},\text{ provided }s_{ZX}\ne0.
+\]
+As sample covariances converge to their population values, $\hat\beta_1^{\mathrm{IV}}\xrightarrow{p}\beta_1$.
+\end{frame}
+
+\begin{frame}{How Two-Stage Least Squares Computes the IV Slope}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\begin{enumerate}
+    \item Regress $X_i$ on $Z_i$ with an intercept. The predicted values are $\hat X_i=\hat\pi_0+\hat\pi_1 Z_i$, where $\hat\pi_1=s_{ZX}/s_{ZZ}$.
+    \item Regress $Y_i$ on $\hat X_i$ with an intercept. Its slope is the 2SLS estimate.
+\end{enumerate}
+\medskip
+Centering $\hat X_i=\hat\pi_0+\hat\pi_1 Z_i$ gives
+$\hat X_i-\overline{\hat X}=\hat\pi_1(Z_i-\bar Z)$. Substitute into the sample covariance and variance.
+\[
+\begin{aligned}
+s_{\hat X Y}
+&=\frac{1}{n}\sum_{i=1}^{n}(\hat X_i-\overline{\hat X})(Y_i-\bar Y)
+=\hat\pi_1\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)(Y_i-\bar Y)
+=\hat\pi_1s_{ZY},\\
+s_{\hat X\hat X}
+&=\frac{1}{n}\sum_{i=1}^{n}(\hat X_i-\overline{\hat X})^2
+=\hat\pi_1^2\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)^2
+=\hat\pi_1^2s_{ZZ}.
+\end{aligned}
+\]
+The second-stage OLS slope is therefore
+\[
+\hat\beta_1^{\mathrm{2SLS}}
+=\frac{s_{\hat X Y}}{s_{\hat X\hat X}}
+=\frac{\hat\pi_1 s_{ZY}}{\hat\pi_1^2s_{ZZ}}
+=\frac{s_{ZY}}{\hat\pi_1s_{ZZ}}
+=\frac{s_{ZY}}{s_{ZX}}.
+\]
+With one instrument and one endogenous regressor, 2SLS gives the same slope as the IV ratio. OLS on the original $X_i$ uses $s_{XY}/s_{XX}$.
 \end{frame}
 
 \begin{frame}{Two Stages Least Squares (2SLS)}
@@ -375,19 +440,67 @@ Because prices, $ln(P^{butter}_i)$, are simultaneously determined in equilibrium
 \begin{frame}{A Buttery Example}
 A potential IV for the butter prices to estimate the demand elasticity for butter could be drought shocks to dairy regions ($Z$).\\[1em]
 It is a plausibly revelant IV: below-average rainfall in a dairy region  ($Z$) could impair grazing and thus reduce butter production at a given price, shifting the supply curve to the left and increasing the equilibrium price  ($X$)\\[1em]
-Drought shocks are also plausibly unrelated to the quantities of butter demanded  ($Y$)... except through the price increase ($X$)!\\[1em]
-Can you think of an instrument to estimate the supply elasticity of butter? In the California Schools example, what could be an instrument for the share of subsidized meals?
+In this example, the drought shifts the supply curve left and leaves the demand curve unchanged. The higher equilibrium price leads to a movement along the demand curve, reducing the quantity of butter demanded.
 \end{frame}
 
-\begin{frame}{Large-Sample properties}
-\begin{itemize}
-    \item As $n\rightarrow\infty$, $\hat{\beta}_1^{2SLS}\sim\mathcal{N}(\beta_1, \sigma^2_{\hat{\beta}_1})$ where $\sigma^2_{\hat{\beta}_1}=\frac{1}{n}\frac{var(Zi-\mu_Z)u_i}{[cov(Z_i, X_i)]^2}$
-    \item Statistical inference proceeds in the usual way.
-    \item The justification is (as usual) based on large samples
-    \item This all assumes that the instruments are valid -- we’ll discuss what happens if they aren’t valid shortly.
-    \item However, the OLS standard errors from the second stage regression aren’t right because they do not account for the estimation in the first stage
-    \item Instead, use a single specialized command that computes the 2SLS estimator and the correct SEs.
-\end{itemize}
+\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 1: Write the Estimation Error}
+With one instrument and one endogenous regressor, the IV and 2SLS slopes both equal $s_{ZY}/s_{ZX}$. Use the structural equation $Y_i=\beta_0+\beta_1X_i+U_i$.
+\[
+\begin{aligned}
+s_{ZY}
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)(Y_i-\bar Y)\\
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)
+  \bigl[\beta_1(X_i-\bar X)+(U_i-\bar U)\bigr]\\
+&=\beta_1s_{ZX}+s_{ZU}.
+\end{aligned}
+\]
+Substitute this into the IV ratio and subtract the true slope.
+\[
+\hat\beta_1^{\mathrm{IV}}-\beta_1
+=\frac{\beta_1s_{ZX}+s_{ZU}}{s_{ZX}}-\beta_1
+=\frac{s_{ZU}}{s_{ZX}}.
+\]
+\end{frame}
+
+\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 2: Apply the CLT to the Numerator}
+Let $\mu_Z=\mathbb{E}(Z_i)$ and take $\mathbb{E}(U_i)=0$, with the mean absorbed by the intercept. Since $\sum_i(Z_i-\bar Z)=0$,
+\[
+\begin{aligned}
+s_{ZU}
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)U_i\\
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\mu_Z)U_i-(\bar Z-\mu_Z)\bar U.
+\end{aligned}
+\]
+Under i.i.d. sampling and finite second moments, both factors in the last product fluctuate on the $1/\sqrt n$ scale. Their product is on the $1/n$ scale and vanishes after multiplication by $\sqrt n$.
+
+\medskip
+Exogeneity gives $\mathbb{E}[(Z_i-\mu_Z)U_i]=\operatorname{Cov}(Z_i,U_i)=0$.
+With finite variance for this product, the central limit theorem (CLT) gives
+\[
+\sqrt n\,s_{ZU}\xrightarrow{d}
+\mathcal{N}\!\left(0,\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)\right).
+\]
+\end{frame}
+
+\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 3: Apply the LLN and Combine}
+\small
+By the law of large numbers (LLN), $s_{ZX}\xrightarrow{p}\operatorname{Cov}(Z_i,X_i)$. Instrument relevance makes this limit nonzero. Slutsky's theorem lets us divide the CLT limit by this constant.
+\[
+\sqrt n\,(\hat\beta_1^{\mathrm{IV}}-\beta_1)
+=\frac{\sqrt n\,s_{ZU}}{s_{ZX}}
+\xrightarrow{d}
+\mathcal{N}\!\left(0,
+\frac{\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)}
+     {\operatorname{Cov}(Z_i,X_i)^2}\right).
+\]
+Dividing a random variable by a constant divides its variance by the square of that constant. Undoing the $\sqrt n$ scaling gives the large-sample variance of the estimate.
+\[
+\operatorname{Var}(\hat\beta_1^{\mathrm{IV}})\approx
+\frac{1}{n}
+\frac{\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)}
+     {\operatorname{Cov}(Z_i,X_i)^2}.
+\]
+For confidence intervals and tests, use an IV/2SLS command that computes standard errors for the IV estimator. An OLS command run on the fitted first-stage values reports standard errors for its own regression.
 \end{frame}
 
 \begin{frame}{The General  IV  Regression Model }
