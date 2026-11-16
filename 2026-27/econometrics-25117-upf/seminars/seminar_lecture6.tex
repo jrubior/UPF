@@ -1,0 +1,400 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex}
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+
+
+\title[]{\textcolor{blue}{Seminar 6:\\Inference and Interpretation}}
+\subtitle{Five problems and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. All data are hypothetical;
+% no external assets are needed. Supplied uncertainty estimates support
+% large-sample inference; no covariance-estimation formula is required.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+
+\date{}
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Inference}
+\begin{frame}{Problem 1: Is class size associated with test scores?}
+\small
+A hypothetical sample of 500 schools gives
+\[
+\widehat{Score}_i=620-1.50\,ClassSize_i+2.00\,Income_i,
+\]
+where scores are in points, class size is students per class, and income is in thousands of euros. The supplied standard error of the class-size coefficient is $0.60$.
+\par\smallskip
+Use the large-sample normal approximation, a 5\% significance level, and $\Phi(2.50)=0.9938$.
+\begin{enumerate}
+\item Test $H_0:\beta_{ClassSize}=0$ against a two-sided alternative. Calculate the statistic, approximate $p$-value, and 95\% confidence interval.
+\item Test $H_0:\beta_{ClassSize}=-2$ using the same estimate and standard error. Check the decision against your interval.
+\item Interpret the estimated coefficient, holding income fixed. Does statistical significance establish that reducing class size causes higher scores?
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 1: Tests, confidence interval, and interpretation}
+\small
+\answerpart{1}For the zero null,
+\[
+t=\frac{-1.50}{0.60}=-2.50,\text{ and }p\approx2[1-\Phi(2.50)]=0.0124.
+\]
+Reject at 5\%, since $|t|>1.96$ and $p<0.05$. The interval is
+\[
+-1.50\pm1.96(0.60)=[-2.676,-0.324].
+\]
+\answerpart{2}For the null value $-2$,
+\[
+t=\frac{-1.50-(-2)}{0.60}=0.8333.
+\]
+Do not reject: $|t|<1.96$, and $-2$ lies inside the 95\% interval.
+\par\smallskip
+\answerpart{3}An additional student per class is associated with a 1.50-point lower predicted score, holding district income fixed. The test concerns the regression coefficient. A causal interpretation also requires credible control of confounding; significance alone does not establish causality.
+\end{frame}
+\fi
+
+\begin{frame}{Problem 2: Can two insignificant coefficients matter jointly?}
+\small
+A hypothetical regression of test scores on weekly tutoring hours $X_1$, weekly independent-study hours $X_2$, and background controls uses $n=600$ students. For the two slopes, software supplies
+\[
+\hat\beta_1=1.50,\text{ and }\hat\beta_2=1.50,\text{ with }
+\widehat V=\begin{pmatrix}1&-0.50\\-0.50&1\end{pmatrix}.
+\]
+Rows and columns of $\widehat V$ follow $(\hat\beta_1,\hat\beta_2)$. Use the supplied covariance estimate and large-sample inference.
+\begin{enumerate}
+\item Read both standard errors and the estimated correlation $\hat\rho$. Test each coefficient separately against zero at 5\%.
+\item State the joint null and alternative, count the restrictions, and calculate
+\[
+F=\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}.
+\]
+\item The large-sample 5\% critical value for $q=2$ is $3.00$. Give the joint decision. Explain why averaging the two squared $t$ statistics is incorrect here.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{The joint test: General variances and matrix form}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+Test $H_0:\beta_1=\beta_{1,0},\ \beta_2=\beta_{2,0}$ ($q=2$ restrictions). Define
+\[
+d_j=\hat\beta_j-\beta_{j,0},\text{ }s_j=SE(\hat\beta_j),
+\text{ and }c=\widehat{\Cov}(\hat\beta_1,\hat\beta_2).
+\]
+\textbf{Matrix form.} Collect the deviations and their estimated covariance matrix:
+\[
+\boldsymbol d=\begin{pmatrix}d_1\\d_2\end{pmatrix},
+\text{ }\widehat V=\begin{pmatrix}s_1^2&c\\c&s_2^2\end{pmatrix},
+\text{ and }\boxed{F=\frac{1}{2}\boldsymbol d'\widehat V^{-1}\boldsymbol d}.
+\]
+Here $'$ denotes transpose and $^{-1}$ denotes matrix inverse. Assume $s_1^2s_2^2>c^2$.
+\par\smallskip
+\textbf{Expanded form.} Inverting this $2\times2$ matrix gives
+\[
+\boxed{F=\frac{s_2^2d_1^2+s_1^2d_2^2-2c\,d_1d_2}{2(s_1^2s_2^2-c^2)}}.
+\]
+\textbf{Standardized form.} Substitute $t_j=d_j/s_j$ and $\hat\rho=c/(s_1s_2)$:
+\[
+F=\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}.
+\]
+All three forms allow unequal variances. In Problem 2, $s_1=s_2=1$ simply makes $t_j=d_j$.
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 2: The covariance changes the joint test}
+\small
+\answerpart{1}Standard errors are square roots of the diagonal entries:
+\[
+SE(\hat\beta_1)=SE(\hat\beta_2)=1,\text{ and }\hat\rho=\frac{-0.50}{1\cdot1}=-0.50.
+\]
+Thus $t_1=t_2=1.50$. Neither separate test rejects at 5\%.
+\par\smallskip
+\answerpart{2}The joint null is $H_0:\beta_1=\beta_2=0$; the alternative is that at least one coefficient is nonzero. There are $q=2$ restrictions.
+\[
+F=\frac{2.25+2.25-2(-0.50)(1.50)(1.50)}{2(1-0.25)}
+=\frac{6.75}{1.50}=\boxed{4.50}.
+\]
+\answerpart{3}Reject the joint null, because $4.50>3.00$. The coefficient estimates move together in a direction that is relatively unusual given their negative estimated correlation.
+\par\smallskip
+The average $(t_1^2+t_2^2)/2=2.25$ ignores covariance. It equals the joint statistic only when $\hat\rho=0$.
+\end{frame}
+\fi
+
+\begin{frame}{Problem 3: Are two study activities equally effective?}
+\small
+In a different large student sample, the estimated test-score slopes on weekly tutoring hours and independent-study hours are $\hat\beta_1=1.80$ and $\hat\beta_2=0.60$. Software supplies
+\[
+\widehat{\Var}(\hat\beta_1)=0.16,\text{ }\widehat{\Var}(\hat\beta_2)=0.09,
+\text{ and }\widehat{\Cov}(\hat\beta_1,\hat\beta_2)=0.04.
+\]
+Use large-sample inference at 5\%.
+\begin{enumerate}
+\item Test $H_0:\beta_1=\beta_2$. Calculate the estimated difference, its standard error, and its $t$ statistic. How many restrictions does this null impose?
+\item Construct a 95\% confidence interval for $\beta_1-\beta_2$. Calculate the equivalent $F$ statistic and compare it with the $q=1$ critical value $3.84$.
+\item Rewrite $Y_i=\beta_0+\beta_1X_{1i}+\beta_2X_{2i}+U_i$ using $W_i=X_{1i}+X_{2i}$ so that one coefficient is $\beta_1-\beta_2$. What happens to the fitted values and $R^2$?
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 3: One restriction on two coefficients}
+\small
+\answerpart{1}Let $\delta=\beta_1-\beta_2$. Then $\hat\delta=1.20$ and
+\[
+SE(\hat\delta)=\sqrt{0.16+0.09-2(0.04)}=\sqrt{0.17}=0.4123.
+\]
+\[
+t=\frac{1.20}{\sqrt{0.17}}=2.9104.
+\]
+There is one restriction, $\delta=0$. Reject equality at 5\%.
+\par\smallskip
+\answerpart{2}The 95\% interval is
+\[
+1.20\pm1.96\sqrt{0.17}=[0.3919,2.0081].
+\]
+It excludes zero. The equivalent statistic is $F=t^2=8.4706>3.84$, giving the same decision.
+\par\smallskip
+\answerpart{3}The equivalent regression is
+\[
+Y_i=\beta_0+(\beta_1-\beta_2)X_{1i}+\beta_2W_i+U_i.
+\]
+Test the coefficient on $X_1$ against zero. The regressors are rearranged without changing the fitted values, residuals, or $R^2$.
+\end{frame}
+\fi
+
+\begin{frame}{Problem 4: Which coefficient pairs belong to the confidence set?}
+\small
+Reuse Problem 2: $(\hat\beta_1,\hat\beta_2)=(1.50,1.50)$, both standard errors are 1, and $\hat\rho=-0.50$.
+For a candidate pair $(b_1,b_2)$, set $t_j=(\hat\beta_j-b_j)/SE(\hat\beta_j)$ and calculate
+\[
+F(b_1,b_2)=\frac{t_1^2+t_2^2-2\hat\rho t_1t_2}{2(1-\hat\rho^2)}.
+\]
+The approximate 95\% joint confidence set includes pairs with $F(b_1,b_2)\le3.00$.
+\begin{enumerate}
+\item Decide whether $(0,0)$, $(1,1)$, and $(0,1.50)$ belong to the joint set.
+\item Construct the two separate 95\% intervals. Does their rectangular product contain $(0,0)$? Compare this with your joint decision.
+\item In a separate illustration, suppose two individual 95\% coverage events are independent. Calculate the probability that both intervals cover, and the probability that at least one fails to cover. Why is the rectangle not automatically a 95\% joint set?
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 4: Inverting a joint test}
+\small
+\answerpart{1}Here $2(1-\hat\rho^2)=1.50$ and the numerator is $t_1^2+t_2^2+t_1t_2$.
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Candidate pair & $(t_1,t_2)$ & $F$ & In the 95\% joint set?\\
+\midrule
+$(0,0)$ & $(1.50,1.50)$ & $4.50$ & No\\
+$(1,1)$ & $(0.50,0.50)$ & $0.50$ & Yes\\
+$(0,1.50)$ & $(1.50,0)$ & $1.50$ & Yes\\
+\bottomrule
+\end{tabular}
+\end{center}
+\answerpart{2}Each separate interval is $1.50\pm1.96=[-0.46,3.46]$.
+Their rectangle contains $(0,0)$, although the joint test rejects that pair. Joint inference accounts for the covariance between estimates.
+\par\smallskip
+\answerpart{3}Under the independence assumption in the illustration,
+\[
+\Pr(\text{both cover})=0.95^2=0.9025,\text{ and }
+\Pr(\text{at least one fails})=1-0.9025=0.0975.
+\]
+Separate 95\% intervals do not guarantee 95\% simultaneous coverage. These product calculations do not apply to the correlated estimates in Problem 2.
+\end{frame}
+\fi
+
+\section{Specification}
+\begin{frame}{Problem 5: Should we choose the model with the highest $R^2$?}
+\small
+Three regressions use the same 500 schools and test-score outcome. The coefficient of interest is on class size; supplied standard errors are in parentheses.
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+ & Model A & Model B & Model C\\
+\midrule
+Class-size coefficient & $-2.00$ & $-0.90$ & $-0.95$\\
+Standard error & $(0.80)$ & $(0.40)$ & $(0.42)$\\
+Income and parental education & No & Yes & Yes\\
+Additional background controls & No & No & Yes\\
+$R^2$ & $0.15$ & $0.45$ & $0.48$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Lower-income districts tend to have larger classes and lower test scores for other reasons. Explain the possible omitted-variable bias in A and the movement from A to B.
+\item Use a 5\% two-sided normal test for the class-size coefficient in each model. Does the largest $R^2$ establish the best causal estimate?
+\item What does the comparison of B and C suggest about sensitivity to these extra controls? State what further reasoning is needed before calling the estimate causal.
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 5: Fit, significance, and causal interpretation}
+\small
+\answerpart{1}Income is positively related to scores and negatively related to class size in the stated setting. Omitting income can make the class-size coefficient too negative. Adding background controls makes the estimate less negative, from $-2.00$ to $-0.90$, consistent with this explanation.
+\par\medskip
+\answerpart{2}The three zero-null statistics are
+\[
+t_A=-2.00/0.80=-2.50,\text{ }t_B=-0.90/0.40=-2.25,
+\text{ and }t_C=-0.95/0.42=-2.2619.
+\]
+All three reject at 5\%. Their significance does not establish causality, and a higher $R^2$ measures better in-sample fit rather than removal of confounding.
+\par\medskip
+\answerpart{3}The class-size estimate and its standard error change little from B to C. This suggests stability to these particular additional controls; it is not proof that all relevant confounders have been addressed.
+\par\smallskip
+Choose controls using the substantive question, their timing and role, and the plausibility of $\mathbb{E}[U_i\mid ClassSize_i,\text{controls}]=0$. Check sample selection and remaining omitted determinants before interpreting the association causally.
+\end{frame}
+\fi
+\end{document}

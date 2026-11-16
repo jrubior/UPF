@@ -1,0 +1,414 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex}
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+
+
+\title[]{\textcolor{blue}{Seminar 7:\\Functional Forms}}
+\subtitle{Three problems and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. All data are hypothetical;
+% no external assets are needed. Supplied uncertainty estimates support
+% large-sample inference; no covariance-estimation formula is required.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+
+\date{}
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Polynomials}
+\begin{frame}{Problem 1: Does an extra thousand euros have a constant association?}
+\small
+A hypothetical sample of 500 districts gives the quadratic fitted regression
+\[
+\widehat{Score}(x)=600+4x-0.04x^2,
+\]
+where $x$ is income in thousands of euros and scores are in points. Observed incomes range from 5 to 45. The supplied standard error of the coefficient on $X^2$ is $0.01$.
+\begin{enumerate}
+\item Calculate predicted scores at $x=10$ and $x=30$. Find the exact predicted score changes when income rises from 10 to 11 and from 30 to 31.
+\item Derive the marginal effect $d\widehat{Score}(x)/dx$ and evaluate it at 10 and 30. Find the turning point. Should we use it to claim that scores decline at very high incomes?
+\item Explain why OLS can estimate this model even though the relationship is curved. Test $H_0:\beta_{X^2}=0$ against a two-sided alternative at 5\%, using the large-sample normal approximation. What is the equivalent $F$ statistic for this one restriction?
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 1: Predictions and changing slopes}
+\small
+\answerpart{1}The fitted levels are
+\[
+\widehat{Score}(10)=600+40-4=636,\text{ and }
+\widehat{Score}(30)=600+120-36=684.
+\]
+For any starting income $x$, a one-unit increase changes the prediction by
+\[
+\widehat{Score}(x+1)-\widehat{Score}(x)
+=4-0.04[(x+1)^2-x^2]=4-0.04(2x+1).
+\]
+Thus the exact changes are $3.16$ points from 10 to 11 and $1.56$ points from 30 to 31.
+\par\medskip
+\answerpart{2}The marginal effect is
+\[
+\frac{d\widehat{Score}(x)}{dx}=4-0.08x.
+\]
+It is $3.20$ at $x=10$ and $1.60$ at $x=30$, in points per thousand euros. These derivatives describe an infinitesimal change; the exact one-unit changes average the declining slope over each interval.
+\end{frame}
+
+\begin{frame}{Solution 1: Turning point and the test of curvature}
+\small
+\answerpart{2}continued. Setting the marginal effect to zero gives
+\[
+4-0.08x=0\ \Longrightarrow\ x=50.
+\]
+The negative quadratic coefficient makes this a fitted maximum. However, 50 lies outside the observed income range $[5,45]$. A predicted decline beyond 50 is extrapolation and does not establish a decline in the population relationship.
+\par\medskip
+\answerpart{3}The model is linear in its coefficients:
+\[
+Score_i=\beta_0+\beta_1X_i+\beta_2X_i^2+U_i.
+\]
+Treat $X$ and $X^2$ as two regressor columns and estimate by OLS.
+\[
+t=\frac{-0.04}{0.01}=-4,\text{ and }F=t^2=16.
+\]
+Reject the zero-quadratic-coefficient null: $|t|>1.96$, or equivalently $F>3.84$ for one restriction. This is evidence of curvature within this specification.
+\end{frame}
+\fi
+
+\section{Logarithms}
+\begin{frame}{Problem 2: Which changes are in points and which are percentages?}
+\small
+Consider three hypothetical fitted functions for positive income $x$ (thousands of euros) and positive test score $y$. All logarithms are natural.
+\[
+\begin{aligned}
+\text{A: }&\hat y=500+20\log x,\\
+\text{B: }&\widehat{\log y}=6+0.02x,\\
+\text{C: }&\widehat{\log y}=6+0.30\log x.
+\end{aligned}
+\]
+\begin{enumerate}
+\item Name each functional form and interpret its slope coefficient. Specify whether the change is in score points or percent.
+\item For income rising from 10 to 11, calculate the exact change implied by each fitted function and the corresponding small-change approximation.
+\item Repeat for a doubling from 10 to 20. Explain why some percentage approximations are less accurate for this larger change.
+\end{enumerate}
+For B and C, compare $\tilde y=\exp(\widehat{\log y})$. Use
+$100[\exp(\Delta\widehat{\log y})-1]$ for its exact percentage change.
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 2: Model A, step by step}
+\small
+\answerpart{1}A is linear--log: 1\% more income is associated with approximately $20/100=0.20$ more score points.
+\par\smallskip
+\answerpart{2}From 10 to 11, $\Delta x=1$ and $\Delta x/x=0.10$.
+\begin{enumerate}
+\item Evaluate $\hat y(x)=500+20\log x$ at the two incomes:
+\[
+\hat y(10)=500+20\log10,\text{ and }\hat y(11)=500+20\log11.
+\]
+\item Subtract. The intercept cancels, and $\log a-\log b=\log(a/b)$:
+\[
+\begin{aligned}
+\hat y(11)-\hat y(10)&=20(\log11-\log10)\\
+&=20\log(1.10)=\boxed{1.9062\text{ points}}.
+\end{aligned}
+\]
+\item Approximate using $\log(1+g)\approx g$ for a small proportional change $g$:
+\[
+\Delta\hat y\approx20\frac{\Delta x}{x}=20(0.10)=\boxed{2\text{ points}}.
+\]
+\end{enumerate}
+The outcome is in levels, so this is a change in score points.
+\end{frame}
+
+\begin{frame}{Solution 2: Model B, step by step}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\answerpart{1}B is log--linear: one extra thousand euros is associated with approximately $100(0.02)=2$\% more in $\tilde y$.
+\par\smallskip
+\answerpart{2}Use $\widehat{\log y}(x)=6+0.02x$ and $\tilde y(x)=\exp(\widehat{\log y}(x))$.
+\begin{enumerate}
+\item Calculate the change in the fitted log outcome:
+\[
+\Delta\widehat{\log y}=[6+0.02(11)]-[6+0.02(10)]=0.02.
+\]
+\item Exponentiate to obtain the ratio of the fitted outcomes:
+\[
+\frac{\tilde y(11)}{\tilde y(10)}=\frac{e^{6.22}}{e^{6.20}}=e^{0.02}=1.020201\ldots
+\]
+\item Subtract 1 and multiply by 100 to obtain the exact percentage change:
+\[
+100\frac{\tilde y(11)-\tilde y(10)}{\tilde y(10)}
+=100(e^{0.02}-1)=\boxed{2.0201\%}.
+\]
+\item Approximate using $e^z-1\approx z$ for a small log change $z$:
+\[
+\%\Delta\tilde y\approx100(0.02\Delta x)=100(0.02)(1)=\boxed{2\%}.
+\]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution 2: Model C, step by step}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\answerpart{1}C is log--log: 1\% more income is associated with approximately $0.30$\% more in $\tilde y$; its elasticity is $0.30$.
+\par\smallskip
+\answerpart{2}Use $\widehat{\log y}(x)=6+0.30\log x$.
+\begin{enumerate}
+\item Subtract the fitted log outcomes; the intercept cancels:
+\[
+\Delta\widehat{\log y}=0.30(\log11-\log10)=0.30\log(1.10)=0.028593\ldots
+\]
+\item Exponentiate to obtain the ratio, using $e^{a\log b}=b^a$:
+\[
+\frac{\tilde y(11)}{\tilde y(10)}=e^{0.30\log(1.10)}=(1.10)^{0.30}=1.029006\ldots
+\]
+\item Subtract 1 and multiply by 100 for the exact percentage change:
+\[
+\%\Delta\tilde y=100[(1.10)^{0.30}-1]=\boxed{2.9006\%}.
+\]
+\item Approximate using $e^z-1\approx z$ and $\log(1+g)\approx g$:
+\[
+\%\Delta\tilde y\approx100(0.30)\frac{\Delta x}{x}
+=100(0.30)(0.10)=\boxed{3\%}.
+\]
+\end{enumerate}
+The last line is elasticity $\times$ percentage change in income: $0.30\times10\%=3\%$.
+\end{frame}
+
+\begin{frame}{Solution 2: A doubling is a large change}
+\small
+\answerpart{3}From 10 to 20, $\Delta x=10$ and $\Delta x/x=1$ (a 100\% increase).
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Model & Exact fitted change & Small-change approximation\\
+\midrule
+A & $20\log2=13.8629$ points & $20(1)=20$ points\\[4pt]
+B & $100(e^{0.20}-1)=22.1403$\% & $100(0.20)=20$\%\\[4pt]
+C & $100(2^{0.30}-1)=23.1144$\% & $0.30(100)=30$\%\\
+\bottomrule
+\end{tabular}
+\end{center}
+\par\smallskip
+For A and C, $\log2=0.6931$ differs substantially from the proportional change 1. For B, exponentiating a log change of $0.20$ gives a proportional change of $0.2214$.
+\par\medskip
+The log identities are exact; replacing log changes by proportional changes is an approximation for small changes.
+\par\smallskip
+For B and C, these calculations concern the exponentiated fitted log outcome. It is not generally the conditional arithmetic mean of the original outcome without a retransformation adjustment.
+\end{frame}
+\fi
+
+\section{Interactions}
+\begin{frame}{Problem 3: Does the class-size association differ across districts?}
+\small
+In 600 schools, let $X$ be class size and $D=1$ identify a low-income district ($D=0$ otherwise). The fitted model is
+\[
+\widehat{Score}=700-2X-30D+1.20(DX).
+\]
+Class sizes in both groups range from 15 to 35. The supplied standard error of the interaction estimate is $0.50$. For the joint null that the $D$ and $DX$ coefficients are zero, software reports $F=4.20$ using an appropriate supplied covariance estimate.
+\begin{enumerate}
+\item Write the fitted line for each group. Interpret the class-size slope in each group and the interaction coefficient.
+\item At class size 20, calculate both predicted scores and their difference. Express the low-income-minus-other-district gap as a function of $x$, and find where the two fitted lines cross.
+\item State and test the null of equal slopes at 5\%. Then state the null of identical lines, count its restrictions, and use the supplied joint statistic. Explain why these nulls differ.
+\end{enumerate}
+Use the large-sample critical values $1.96$ for a two-sided $t$ test and $3.00$ for an $F$ test with two restrictions.
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 3: Two group-specific regression lines}
+\small
+\answerpart{1}Substituting the group indicator gives
+\[
+\begin{aligned}
+D=0:\ &\widehat{Score}=700-2x,\\
+D=1:\ &\widehat{Score}=(700-30)+(-2+1.20)x=670-0.80x.
+\end{aligned}
+\]
+An extra student per class is associated with 2 fewer predicted score points for $D=0$ and 0.80 fewer for $D=1$. The interaction $1.20$ is the difference between these slopes: the association is less negative in low-income districts.
+\par\medskip
+\answerpart{2}At $x=20$, the predictions are $660$ and $654$ points, respectively. The low-income-minus-other gap is $-6$ points.
+\[
+\widehat{Gap}(x)=(670-0.80x)-(700-2x)=-30+1.20x.
+\]
+The lines cross at $x=30/1.20=25$, with both predicting 650 points. This lies inside the observed range. The $-30$ intercept difference is the gap at $x=0$, outside that range.
+\end{frame}
+
+\begin{frame}{Solution 3: Equal slopes versus identical lines}
+\small
+Write the model as
+\[
+Score_i=\beta_0+\beta_X X_i+\beta_D D_i+\beta_{DX}D_iX_i+U_i.
+\]
+\answerpart{3}Equal slopes require one restriction:
+\[
+H_0:\beta_{DX}=0,\text{ against }H_1:\beta_{DX}\ne0.
+\]
+\[
+t=\frac{1.20}{0.50}=2.40.
+\]
+Reject equal slopes at 5\%, since $2.40>1.96$.
+\par\medskip
+Identical lines require both equal intercepts and equal slopes:
+\[
+H_0:\beta_D=\beta_{DX}=0.
+\]
+There are two restrictions. Reject this joint null because the supplied $F=4.20>3.00$.
+\par\smallskip
+The equal-slope null permits different intercepts. The identical-line null rules out both kinds of difference. These are tests of conditional associations; causal interpretations require additional justification.
+\end{frame}
+\fi
+\end{document}
