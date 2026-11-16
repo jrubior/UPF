@@ -364,22 +364,67 @@ Before reaching this limit, the relationship between  $\tilde{X}_i$ and $Y_i$ wi
 
 \end{frame}
 
-\begin{frame}{Classical Measurement Error}
-Starting from,
-\begin{eqnarray*}
-    cov(\tilde{X}_i, \tilde{u}_i) = \beta_1 cov(\tilde{X}_i, X_i-\tilde{X}_i) + cov(\tilde{X}_i, u_i)
-\end{eqnarray*}
-Then, for $\tilde{X}_i=X_i+v_i$,  with $\operatorname{Cov}(X_i,v_i)=0$ and $\operatorname{Cov}(u_i,v_i)=0$,
-\begin{eqnarray*}
-        &cov(\tilde{X}_i, \tilde{u}_i) &= \beta_1 cov(X_i+v_i, -v_i)=-\beta_1\sigma_v^2\\
-        &var(\tilde{X}_i)&=\sigma_X^2 + \sigma_v^2
-\end{eqnarray*}
-And back to basics:
-\begin{eqnarray*}
-        &\hat{\beta}_1 \overset{p}{\to} & \beta_1 + \frac{cov(\tilde{X}_i, \tilde{u}_i)}{var(\tilde{X}_i)}\\
-        & {} &= \beta_1 -\beta_1\frac{\sigma_v^2}{\sigma_X^2 + \sigma_v^2} = \beta_1  \frac{\sigma_X^2}{\sigma_X^2 + \sigma_v^2}
-\end{eqnarray*}
-so $\hat{\beta}_1$ will be biased towards 0, even in large samples, and even approximate zero if the noise's variance is large enough.
+\begin{frame}{Covariance and Variance under Classical Measurement Error}
+\small
+Let $U_i$ be the true regression error and $V_i$ the measurement error. Then
+$\tilde X_i=X_i+V_i$ and $\tilde U_i=U_i-\beta_1 V_i$.
+
+\medskip
+The true-model assumption $\mathbb{E}(U_i\mid X_i)=0$ implies $\operatorname{Cov}(X_i,U_i)=0$.
+Classical measurement error gives $\operatorname{Cov}(X_i,V_i)=0$ and $\operatorname{Cov}(U_i,V_i)=0$.
+\[
+\begin{aligned}
+\operatorname{Cov}(\tilde X_i,\tilde U_i)
+  &= \operatorname{Cov}(X_i+V_i,U_i-\beta_1 V_i) \\
+  &= \operatorname{Cov}(X_i+V_i,U_i)-\beta_1\operatorname{Cov}(X_i+V_i,V_i) \\
+  &= \operatorname{Cov}(X_i,U_i)+\operatorname{Cov}(V_i,U_i)
+     -\beta_1\bigl[\operatorname{Cov}(X_i,V_i)+\operatorname{Var}(V_i)\bigr] \\
+  &= -\beta_1\operatorname{Var}(V_i)=-\beta_1\sigma_V^2.
+\end{aligned}
+\]
+The observed regressor has variance
+\[
+\begin{aligned}
+\operatorname{Var}(\tilde X_i)
+  &= \operatorname{Var}(X_i+V_i) \\
+  &= \operatorname{Var}(X_i)+2\operatorname{Cov}(X_i,V_i)+\operatorname{Var}(V_i) \\
+  &= \sigma_X^2+\sigma_V^2.
+\end{aligned}
+\]
+\end{frame}
+
+\begin{frame}{OLS Probability Limit under Classical Measurement Error}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+Let $S_{A,B}$ be the sample covariance of $A$ and $B$, with bars denoting sample means.
+\[
+S_{A,B}=\frac{1}{n}\sum_{i=1}^n(A_i-\bar A)(B_i-\bar B)
+       =\overline{AB}-\bar A\bar B.
+\]
+For OLS with an intercept, center $Y_i=\beta_0+\beta_1\tilde X_i+\tilde U_i$ to get
+\[
+Y_i-\bar Y=\beta_1(\tilde X_i-\overline{\tilde X})+(\tilde U_i-\overline{\tilde U}).
+\]
+Substitute this into the sample slope.
+\[
+\hat\beta_1
+=\frac{S_{\tilde X,Y}}{S_{\tilde X,\tilde X}}
+=\frac{\beta_1 S_{\tilde X,\tilde X}+S_{\tilde X,\tilde U}}{S_{\tilde X,\tilde X}}
+=\beta_1+\frac{S_{\tilde X,\tilde U}}{S_{\tilde X,\tilde X}}.
+\]
+With i.i.d. observations and finite second moments, the law of large numbers gives
+\[
+S_{A,B}\xrightarrow{p}\mathbb{E}(A_i B_i)-\mathbb{E}(A_i)\mathbb{E}(B_i)=\operatorname{Cov}(A_i,B_i).
+\]
+Since $\operatorname{Var}(\tilde X_i)>0$, we can take the ratio of the limits.
+\[
+\hat\beta_1\xrightarrow{p}
+\beta_1+\frac{\operatorname{Cov}(\tilde X_i,\tilde U_i)}{\operatorname{Var}(\tilde X_i)}
+=\beta_1-\beta_1\frac{\sigma_V^2}{\sigma_X^2+\sigma_V^2}
+=\beta_1\frac{\sigma_X^2}{\sigma_X^2+\sigma_V^2}.
+\]
+The probability limit moves toward zero as $\sigma_V^2$ grows with $\sigma_X^2$ fixed.
 \end{frame}
 
 \begin{frame}{Missing Data}
@@ -432,7 +477,7 @@ Each value of $X_i$ has probability $1/3$. At every $X_i$, errors are evenly spr
 
 \begin{frame}{Selection Only on $X$: Keep $X_i\geq1$}
 \small
-Use $Y_i=2+X_i+u_i$ with $u_i$ independent of $X_i$ and uniform on $[-2,2]$.
+Use $Y_i=2+X_i+U_i$ with $U_i$ independent of $X_i$ and uniform on $[-2,2]$.
 \medskip
 
 \textbf{1. Selection rule:} $S_i=1$ if $X_i\geq1$; otherwise $S_i=0$.
@@ -447,40 +492,49 @@ $X_i$ & Included? & Errors among included observations & Mean error\\
 \hline
 \end{tabular}
 \end{center}
-\textbf{2. Once $X_i=x\geq1$ is fixed, inclusion adds no information about $u_i$:}
+\textbf{2. Why the mean error stays zero.}
+At $x=1$ or $2$, the rule includes every observation with $X_i=x$, so
 \[
-\mathbb{E}(u_i\mid X_i=x,S_i=1)
-=\mathbb{E}(u_i\mid X_i=x)=0.
+\{X_i=x, S_i=1\}=\{X_i=x\}\text{ for }x\in\{1,2\}.
+\]
+The conditioning events are the same. Independence of $U_i$ and $X_i$ then gives
+\[
+\mathbb{E}(U_i\mid X_i=x,S_i=1)
+=\mathbb{E}(U_i\mid X_i=x)=\mathbb{E}(U_i)=0.
 \]
 \textbf{3. The regression relationship is preserved:}
 \[
-\mathbb{E}(Y_i\mid X_i=x,S_i=1)=2+x,\qquad x\in\{1,2\}.
+\mathbb{E}(Y_i\mid X_i=x,S_i=1)=2+x\text{ for }x\in\{1,2\}.
 \]
-The distribution of $X$ changes, but the balance of positive and negative errors \textbf{at each retained $X$} does not. Both retained values identify the slope of 1.
-\medskip
-
-More generally, if $\Pr(S_i=1\mid X_i,u_i)=\Pr(S_i=1\mid X_i)>0$, conditioning on inclusion preserves $\mathbb{E}(u_i\mid X_i)=0$. This protects the regression coefficients, not the population average of $Y$.
+Both retained values identify the slope of 1.
 \end{frame}
 
 \begin{frame}{Selection Only on $Y$: Keep $Y_i\geq3$}
 \small
-\setlength{\abovedisplayskip}{4pt}
-\setlength{\belowdisplayskip}{4pt}
-\textbf{1. Rewrite the outcome-based rule using $Y_i=2+X_i+u_i$:}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\textbf{1. Rewrite the outcome-based rule using $Y_i=2+X_i+U_i$:}
 \[
 S_i=1\ \Longleftrightarrow\ Y_i\geq3
-\ \Longleftrightarrow\ 2+X_i+u_i\geq3
-\ \Longleftrightarrow\ \boxed{u_i\geq1-X_i.}
+\ \Longleftrightarrow\ 2+X_i+U_i\geq3
+\ \Longleftrightarrow\ \boxed{U_i\geq1-X_i.}
 \]
-\textbf{2. At a fixed $X_i=x$, selection removes the lower part of the error distribution.}
-The retained errors are uniform on $[1-x,2]$; their mean is the midpoint:
+\textbf{2. Compute the mean of the retained errors.}
+At $X_i=x$, the uniform error is restricted to $[1-x,2]$.
+The interval has length $2-(1-x)=1+x$, so the conditional density on it is $1/(1+x)$.
 \[
-\mathbb{E}(u_i\mid X_i=x,S_i=1)=\frac{(1-x)+2}{2}=\frac{3-x}{2}.
+\begin{aligned}
+\mathbb{E}(U_i\mid X_i=x,S_i=1)
+&=\int_{1-x}^{2}\frac{u}{1+x}\,du
+=\frac{2^2-(1-x)^2}{2(1+x)}\\
+&=\frac{[2-(1-x)][2+(1-x)]}{2(1+x)}
+=\frac{3-x}{2}.
+\end{aligned}
 \]
 \begin{center}
 \begin{tabular}{ccccc}
 \hline
-$X_i$ & Retained $u_i$ & Mean $u_i$ & Full-sample mean $Y_i$ & Selected mean $Y_i$\\
+$X_i$ & Retained $U_i$ & Mean $U_i$ & Full-sample mean $Y_i$ & Selected mean $Y_i$\\
 \hline
 0 & $[1,2]$ & 1.5 & 2 & 3.5\\
 1 & $[0,2]$ & 1 & 3 & 4\\
@@ -493,35 +547,29 @@ $X_i$ & Retained $u_i$ & Mean $u_i$ & Full-sample mean $Y_i$ & Selected mean $Y_
 \mathbb{E}(Y_i\mid X_i=x,S_i=1)
 =2+x+\frac{3-x}{2}=\boxed{3.5+0.5x}.
 \]
-The true slope is 1, but OLS in the selected population targets 0.5. Low-$X$ observations need unusually high $u$ to enter; high-$X$ observations can enter with lower $u$. The fitted relationship flattens.
+Page 19 explains how this rule changes both who enters the sample and the estimated slope.
 \end{frame}
 
-\begin{frame}{Are Selection on $Y$ and Selection on $u$ the Same?}
+\begin{frame}{Who Is Selected and Why the Slope Falls}
 \small
-\setlength{\abovedisplayskip}{4pt}
-\setlength{\belowdisplayskip}{4pt}
-\textbf{They are different rules. At a fixed $X$, however, $Y$ and $u$ move one-for-one.}
+\textbf{Larger $X_i$ makes selection more likely.}
+The rule $Y_i\geq3$ requires $U_i\geq1-x$ at $X_i=x$. As $x$ rises, the cutoff falls and more of the uniform error distribution is retained.
 \[
-Y_i=\beta_0+\beta_1X_i+u_i
-\quad\Rightarrow\quad
-Y_i\geq c\ \Longleftrightarrow\ u_i\geq c-\beta_0-\beta_1X_i.
+\Pr(S_i=1\mid X_i=x)=\frac{2-(1-x)}{4}=\frac{1+x}{4}.
 \]
-A fixed cutoff on $Y$ becomes an \textbf{$X$-dependent cutoff on $u$}. In our example, $Y_i\geq3$ means $u_i\geq1-X_i$, which changes both the intercept and slope.
-\medskip
+The selection probabilities at $x=0,1,2$ are $1/4$, $1/2$ and $3/4$, respectively.
 
-\textbf{Compare a rule based only on $u$: keep observations with $u_i\geq0$.}
+\medskip
+\textbf{Selection raises mean $Y_i$ more at low $X_i$.}
+At $x=0$, the cutoff $U_i\geq1$ raises mean $Y_i$ from $2$ to $3.5$.
+At $x=2$, the cutoff $U_i\geq-1$ raises mean $Y_i$ from $4$ to $4.5$.
+The gap in mean outcomes shrinks from $2$ to $1$ over the same two-unit change in $x$.
 \[
-\mathbb{E}(u_i\mid X_i=x,S_i=1)=\frac{0+2}{2}=1,
-\qquad
-\mathbb{E}(Y_i\mid X_i=x,S_i=1)=3+x.
+\begin{aligned}
+\text{Full-population slope} &= \frac{4-2}{2-0}=1,\\
+\text{Selected-population slope} &= \frac{4.5-3.5}{2-0}=0.5.
+\end{aligned}
 \]
-Here the zero-conditional-mean assumption fails, but only the intercept changes: the slope remains 1. The same rule in outcome terms is $Y_i\geq2+X_i$, not a fixed cutoff on $Y$.
-\medskip
-
-\textbf{Missing versus observed:} if observations with $Y_i<3$ are missing, the observed sample obeys $Y_i\geq3$. Likewise, missing $u_i<0$ means retaining $u_i\geq0$. Selection need not be deliberate; nonresponse or eligibility rules can produce it.
-\medskip
-
-\textbf{Dependence alone does not guarantee bias.} With our symmetric errors, retaining $|u_i|\geq1$ keeps both tails equally and still gives $\mathbb{E}(u_i\mid X_i,S_i=1)=0$. Always check the \emph{selected conditional mean}, not just which variable enters the rule.
 \end{frame}
 
 \begin{frame}{Sample Selection Bias}
@@ -597,27 +645,8 @@ X_i=\frac{\gamma_0+\gamma_1\beta_0}{1-\gamma_1\beta_1}
 \textbf{Intuition:} a shock $u_i$ changes $Y_i$; because $Y_i$ feeds back into $X_i$, the regressor responds to that same shock. Thus $\mathbb{E}(u_i\mid X_i)=0$ cannot hold, and OLS confounds the causal effect with feedback. If $\gamma_1=0$, this channel disappears.
 \end{frame}
 
-\begin{frame}
-\frametitle{Inconsistent Standard Errors}
-
-\begin{itemize}
-  \item Inconsistent standard errors can impact the internal validity of a multiple regression study.\\[1em]
-  \item Even with consistent OLS estimators and large samples, inconsistent standard errors lead to hypothesis tests with incorrect significance levels and unreliable 95\% confidence intervals.\\[1em]
-  \item Main reasons for inconsistent standard errors:
-    \begin{itemize}
-      \item \textbf{Correlation of the Error Term Across Observations:} E.g., if the omitted variables that constitute the regression error are persistent (like district demographics or geographies), these omitted variables could result in serial and/or spatial correlation of the regression errors for adjacent observations. Common in panel data or time series data, requires alternative formulas for standard errors. (more in $Lecture~10$)
-    \end{itemize}
-    \vspace{1em}
-  \item Addressing these issues is crucial for maintaining internal validity.
-
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Internal Validity Checklist for Multiple Variables Regressions}
-Applying this list of threats to a multiple regression study provides a systematic way to assess the internal validity of that study.\\[1em]
-\begin{columns}
-\begin{column}{0.45\textwidth}
-\textbf{$\mathbb{E}(u\mid X)\neq 0$ :}
+When assessing a causal estimate from multiple regression, check for these five threats.
 \begin{enumerate}
     \item Omitted variables
     \item Functional form misspecification
@@ -625,17 +654,6 @@ Applying this list of threats to a multiple regression study provides a systemat
     \item Sample selection
     \item Simultaneous causality
 \end{enumerate}
-\end{column}
-\begin{column}{0.45\textwidth}
-\textbf{Inconsistent SE :}
-\begin{enumerate}
-    \item Serial and Spatial Correlation
-    \item[]
-    \item[]
-    \item[]
-\end{enumerate}
-\end{column}
-\end{columns}
 \end{frame}
 
 \begin{frame}{What about prediction?}
