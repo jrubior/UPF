@@ -564,6 +564,40 @@ $X_i$ is a function of $u_i$, the unexplained variation of $Y_i$.
 
 
 \begin{frame}
+\frametitle{Simultaneity: Why Is $X_i$ Correlated with $u_i$?}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{1. Start with the two equations on the previous slide:}
+\[
+Y_i=\beta_0+\beta_1X_i+u_i,
+\qquad X_i=\gamma_0+\gamma_1Y_i+v_i.
+\]
+To isolate reverse causality, assume $\operatorname{Cov}(u_i,v_i)=0$, $\operatorname{Var}(u_i)>0$, and $1-\gamma_1\beta_1\neq0$.
+\medskip
+
+\textbf{2. Substitute the equation for $Y_i$ into the equation for $X_i$:}
+\[
+X_i=\gamma_0+\gamma_1(\beta_0+\beta_1X_i+u_i)+v_i
+\quad\Rightarrow\quad
+(1-\gamma_1\beta_1)X_i=\gamma_0+\gamma_1\beta_0+\gamma_1u_i+v_i.
+\]
+\textbf{3. Solve for $X_i$: the outcome error now appears inside the regressor.}
+\[
+X_i=\frac{\gamma_0+\gamma_1\beta_0}{1-\gamma_1\beta_1}
++\underbrace{\frac{\gamma_1}{1-\gamma_1\beta_1}u_i}_{\text{reverse-causality channel}}
++\frac{1}{1-\gamma_1\beta_1}v_i.
+\]
+\textbf{4. Take the covariance with $u_i$ (the constant contributes zero):}
+\[
+\operatorname{Cov}(X_i,u_i)
+=\frac{\gamma_1\operatorname{Var}(u_i)+\operatorname{Cov}(v_i,u_i)}{1-\gamma_1\beta_1}
+=\boxed{\frac{\gamma_1\operatorname{Var}(u_i)}{1-\gamma_1\beta_1}\neq0\quad\text{if }\gamma_1\neq0.}
+\]
+\textbf{Intuition:} a shock $u_i$ changes $Y_i$; because $Y_i$ feeds back into $X_i$, the regressor responds to that same shock. Thus $\mathbb{E}(u_i\mid X_i)=0$ cannot hold, and OLS confounds the causal effect with feedback. If $\gamma_1=0$, this channel disappears.
+\end{frame}
+
+\begin{frame}
 \frametitle{Inconsistent Standard Errors}
 
 \begin{itemize}
