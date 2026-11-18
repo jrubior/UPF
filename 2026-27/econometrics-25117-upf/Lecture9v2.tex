@@ -350,7 +350,7 @@ The second-stage OLS slope is therefore
 =\frac{s_{ZY}}{\hat\pi_1s_{ZZ}}
 =\frac{s_{ZY}}{s_{ZX}}.
 \]
-With one instrument and one endogenous regressor, 2SLS gives the same slope as the IV ratio. OLS on the original $X_i$ uses $s_{XY}/s_{XX}$.
+With one instrument and one endogenous regressor, two-stage least squares is another way to compute the same IV estimate of $\beta_1$, equal to the estimated reduced-form slope divided by the estimated first-stage slope: $\hat\beta_1^{\mathrm{2SLS}}=\hat\beta_1^{\mathrm{IV}}=\hat\beta_1^{\mathrm{RF}}/\hat\pi_1$.
 \end{frame}
 
 \begin{frame}{Two Stages Least Squares (2SLS)}
@@ -444,7 +444,7 @@ In this example, the drought shifts the supply curve left and leaves the demand 
 \end{frame}
 
 \begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 1: Write the Estimation Error}
-With one instrument and one endogenous regressor, the IV and 2SLS slopes both equal $s_{ZY}/s_{ZX}$. Use the structural equation $Y_i=\beta_0+\beta_1X_i+U_i$.
+Use the structural equation $Y_i=\beta_0+\beta_1X_i+U_i$.
 \[
 \begin{aligned}
 s_{ZY}
@@ -462,27 +462,118 @@ Substitute this into the IV ratio and subtract the true slope.
 \]
 \end{frame}
 
-\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 2: Apply the CLT to the Numerator}
-Let $\mu_Z=\mathbb{E}(Z_i)$ and take $\mathbb{E}(U_i)=0$, with the mean absorbed by the intercept. Since $\sum_i(Z_i-\bar Z)=0$,
+\begin{frame}{Step 2: Start from the Central Limit Theorem}
+Suppose $W_1,\ldots,W_n$ are independent and identically distributed (i.i.d.), with mean $\mu_W$ and finite variance $\sigma_W^2$.
+\[
+\bar W=\frac{1}{n}\sum_{i=1}^{n}W_i,\text{ and }
+\sqrt n\,(\bar W-\mu_W)
+\xrightarrow{d}\mathcal N(0,\sigma_W^2).
+\]
+\begin{itemize}
+    \item $\bar W-\mu_W$ is the sampling error of the average.
+    \item The average fluctuates around $\mu_W$ on the $1/\sqrt n$ scale.
+    \item Multiplication by $\sqrt n$ keeps these fluctuations on a stable scale.
+    \item $\xrightarrow{d}$ means convergence in distribution. The scaled sampling error has a limiting normal distribution.
+\end{itemize}
+\medskip
+To use the theorem for IV, we must identify the random variable $W_i$ whose average appears in the estimation error.
+\end{frame}
+
+\begin{frame}{Step 3: Identify the Variable We Average}
+Let $\mu_Z=\mathbb E(Z_i)$ and absorb the mean of $U_i$ into the intercept so that $\mathbb E(U_i)=0$. Define
+\[
+W_i=(Z_i-\mu_Z)U_i.
+\]
+I.i.d. observations $(Z_i,U_i)$ give i.i.d. products $W_i$. Instrument exogeneity implies
+\[
+\mu_W=\mathbb E(W_i)
+=\mathbb E[(Z_i-\mu_Z)U_i]
+=\operatorname{Cov}(Z_i,U_i)=0.
+\]
+Assume $\operatorname{Var}(W_i)<\infty$. Substitute this variable, its mean and its variance into the CLT.
+\[
+\sqrt n\,\frac{1}{n}\sum_{i=1}^{n}(Z_i-\mu_Z)U_i
+\xrightarrow{d}
+\mathcal N\!\left(0,\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)\right).
+\]
+We now have a limit for the average centered at the population mean $\mu_Z$. The sample covariance uses $\bar Z$, so we must account for the difference.
+\end{frame}
+
+\begin{frame}{Step 4: Rewrite the Sample Covariance}
+\small
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+Expand the sample covariance. The deviations of $Z_i$ from their sample mean sum to zero.
 \[
 \begin{aligned}
 s_{ZU}
-&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)U_i\\
-&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\mu_Z)U_i-(\bar Z-\mu_Z)\bar U.
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)(U_i-\bar U)\\
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)U_i
+-\frac{\bar U}{n}\underbrace{\sum_{i=1}^{n}(Z_i-\bar Z)}_{=\,0}\\
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\bar Z)U_i.
 \end{aligned}
 \]
-Under i.i.d. sampling and finite second moments, both factors in the last product fluctuate on the $1/\sqrt n$ scale. Their product is on the $1/n$ scale and vanishes after multiplication by $\sqrt n$.
+The cancellation holds for any $\bar U$, which can differ from zero in a finite sample.
 
 \medskip
-Exogeneity gives $\mathbb{E}[(Z_i-\mu_Z)U_i]=\operatorname{Cov}(Z_i,U_i)=0$.
-With finite variance for this product, the central limit theorem (CLT) gives
+Write $Z_i-\bar Z=(Z_i-\mu_Z)-(\bar Z-\mu_Z)$ and substitute.
 \[
-\sqrt n\,s_{ZU}\xrightarrow{d}
-\mathcal{N}\!\left(0,\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)\right).
+\begin{aligned}
+s_{ZU}
+&=\frac{1}{n}\sum_{i=1}^{n}(Z_i-\mu_Z)U_i
+  -(\bar Z-\mu_Z)\frac{1}{n}\sum_{i=1}^{n}U_i\\
+&=\frac{1}{n}\sum_{i=1}^{n}W_i-(\bar Z-\mu_Z)\bar U.
+\end{aligned}
 \]
 \end{frame}
 
-\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 3: Apply the LLN and Combine}
+\begin{frame}{Step 5: Show That the Scaled Correction Vanishes}
+Multiplying the correction by $\sqrt n$ gives
+\[
+\sqrt n\,(\bar Z-\mu_Z)\bar U
+=\bigl[\sqrt n\,(\bar Z-\mu_Z)\bigr]\bar U.
+\]
+Apply the CLT to $Z_i$, assuming $\operatorname{Var}(Z_i)<\infty$.
+\[
+\sqrt n\,(\bar Z-\mu_Z)
+\xrightarrow{d}\mathcal N\!\left(0,\operatorname{Var}(Z_i)\right).
+\]
+This factor keeps fluctuating on a stable scale as the sample grows.
+
+\medskip
+Apply the law of large numbers (LLN) to $U_i$, assuming a finite absolute mean.
+\[
+\bar U\xrightarrow{p}\mathbb E(U_i)=0.
+\]
+A factor with a limiting distribution multiplied by a factor converging in probability to zero converges in probability to zero. By Slutsky's theorem,
+\[
+\bigl[\sqrt n\,(\bar Z-\mu_Z)\bigr]\bar U\xrightarrow{p}0.
+\]
+\end{frame}
+
+\begin{frame}{Step 6: Obtain the CLT Limit for the Sample Covariance}
+Return to the decomposition and multiply every term by $\sqrt n$.
+\[
+\sqrt n\,s_{ZU}
+=\underbrace{\sqrt n\,\frac{1}{n}\sum_{i=1}^{n}W_i}_{\text{CLT from Step 3}}
+-\underbrace{\bigl[\sqrt n\,(\bar Z-\mu_Z)\bigr]\bar U}_{\text{converges to zero by Step 5}}.
+\]
+The first term has a normal limiting distribution. The second term approaches zero in probability. Subtracting it preserves the limiting distribution, by Slutsky's theorem.
+\[
+\boxed{
+\sqrt n\,s_{ZU}\xrightarrow{d}
+\mathcal N\!\left(0,\operatorname{Var}\bigl((Z_i-\mu_Z)U_i\bigr)\right).
+}
+\]
+This is the numerator needed for the IV estimation error.
+\[
+\sqrt n\,(\hat\beta_1^{\mathrm{IV}}-\beta_1)
+=\frac{\sqrt n\,s_{ZU}}{s_{ZX}}.
+\]
+The next step uses the LLN for the denominator.
+\end{frame}
+
+\begin{frame}{Large-Sample IV\texorpdfstring{ -- }{ - }Step 7: Apply the LLN and Combine}
 \small
 By the law of large numbers (LLN), $s_{ZX}\xrightarrow{p}\operatorname{Cov}(Z_i,X_i)$. Instrument relevance makes this limit nonzero. Slutsky's theorem lets us divide the CLT limit by this constant.
 \[
@@ -541,71 +632,6 @@ and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$.\\[1em]
 \end{frame}
 
 
-\begin{frame}{Example with $m=1$ -- Price Elasticity of cigarettes}
-\textbf{First stage: dependent variable \texttt{ltavgprs}}
-\begin{center}
-\begin{tabular}{lr}
-\hline
-Regressor & Coefficient estimate\\
-\hline
-\texttt{rtaxso} & $.0266403$\\
-\texttt{ltperinc} & $.424329$\\
-Constant & $-.1397201$\\
-\hline
-\end{tabular}
-\end{center}
-$n=48$, $R^2=.3987$, Root MSE $=.13936$.
-\end{frame}
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \includegraphics[width=.85\linewidth]{images/2SLS_FS_ivreg.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\textbf{Manual second stage: dependent variable \texttt{ltpackpc}}
-\begin{center}
-\begin{tabular}{lr}
-\hline
-Regressor & Coefficient estimate\\
-\hline
-\texttt{hat\_ltavgprs} & $-1.274014$\\
-\texttt{ltperinc} & $.3865991$\\
-Constant & $.0012983$\\
-\hline
-\end{tabular}
-\end{center}
-$n=48$, $R^2=.0900$, Root MSE $=.33569$.
-\vspace{1em}
-
-The fitted price comes from the first stage. This gives the 2SLS coefficients; second-stage OLS standard errors do not account for the first stage.
-\end{frame}
-
-
-\begin{frame}{Example with $m=1$  -- Price Elasticity of cigarettes}
-\textbf{Dedicated 2SLS: dependent variable \texttt{ltpackpc}}
-\begin{center}
-\begin{tabular}{lr}
-\hline
-Regressor & Coefficient estimate\\
-\hline
-\texttt{ltavgprs} & $-1.274014$\\
-\texttt{ltperinc} & $.3865991$\\
-Constant & $.0012983$\\
-\hline
-\end{tabular}
-\end{center}
-$n=48$, $R^2=.4479$, Root MSE $=.26147$.
-\vspace{1em}
-
-Instrument: \texttt{rtaxso}. Exogenous control: \texttt{ltperinc}.\\[.5em]
-A single specialized command gives the 2SLS coefficients and proper 2SLS standard errors, accounting for the first stage.
-\end{frame}
-
-
 \begin{frame}{The General IV Regression Assumptions}
 Consider the following specification
 \begin{equation*}
@@ -623,21 +649,6 @@ and $m$ instruments, $Z_{1i}, \dots,Z_{mi}$. Under the following assumptions, th
         \item \textit{Instrument relevance:} Suppose the second stage regression could be run using the predicted values from the \textit{population} first stage regression. Then there is no perfect multicollinearity in this (infeasible) second-stage regression. Intuitively, the instruments must provide enough information about the exogenous movements in these variables to sort out their separate effects on $Y$.
     \end{enumerate}
 \end{enumerate}
-\end{frame}
-
-
-\begin{frame}{Checking Assumption 4.1 -- Instrument exogeneity}
-\begin{itemize}
-    \item Instrument exogeneity: All the instruments are uncorrelated with the error term
-    \item In other words, $Z$ can only impact $Y$ \underline{through} $X$
-    \item If the instruments are correlated with the error team, the first stage of 2SLS cannot isolate a component of $X$ that is uncorrelated with the error team, so $\hat{X}$ is correlated with $u$ and 2SLS inconsistent.
-    \item If there are more instruments than endogenous regressors, it is possible to test -- \underline{partially} -- for instrument exogeneity.
-    \item Intuition: Consider the simplest case:
-    \begin{equation*}
-        Y_i = \beta_0 + \beta_1 X_i + u_i
-    \end{equation*}
-    Suppose there are two valid instruments: $Z_{1i}$ and $Z_{2i}$, then you can compute two separate 2SLS estimates. If these 2 2SLS estimates are very different from each other, then something must be wrong: one or the other (or both) of the instruments must be invalid
-\end{itemize}
 \end{frame}
 
 \begin{frame}{Checking Assumption 4.1 -- Instrument exogeneity}
@@ -682,122 +693,27 @@ We cannot conduct statistical inference with the usual methods when instruments 
 
 
 
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-\begin{center}
-\begin{figure}
-    \resizebox{.9\linewidth}{!}{%
-
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Shape: Circle [id:dp7275541051674568] 
-\draw  [color={rgb, 255:red, 98; green, 178; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 242; blue, 36 }  ,fill opacity=0.24 ] (68,146) .. controls (68,89.67) and (113.67,44) .. (170,44) .. controls (226.33,44) and (272,89.67) .. (272,146) .. controls (272,202.33) and (226.33,248) .. (170,248) .. controls (113.67,248) and (68,202.33) .. (68,146) -- cycle ;
-%Shape: Circle [id:dp29955697964696837] 
-\draw  [color={rgb, 255:red, 9; green, 107; blue, 178 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 179; blue, 242 }  ,fill opacity=0.24 ] (161.5,147.5) .. controls (161.5,74.6) and (220.6,15.5) .. (293.5,15.5) .. controls (366.4,15.5) and (425.5,74.6) .. (425.5,147.5) .. controls (425.5,220.4) and (366.4,279.5) .. (293.5,279.5) .. controls (220.6,279.5) and (161.5,220.4) .. (161.5,147.5) -- cycle ;
-%Shape: Circle [id:dp26088917675528234] 
-\draw  [color={rgb, 255:red, 178; green, 9; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 242; green, 15; blue, 31 }  ,fill opacity=0.24 ] (122,153.5) .. controls (122,113.74) and (154.24,81.5) .. (194,81.5) .. controls (233.76,81.5) and (266,113.74) .. (266,153.5) .. controls (266,193.26) and (233.76,225.5) .. (194,225.5) .. controls (154.24,225.5) and (122,193.26) .. (122,153.5) -- cycle ;
-%Curve Lines [id:da7864761338128692] 
-\draw    (550,159) .. controls (546.04,220.38) and (503.86,225.89) .. (460.32,192.04) ;
-\draw [shift={(459,191)}, rotate = 38.5] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
-\draw (186,139) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{1,0,0}{{\large $Z$}}};
-% Text Node
-\draw (330,136) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 10; green, 6; blue, 235 }  ,opacity=1 ] [align=left] {$Y$};
-% Text Node
-\draw (89,127) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 79; green, 139; blue, 13 }  ,opacity=1 ] [align=left] {$X$};
-% Text Node
-\draw (469,134) node [anchor=north west][inner sep=0.75pt]   [align=left] {$Z$ is a \textbf{strong} instrument};
-
-
-\end{tikzpicture}
-}
-\end{figure}
-\end{center}
-
-\end{frame}
-
-
-
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-\begin{center}
-\begin{figure}
-    \resizebox{.9\linewidth}{!}{%
-
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Shape: Circle [id:dp7275541051674568] 
-\draw  [color={rgb, 255:red, 98; green, 178; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 242; blue, 36 }  ,fill opacity=0.24 ] (68,146) .. controls (68,89.67) and (113.67,44) .. (170,44) .. controls (226.33,44) and (272,89.67) .. (272,146) .. controls (272,202.33) and (226.33,248) .. (170,248) .. controls (113.67,248) and (68,202.33) .. (68,146) -- cycle ;
-%Shape: Circle [id:dp29955697964696837] 
-\draw  [color={rgb, 255:red, 9; green, 107; blue, 178 }  ,draw opacity=1 ][fill={rgb, 255:red, 15; green, 179; blue, 242 }  ,fill opacity=0.24 ] (161.5,147.5) .. controls (161.5,74.6) and (220.6,15.5) .. (293.5,15.5) .. controls (366.4,15.5) and (425.5,74.6) .. (425.5,147.5) .. controls (425.5,220.4) and (366.4,279.5) .. (293.5,279.5) .. controls (220.6,279.5) and (161.5,220.4) .. (161.5,147.5) -- cycle ;
-%Shape: Circle [id:dp26088917675528234] 
-\draw  [color={rgb, 255:red, 178; green, 9; blue, 9 }  ,draw opacity=1 ][fill={rgb, 255:red, 242; green, 15; blue, 31 }  ,fill opacity=0.24 ] (127.5,148.25) .. controls (127.5,134.03) and (139.03,122.5) .. (153.25,122.5) .. controls (167.47,122.5) and (179,134.03) .. (179,148.25) .. controls (179,162.47) and (167.47,174) .. (153.25,174) .. controls (139.03,174) and (127.5,162.47) .. (127.5,148.25) -- cycle ;
-%Curve Lines [id:da7864761338128692] 
-\draw    (550,159) .. controls (546.04,220.38) and (503.86,225.89) .. (460.32,192.04) ;
-\draw [shift={(459,191)}, rotate = 38.5] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
-\draw (143,139) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{1,0,0}{{\large $Z$}}};
-% Text Node
-\draw (330,136) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 10; green, 6; blue, 235 }  ,opacity=1 ] [align=left] {$Y$};
-% Text Node
-\draw (89,127) node [anchor=north west][inner sep=0.75pt]  [font=\large,color={rgb, 255:red, 79; green, 139; blue, 13 }  ,opacity=1 ] [align=left] {$X$};
-% Text Node
-\draw (469,134) node [anchor=north west][inner sep=0.75pt]   [align=left] {$Z$ is a \textbf{weak} instrument};
-
-
-\end{tikzpicture}
-}
-\end{figure}
-\end{center}
-
-\end{frame}
-
-
-
-\begin{frame}{Checking Assumption 4.2 -- Instrument Relevance}
-So... how relevant must the instruments be to draw causal inference in practice? How weak is weak?
-
+\begin{frame}{Instrument Relevance: The First-Stage F-Test}
+\small
+With one endogenous regressor, estimate the first stage including the controls $W$.
+\[
+X_i=\pi_0+\pi_1Z_{1i}+\cdots+\pi_mZ_{mi}
++\delta_1W_{1i}+\cdots+\delta_rW_{ri}+V_i.
+\]
+Use an F-test of the joint significance of the \textbf{excluded instruments}.
+\[
+\begin{aligned}
+H_0 &: \pi_1=\cdots=\pi_m=0,\\
+H_1 &: \text{at least one }\pi_j\ne0.
+\end{aligned}
+\]
 \begin{itemize}
-    \item Staiger and Stock (1997)’s Rule of thumb (1 endogenous variable!): Reject that your instruments are weak if $F\geq10$
-    \item Stock and Yogo (2005) formalized and generalized Staiger and Stock (1997) : Reject that your instruments are weak if $F > J_{10}(m)$ where $J_{10}(m)$ is chosen such that $P(F > J_{10}(m) ~~|~~ \text{2SLS bias $\leq$ 10\% $\times$ OLS bias)}= 0.05$
-
-\end{itemize}
-\vspace{1em}
-
-The literature on weak instrument testing is still ongoing (technical details are beyond the scope of this class)\\[1em]
-
-So if you have weak instruments,
-\begin{itemize}
-    \item Get better instruments (often easier said than done!)
-    \item If you have many instruments, some are probably weaker than others and it’s a good idea to drop the weaker ones (dropping an irrelevant instrument will increase the first-stage F)
-    \item If you only have a few instruments, and all are weak, then you need to switch from 2SLS to a method that is robust to weak instruments.
+    \item Rejecting $H_0$ provides evidence that the instruments help predict $X$ after accounting for the controls. The controls stay in the regression throughout the test.
+    \item With one instrument, test $H_0:\pi_1=0$. Using the same variance estimator, $F=t_{\hat\pi_1}^{\,2}$.
+    \item Examine the size of the F-statistic to assess instrument strength. Statistical significance alone can still leave weak-instrument concerns.
+    \item The test assesses relevance. Instrument exogeneity requires a separate justification.
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Summary}
-\begin{itemize}
-    \item A valid instrument lets us isolate a part of $X$ that is uncorrelated with $u$, and that part can be used to estimate the effect of a change in $X$ on $Y$
-    \vspace{1em}
-    \item IV regression hinges on having valid instruments:
-    \begin{enumerate}
-        \item Exogeneity: Test overidentifying restrictions via the J-statistic + exercise your judgment 
-        \item Relevance: Check via first-stage F
-    \end{enumerate}
-    \vspace{1em}
-    \item A valid instrument isolates variation in $X$ that is ``as if'' randomly assigned.
-    \vspace{1em}
-    \item The critical requirement of at least $m$ valid instruments cannot be tested -- you must use your head!
-\end{itemize}
-\end{frame}
-
 
 \begin{frame}[allowframebreaks]{Material}
 \begin{itemize}
