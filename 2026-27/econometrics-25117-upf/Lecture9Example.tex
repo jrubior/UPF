@@ -1,0 +1,505 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{section in head/foot}{fg=blue}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+\setbeamertemplate{footline}{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+      \insertsectionnavigationhorizontal{0.7\paperwidth}{}{}\hfill
+      \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\SE}{\operatorname{SE}}
+
+\title[]{\textcolor{blue}{Lecture 9 Example:\\From Omitted Variable Bias to Instrumental Variables}}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+\date{}
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{OLS}
+
+\begin{frame}{Start with One Regressor}
+Think of $X_{1i}$ as centered study time and $Y_i^{(0)}$ as a score in a baseline model. Centered study time can be negative when it falls below the reference level.
+\[
+Y_i^{(0)}=\beta_0+\beta_1 X_{1i}+u_i=50+2X_{1i}+u_i.
+\]
+Generate $u_i$ independently of $X_{1i}$, with mean zero, and take $\E(X_{1i})=0$. Then both conditional means are zero:
+\[
+\E(X_{1i}\mid u_i)=\E(X_{1i})=0,
+\qquad
+\E(u_i\mid X_{1i})=\E(u_i)=0.
+\]
+The second equality is the usual OLS assumption about the error given the regressor. Independence in this example gives both directions.
+\medskip
+
+\textbf{Simple OLS with an intercept.} For any two sample columns $a,b$, define
+\[
+S_{ab}=\sum_{i=1}^n(a_i-\bar a)(b_i-\bar b).
+\]
+Use $1$ and $2$ as subscripts for the $x_1$ and $x_2$ columns.
+\[
+\hat\beta_1^{(0)}=\frac{S_{1Y^{(0)}}}{S_{11}},
+\qquad
+\hat\beta_0^{(0)}=\bar y^{(0)}-\hat\beta_1^{(0)}\bar x_1.
+\]
+\end{frame}
+
+\begin{frame}{Ten Observations for the Baseline Model}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\centering
+\begin{tabular}{rrrr}
+\toprule
+$i$ & $x_{1i}$ & $u_i$ & $y_i^{(0)}$\\
+\midrule
+1 & $-4$ & $1$ & 43\\
+2 & $-3$ & $-1$ & 43\\
+3 & $-2$ & $0$ & 46\\
+4 & $-1$ & $-1$ & 47\\
+5 & $0$ & $1$ & 51\\
+6 & $0$ & $1$ & 51\\
+7 & $1$ & $-1$ & 51\\
+8 & $2$ & $0$ & 54\\
+9 & $3$ & $-1$ & 55\\
+10 & $4$ & $1$ & 59\\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{0.53\textwidth}
+\textbf{Construct each score as $50+2x_{1i}+u_i$.}
+For row 1, $50+2(-4)+1=43$.
+\medskip
+
+\textbf{Compute the sample quantities.}
+\[
+\bar x_1=0,\quad \bar y^{(0)}=50,
+\qquad S_{11}=60,\quad S_{1u}=0.
+\]
+\[
+S_{1Y^{(0)}}=2S_{11}+S_{1u}=120.
+\]
+\textbf{Fit the regression.}
+\[
+\hat\beta_1^{(0)}=\frac{120}{60}=2,
+\qquad \hat\beta_0^{(0)}=50.
+\]
+The errors are shown here so we can verify the construction. The OLS calculation uses only $x_1$ and $y^{(0)}$.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Add a Second Cause of the Score}
+\textbf{Let $X_{2i}$ be a centered preparation index.} Keep $X_{1i}$ and $u_i$ from the baseline and add the contribution of preparation to the score:
+\[
+Y_i=Y_i^{(0)}+3X_{2i}=50+2X_{1i}+3X_{2i}+u_i.
+\]
+In this model the causal effect of one more unit of $X_1$, holding $X_2$ fixed, is still 2.
+\medskip
+
+\textbf{Here is how we generated study time.} Take $X_{2i}$ equally likely to be $-2,-1,0,1,2$. Randomly assign a study encouragement $Z_i\in\{-1,1\}$ with equal probabilities, independently of $X_{2i}$ and $u_i$. Take $u_i$ independent of $(Z_i,X_{2i})$ and symmetric on $\{-1,0,1\}$. Set
+\[
+\boxed{X_{1i}=2Z_i+X_{2i}.}
+\]
+Thus $X_1$ rises with preparation, and the encouragement also shifts $X_1$. The outcome equation assumes that encouragement changes scores only through study time.
+\medskip
+
+We use a deliberately balanced sample to make the arithmetic exact. Population restrictions come from the design, and the balanced sample makes the corresponding sample cross products easy to calculate.
+\end{frame}
+
+\begin{frame}{The Same Ten Rows with Preparation and Encouragement}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.47\textwidth}
+\centering
+\begin{tabular}{rrrrrr}
+\toprule
+$i$ & $z_i$ & $x_{2i}$ & $u_i$ & $x_{1i}$ & $y_i$\\
+\midrule
+1 & $-1$ & $-2$ & $1$ & $-4$ & 37\\
+2 & $-1$ & $-1$ & $-1$ & $-3$ & 40\\
+3 & $-1$ & $0$ & $0$ & $-2$ & 46\\
+4 & $-1$ & $1$ & $-1$ & $-1$ & 50\\
+5 & $-1$ & $2$ & $1$ & $0$ & 57\\
+6 & $1$ & $-2$ & $1$ & $0$ & 45\\
+7 & $1$ & $-1$ & $-1$ & $1$ & 48\\
+8 & $1$ & $0$ & $0$ & $2$ & 54\\
+9 & $1$ & $1$ & $-1$ & $3$ & 58\\
+10 & $1$ & $2$ & $1$ & $4$ & 65\\
+\bottomrule
+\end{tabular}
+\end{column}
+\begin{column}{0.50\textwidth}
+For row 1, $y_1=y_1^{(0)}+3x_{21}=43+3(-2)=37$.
+\[
+\bar z=\bar x_1=\bar x_2=\bar u=0,
+\qquad \bar y=50.
+\]
+\[
+S_{ZZ}=10,\quad S_{22}=20,\quad
+S_{Z2}=S_{Zu}=S_{2u}=0.
+\]
+Using $x_{1i}=2z_i+x_{2i}$,
+\[
+S_{11}=4S_{ZZ}+S_{22}=60,
+\quad S_{12}=S_{22}=20.
+\]
+Using $y_i=50+2x_{1i}+3x_{2i}+u_i$,
+\[
+\begin{aligned}
+S_{1Y}&=2(60)+3(20)=180,\\
+S_{2Y}&=2(20)+3(20)=100.
+\end{aligned}
+\]
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Estimate the Multiple Regression with $X_1$ and $X_2$}
+OLS chooses $\hat\beta_0,\hat\beta_1,\hat\beta_2$ to minimize
+$\sum_i(y_i-b_0-b_1x_{1i}-b_2x_{2i})^2$. The intercept condition gives
+$\hat\beta_0=\bar y-\hat\beta_1\bar x_1-\hat\beta_2\bar x_2=50$.
+\medskip
+
+The two slope conditions, after subtracting the sample means, are
+\[
+\begin{pmatrix}S_{11}&S_{12}\\ S_{12}&S_{22}\end{pmatrix}
+\begin{pmatrix}\hat\beta_1\\ \hat\beta_2\end{pmatrix}
+=\begin{pmatrix}S_{1Y}\\ S_{2Y}\end{pmatrix}
+\quad\Rightarrow\quad
+\begin{cases}
+60\hat\beta_1+20\hat\beta_2=180,\\
+20\hat\beta_1+20\hat\beta_2=100.
+\end{cases}
+\]
+Subtract the second equation from the first to get $40\hat\beta_1=80$. Substitute $\hat\beta_1=2$ into the second equation:
+\[
+\hat\beta_2=\frac{100-20(2)}{20}=3,
+\qquad \boxed{\hat y_i=50+2x_{1i}+3x_{2i}.}
+\]
+By construction, the residual $y_i-\hat y_i$ is $u_i$ in these ten rows. The fitted coefficient of $X_1$ compares study time holding preparation fixed.
+\end{frame}
+
+\begin{frame}{Omit $X_2$ and Regress the Same $Y$ on $X_1$}
+Imagine preparation is unrecorded. Estimate $Y_i=a_0+a_1X_{1i}+e_i$ using the full outcome $Y_i$ from the previous slides.
+\[
+\hat a_1=\frac{S_{1Y}}{S_{11}}=\frac{180}{60}=3,\qquad
+\hat a_0=\bar y-\hat a_1\bar x_1=50.
+\]
+To see where the extra 1 comes from, expand $S_{1Y}$ using the equation for $Y$:
+\[
+\hat a_1
+=\frac{\beta_1 S_{11}+\beta_2 S_{12}+S_{1u}}{S_{11}}
+=2+\underbrace{3\cdot\frac{20}{60}}_{\text{omitted variable bias}}+0
+=\boxed{3}.
+\]
+\begin{itemize}
+\item Preparation raises scores, so $\beta_2=3>0$.
+\item Better prepared students tend to study more, so $S_{12}=20>0$.
+\end{itemize}
+The short regression assigns some of preparation's contribution to study time. In the baseline model $Y^{(0)}$, preparation had no separate effect.
+\end{frame}
+
+\begin{frame}{The Population Formula for Omitted Variable Bias}
+Absorb the unobserved preparation term into the structural error $U_i$:
+\[
+Y_i=\beta_0+\beta_1X_{1i}+U_i,\qquad U_i=\beta_2X_{2i}+u_i.
+\]
+For a simple regression with an intercept, the population OLS slope is
+\[
+\begin{aligned}
+a_1
+&=\frac{\Cov(X_1,Y)}{\Var(X_1)}
+ =\beta_1+\frac{\Cov(X_1,U)}{\Var(X_1)}\\
+&=\beta_1+\beta_2\underbrace{\frac{\Cov(X_1,X_2)}{\Var(X_1)}}_
+ {\text{slope of the population regression of $X_2$ on $X_1$}},
+ \qquad\text{since }\Cov(X_1,u)=0.
+\end{aligned}
+\]
+Here $\Var(Z)=1$ and $\Var(X_2)=2$. From $X_1=2Z+X_2$,
+\[
+\Cov(X_1,X_2)=2,\qquad
+\Var(X_1)=4(1)+2=6,\qquad
+a_1=2+3\left(\frac{2}{6}\right)=3.
+\]
+Even with more data, the short OLS slope converges to 3 under this design. The causal slope is 2.
+\end{frame}
+
+\section{IV and 2SLS}
+
+\begin{frame}{Why the Encouragement Works as an Instrument}
+We still observe $Z_i$, $X_{1i}$, and $Y_i$ when $X_{2i}$ is unavailable.
+\[
+X_{1i}=2Z_i+X_{2i},
+\qquad
+Y_i=50+2X_{1i}+\underbrace{3X_{2i}+u_i}_{U_i}.
+\]
+\textbf{1. Relevance.} The encouragement changes study time:
+\[
+\Cov(Z,X_1)=2\Var(Z)+\Cov(Z,X_2)=2\neq0
+\quad\text{and}\quad S_{Z1}=2S_{ZZ}=20.
+\]
+\textbf{2. Exogeneity and exclusion.} Random assignment makes $Z$ independent of preparation and $u$. The model assumes no direct effect of $Z$ on scores, so its only path to $Y$ is $Z\to X_1\to Y$.
+\[
+\Cov(Z,U)=3\Cov(Z,X_2)+\Cov(Z,u)=0.
+\]
+In our table, $S_{Z2}=S_{Zu}=0$ as well. The design and outcome equation justify the instrument. The fitted first stage measures how much study time moves with it.
+\end{frame}
+
+\begin{frame}{Approach 1. Divide the Reduced Form by the First Stage}
+\textbf{First stage.} Regress $X_{1i}$ on $Z_i$ with an intercept. Its slope is
+$\pi_1=\Cov(Z,X_1)/\Var(Z)$.
+\medskip
+
+\textbf{Reduced form (RF).} Regress $Y_i$ on $Z_i$ with an intercept. Its slope is
+$\rho_1=\Cov(Z,Y)/\Var(Z)$.
+\medskip
+
+Taking the covariance of the structural equation with $Z$ gives
+\[
+\Cov(Z,Y)=\beta_1\Cov(Z,X_1)+\underbrace{\Cov(Z,U)}_{0}.
+\]
+Divide by $\Var(Z)$ to obtain $\rho_1=\beta_1\pi_1$. Relevance lets us divide by $\pi_1$. The sample version replaces population covariances by centered sums:
+\[
+\boxed{\hat\beta_1^{\mathrm{IV}}
+=\frac{\hat\rho_1}{\hat\pi_1}
+=\frac{S_{ZY}/S_{ZZ}}{S_{Z1}/S_{ZZ}}
+=\frac{S_{ZY}}{S_{Z1}}.}
+\]
+The ratio measures the change in fitted scores per unit of the change in study time induced by the encouragement.
+\end{frame}
+
+\begin{frame}{The Reduced Form and First Stage in Numbers}
+With a binary instrument, each fitted line passes through its two group means.
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Assignment & Mean study time $\bar x_1$ & Mean score $\bar y$\\
+\midrule
+$z=-1$ & $-2$ & 46\\
+$z=1$ & $2$ & 54\\
+Difference (high minus low) & $4$ & $8$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Since $z$ changes by 2, the first stage and reduced form give
+\[
+\widehat x_{1i}=0+\underbrace{\frac{2-(-2)}{2}}_{2}z_i=2z_i,
+\qquad
+\hat y_i^{\mathrm{RF}}=50+\underbrace{\frac{54-46}{2}}_{4}z_i=50+4z_i.
+\]
+\[
+\hat\beta_1^{\mathrm{IV}}=\frac{\hat\rho_1}{\hat\pi_1}
+=\frac{4}{2}=2,
+\qquad
+\hat\beta_0^{\mathrm{IV}}=\bar y-\hat\beta_1^{\mathrm{IV}}\bar x_1=50.
+\]
+The same calculation using the group differences is $8/4=2$ score points per unit of study time.
+\end{frame}
+
+\begin{frame}{Approach 2. Two-Stage Least Squares (2SLS)}
+\textbf{Stage 1.} Regress $X_1$ on $Z$ with an intercept. Save the fitted values
+$\widehat x_{1i}=2z_i$. They equal $-2$ for rows 1--5 and $2$ for rows 6--10.
+\medskip
+
+\textbf{Stage 2.} Regress $Y$ on these fitted values with an intercept.
+Since $\widehat x_{1i}=2z_i$, use $S_{ZY}=4 S_{ZZ}=40$:
+\[
+S_{\widehat X_1,Y}=2 S_{ZY}=80,
+\qquad S_{\widehat X_1,\widehat X_1}=4 S_{ZZ}=40.
+\]
+\[
+\boxed{\hat\beta_1^{\mathrm{2SLS}}=\frac{80}{40}=2},
+\qquad
+\hat\beta_0^{\mathrm{2SLS}}=\bar y-2\,\overline{\widehat x}_1=50.
+\]
+\textbf{Why the methods agree.} With an intercept, centering gives
+$\widehat x_{1i}-\overline{\widehat x}_1=\hat\pi_1(z_i-\bar z)$, so
+\[
+\hat\beta_1^{\mathrm{2SLS}}
+=\frac{\hat\pi_1 S_{ZY}}{\hat\pi_1^2S_{ZZ}}
+=\frac{\hat\rho_1}{\hat\pi_1}.
+\]
+Both methods recover the same estimate from the variation in $X_1$ predicted by $Z$.
+\end{frame}
+
+\section{Standard Errors}
+
+\begin{frame}{One Formula for the Three Slope Standard Errors}
+\small
+Each slope satisfies a sample moment equation. With the appropriate centered weight $w_i$ and residual $\hat e_i$ for each estimator, $\sum_i w_i\hat e_i=0$. Let $D=\sum_i w_i(x_{1i}-\bar x_1)$.
+\medskip
+
+The slope error is driven by a sum of weighted errors. With independent observations, the large-sample variance comes from the variance of the individual products $w_i e_i$. Estimate it using the fitted residuals:
+\[
+\boxed{\widehat{\SE}(\hat b_1)
+=\frac{\sqrt{\sum_i(w_i\hat e_i)^2}}{|D|}.}
+\]
+In terms of averages, the estimated variance is
+\[
+\frac{1}{n}\,
+\frac{(1/n)\sum_i(w_i\hat e_i)^2}
+     {\bigl[(1/n)\sum_i w_i(x_{1i}-\bar x_1)\bigr]^2}.
+\]
+Here we use the same large-sample plug-in convention throughout, with no degrees-of-freedom multiplier. It requires independent sampling, finite moments for the products, and a nonzero population denominator. The ten observations are for practicing the calculation.
+\medskip
+
+\textbf{Choose the weight from the estimator.} Use centered $x_1$ for simple OLS, the part of $x_1$ orthogonal to $x_2$ for multiple OLS, and centered $z$ for IV.
+\end{frame}
+
+\begin{frame}{Why the Weighted-Error Formula Works}
+\small
+For each estimator, the centered moment equation gives
+\[
+\hat b_1-b_1=\frac{\sum_i w_i e_i}{\sum_i w_i(x_{1i}-\bar x_1)}.
+\]
+Here $b_1$ is the corresponding population slope and $e_i$ is the corresponding population regression error.
+\begin{itemize}
+\item \textbf{Short OLS.} Use $w_i=x_{1i}-\bar x_1$ and $e_i=y_i-a_0-a_1x_{1i}$. Then $\sum_i w_i y_i=a_1D+\sum_i w_i e_i$.
+\item \textbf{Multiple OLS.} Use $w_i$ from regressing $x_1$ on $x_2$ and a constant. This makes $\sum_i w_i=\sum_i w_i x_{2i}=0$, so multiplying the outcome equation by $w_i$ and summing removes the intercept and $X_2$.
+\item \textbf{IV.} Use $w_i=z_i-\bar z$ and $e_i=U_i$. The centered structural equation gives $\sum_i w_i y_i=\beta_1D+\sum_i w_iU_i$.
+\end{itemize}
+\medskip
+In large samples, the centered or residualized weights approach their population versions. The central limit theorem applies to the corresponding mean of the weighted errors. The law of large numbers lets us replace $D/n$ by its nonzero population limit. This gives the variance formula on the previous slide.
+\end{frame}
+
+\begin{frame}{Standard Error 1. Short OLS with Omitted Variable Bias}
+The fitted model is $\hat y_i=50+3x_{1i}$. Its residual absorbs part of the variation due to missing preparation:
+\[
+\hat e_i^{\mathrm{short}}=y_i-50-3x_{1i},
+\qquad w_i=x_{1i}-\bar x_1=x_{1i},
+\qquad D=S_{11}=60.
+\]
+\begin{center}
+\small
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+$i$ & 1&2&3&4&5&6&7&8&9&10\\
+\midrule
+$x_{1i}$ & $-4$ & $-3$ & $-2$ & $-1$ & 0 & 0 & 1 & 2 & 3 & 4\\
+$\hat e_i^{\mathrm{short}}$ & $-1$ & $-1$ & 2 & 3 & 7 & $-5$ & $-5$ & $-2$ & $-1$ & 3\\
+$w_i\hat e_i^{\mathrm{short}}$ & 4 & 3 & $-4$ & $-3$ & 0 & 0 & $-5$ & $-4$ & $-3$ & 12\\
+\bottomrule
+\end{tabular}
+\end{center}
+Square and sum the last row to get 244. Then
+\[
+\widehat{\SE}(\hat a_1)=\frac{\sqrt{244}}{60}=\boxed{0.260}.
+\]
+This describes precision around the short regression's population slope $a_1=3$. The omitted variable bias relative to the causal slope $\beta_1=2$ is 1.
+\end{frame}
+
+\begin{frame}{Standard Error 2. Multiple OLS with Preparation}
+\textbf{Remove the variation in $x_1$ explained by $x_2$.} Regress $x_1$ on an intercept and $x_2$. The slope is $S_{12}/S_{22}=20/20=1$.
+\[
+r_{1i}=(x_{1i}-\bar x_1)-\frac{S_{12}}{S_{22}}(x_{2i}-\bar x_2)
+=x_{1i}-x_{2i}=2z_i.
+\]
+Since $\sum_i r_{1i}x_{2i}=0$, $\sum_i r_{1i}x_{1i}=\sum_i r_{1i}^2$.
+Use $w_i=r_{1i}$ and the residual from the \emph{full} model:
+\[
+\hat e_i^{\mathrm{full}}=y_i-50-2x_{1i}-3x_{2i}=u_i.
+\]
+\[
+D=\sum_i r_{1i}^2=40,\qquad
+\sum_i(w_i\hat e_i^{\mathrm{full}})^2=4\sum_i u_i^2=4(8)=32.
+\]
+\[
+\widehat{\SE}(\hat\beta_1^{\mathrm{full}})
+=\frac{\sqrt{32}}{40}=\boxed{0.141}.
+\]
+Once preparation is included, only $u_i$ remains in the outcome error.
+\end{frame}
+
+\begin{frame}{Standard Error 3. IV Uses the Structural Residual}
+Form the residual from the equation whose coefficients we want to estimate. Use the \textbf{observed} $x_{1i}$ together with the IV coefficients:
+\[
+\widehat U_i=y_i-\hat\beta_0^{\mathrm{IV}}-\hat\beta_1^{\mathrm{IV}}x_{1i}
+=y_i-50-2x_{1i}=3x_{2i}+u_i.
+\]
+For IV, $w_i=z_i-\bar z=z_i$ and $D=S_{Z1}=20$. In each five-row assignment group the structural residuals are $-5,-4,0,2,7$.
+\[
+\sum_i(w_i\widehat U_i)^2=2(25+16+0+4+49)=188,
+\qquad
+\widehat{\SE}(\hat\beta_1^{\mathrm{IV}})=\frac{\sqrt{188}}{20}=\boxed{0.686}.
+\]
+\textbf{Why a second-stage OLS standard error gives a different result.}
+The residual from fitting $Y$ to $\widehat x_1$ is
+\[
+y_i-50-2\widehat x_{1i}
+=\widehat U_i+2(x_{1i}-\widehat x_{1i})
+=5x_{2i}+u_i.
+\]
+That regression gives the correct 2SLS coefficient. Its OLS variance calculation uses a different residual from the one in the IV moment equation. Use the IV standard error for inference on $\beta_1$.
+\end{frame}
+
+\begin{frame}{Standard Errors for the Other Coefficients}
+\small
+\textbf{The $X_2$ slope in multiple OLS.} Residualize $x_2$ with respect to $x_1$ and the intercept, then use the same slope formula with $X_2$ in the denominator:
+\[
+r_{2i}=x_{2i}-\frac{S_{12}}{S_{11}}x_{1i}=x_{2i}-\tfrac13 x_{1i},
+\qquad \sum_i r_{2i}^2=S_{22}-\frac{S_{12}^2}{S_{11}}=\frac{40}{3}.
+\]
+\[
+\sum_i(r_{2i}\hat e_i^{\mathrm{full}})^2=\frac{112}{9},
+\qquad
+\widehat{\SE}(\hat\beta_2)=\frac{\sqrt{112/9}}{40/3}=0.265.
+\]
+\textbf{The intercepts.} All regressor means, including the mean of the first-stage fit, are zero in this example. In the variance formula the intercept's observation weight is $1/n$, so
+\[
+\widehat{\SE}(\hat b_0)=\frac{\sqrt{\sum_i\hat e_i^2}}{n}.
+\]
+Use the corresponding model residuals in each calculation:
+\[
+\text{Short OLS: }\frac{\sqrt{128}}{10}=1.131,\qquad
+\text{Multiple OLS: }\frac{\sqrt{8}}{10}=0.283,\qquad
+\text{IV: }\frac{\sqrt{188}}{10}=1.371.
+\]
+\end{frame}
+
+\begin{frame}{Compare the Estimates and Their Standard Errors}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+ & Short OLS & Multiple OLS & IV / 2SLS\\
+ & $Y$ on $X_1$ & $Y$ on $X_1,X_2$ & $Z$ instruments $X_1$\\
+\midrule
+Intercept & 50 & 50 & 50\\
+ & $(1.131)$ & $(0.283)$ & $(1.371)$\\[2pt]
+$X_1$ slope & $3$ & $2$ & $2$\\
+ & $(0.260)$ & $(0.141)$ & $(0.686)$\\[2pt]
+$X_2$ slope & & $3$ & \\
+ & & $(0.265)$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\small
+Estimated standard errors in parentheses. All three estimates use the same ten values of $Y$.
+\medskip
+
+\textbf{Why IV is less precise here.} Both multiple OLS and IV use the variation in $X_1$ given by $2Z$ in this example. Multiple OLS also controls for $X_2$ in the outcome, so its residual is $u_i$. IV leaves $3X_{2i}$ in the structural error. That extra variation increases the IV standard error here.
+\end{frame}
+
+\end{document}
