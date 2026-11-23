@@ -208,18 +208,17 @@ Imagine preparation is unrecorded. Estimate $Y_i=a_0+a_1X_{1i}+e_i$ using the fu
 \hat a_1=\frac{S_{1Y}}{S_{11}}=\frac{180}{60}=3,\qquad
 \hat a_0=\bar y-\hat a_1\bar x_1=50.
 \]
-To see where the extra 1 comes from, expand $S_{1Y}$ using the equation for $Y$:
+\textbf{Link to Lecture 5, slide 4.} The short OLS slope equals the causal slope plus the sample covariance of the regressor and the short equation's error, divided by the sample variance of the regressor. Here that error is $U_i=3X_{2i}+u_i$.
 \[
+\begin{aligned}
 \hat a_1
-=\frac{\beta_1 S_{11}+\beta_2 S_{12}+S_{1u}}{S_{11}}
-=2+\underbrace{3\cdot\frac{20}{60}}_{\text{omitted variable bias}}+0
+&=\beta_1+\frac{\widehat{\Cov}(X_1,U)}{\widehat{\Var}(X_1)}
+=\beta_1+\frac{\beta_2 S_{12}+S_{1u}}{S_{11}}\\
+&=2+\underbrace{3\cdot\frac{20}{60}}_{\text{omitted variable term}}+0
 =\boxed{3}.
+\end{aligned}
 \]
-\begin{itemize}
-\item Preparation raises scores, so $\beta_2=3>0$.
-\item Better prepared students tend to study more, so $S_{12}=20>0$.
-\end{itemize}
-The short regression assigns some of preparation's contribution to study time. In the baseline model $Y^{(0)}$, preparation had no separate effect.
+The same divisor cancels in the covariance-to-variance ratio. The extra $1$ comes from preparation raising scores ($\beta_2=3$) and being positively related to study time ($S_{12}=20$).
 \end{frame}
 
 \begin{frame}{The Population Formula for Omitted Variable Bias}
@@ -291,32 +290,38 @@ Divide by $\Var(Z)$ to obtain $\rho_1=\beta_1\pi_1$. Relevance lets us divide by
 The ratio measures the change in fitted scores per unit of the change in study time induced by the encouragement.
 \end{frame}
 
-\begin{frame}{The Reduced Form and First Stage in Numbers}
-With a binary instrument, each fitted line passes through its two group means.
-\begin{center}
-\begin{tabular}{lrr}
-\toprule
-Assignment & Mean study time $\bar x_1$ & Mean score $\bar y$\\
-\midrule
-$z=-1$ & $-2$ & 46\\
-$z=1$ & $2$ & 54\\
-Difference (high minus low) & $4$ & $8$\\
-\bottomrule
-\end{tabular}
-\end{center}
-Since $z$ changes by 2, the first stage and reduced form give
+\begin{frame}{Approach 1. The Reduced Form and First Stage in Numbers}
+\small
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\textbf{1. Compute the sample moments from the ten rows on slide 5.}\\
+With $\bar z=\bar x_1=0$ and $\bar y=50$, the moments are
 \[
-\widehat x_{1i}=0+\underbrace{\frac{2-(-2)}{2}}_{2}z_i=2z_i,
-\qquad
-\hat y_i^{\mathrm{RF}}=50+\underbrace{\frac{54-46}{2}}_{4}z_i=50+4z_i.
+\begin{aligned}
+\widehat{\Var}(Z)&=\frac{1}{10}\sum\nolimits_i z_i^2=\frac{10}{10}=1,\\
+\widehat{\Cov}(Z,X_1)&=\frac{1}{10}\sum\nolimits_i z_i x_{1i}=\frac{20}{10}=2,\\
+\widehat{\Cov}(Z,Y)&=\frac{1}{10}\sum\nolimits_i z_i(y_i-50)=\frac{40}{10}=4.
+\end{aligned}
 \]
+\textbf{2. Divide each covariance by the variance of $Z$.} The divisor $n=10$ cancels.
 \[
-\hat\beta_1^{\mathrm{IV}}=\frac{\hat\rho_1}{\hat\pi_1}
-=\frac{4}{2}=2,
+\underbrace{\hat\pi_1=\frac{\widehat{\Cov}(Z,X_1)}{\widehat{\Var}(Z)}
+=\frac{2}{1}=2}_{\text{first stage}}
+\qquad
+\underbrace{\hat\rho_1=\frac{\widehat{\Cov}(Z,Y)}{\widehat{\Var}(Z)}
+=\frac{4}{1}=4}_{\text{reduced form}}.
+\]
+Since $\bar z=0$, the intercepts are $\bar x_1=0$ and $\bar y=50$. Thus $\widehat x_{1i}=2z_i$ and $\hat y_i^{\mathrm{RF}}=50+4z_i$.
+\smallskip
+
+\textbf{3. Divide the reduced-form slope by the first-stage slope.}
+\[
+\boxed{\hat\beta_1^{\mathrm{IV}}=\frac{\hat\rho_1}{\hat\pi_1}=\frac{4}{2}=2},
 \qquad
 \hat\beta_0^{\mathrm{IV}}=\bar y-\hat\beta_1^{\mathrm{IV}}\bar x_1=50.
 \]
-The same calculation using the group differences is $8/4=2$ score points per unit of study time.
 \end{frame}
 
 \begin{frame}{Approach 2. Two-Stage Least Squares (2SLS)}
@@ -347,159 +352,127 @@ Both methods recover the same estimate from the variation in $X_1$ predicted by 
 
 \section{Standard Errors}
 
-\begin{frame}{One Formula for the Three Slope Standard Errors}
+\begin{frame}{Standard Error 1. Short OLS with $X_1$}
 \small
-Each slope satisfies a sample moment equation. With the appropriate centered weight $w_i$ and residual $\hat e_i$ for each estimator, $\sum_i w_i\hat e_i=0$. Let $D=\sum_i w_i(x_{1i}-\bar x_1)$.
-\medskip
-
-The slope error is driven by a sum of weighted errors. With independent observations, the large-sample variance comes from the variance of the individual products $w_i e_i$. Estimate it using the fitted residuals:
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\textbf{Use the covariance matrix formula from Lecture 5, slide 23.}
+Here $\mathbf X$ has columns $1,x_1$.
 \[
-\boxed{\widehat{\SE}(\hat b_1)
-=\frac{\sqrt{\sum_i(w_i\hat e_i)^2}}{|D|}.}
+SER^2=\frac{SSR}{n-k-1},\qquad
+\widehat V=SER^2(\mathbf X'\mathbf X)^{-1},\qquad
+\widehat{\SE}(\hat a_j)=\sqrt{\widehat V_{j+1,j+1}}.
 \]
-In terms of averages, the estimated variance is
-\[
-\frac{1}{n}\,
-\frac{(1/n)\sum_i(w_i\hat e_i)^2}
-     {\bigl[(1/n)\sum_i w_i(x_{1i}-\bar x_1)\bigr]^2}.
-\]
-Here we use the same large-sample plug-in convention throughout, with no degrees-of-freedom multiplier. It requires independent sampling, finite moments for the products, and a nonzero population denominator. The ten observations are for practicing the calculation.
-\medskip
-
-\textbf{Choose the weight from the estimator.} Use centered $x_1$ for simple OLS, the part of $x_1$ orthogonal to $x_2$ for multiple OLS, and centered $z$ for IV.
-\end{frame}
-
-\begin{frame}{Why the Weighted-Error Formula Works}
-\small
-For each estimator, the centered moment equation gives
-\[
-\hat b_1-b_1=\frac{\sum_i w_i e_i}{\sum_i w_i(x_{1i}-\bar x_1)}.
-\]
-Here $b_1$ is the corresponding population slope and $e_i$ is the corresponding population regression error.
-\begin{itemize}
-\item \textbf{Short OLS.} Use $w_i=x_{1i}-\bar x_1$ and $e_i=y_i-a_0-a_1x_{1i}$. Then $\sum_i w_i y_i=a_1D+\sum_i w_i e_i$.
-\item \textbf{Multiple OLS.} Use $w_i$ from regressing $x_1$ on $x_2$ and a constant. This makes $\sum_i w_i=\sum_i w_i x_{2i}=0$, so multiplying the outcome equation by $w_i$ and summing removes the intercept and $X_2$.
-\item \textbf{IV.} Use $w_i=z_i-\bar z$ and $e_i=U_i$. The centered structural equation gives $\sum_i w_i y_i=\beta_1D+\sum_i w_iU_i$.
-\end{itemize}
-\medskip
-In large samples, the centered or residualized weights approach their population versions. The central limit theorem applies to the corresponding mean of the weighted errors. The law of large numbers lets us replace $D/n$ by its nonzero population limit. This gives the variance formula on the previous slide.
-\end{frame}
-
-\begin{frame}{Standard Error 1. Short OLS with Omitted Variable Bias}
-The fitted model is $\hat y_i=50+3x_{1i}$. Its residual absorbs part of the variation due to missing preparation:
-\[
-\hat e_i^{\mathrm{short}}=y_i-50-3x_{1i},
-\qquad w_i=x_{1i}-\bar x_1=x_{1i},
-\qquad D=S_{11}=60.
-\]
+\textbf{1. Compute the residuals and their sum of squares.}
+For $\hat y_i=50+3x_{1i}$, use $\hat e_i=y_i-\hat y_i$.
 \begin{center}
-\small
 \begin{tabular}{lrrrrrrrrrr}
 \toprule
 $i$ & 1&2&3&4&5&6&7&8&9&10\\
 \midrule
-$x_{1i}$ & $-4$ & $-3$ & $-2$ & $-1$ & 0 & 0 & 1 & 2 & 3 & 4\\
-$\hat e_i^{\mathrm{short}}$ & $-1$ & $-1$ & 2 & 3 & 7 & $-5$ & $-5$ & $-2$ & $-1$ & 3\\
-$w_i\hat e_i^{\mathrm{short}}$ & 4 & 3 & $-4$ & $-3$ & 0 & 0 & $-5$ & $-4$ & $-3$ & 12\\
+$\hat e_i$ & $-1$ & $-1$ & 2 & 3 & 7 & $-5$ & $-5$ & $-2$ & $-1$ & 3\\
+$\hat e_i^2$ & 1 & 1 & 4 & 9 & 49 & 25 & 25 & 4 & 1 & 9\\
 \bottomrule
 \end{tabular}
 \end{center}
-Square and sum the last row to get 244. Then
-\[
-\widehat{\SE}(\hat a_1)=\frac{\sqrt{244}}{60}=\boxed{0.260}.
-\]
-This describes precision around the short regression's population slope $a_1=3$. The omitted variable bias relative to the causal slope $\beta_1=2$ is 1.
-\end{frame}
+With $SSR=128$ and $k=1$ slope, $SER^2=128/(10-1-1)=16$.
+\smallskip
 
-\begin{frame}{Standard Error 2. Multiple OLS with Preparation}
-\textbf{Remove the variation in $x_1$ explained by $x_2$.} Regress $x_1$ on an intercept and $x_2$. The slope is $S_{12}/S_{22}=20/20=1$.
+\textbf{2. Form and invert $\mathbf X'\mathbf X$.}
+Since $\bar x_1=0$, the off-diagonal entries are zero and $\sum_i x_{1i}^2=S_{11}=60$.
 \[
-r_{1i}=(x_{1i}-\bar x_1)-\frac{S_{12}}{S_{22}}(x_{2i}-\bar x_2)
-=x_{1i}-x_{2i}=2z_i.
-\]
-Since $\sum_i r_{1i}x_{2i}=0$, $\sum_i r_{1i}x_{1i}=\sum_i r_{1i}^2$.
-Use $w_i=r_{1i}$ and the residual from the \emph{full} model:
-\[
-\hat e_i^{\mathrm{full}}=y_i-50-2x_{1i}-3x_{2i}=u_i.
-\]
-\[
-D=\sum_i r_{1i}^2=40,\qquad
-\sum_i(w_i\hat e_i^{\mathrm{full}})^2=4\sum_i u_i^2=4(8)=32.
-\]
-\[
-\widehat{\SE}(\hat\beta_1^{\mathrm{full}})
-=\frac{\sqrt{32}}{40}=\boxed{0.141}.
-\]
-Once preparation is included, only $u_i$ remains in the outcome error.
-\end{frame}
-
-\begin{frame}{Standard Error 3. IV Uses the Structural Residual}
-Form the residual from the equation whose coefficients we want to estimate. Use the \textbf{observed} $x_{1i}$ together with the IV coefficients:
-\[
-\widehat U_i=y_i-\hat\beta_0^{\mathrm{IV}}-\hat\beta_1^{\mathrm{IV}}x_{1i}
-=y_i-50-2x_{1i}=3x_{2i}+u_i.
-\]
-For IV, $w_i=z_i-\bar z=z_i$ and $D=S_{Z1}=20$. In each five-row assignment group the structural residuals are $-5,-4,0,2,7$.
-\[
-\sum_i(w_i\widehat U_i)^2=2(25+16+0+4+49)=188,
+\mathbf X'\mathbf X=\begin{pmatrix}10&0\\0&60\end{pmatrix},
 \qquad
-\widehat{\SE}(\hat\beta_1^{\mathrm{IV}})=\frac{\sqrt{188}}{20}=\boxed{0.686}.
+(\mathbf X'\mathbf X)^{-1}=\begin{pmatrix}1/10&0\\0&1/60\end{pmatrix}.
 \]
-\textbf{Why a second-stage OLS standard error gives a different result.}
-The residual from fitting $Y$ to $\widehat x_1$ is
+\textbf{3. Multiply the slope's diagonal entry by $16$ and take the square root.}
 \[
-y_i-50-2\widehat x_{1i}
-=\widehat U_i+2(x_{1i}-\widehat x_{1i})
-=5x_{2i}+u_i.
+\boxed{\widehat{\SE}(\hat a_1)=\sqrt{\widehat V_{22}}
+=\sqrt{16\cdot\tfrac1{60}}\approx0.516.}
 \]
-That regression gives the correct 2SLS coefficient. Its OLS variance calculation uses a different residual from the one in the IV moment equation. Use the IV standard error for inference on $\beta_1$.
 \end{frame}
 
-\begin{frame}{Standard Errors for the Other Coefficients}
+\begin{frame}{Standard Error 2. Multiple OLS with $X_1$ and $X_2$}
 \small
-\textbf{The $X_2$ slope in multiple OLS.} Residualize $x_2$ with respect to $x_1$ and the intercept, then use the same slope formula with $X_2$ in the denominator:
+\textbf{Use the covariance matrix formula from Lecture 5, slide 23.}
+With $\mathbf X$ the matrix with columns $1,x_1,x_2$,
 \[
-r_{2i}=x_{2i}-\frac{S_{12}}{S_{11}}x_{1i}=x_{2i}-\tfrac13 x_{1i},
-\qquad \sum_i r_{2i}^2=S_{22}-\frac{S_{12}^2}{S_{11}}=\frac{40}{3}.
+SER^2=\frac{SSR}{n-k-1},\qquad
+\widehat V=SER^2(\mathbf X'\mathbf X)^{-1},\qquad
+\widehat{\SE}(\hat\beta_j)=\sqrt{\widehat V_{j+1,j+1}}.
 \]
+\textbf{1. Use the full regression residuals.}
+Here $\hat e_i=y_i-50-2x_{1i}-3x_{2i}=u_i$, so $SSR=\sum_i u_i^2=8$. With $k=2$ slopes and an intercept, $SER^2=8/(10-2-1)=8/7$.
+\medskip
+
+\textbf{2. Form and invert $\mathbf X'\mathbf X$.}
+Both regressors have sample mean zero. Use $S_{11}=60$, $S_{12}=20$, and $S_{22}=20$ from slide 5.
 \[
-\sum_i(r_{2i}\hat e_i^{\mathrm{full}})^2=\frac{112}{9},
+\mathbf X'\mathbf X=
+\begin{pmatrix}10&0&0\\0&60&20\\0&20&20\end{pmatrix},
 \qquad
-\widehat{\SE}(\hat\beta_2)=\frac{\sqrt{112/9}}{40/3}=0.265.
+(\mathbf X'\mathbf X)^{-1}=
+\begin{pmatrix}1/10&0&0\\0&1/40&-1/40\\0&-1/40&3/40\end{pmatrix}.
 \]
-\textbf{The intercepts.} All regressor means, including the mean of the first-stage fit, are zero in this example. In the variance formula the intercept's observation weight is $1/n$, so
+\textbf{3. Multiply the diagonal entries by $8/7$ and take square roots.}
 \[
-\widehat{\SE}(\hat b_0)=\frac{\sqrt{\sum_i\hat e_i^2}}{n}.
-\]
-Use the corresponding model residuals in each calculation:
-\[
-\text{Short OLS: }\frac{\sqrt{128}}{10}=1.131,\qquad
-\text{Multiple OLS: }\frac{\sqrt{8}}{10}=0.283,\qquad
-\text{IV: }\frac{\sqrt{188}}{10}=1.371.
+\widehat{\SE}(\hat\beta_0)=\sqrt{\tfrac87\cdot\tfrac1{10}}\approx0.338,
+\qquad
+\boxed{\widehat{\SE}(\hat\beta_1)=\sqrt{\tfrac87\cdot\tfrac1{40}}\approx0.169,}
+\qquad
+\widehat{\SE}(\hat\beta_2)=\sqrt{\tfrac87\cdot\tfrac3{40}}\approx0.293.
 \]
 \end{frame}
 
-\begin{frame}{Compare the Estimates and Their Standard Errors}
+\begin{frame}{Standard Error 3. The IV Slope on $X_1$}
+\small
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\textbf{Use the sample version of the IV variance formula from Lecture 9, slide 21.}
+\[
+\widehat{\Var}(\hat\beta_1^{\mathrm{IV}})
+=\frac{1}{n}
+\frac{\tfrac{1}{n}\sum\nolimits_i (z_i-\bar z)^2\widehat U_i^{\,2}}
+     {\left[\tfrac{1}{n}\sum\nolimits_i (z_i-\bar z)(x_{1i}-\bar x_1)\right]^2}.
+\]
+\textbf{1. Compute the IV residuals.} Use the observed $x_{1i}$ in
+$\widehat U_i=y_i-50-2x_{1i}$. For row 1, $\widehat U_1=37-50-2(-4)=-5$.
+
+\vspace{2pt}
+\textbf{2. Work out the two sample moments.} Here $\bar z=\bar x_1=0$.
+Average $(z_i\widehat U_i)^2$ for the variance, since $z_i\widehat U_i$ averages to zero. Average $z_i x_{1i}$ for the covariance.
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+$i$ & 1&2&3&4&5&6&7&8&9&10& Sum\\
+\midrule
+$\widehat U_i$ & $-5$&$-4$&0&2&7&$-5$&$-4$&0&2&7&\\
+$(z_i\widehat U_i)^2$ & 25&16&0&4&49&25&16&0&4&49&188\\
+$z_i x_{1i}$ & 4&3&2&1&0&0&1&2&3&4&20\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{3. Plug the two sample averages into the formula and take the square root.}
+\[
+\boxed{\widehat{\SE}(\hat\beta_1^{\mathrm{IV}})
+=\sqrt{\frac{1}{10}\,\frac{188/10}{(20/10)^2}}
+=\frac{\sqrt{188}}{20}\approx0.686.}
+\]
+\end{frame}
+
+\begin{frame}{Compare the $X_1$ Slopes and Their Standard Errors}
 \begin{center}
 \begin{tabular}{lccc}
 \toprule
  & Short OLS & Multiple OLS & IV / 2SLS\\
  & $Y$ on $X_1$ & $Y$ on $X_1,X_2$ & $Z$ instruments $X_1$\\
 \midrule
-Intercept & 50 & 50 & 50\\
- & $(1.131)$ & $(0.283)$ & $(1.371)$\\[2pt]
-$X_1$ slope & $3$ & $2$ & $2$\\
- & $(0.260)$ & $(0.141)$ & $(0.686)$\\[2pt]
-$X_2$ slope & & $3$ & \\
- & & $(0.265)$ & \\
+Estimated slope on $X_1$ & $3$ & $2$ & $2$\\
+Standard error & $0.516$ & $0.169$ & $0.686$\\
 \bottomrule
 \end{tabular}
 \end{center}
-\small
-Estimated standard errors in parentheses. All three estimates use the same ten values of $Y$.
-\medskip
-
-\textbf{Why IV is less precise here.} Both multiple OLS and IV use the variation in $X_1$ given by $2Z$ in this example. Multiple OLS also controls for $X_2$ in the outcome, so its residual is $u_i$. IV leaves $3X_{2i}$ in the structural error. That extra variation increases the IV standard error here.
 \end{frame}
 
 \end{document}
