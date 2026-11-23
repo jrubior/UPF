@@ -1,0 +1,400 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex}
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+
+
+\title[]{\textcolor{blue}{Seminar 8:\\Threats to Identification}}
+\subtitle{Three problems and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. All data are hypothetical;
+% no external assets are needed. Supplied uncertainty estimates support
+% large-sample inference; no covariance-estimation formula is required.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+
+\date{}
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Specification}
+\begin{frame}{Problem 1: Omitted variable bias and class size}
+\small
+Each row is a simulated school. Class size $X$ is measured in pupils per class. $W$ is the school's average score on a prior reading test (out of 20), and $Y$ is its average score on a later reading test (out of 100).
+\begin{center}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{c|rrr}
+School & Class size $X$ & Prior score $W$ & Later score $Y$ \\
+\hline
+1 & 18 & 13 & 76 \\
+2 & 19 & 10 & 69 \\
+3 & 20 & 10 & 70 \\
+4 & 21 & 8  & 69 \\
+5 & 22 & 9  & 66 \\
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\setlength{\itemsep}{6pt}
+\item Regress $Y$ on $X$ with an intercept. Find the slope and write the fitted equation.
+\item Regress $Y$ on $X$ and $W$ with an intercept. Use the two slope normal equations in deviations from the means to find the fitted equation.
+\item Compare the coefficients on $X$. Use the relationship between class size and prior reading scores to explain the change.
+\end{enumerate}
+\end{frame}
+\note{Five simulated schools, one per row. The sample means of X, W, and Y are 20, 10, and 70. With S denoting sums of centered products, SXX=10, SXW=-10, SWW=14, SXY=-20, and SWY=24. The short line is 110-2X. For the full regression, adding the centered equations gives 4 times the coefficient on W equal to 4. The class-size coefficient is -1 and the intercept is 80. The full line is 80-X+W. The simple slope of W on X is -1, so its product with the full coefficient on W is -1. This explains the difference between the two estimated class-size coefficients in these data.}
+
+\ifshowsolutions
+% SOLUTION 1 START
+\begin{frame}{Solution 1: Regress later scores on class size alone}
+\small
+\answerpart{1}The sample means are $\overline X=20$, $\overline W=10$, and $\overline Y=70$. Subtract each mean from the corresponding observations:
+\begin{center}
+\begin{tabular}{c|rrr}
+School & $x_i^c=X_i-\overline X$ & $w_i^c=W_i-\overline W$ & $y_i^c=Y_i-\overline Y$ \\
+\hline
+1 & $-2$ & $3$ & $6$ \\
+2 & $-1$ & $0$ & $-1$ \\
+3 & $0$ & $0$ & $0$ \\
+4 & $1$ & $-2$ & $-1$ \\
+5 & $2$ & $-1$ & $-4$ \\
+\end{tabular}
+\end{center}
+\[
+b_{\mathrm{short}}=\frac{\sum_i x_i^c y_i^c}{\sum_i(x_i^c)^2}
+=\frac{-12+1+0-1-8}{4+1+0+1+4}=-2,
+\qquad
+a_{\mathrm{short}}=\overline Y-b_{\mathrm{short}}\overline X
+=70-(-2)(20)=110.
+\]
+\[
+\boxed{\widehat y_{\mathrm{short}}=110-2X}
+\]
+\end{frame}
+
+\begin{frame}{Solution 1: Add prior reading scores (continued)}
+\small
+\answerpart{2}Write $S_{AB}=\sum_i(A_i-\overline A)(B_i-\overline B)$ for a sum of centered products. Reuse the centered data from Part 1. The two slope equations are
+\[
+\begin{aligned}
+S_{XX}b_X+S_{XW}b_W=S_{XY}
+&\quad\Longrightarrow\quad 10b_X-10b_W=-20,\\
+S_{XW}b_X+S_{WW}b_W=S_{WY}
+&\quad\Longrightarrow\quad -10b_X+14b_W=24.
+\end{aligned}
+\]
+Adding the equations gives $4b_W=4$, so $b_W=1$. Substitution gives $b_X=-1$. The intercept is $\overline Y-b_X\overline X-b_W\overline W=70+20-10=80$.
+\[
+\boxed{\widehat y_{\mathrm{full}}=80-X+W}
+\]
+\answerpart{3}The class-size coefficient changes from $-2$ to $-1$. Larger classes tend to have lower prior reading scores, and higher prior scores predict higher later scores at fixed class size. Omitting $W$ makes the class-size coefficient more negative:
+\[
+b_{\mathrm{short}}-b_X
+=b_W\,\frac{S_{XW}}{S_{XX}}
+=1\left(\frac{-10}{10}\right)=-1.
+\]
+\end{frame}
+% SOLUTION 1 END
+\fi
+
+\section{Measurement}
+\begin{frame}{Problem 2: What happens when practice hours are recorded inaccurately?}
+\small
+For trainee workers, let $X$ be true practice hours and $Y$ a task score:
+\[
+Y=40+3X+U,\qquad \widetilde X=X+V.
+\]
+Observations are i.i.d. with finite second moments. Assume $\E(U\mid X)=0$, $\E(V)=0$, $\Cov(X,V)=\Cov(U,V)=0$, $\Var(X)=4$, and $\Var(V)=2$.
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item Rewrite the outcome equation using recorded hours $\widetilde X$. Derive the covariance of $\widetilde X$ with the resulting composite error, and the variance of $\widetilde X$.
+\item Derive the probability limit of the OLS slope using recorded hours and an intercept. Calculate it for the supplied variances, and again if the measurement-error variance doubles.
+\item Would increasing the sample size alone restore the true slope?
+\item In a separate measurement scenario, suppose $X$ is accurate but the recorded outcome is $\widetilde Y=Y+N$, where $N$ is independent of $(X,U)$, mean zero, and has finite variance. Find the population slope using $(X,\widetilde Y)$.
+\end{enumerate}
+\end{frame}
+\note{All examples and numerical quantities are hypothetical teaching data. Solution to Problem 2. The composite error is Ubar_tilde=U-beta1V=U-3V. Cov(Xtilde,Utilde)=-beta1Var(V)=-6 and Var(Xtilde)=Var(X)+Var(V)=6. The population recorded-regressor slope, and the probability limit of the sample OLS slope under the stated sampling and moment assumptions, is beta1Var(X)/(Var(X)+Var(V))=3(4/6)=2. If Var(V) doubles to4, the slope limit is3(4/8)=1.5. These are attenuation probability limits, not exact expectations of every finite-sample estimator. A larger sample does not remove systematic measurement contamination. In the separate outcome-noise case X is measured accurately and Cov(X,N)=0, so Cov(X,Y+N)/Var(X)=3. Independent outcome noise adds outcome variation without changing this population slope. No coefficient uncertainty calculation is required.}
+
+\ifshowsolutions
+% SOLUTION 2 START
+\begin{frame}{Solution 2: The recorded regressor contains part of the new error}
+\small
+\answerpart{1}Since $X=\widetilde X-V$, substitution into the true model gives
+\[
+Y=\beta_0+\beta_1\widetilde X+\widetilde U,
+\qquad \widetilde U=U-\beta_1V=U-3V.
+\]
+Expand the covariance before applying the assumptions:
+\begin{align*}
+\Cov(\widetilde X,\widetilde U)
+&=\Cov(X+V,U-\beta_1V)\\
+&=\Cov(X,U)+\Cov(V,U)\\
+&\quad-\beta_1\Cov(X,V)-\beta_1\Var(V)\\
+&=-\beta_1\Var(V)=-3(2)=\boxed{-6}.
+\end{align*}
+The variance of the recorded regressor is
+\begin{align*}
+\Var(\widetilde X)
+&=\Var(X)+2\Cov(X,V)+\Var(V)\\
+&=\Var(X)+\Var(V)=4+2=\boxed6.
+\end{align*}
+Even though the original error is uncorrelated with $X$, the recorded regressor is correlated with the composite error.
+\end{frame}
+
+\begin{frame}{Solution 2: Attenuation, sample size, and outcome noise (continued)}
+\small
+\answerpart{2}Sample covariance ratios converge to population covariance ratios:
+\begin{align*}
+\widehat b_1\xrightarrow{p}b_1^*
+&=\frac{\Cov(\widetilde X,Y)}{\Var(\widetilde X)}
+=\beta_1+\frac{\Cov(\widetilde X,\widetilde U)}{\Var(\widetilde X)}\\
+&=\beta_1\frac{\Var(X)}{\Var(X)+\Var(V)}.
+\end{align*}
+Thus
+\[
+\Var(V)=2:\quad b_1^*=3\frac4{4+2}=\boxed2,
+\qquad
+\Var(V)=4:\quad b_1^*=3\frac4{4+4}=\boxed{1.5}.
+\]
+The slope moves closer to zero as measurement noise increases.
+\par\medskip
+\answerpart{3}A larger sample makes the estimate converge to $b_1^*$, the population slope for the recorded regressor.
+\par\medskip
+\answerpart{4}In the separate outcome-noise scenario, $X$ is accurate and $\Cov(X,N)=0$, so
+\[
+\frac{\Cov(X,\widetilde Y)}{\Var(X)}
+=\frac{\Cov(X,Y)+\Cov(X,N)}{\Var(X)}
+=\frac{3\Var(X)+0}{\Var(X)}=\boxed3.
+\]
+Independent measurement noise in the outcome preserves this population slope.
+\end{frame}
+% SOLUTION 2 END
+\fi
+
+\section{Selection}
+\begin{frame}{Problem 3: Which selection rules change the relationship?}
+\small
+In a training population, completed modules $X\in\{0,1,2\}$ are equally likely. Independently, $U\in\{-1,1\}$ is equally likely, and performance is $Y=2+X+U$.
+Each indicator equals 1 when we keep the observation.
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item Let $K_X=1$ if $X\geq1$ and $K_X=0$ otherwise. Find $\E(U\mid X,K_X=1)$ on the retained support, and the selected conditional mean of $Y$. Does this selection rule create correlation between $X$ and the error?
+\item Let $K_Y=1$ if $Y\geq3$ and $K_Y=0$ otherwise. For each $x=0,1,2$, list the retained errors and calculate $\E(U\mid X=x,K_Y=1)$ and $\E(Y\mid X=x,K_Y=1)$. Are these conditional means on one straight line?
+\item In a \emph{separate} feedback model, let
+\[
+Y=2X+U,\qquad X=.25Y+V,
+\]
+with mean-zero, finite-second-moment shocks, $\Cov(U,V)=0$, and $\Var(U)=4$. Solve for $X$, find $\Cov(X,U)$, and explain why an OLS slope need not recover 2.
+\end{enumerate}
+\end{frame}
+\note{All examples and numerical quantities are hypothetical teaching data. Solution to Problem 3. For selection on X at least1, the retained X values are1 and2, and the error remains equally likely-1 or1 conditional on either X. The selected conditional error means are0 and the outcome conditional means are3 and4. Selection on a regressor alone in this example does not create endogeneity on the retained support. With selection on Y at least3, the condition is U at least1-X. At X0 only U1 remains, giving mean error1 and mean outcome3. At X1 only U1 remains, giving mean error1 and mean outcome4. At X2 both errors remain equally likely, giving mean error0 and mean outcome4. The adjacent outcome mean changes are1 and0, so the selected conditional expectation is not one straight line. Do not label either adjacent change as a selected OLS slope. The separate simultaneous model uses a different population and different shocks. Substitution gives X=.5X+.25U+V, hence X=.5U+2V and Cov(X,U)=.5Var(U)+2Cov(V,U)=2. Thus the outcome shock feeds into the regressor. The population OLS slope is2+Cov(X,U)/Var(X)=2+2/Var(X), different from2. Var(X)=1+4Var(V) is positive under the stated assumptions. No selected-sample OLS slope or inference calculation is needed.}
+
+\ifshowsolutions
+% SOLUTION 3 START
+\begin{frame}{Solution 3: Selection on the regressor versus the outcome}
+\small
+\answerpart{1}We keep trainees who completed $X=1$ or $X=2$ modules. Within each group, $U=-1$ and $U=1$ are still equally likely, so $\E(U\mid X=x,K_X=1)=0$. From $Y=2+X+U$,
+\[
+\begin{aligned}
+X=1:\quad Y&=2\text{ or }4, & \E(Y\mid X=1,K_X=1)&=(2+4)/2=3,\\
+X=2:\quad Y&=3\text{ or }5, & \E(Y\mid X=2,K_X=1)&=(3+5)/2=4.
+\end{aligned}
+\]
+Among kept trainees, $X=1$ and $X=2$ are equally likely. The zero error mean at each $X$ gives $\E(U\mid K_X=1)=0$ and
+\[
+\begin{aligned}
+\E(XU\mid K_X=1)&=\tfrac12(1\cdot0)+\tfrac12(2\cdot0)=0,\\
+\Cov(X,U\mid K_X=1)&=0-\E(X\mid K_X=1)\cdot0=0.
+\end{aligned}
+\]
+\par\medskip
+\answerpart{2}Selecting $Y\geq3$ means $2+X+U\geq3$, or $U\geq1-X$. Apply that rule at each $x$:
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$x$ & Retained $U$ values & $\E(U\mid X=x,K_Y=1)$ & $\E(Y\mid X=x,K_Y=1)$ \\ \hline
+0 & $1$ only & 1 & $2+0+1=3$ \\
+1 & $1$ only & 1 & $2+1+1=4$ \\
+2 & $-1,1$, equally likely & 0 & $2+2+0=4$
+\end{tabular}
+\end{center}
+The selected conditional mean changes by $4-3=1$ from $x=0$ to 1, and by $4-4=0$ from 1 to 2. These means are \emph{not} on one straight line.
+\par\smallskip
+Outcome selection changes the mix of errors across values of $X$.
+\end{frame}
+
+\begin{frame}{Solution 3: Feedback between the outcome and regressor}
+\small
+\answerpart{3}For the \emph{separate} simultaneous model, substitute $Y=2X+U$ into the equation for $X$:
+\begin{align*}
+X&=.25(2X+U)+V=.5X+.25U+V,\\
+.5X&=.25U+V
+\quad\Longrightarrow\quad \boxed{X=.5U+2V}.
+\end{align*}
+The regressor contains the outcome shock. Taking its covariance with $U$ gives
+\begin{align*}
+\Cov(X,U)&=\Cov(.5U+2V,U)\\
+&=.5\Var(U)+2\Cov(V,U)\\
+&=.5(4)+2(0)=\boxed2.
+\end{align*}
+Consequently, the population regression slope is
+\[
+\alpha_X=\frac{\Cov(X,Y)}{\Var(X)}
+=2+\frac{\Cov(X,U)}{\Var(X)}
+=2+\frac2{\Var(X)}\ne2.
+\]
+A shock to $Y$ feeds back into $X$. OLS therefore combines the structural coefficient with this feedback channel, even though the two original shocks are uncorrelated.
+\end{frame}
+% SOLUTION 3 END
+\fi
+
+\end{document}

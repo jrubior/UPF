@@ -1,0 +1,392 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex}
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+
+
+\title[]{\textcolor{blue}{Seminar 9:\\Instrumental Variables}}
+\subtitle{Three problems and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. All data are hypothetical;
+% no external assets are needed. Supplied uncertainty estimates support
+% large-sample inference; no covariance-estimation formula is required.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+
+\date{}
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{The IV ratio}
+\begin{frame}{Problem 1: How much does another training hour change scores?}
+\small
+Participants in a job-training programme are randomly assigned a priority-booking invitation, $Z\in\{0,1\}$. Let $X$ be training hours and $Y$ an assessment score. The observed group means are
+\begin{center}
+\begin{tabular}{c|cc}
+ & $Z=0$ & $Z=1$ \\
+\hline
+Mean hours $\overline x_z$ & 1 & 3 \\
+Mean score $\overline y_z$ & 64 & 70
+\end{tabular}
+\end{center}
+Assume a constant structural slope in $Y=\beta_0+\beta_1X+U$. Assume that the invitation affects scores only through training hours and that there are no spillovers.
+\begin{enumerate}
+\setlength{\itemsep}{6pt}
+\item Calculate the estimated first-stage slope, reduced-form slope, and Wald IV slope. State their units.
+\item Derive the population covariance-ratio formula from the structural equation. Explain the separate roles of random assignment, exclusion, and relevance.
+\item Write the fitted first stage. Regress $Y$ on the fitted training hours $\widehat X$. Show that the slope equals the Wald estimate, and find the intercept and group predictions.
+\end{enumerate}
+\end{frame}
+\note{All data and programme details are hypothetical teaching examples. Solution to Problem 1. Both randomized groups are observed. First-stage estimate is3-1=2 training hours per invitation; reduced-form estimate is70-64=6 score points per invitation. Their ratio is3 score points per training hour. In the maintained constant-slope model, Cov(Z,Y)=beta1 Cov(Z,X)+Cov(Z,U). Randomization removes assignment confounding, and exclusion says the invitation has no score effect outside hours; together they support Cov(Z,U)=0. Relevance separately requires Cov(Z,X) nonzero. Thus the population ratio identifies beta1;3 is the sample estimate, not an exact identity with the true slope in every sample. First-stage fitted values are1+2Z. Centering gives Xhat-Xhatbar=2(Z-Zbar). Hence the stage-two slope is2sZY/(4sZZ)=reduced-form slope/2=3. Since both group means lie on score61+3Xhat, the second-stage intercept is61 and fitted scores are64 and70. These are estimates based on assignment-induced variation in hours, not a comparison of people who chose different hours.}
+
+\ifshowsolutions
+% SOLUTION 1 START
+\begin{frame}{Solution 1: First stage, reduced form, and identification}
+\small
+\answerpart{1}With binary $Z$, each simple-regression slope is a group-mean difference:
+\[
+\widehat\pi_1=\overline x_1-\overline x_0=3-1=2\text{ hours},
+\qquad
+\widehat\gamma_1=\overline y_1-\overline y_0=70-64=6\text{ points}.
+\]
+The Wald estimate is
+\[
+\widehat\beta_1^{\mathrm{IV}}=\frac{\widehat\gamma_1}{\widehat\pi_1}
+=\frac62=\boxed{3\text{ score points per training hour}}.
+\]
+\answerpart{2}Taking covariance with $Z$ in the structural equation gives
+\[
+\Cov(Z,Y)=\beta_1\Cov(Z,X)+\Cov(Z,U).
+\]
+If $\Cov(Z,U)=0$ and $\Cov(Z,X)\ne0$, then
+\[
+\beta_1=\frac{\Cov(Z,Y)}{\Cov(Z,X)}.
+\]
+Random assignment makes the invitation independent of pre-existing determinants of scores. Exclusion rules out effects of the invitation outside training hours. Relevance requires the invitation to change average training hours.
+\end{frame}
+
+\begin{frame}{Solution 1: Two stages reproduce the Wald estimate}
+\small
+\answerpart{3}The fitted first stage is
+\[
+\widehat X_i=\widehat\pi_0+\widehat\pi_1Z_i=1+2Z_i.
+\]
+For sample covariances computed with a common divisor,
+\[
+\widehat X_i-\overline{\widehat X}=2(Z_i-\overline Z),
+\quad
+s_{\widehat X Y}=2s_{ZY},
+\quad
+s_{\widehat X\widehat X}=4s_{ZZ}.
+\]
+Therefore the second-stage slope is
+\[
+\widehat\beta_1^{\mathrm{2SLS}}
+=\frac{s_{\widehat X Y}}{s_{\widehat X\widehat X}}
+=\frac{2s_{ZY}}{4s_{ZZ}}
+=\frac{\widehat\gamma_1}{2}=\frac62=\boxed3.
+\]
+The intercept is $\widehat\beta_0=\overline y_0-3\overline x_0=64-3(1)=61$:
+\[
+\widehat y=61+3\widehat X,
+\qquad
+Z=0:\ 61+3(1)=64,
+\qquad
+Z=1:\ 61+3(3)=70.
+\]
+The calculation uses variation in hours predicted by randomized booking access.
+\end{frame}
+% SOLUTION 1 END
+\fi
+
+\section{Validity and strength}
+\begin{frame}{Problem 2: Does random assignment make every instrument valid?}
+\small
+Consider a different randomized package $Z$: priority booking \emph{and} assessment materials. Its population first-stage slope is $\pi_1=2$ hours. The materials directly raise scores by 2 points:
+\[
+Y=\alpha+3X+2Z+V,\qquad \Cov(Z,V)=0.
+\]
+In a separate study, a candidate instrument $Q$ has estimated first-stage slope $.20$ and an appropriate supplied standard error $.10$.
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item Derive the package's reduced-form slope and the ratio obtained by treating it as an excluded instrument. Which validity condition fails?
+\item For $Q$, calculate the first-stage $t$ and the equivalent one-restriction $F$ using the same covariance estimate. Use the large-sample cutoff $1.96$ for a two-sided 5\% first-stage test. Does significance establish strong identification?
+\item In the valid simple-IV model, derive $\widehat\beta_1^{\mathrm{IV}}-\beta_1=s_{QU}/s_{QX}$. If $s_{QU}=.01$, compare denominators $.05$ and $.005$. What does this show about weak-instrument inference?
+\end{enumerate}
+\end{frame}
+\note{All models, numerical summaries, and covariance values are hypothetical teaching examples. Solution to Problem 2. For the package, Cov(Z,Y)=3Cov(Z,X)+2Var(Z) because Cov(Z,V)=0. Dividing by Var(Z) gives reduced-form slope3(2)+2=8. The naive excluded-instrument ratio is8/2=4, not the stipulated structural hours effect3. Randomization removes confounding with V and the first stage is nonzero, but materials create a direct path from Z to scores. If the direct effect is omitted, structural error is U=2Z+V and Cov(Z,U)=2Var(Z) is nonzero. The separate candidate has first-stage t=.20/.10=2 and F=t squared=4 for one restriction using the same covariance estimator. The first-stage null is rejected under the supplied large-sample approximation, but this modest statistic does not establish strong identification; statistical significance alone is insufficient. For the valid simple-IV structural model, sample covariance substitution gives sQY=beta1sQX+sQU, and the exact estimation-error identity follows. With illustrative sample error covariance .01, dividing by .05 gives an error of .2 points/hour and dividing by .005 gives2. These are illustrative supplied values involving the unobserved structural error, not a proposed observable diagnostic. Population exogeneity does not make every finite-sample error covariance exactly zero. A small first-stage covariance magnifies sampling noise; usual normal IV confidence intervals can be unreliable with weak instruments. The elementary strength warning does not establish invalidity or provide a weak-IV inference procedure.}
+
+\ifshowsolutions
+% SOLUTION 2 START
+\begin{frame}{Solution 2: A randomized package can violate exclusion}
+\small
+\answerpart{1}The direct materials effect remains in the covariance:
+\[
+\begin{aligned}
+\Cov(Z,Y)&=3\Cov(Z,X)+2\Var(Z)+\Cov(Z,V),\\
+\gamma_1&=\frac{\Cov(Z,Y)}{\Var(Z)}=3\pi_1+2=3(2)+2=8.
+\end{aligned}
+\]
+Treating $Z$ as an excluded instrument would give
+\[
+\frac{\gamma_1}{\pi_1}=3+\frac2{\pi_1}=3+\frac22=\boxed4,
+\]
+although the stipulated structural effect of an extra training hour is 3 points.
+
+\par\medskip
+Relevance holds and assignment is randomized. Exclusion fails because the materials affect scores directly. If that effect is omitted, the error becomes
+\[
+U=2Z+V,
+\qquad \Cov(Z,U)=2\Var(Z)\ne0.
+\]
+Randomization of a package does not isolate the effect of each component.
+\end{frame}
+
+\begin{frame}{Solution 2: A small denominator amplifies sampling noise}
+\small
+\answerpart{2}For the separate candidate's first stage,
+\[
+t=\frac{\widehat\pi_1}{SE(\widehat\pi_1)}=\frac{.20}{.10}=2,
+\qquad F=t^2=\boxed4.
+\]
+Reject a zero first-stage slope at 5\% because $2>1.96$. The $F$ of 4 still gives reason to suspect weak identification.
+\par\smallskip
+\answerpart{3}Substituting $Y=\beta_0+\beta_1X+U$ into the sample covariance gives
+\[
+s_{QY}=\beta_1s_{QX}+s_{QU}
+\quad\Longrightarrow\quad
+\widehat\beta_1^{\mathrm{IV}}-\beta_1
+=\frac{s_{QY}}{s_{QX}}-\beta_1=\frac{s_{QU}}{s_{QX}}.
+\]
+For the supplied error covariance,
+\[
+\frac{.01}{.05}=.2,
+\qquad
+\frac{.01}{.005}=2\text{ score points per training hour}.
+\]
+The smaller denominator multiplies the estimation error by ten. Even a valid instrument can have a nonzero sample $s_{QU}$. Weak identification can make the usual normal IV confidence intervals unreliable.
+\end{frame}
+% SOLUTION 2 END
+\fi
+
+\section{2SLS with controls}
+\begin{frame}{Problem 3: Which variables belong in each IV stage?}
+\small
+In a new large i.i.d. sample, assessment scores satisfy
+\[
+Y_i=\beta_0+\beta_1X_i+\delta W_i+U_i,
+\]
+where training hours $X$ are endogenous and baseline score $W$ is an included exogenous control. Two excluded instruments, $Z_1$ and $Z_2$, are available.
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item Write the first-stage equation and list the regressors used in the second stage. Where must $W$ appear?
+\item There is one endogenous regressor ($k=1$). Classify designs with $m=0,1,2$ excluded instruments by the order condition. What else is needed beyond this count?
+\item Assume strong, valid instruments and the lecture's large-sample conditions. IV software reports $\widehat\beta_1=3.2$ and an appropriate estimated variance $.64$. A manual second-stage OLS run reports standard error $.30$. Which standard error belongs in the IV confidence interval? Calculate the 95\% interval using 1.96.
+\end{enumerate}
+\end{frame}
+\note{All programme details and estimates are hypothetical teaching examples. Solution to Problem 3. First stage regresses X on an intercept,W,Z1,Z2; Xhat=pi0hat+pi1hatZ1+pi2hatZ2+deltahatW. Second stage regresses Y on an intercept,Xhat,W. The included exogenous control belongs in both stages. The excluded instruments do not enter the structural second stage directly under exclusion. For k1, m0 fails the order condition and is underidentified; m1 is exactly identified by count and m2 overidentified by count. Counts alone do not establish identification: excluded instruments must add relevant independent variation after controlling for W, the design must satisfy the rank condition, and validity requires an exogeneity/exclusion justification. Constant and W are included exogenous instruments but are not counted in m. For the supplied appropriate IV variance, SEIV=sqrt(.64)=.80. Use3.2 plus or minus1.96(.80)=[1.632,4.768] score points per hour. The manual OLS standard error pertains to the generated-regressor OLS calculation, not the IV estimator's uncertainty. The strong-instrument and validity conditions are assumed for this calculation; the interval is not justified for the weak case in Problem2. No overidentification test or special covariance-estimation formula is introduced.}
+
+\ifshowsolutions
+% SOLUTION 3 START
+\begin{frame}{Solution 3: Included controls and identification counts}
+\small
+\answerpart{1}The first stage includes the control and both excluded instruments:
+\[
+\begin{aligned}
+X_i&=\pi_0+\pi_1Z_{1i}+\pi_2Z_{2i}+\eta W_i+V_i,\\
+\widehat X_i&=\widehat\pi_0+\widehat\pi_1Z_{1i}+\widehat\pi_2Z_{2i}+\widehat\eta W_i.
+\end{aligned}
+\]
+The second stage regresses $Y_i$ on an intercept, $\widehat X_i$, and $W_i$. The control $W$ stays in both stages.
+\par\medskip
+\answerpart{2}Count only the \emph{excluded} instruments in $m$:
+\begin{center}
+\begin{tabular}{c|c|l}
+Endogenous regressors $k$ & Excluded instruments $m$ & Classification by count \\
+\hline
+1 & 0 & Underidentified \\
+1 & 1 & Exactly identified \\
+1 & 2 & Overidentified
+\end{tabular}
+\end{center}
+Identification also requires relevant variation after accounting for $W$ and a justification for exogeneity and exclusion.
+\end{frame}
+
+\begin{frame}{Solution 3: Use the uncertainty estimate for IV}
+\small
+\answerpart{3}The standard error is the square root of the appropriate estimated IV coefficient variance:
+\[
+SE_{\mathrm{IV}}(\widehat\beta_1)
+=\sqrt{\widehat{\Var}_{\mathrm{IV}}(\widehat\beta_1)}
+=\sqrt{.64}=\boxed{.80}.
+\]
+The 95\% large-sample interval is
+\[
+\begin{aligned}
+\widehat\beta_1\pm1.96\,SE_{\mathrm{IV}}(\widehat\beta_1)
+&=3.2\pm1.96(.80)\\
+&=3.2\pm1.568
+=\boxed{[1.632,\ 4.768]}\text{ points per hour}.
+\end{aligned}
+\]
+Use the standard error of $.80$ from the IV software. The $.30$ describes uncertainty under the manual second-stage OLS calculation.
+
+\par\medskip
+The normal approximation here relies on the stated large-sample conditions and strong, valid instruments.
+\end{frame}
+% SOLUTION 3 END
+\fi
+
+\end{document}
