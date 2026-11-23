@@ -1,0 +1,388 @@
+\documentclass[notes,10pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+% Note visibility is selected after package loading at the end of this preamble.
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{breqn}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{font=scriptsize, justification=raggedright,singlelinecheck=false}
+\usepackage[export]{adjustbox}
+\usepackage[scale=2]{ccicons}
+\usepackage{tikz}
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+% \newcommand{\beginbackup}{
+%   \newcounter{framenumbervorappendix}
+%   \setcounter{framenumbervorappendix}{\value{framenumber}}
+%   \setbeamertemplate{footline}
+%   {
+%      \leavevmode%
+%      \hline
+%      box{%
+%       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+% %         \insertframenumber  \hspace*{2ex}
+%       \end{beamercolorbox}}%
+%      \vskip0pt%
+%   }
+%  }
+
+ \setbeamertemplate{footline}{
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1.5ex,leftskip=2ex,rightskip=2ex]{page footer}%
+        %\usebeamerfont{title in head/foot}%
+        %\insertshorttitle \hfill
+        %\insertsection \hfill
+        %\tableofcontents[currentsection] \hfill
+        \insertsectionnavigationhorizontal{0.7\paperwidth}{}{} \hfill
+        \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\setbeamercolor{section in head/foot}{fg=blue}
+
+\useinnertheme[shadow]{rounded}
+\setbeamercolor{block title example}{fg=black,bg=orange!50!white}
+\setbeamercolor{block body example}{fg=black, bg=orange!30!white}
+
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=yellow}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+%\setbeamersize{text margin left=1em,text margin right=1em}
+\setbeamersize{text margin left=0.7cm,text margin right=0.7cm}
+
+
+\title[]{\textcolor{blue}{Seminar 9 v2:\\Instruments for the Problems in Seminar 8}}
+\subtitle{Four problems and worked solutions}
+\author{25117 - Econometrics}
+\institute[shortinst]{Universitat Pompeu Fabra}
+
+%\date{September 25th, 2024}
+
+
+% Each problem is followed by worked solution slides. Set \showsolutionsfalse
+% below to compile a problem-only deck. All data are hypothetical;
+% no external assets are needed. All numerical moments in this version
+% are population moments. IV ratios illustrate identification, not exact
+% finite-sample estimates. Every regression includes an intercept.
+\newif\ifshowsolutions
+\showsolutionstrue
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\answerpart}[1]{\textcolor{blue}{\textbf{#1.}}\,}
+
+\setbeameroption{hide notes} % Speaker notes hidden; worked solutions are visible.
+
+
+\date{}
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Omitted variables}
+\begin{frame}{Problem 1: An instrument for class size}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{Seminar 8, Problem 1 (slides 2--4):} the estimated class-size slope was $-2$ without prior performance $W$ and $-1$ with it. Can IV recover the slope when $W$ is unobserved? Consider a new population:
+\[
+Y=80-X+W+R.
+\]
+Here $X$ is class size, $W$ is prior reading performance, and $Y$ is later performance; all are continuous school averages. $W$ is unobserved. Assume
+\[
+\E[R]=0,\text{ }\Cov(X,R)=0,\text{ and }\frac{\Cov(X,W)}{\Var(X)}=-1.
+\]
+A continuously varying, randomly assigned capacity allocation $Z$ changes class size. Assume it affects scores only through $X$ and is uncorrelated with $W$ and $R$. Population moments are
+\[
+\Var(Z)=4,\text{ }\Cov(Z,X)=2,\text{ and }\Cov(Z,Y)=-2.
+\]
+\begin{enumerate}
+\item Calculate the population OLS slope of $Y$ on $X$ with an intercept.
+\item State the relevance and exogeneity conditions for $Z$. Why could $Z$ satisfy them even though $X$ does not?
+\item Calculate the first-stage slope, reduced-form slope, and IV ratio. Interpret the IV slope and compare it with OLS.
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 1: Isolate variation unrelated to prior performance}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\answerpart{1}Write $Y=80-X+U$, where $U=W+R$. Then
+\[
+\Cov(X,U)=\Cov(X,W)+\Cov(X,R)=\Cov(X,W).
+\]
+The population OLS slope is
+\[
+b_{\mathrm{OLS}}=-1+\frac{\Cov(X,U)}{\Var(X)}=-1-1=\boxed{-2}.
+\]
+\answerpart{2}Relevance holds because $\Cov(Z,X)=2\ne0$. For exogeneity, use $U=W+R$ and covariance linearity:
+\[
+\begin{aligned}
+\Cov(Z,U)&=\Cov(Z,W+R)\\
+&=\Cov(Z,W)+\Cov(Z,R)=0+0=0.
+\end{aligned}
+\]
+The two zeros follow from the assumptions that $Z$ is uncorrelated with both $W$ and $R$.
+\par\smallskip
+\answerpart{3}The first-stage and reduced-form slopes are
+\[
+\pi_1=\frac{\Cov(Z,X)}{\Var(Z)}=\frac24=0.5,
+\text{ and }\gamma_1=\frac{\Cov(Z,Y)}{\Var(Z)}=\frac{-2}{4}=-0.5.
+\]
+\[
+b_{\mathrm{IV}}=\frac{\gamma_1}{\pi_1}=\frac{-0.5}{0.5}=\boxed{-1}.
+\]
+Under these assumptions, one more pupil per class lowers the later score by 1 point. IV removes the omitted-variable component that makes the OLS slope $-2$.
+\end{frame}
+\fi
+
+\section{Measurement error}
+\begin{frame}{Problem 2: An instrument for inaccurately recorded hours}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{Seminar 8, Problem 2 (slides 5--7):} measurement error made the OLS slope converge to $2$ although the true slope was $3$. Can IV recover $3$? Reuse the model with continuous practice hours and scores:
+\[
+Y=40+3X+U,\text{ and }\widetilde X=X+V.
+\]
+Assume $\Cov(X,U)=\Cov(X,V)=\Cov(U,V)=0$, $\Var(X)=4$, and $\Var(V)=2$. Errors have mean zero.
+\par\smallskip
+A continuously varying, randomly assigned booking allowance $Z$ changes true practice hours. Assume it affects scores only through true hours and is unrelated to recording errors:
+\[
+\Var(Z)=1,\text{ }\Cov(Z,X)=1.5,\text{ and }\Cov(Z,U)=\Cov(Z,V)=0.
+\]
+\begin{enumerate}
+\item Rewrite the outcome equation using $\widetilde X$ and identify its composite error. Calculate the population OLS slope using recorded hours.
+\item Show that $Z$ is relevant for $\widetilde X$ and uncorrelated with the composite error. Calculate $\Cov(Z,Y)$.
+\item Compute the IV ratio using the observed regressor $\widetilde X$. Describe both regression stages. Would validity still follow if $Z$ were correlated with recording error $V$?
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 2: Instrument the recorded regressor}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\answerpart{1}Substitute $X=\widetilde X-V$:
+\[
+Y=40+3\widetilde X+\widetilde U,\text{ where }\widetilde U=U-3V.
+\]
+\[
+\Cov(\widetilde X,\widetilde U)=-3\Var(V)=-6,
+\text{ and }b_{\mathrm{OLS}}=3\frac4{4+2}=\boxed2.
+\]
+\answerpart{2}The instrument isolates true-hour variation rather than recording noise:
+\[
+\begin{aligned}
+\Cov(Z,\widetilde X)&=\Cov(Z,X)+\Cov(Z,V)=1.5,\\
+\Cov(Z,\widetilde U)&=\Cov(Z,U)-3\Cov(Z,V)=0,\\
+\Cov(Z,Y)&=3\Cov(Z,X)+\Cov(Z,U)=4.5.
+\end{aligned}
+\]
+\answerpart{3}Consequently,
+\[
+b_{\mathrm{IV}}=\frac{\Cov(Z,Y)}{\Cov(Z,\widetilde X)}
+=\frac{4.5}{1.5}=\boxed{3\text{ points per true practice hour}}.
+\]
+First regress recorded hours $\widetilde X$ on an intercept and $Z$. Then regress $Y$ on an intercept and the fitted recorded hours. The population first-stage slope is 1.5, the reduced-form slope is 4.5, and their ratio is 3.
+\par\smallskip
+If $\Cov(Z,V)\ne0$, then $\Cov(Z,\widetilde U)=-3\Cov(Z,V)\ne0$: the instrument would be invalid under the other maintained assumptions.
+\end{frame}
+\fi
+
+\section{Selection}
+\begin{frame}{Problem 3: Does an instrument survive sample selection?}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{Seminar 8, Problem 3 (slides 8--9):} retaining $Y\geq3$ gave conditional error means $1,1,0$ at $X=0,1,2$, breaking zero conditional mean. Does IV fix this? Consider a continuous-variable version:
+\[
+Y=2+X+U.
+\]
+A continuous instrument $Z$ is valid in the full population: $\Cov(Z,U)=0$ and $\Cov(Z,X)\ne0$. Only observations with $Y\geq3$ are retained; write $K=1$ for retention. Suppose the selected-population moments are
+\[
+\Cov(Z,X\mid K=1)=0.60,\text{ and }\Cov(Z,U\mid K=1)=-0.20.
+\]
+\begin{enumerate}
+\item Derive the selected-population IV ratio. Calculate it and compare it with the structural slope 1.
+\item Explain why full-population validity does not establish validity after selection on $Y$.
+\item A redesigned study selects participants using \emph{pre-training} performance, then randomly assigns a continuous encouragement $Q$. Assume $Q$ affects current $Y$ only through $X$ and has no spillovers. Among these participants, $\Cov(Q,X)=0.50$ and $\Cov(Q,Y)=0.50$. Calculate IV and explain what changed in the design.
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 3: Validity must hold in the sample used}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\answerpart{1}Take covariances within the selected population:
+\[
+\Cov(Z,Y\mid K=1)=\Cov(Z,X\mid K=1)+\Cov(Z,U\mid K=1)=0.40.
+\]
+\[
+b_{\mathrm{IV},K=1}
+=1+\frac{\Cov(Z,U\mid K=1)}{\Cov(Z,X\mid K=1)}
+=1-\frac{0.20}{0.60}=\boxed{\frac23\ne1}.
+\]
+\answerpart{2}Selection depends on both $X$ and $U$, because $Y\geq3$ means $U\geq1-X$. Since $Z$ shifts $X$, keeping only high outcomes can make $Z$ correlated with $U$ among retained observations. Here relevance survives, but exogeneity fails.
+\par\smallskip
+\answerpart{3}In the redesigned study, selection occurs before random assignment. Under the stated exclusion assumption, assignment supports instrument exogeneity within the enrolled population. Thus
+\[
+b_{\mathrm{IV},\mathrm{new}}=\frac{\Cov(Q,Y)}{\Cov(Q,X)}
+=\frac{0.50}{0.50}=\boxed1.
+\]
+This identifies the constant slope for enrolled participants. It relies on a new design; applying IV to the original outcome-selected records does not repair their selection bias automatically.
+\end{frame}
+\fi
+
+\section{Simultaneity}
+\begin{frame}{Problem 4: An instrument that shifts the regressor}
+\small
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\textbf{Seminar 8, Problem 4 (slides 10--11):} feedback gave $\Cov(X,U)=2$ and an OLS slope $2+2/\Var(X)$ instead of $2$. Can IV isolate the structural slope?
+\par\smallskip
+Assume we can find a new observed variable $Z$ that affects $X$ but has no direct effect on $Y$. Keep the original unobserved shock $V$ and add $Z$:
+\[
+Y=2X+U,\text{ and }X=0.25Y+Z+V.
+\]
+All variables are continuous. The variables $Z$, $U$, and $V$ are mutually independent, have mean zero, and satisfy
+\[
+\Var(Z)=1,\text{ }\Var(U)=4,\text{ and }\Var(V)=1.
+\]
+$Z$ can affect $Y$ indirectly through $X$.
+\begin{enumerate}
+\item Solve for $X$ in terms of $Z$, $U$, and $V$. Calculate $\Cov(X,U)$, $\Var(X)$, and the population OLS slope of $Y$ on $X$.
+\item Calculate $\Cov(Z,X)$ and $\Cov(Z,Y)$. Explain why $Z$ can be a valid instrument although $X$ is endogenous.
+\item Calculate the IV slope. Write the population first-stage and reduced-form fitted lines, and show how two stages recover the structural slope.
+\end{enumerate}
+\end{frame}
+
+\ifshowsolutions
+\begin{frame}{Solution 4: Use the external shift rather than the feedback}
+\small
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\answerpart{1}Substitution gives $X=0.5X+0.25U+Z+V$, hence
+\[
+X=0.5U+2Z+2V.
+\]
+\[
+\Cov(X,U)=0.5(4)=2,\text{ and }\Var(X)=0.25(4)+4(1)+4(1)=9.
+\]
+\[
+b_{\mathrm{OLS}}=2+\frac{\Cov(X,U)}{\Var(X)}=2+\frac29=\boxed{\frac{20}{9}}.
+\]
+\answerpart{2}Independence and exclusion imply
+\[
+\Cov(Z,U)=0,\text{ }\Cov(Z,X)=2\Var(Z)=2,
+\]
+\[
+\Cov(Z,Y)=2\Cov(Z,X)+\Cov(Z,U)=4.
+\]
+The instrument shifts $X$ without carrying the outcome shock $U$.
+\par\smallskip
+\answerpart{3}The IV ratio is $b_{\mathrm{IV}}=4/2=\boxed2$. Since all variables have mean zero, the population fitted lines have zero intercepts:
+\[
+X^{\mathrm{proj}}=2Z,\text{ and }Y^{\mathrm{proj}}=4Z.
+\]
+Regressing $Y$ on the first-stage projection gives
+\[
+\frac{\Cov(2Z,Y)}{\Var(2Z)}=\frac{2(4)}{4(1)}=\boxed2.
+\]
+\end{frame}
+\fi
+
+\end{document}

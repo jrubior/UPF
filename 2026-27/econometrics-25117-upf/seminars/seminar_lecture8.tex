@@ -141,7 +141,7 @@
 
 
 \title[]{\textcolor{blue}{Seminar 8:\\Threats to Identification}}
-\subtitle{Three problems and worked solutions}
+\subtitle{Four problems and worked solutions}
 \author{25117 - Econometrics}
 \institute[shortinst]{Universitat Pompeu Fabra}
 
@@ -330,14 +330,9 @@ Each indicator equals 1 when we keep the observation.
 \setlength{\itemsep}{7pt}
 \item Let $K_X=1$ if $X\geq1$ and $K_X=0$ otherwise. Find $\E(U\mid X,K_X=1)$ on the retained support, and the selected conditional mean of $Y$. Does this selection rule create correlation between $X$ and the error?
 \item Let $K_Y=1$ if $Y\geq3$ and $K_Y=0$ otherwise. For each $x=0,1,2$, list the retained errors and calculate $\E(U\mid X=x,K_Y=1)$ and $\E(Y\mid X=x,K_Y=1)$. Are these conditional means on one straight line?
-\item In a \emph{separate} feedback model, let
-\[
-Y=2X+U,\qquad X=.25Y+V,
-\]
-with mean-zero, finite-second-moment shocks, $\Cov(U,V)=0$, and $\Var(U)=4$. Solve for $X$, find $\Cov(X,U)$, and explain why an OLS slope need not recover 2.
 \end{enumerate}
 \end{frame}
-\note{All examples and numerical quantities are hypothetical teaching data. Solution to Problem 3. For selection on X at least1, the retained X values are1 and2, and the error remains equally likely-1 or1 conditional on either X. The selected conditional error means are0 and the outcome conditional means are3 and4. Selection on a regressor alone in this example does not create endogeneity on the retained support. With selection on Y at least3, the condition is U at least1-X. At X0 only U1 remains, giving mean error1 and mean outcome3. At X1 only U1 remains, giving mean error1 and mean outcome4. At X2 both errors remain equally likely, giving mean error0 and mean outcome4. The adjacent outcome mean changes are1 and0, so the selected conditional expectation is not one straight line. Do not label either adjacent change as a selected OLS slope. The separate simultaneous model uses a different population and different shocks. Substitution gives X=.5X+.25U+V, hence X=.5U+2V and Cov(X,U)=.5Var(U)+2Cov(V,U)=2. Thus the outcome shock feeds into the regressor. The population OLS slope is2+Cov(X,U)/Var(X)=2+2/Var(X), different from2. Var(X)=1+4Var(V) is positive under the stated assumptions. No selected-sample OLS slope or inference calculation is needed.}
+\note{All examples and numerical quantities are hypothetical teaching data. Solution to Problem 3. For selection on X at least1, the retained X values are1 and2, and the error remains equally likely-1 or1 conditional on either X. The selected conditional error means are0 and the outcome conditional means are3 and4. Selection on a regressor alone in this example does not create endogeneity on the retained support. With selection on Y at least3, the condition is U at least1-X. At X0 only U1 remains, giving mean error1 and mean outcome3. At X1 only U1 remains, giving mean error1 and mean outcome4. At X2 both errors remain equally likely, giving mean error0 and mean outcome4. The adjacent outcome mean changes are1 and0, so the selected conditional expectation is not one straight line. Do not label either adjacent change as a selected OLS slope. No selected-sample OLS slope or inference calculation is needed.}
 
 \ifshowsolutions
 % SOLUTION 3 START
@@ -372,21 +367,46 @@ The selected conditional mean changes by $4-3=1$ from $x=0$ to 1, and by $4-4=0$
 Outcome selection changes the mix of errors across values of $X$.
 \end{frame}
 
-\begin{frame}{Solution 3: Feedback between the outcome and regressor}
+% SOLUTION 3 END
+\fi
+
+\section{Simultaneity}
+\begin{frame}{Problem 4: Feedback between the outcome and regressor}
 \small
-\answerpart{3}For the \emph{separate} simultaneous model, substitute $Y=2X+U$ into the equation for $X$:
+Consider a simultaneous model in which $X$ affects $Y$ and $Y$ also affects $X$:
+\[
+Y=2X+U,\text{ and }X=.25Y+V.
+\]
+The shocks $U$ and $V$ have mean zero and finite second moments. Assume
+\[
+\Cov(U,V)=0,\text{ and }\Var(U)=4.
+\]
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\item Substitute the equation for $Y$ into the equation for $X$. Solve for $X$ as a function of the two shocks.
+\item Calculate $\Cov(X,U)$. Does the fact that $U$ and $V$ are uncorrelated imply that $X$ and $U$ are uncorrelated?
+\item Derive the population OLS slope from regressing $Y$ on $X$ with an intercept. Explain why it differs from the structural coefficient 2.
+\end{enumerate}
+\end{frame}
+\note{This is a separate hypothetical population from Problem 3. Substitution gives X=.5X+.25U+V, hence X=.5U+2V. Thus Cov(X,U)=.5Var(U)+2Cov(V,U)=2. The outcome shock feeds into the regressor despite the original shocks being uncorrelated. The population OLS slope is2+Cov(X,U)/Var(X)=2+2/Var(X), different from2. Var(X)=1+4Var(V) is positive under the stated assumptions. No inference calculation is needed.}
+
+\ifshowsolutions
+% SOLUTION 4 START
+\begin{frame}{Solution 4: Feedback between the outcome and regressor}
+\small
+\answerpart{1}Substitute $Y=2X+U$ into the equation for $X$:
 \begin{align*}
 X&=.25(2X+U)+V=.5X+.25U+V,\\
 .5X&=.25U+V
-\quad\Longrightarrow\quad \boxed{X=.5U+2V}.
+\Longrightarrow \boxed{X=.5U+2V}.
 \end{align*}
-The regressor contains the outcome shock. Taking its covariance with $U$ gives
+\answerpart{2}The regressor contains the outcome shock. Taking its covariance with $U$ gives
 \begin{align*}
 \Cov(X,U)&=\Cov(.5U+2V,U)\\
 &=.5\Var(U)+2\Cov(V,U)\\
 &=.5(4)+2(0)=\boxed2.
 \end{align*}
-Consequently, the population regression slope is
+\answerpart{3}Consequently, the population regression slope is
 \[
 \alpha_X=\frac{\Cov(X,Y)}{\Var(X)}
 =2+\frac{\Cov(X,U)}{\Var(X)}
@@ -394,7 +414,7 @@ Consequently, the population regression slope is
 \]
 A shock to $Y$ feeds back into $X$. OLS therefore combines the structural coefficient with this feedback channel, even though the two original shocks are uncorrelated.
 \end{frame}
-% SOLUTION 3 END
+% SOLUTION 4 END
 \fi
 
 \end{document}
