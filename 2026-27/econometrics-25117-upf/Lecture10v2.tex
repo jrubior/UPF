@@ -8,6 +8,7 @@
 %\setbeameroption{show only notes} % Only notes
 %\setbeameroption{show notes on second screen=right} % Both
 \usepackage{colortbl}
+\usepackage{soul}
 \usepackage{helvet}
 \usepackage[default]{lato}
 \usepackage{array}
@@ -451,7 +452,7 @@ $n=1{,}084$, $R^2=0.4262$, $SER=0.4127$.
 \begin{frame}{Testing Differences in Pooled regressions}
 When \textit{all} variables are interacted with the time dummies, the regression specification is equivalent to estimating separate regressions --- one for each year.\\[1em]
 
-As in Lecture 7, one can test whether the population regression lines differ across two different years by running a simple \textbf{Chow test}.\\[1em]
+As in Lecture 7, one can test whether the population regression lines differ across two different years by running a simple \textbf{Chow test} (joint $F$ test).\\[1em]
 
 First, run the fully interacted model ($year_1$ serves as the base period)
 \begin{equation*}
@@ -526,7 +527,7 @@ With panel data, we can control for factors that:
     \item Vary over time (in the sample period) but not across units
 \end{itemize}
 \vspace{1em}
-These `black boxes' could contain omitted variables, which are typically unobserved or unmeasured --- and therefore cannot be included in the regression using multiple regression.\\[1em]
+{\sethlcolor{yellow}\hl{These `black boxes' could contain omitted variables, which are typically unobserved or unmeasured --- and therefore cannot be included in the regression using multiple regression.}}\\[1em]
 
 For example,
 \begin{itemize}
@@ -537,9 +538,9 @@ For example,
 \end{itemize}
 \vspace{1em}
 
-Here’s the key idea:\\
+{\sethlcolor{yellow}\hl{Here’s the key idea:}}\\
 \begin{itemize}
-    \item If an omitted variable does not change over time or across units, then any changes in Y over time and across units cannot be caused by the omitted variable.
+    \item {\sethlcolor{yellow}\hl{If an omitted variable does not change over time or across units, then any changes in Y over time and across units cannot be caused by the omitted variable.}}
 \end{itemize}
 \end{frame}
 
