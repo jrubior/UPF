@@ -320,38 +320,87 @@ Pooled together $\Longrightarrow$ independently pooled cross section
 
 
 
-\begin{frame}{Fertility over time}
- \begin{columns}
-\begin{column}{0.3\textwidth}
-From Lecture 7 --- We can use year-specific intercepts by including year-specific dummies\\[1em]
-Remember from Lecture 7 ---  the base year here is...?\\[1em]
-
-Sharp decline in the number of kids per woman in the 1980s which is $not$ explained by changes in main demographics
-
-\end{column}
-\begin{column}{0.7\textwidth}
-\begin{figure}
-  \centering
-         \vspace{-1mm}
-         \small
-\textbf{Selected year coefficients}\\[.5em]
-\begin{tabular}{lr}
-\hline
-Year (base: 1972) & Coefficient\\\hline
-1974 & $0.2682$\\
-1976 & $-0.0974$\\
-1978 & $-0.0687$\\
-1980 & $-0.0713$\\
-1982 & $-0.5225$\\
-1984 & $-0.5452$\\\hline
+\begin{frame}{Reminder from Lecture 7: What a Year Dummy Measures}
+\small
+Start with two survey years, 1972 and 1982. Let $Y_i$ be the number of children ever born to woman $i$, and let $D_{82,i}=1$ in 1982 and $0$ in 1972.
+\[
+Y_i=\alpha+\delta_{82}D_{82,i}+u_i.
+\]
+The fitted value is $\hat\alpha$ for every 1972 observation and $\hat\alpha+\hat\delta_{82}$ for every 1982 observation. OLS minimizes the sum of squared residuals by fitting each group mean.
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Survey year & Women & Total children ever born & Mean per woman\\
+\midrule
+1972 & 156 & 472 & $472/156=3.0256$\\
+1982 & 186 & 447 & $447/186=2.4032$\\
+\bottomrule
 \end{tabular}
-\par\medskip
-$n=1{,}129$, $R^2=0.1295$, $SER=1.5548$.
-\par\medskip
-Controls: education, age, age squared, race, region, and type of residence.
-\end{figure}
-\end{column}
-\end{columns}
+\end{center}
+\[
+\hat\alpha=3.0256,\qquad
+\hat\delta_{82}=\bar y_{82}-\bar y_{72}=2.4032-3.0256=-0.6224.
+\]
+With all seven years, include six year dummies and the intercept. Omit the 1972 dummy to make 1972 the base year. Every year coefficient is then the difference between that year's mean and the 1972 mean.
+\end{frame}
+
+\begin{frame}{Fertility over Time: Estimate and Adjust the Year Gap}
+\small
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\textbf{1. Fit the pooled OLS model.} For each woman, put an intercept, six year dummies, and eleven controls in the row of $\mathbf X$. The controls $W_i$ are education, age, age squared, a race indicator, and dummies for region and residence type at age 16.
+\[
+Y_i=\alpha+\sum_{t\in\{74,76,78,80,82,84\}}\delta_t D_{t,i}+W_i'\gamma+u_i,
+\qquad
+\hat{\boldsymbol\beta}=(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf Y .
+\]
+\textbf{2. Take the difference between years after adjusting for the controls.}
+The OLS intercept and year dummies make the residual mean zero in each year.
+Thus the actual mean equals the mean of the fitted values in each group:
+\[
+\bar y_{82}=\hat\alpha+\hat\delta_{82}+\bar W_{82}'\hat\gamma,
+\qquad
+\bar y_{72}=\hat\alpha+\bar W_{72}'\hat\gamma.
+\]
+\textbf{3. Subtract and solve for the 1982 coefficient.} The education term for 1982 is its mean times its coefficient, $13.2258(-0.1284)\approx-1.70$. Summing all eleven terms gives $\bar W_{82}'\hat\gamma=10.6682$ and $\bar W_{72}'\hat\gamma=10.7681$.
+\[
+\begin{aligned}
+\hat\delta_{82}
+&=(\bar y_{82}-\bar y_{72})-(\bar W_{82}-\bar W_{72})'\hat\gamma\\
+&=\underbrace{-0.6224}_{\text{raw gap}}
+  -\underbrace{(-0.0999)}_{\text{fitted gap from the controls}}
+  =\boxed{-0.5225}.
+\end{aligned}
+\]
+For women with the same values of the controls, the model predicts about 0.52 fewer children ever born in 1982 than in 1972.
+\end{frame}
+
+\begin{frame}{Fertility over Time: Results for All Survey Years}
+\small
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Year & Raw gap vs.\ 1972 & Gap vs.\ 1972 with controls\\
+\midrule
+1974 & $0.1825$ & $0.2682$\\
+1976 & $-0.2230$ & $-0.0974$\\
+1978 & $-0.2214$ & $-0.0687$\\
+1980 & $-0.2087$ & $-0.0713$\\
+1982 & $-0.6224$ & $-0.5225$\\
+1984 & $-0.7884$ & $-0.5452$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The adjusted gaps for 1982 and 1984 are both close to half a child per woman. Differences in the included characteristics account for part of the raw gaps.
+\medskip
+
+\textbf{Fit of the model with controls.} The residual sum of squares is $SSR=2685.8984$ and the total sum of squares is $TSS_Y=3085.5093$. There are 1,129 observations and 18 estimated coefficients.
+\[
+R^2=1-\frac{2685.8984}{3085.5093}=0.1295,
+\qquad
+SER=\sqrt{\frac{2685.8984}{1129-18}}=1.5548.
+\]
+{\footnotesize Data from Sander's GSS sample in Wooldridge's fertility example (Example 13.1, \href{https://justinmshea.github.io/wooldridge/reference/fertil1.html}{\texttt{fertil1}}).}
 \end{frame}
 
 
